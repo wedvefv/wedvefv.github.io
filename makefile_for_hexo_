@@ -1,7 +1,0 @@
-wedvefv:
-	hexo generate 
-	hexo deploy
-	echo "hi boy is ok"
-	echo "hi boy is ok"
-	echo "hi boy is ok"
-	echo "hi boy is ok"

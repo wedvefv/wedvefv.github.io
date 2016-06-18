@@ -31,7 +31,7 @@
                 <ul class="first-level">
                     <li>
                         <a class="fa fa-archive" href="#"><i class="fa fa-angle-left">
-                            </i>&nbsp;&nbsp;存档</a>
+                            </i>&nbsp;&nbsp;Archive</a>
                         <div class="mp-level page-list">
                             <h2 ><i class="fa fa-archive"></i>
                                 Archive</h2>
@@ -43,7 +43,7 @@
                                 <div class="mp-scroll">
                                 
                                 <li class="search-archive-li mp-pjax">
-                                    <a href="/2016/06/18/hello/">hello</a>
+                                    <a href="/2016/06/18/java线程/">Java 中的并发</a>
                                 </li>
                                 
                                 <li class="search-archive-li mp-pjax">
@@ -56,7 +56,7 @@
                     </li>
                     <li>
                         <a class="fa fa-copy" href="#"><i class="fa fa-angle-left">
-                            </i>&nbsp;&nbsp;分类</a>
+                            </i>&nbsp;&nbsp;categories</a>
 
                         <div class="mp-level page-list">
                             <h2 ><i class="fa fa-copy"></i>
@@ -68,13 +68,23 @@
                             <ul>
                                 <div class="mp-scroll">
                                 
+                                <li class="search-category-li mp-pjax">
+                                    <a href="/categories/java/">&nbsp;&nbsp;&nbsp;java</a>
+                                    <small>1</small>
+                                </li>
+                                
+                                <li class="search-category-li mp-pjax">
+                                    <a href="/categories/javascript/">&nbsp;&nbsp;&nbsp;javascript</a>
+                                    <small>1</small>
+                                </li>
+                                
                                 </div>
                             </ul>
                         </div>
                     </li>
                     <li>
                         <a class="fa fa-tags" href="#"><i class="fa fa-angle-left">
-                            </i>&nbsp;&nbsp;标签</a>
+                            </i>&nbsp;&nbsp;Tags</a>
                         <div class="mp-level page-list">
                             <h2 ><i class="fa fa-tags"></i>
                                 Tags</h2>
@@ -84,6 +94,11 @@
                             </form>
                             <ul>
                                 <div class="mp-scroll">
+                                
+                                <li class="search-tag-li mp-pjax">
+                                    <a href="/tags/笔记/">&nbsp;&nbsp;&nbsp;笔记</a>
+                                    <small>1</small>
+                                </li>
                                 
                                 </div>
                             </ul>
@@ -100,11 +115,17 @@
         <div id="pjax">
             <div class="pjax-hidden" style="display: none">
                 
-                    <a  data-pjax href="/2016/06/18/hello/">hello</a>
+                    <a  data-pjax href="/2016/06/18/java线程/">Java 中的并发</a>
                 
                     <a  data-pjax href="/2016/06/18/hello-world/">Hello World</a>
                 
                 
+                    <a data-pjax href="/categories/java/">&nbsp;&nbsp;java</a>
+                
+                    <a data-pjax href="/categories/javascript/">&nbsp;&nbsp;javascript</a>
+                
+                
+                    <a data-pjax href="/tags/笔记/">&nbsp;&nbsp;笔记</a>
                 
                 <a data-pjax class="fa fa-user" href="/about">&nbsp;&nbsp;&nbsp;About me</a>
             </div>
@@ -148,7 +169,7 @@
                 
                 <span class="fa fa-bookmark" style="float:right;color:#f39c12"></span>
             </div>
-            <h1 class="post-title"><a data-pjax href="/2016/06/18/hello/">hello</a>
+            <h1 class="post-title"><a data-pjax href="/2016/06/18/java线程/">Java 中的并发</a>
             </h1>
 
             <div class="post-meta">
@@ -160,7 +181,10 @@
         <section class="post-excerpt">
             <p>
                 
-                
+                如何创建一个线程按 Java 语言规范中的说法，创建线程只有一种方式，就是创建一个 Thread 对象。而从 HotSpot 虚拟机的角度看，创建一个虚拟机线程有两种方式，一种是创建 Thread 对象，另一种是创建 一个本地线程，加入到虚拟机线程中。
+如果从 Java 语法的角度。有两种方法。
+第一是继承 Thread 类，实现 run 方法，并创建子类对象。
+12345678910public void startThreadUse
                 
             </p>
             
@@ -171,6 +195,10 @@
 
         <header class="post-header">
             <div class="tag-tile">
+                
+                
+                <a data-pjax href='/tags/笔记/'>笔记</a>
+                
                 
                 <span class="fa fa-bookmark" style="float:right;color:#f39c12"></span>
             </div>
