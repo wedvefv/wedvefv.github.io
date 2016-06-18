@@ -1,8 +1,8 @@
 *,
 *:after,
 *::before {
-    background-image: url(1.jpg);
-    background-repeat: no-repeat;
+    background-image: url(2.jpg);
+    background-repeat: repeat-x;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
