@@ -41,8 +41,7 @@ article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,su
 }
 
 html {
-	background-image: url(2.jpg);
-    background-repeat: no-repeat;
+
     height: 100%;
     font-size: 62.5%;
 }
