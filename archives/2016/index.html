@@ -47,6 +47,10 @@
                                 </li>
                                 
                                 <li class="search-archive-li mp-pjax">
+                                    <a href="/2016/06/28/windows_1_重载/">windows_c++虚函数实现运行时的多态</a>
+                                </li>
+                                
+                                <li class="search-archive-li mp-pjax">
                                     <a href="/2016/06/28/爱该如何/">一百块钱的价值</a>
                                 </li>
                                 
@@ -82,7 +86,7 @@
                                 
                                 <li class="search-category-li mp-pjax">
                                     <a href="/categories/C/">&nbsp;&nbsp;&nbsp;C++</a>
-                                    <small>1</small>
+                                    <small>2</small>
                                 </li>
                                 
                                 <li class="search-category-li mp-pjax">
@@ -138,6 +142,8 @@
             <div class="pjax-hidden" style="display: none">
                 
                     <a  data-pjax href="/2016/06/28/windows_1_运算符重载/">c++运算符重载</a>
+                
+                    <a  data-pjax href="/2016/06/28/windows_1_重载/">windows_c++虚函数实现运行时的多态</a>
                 
                     <a  data-pjax href="/2016/06/28/爱该如何/">一百块钱的价值</a>
                 
@@ -214,6 +220,38 @@
             <p>
                 
                 运算符重载，实现的是编译时多态。虚函数重载，实现的是运行时多态。实例展示复数的加法，重载了+号运算符定义一个类：1234567891011121314class CComplex&#123;	double m_real,m_imag;	public:	CComplex(double r=0, double i=0):m_real(r),m_imag(i)&#123;	&#125;	double GetReal()&#123;		retu
+                
+            </p>
+            
+        </section>
+    </article>
+    
+    <article class="post">
+
+        <header class="post-header">
+            <div class="tag-tile">
+                
+                <span class="fa fa-bookmark" style="float:right;color:#f39c12"></span>
+            </div>
+            <h1 class="post-title"><a data-pjax href="/2016/06/28/windows_1_重载/">windows_c++虚函数实现运行时的多态</a>
+            </h1>
+
+            <div class="post-meta">
+                Post on<span class="fa fa-clock-o"></span>
+                <time datetime="2016-06-28T13:35:00.000Z"
+                      itemprop="datePublished">2016-06-28</time>
+            </div>
+        </header>
+        <section class="post-excerpt">
+            <p>
+                
+                虚函数实现多态1.定义一个父类CFigure：含有一个虚函数，计算面积
+分别重写三个子类，重新定义父类中的虚函数。
+
+main函数，定一个父类指针，用来指向子类的实例地址，通过父类指针-&gt;虚函数，一个父类指针根据指向的具体实例从而调用子类中重新定义的虚函数
+
+代码如下：···cpp
+#includeusing namespace std;class CFigure                                  
                 
             </p>
             
