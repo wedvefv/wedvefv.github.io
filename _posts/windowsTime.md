@@ -1,3 +1,10 @@
+---
+layout: post
+title: windows时间的处理
+category: C++
+date: 2016-06-28 14:33:58
+comments: true
+---
 # windows时间的处理：
 ## 系统时间：
  UTC时间（格林威治时间）,世界标准时间，北京时间是UTC+8
