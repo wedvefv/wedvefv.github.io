@@ -4,7 +4,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-  <title>Category: c++ | Love-hy</title>
+  <title>Category: C++ | Love-hy</title>
   <meta name="description" content="" />
   <meta name="HandheldFriendly" content="True" />
   <meta name="MobileOptimized" content="320" />
@@ -207,80 +207,56 @@
                 
                 <span class="fa fa-bookmark" style="float:right;color:#f39c12"></span>
             </div>
-            <h1 class="post-title"><a data-pjax href="/2016/06/28/windows_1_运算符重载/">c++运算符重载</a>
+            <h1 class="post-title"><a data-pjax href="/2016/06/28/windows_1_重载/">windows_c++虚函数实现运行时的多态</a>
             </h1>
 
             <div class="post-meta">
                 Post on<span class="fa fa-clock-o"></span>
-                <time datetime="2016-06-28T15:35:00.000Z"
+                <time datetime="2016-06-28T13:35:07.000Z"
                       itemprop="datePublished">2016-06-28</time>
             </div>
         </header>
         <section class="post-excerpt">
             <p>
                 
-                运算符重载，实现的是编译时多态。虚函数重载，实现的是运行时多态。实例展示复数的加法，重载了+号运算符定义一个类：1234567891011121314class CComplex&#123;	double m_real,m_imag;	public:	CComplex(double r=0, double i=0):m_real(r),m_imag(i)&#123;	&#125;	double GetReal()&#123;		retu
+                虚函数实现多态1.定义一个父类CFigure：含有一个虚函数，计算面积
+分别重写三个子类，重新定义父类中的虚函数。
+
+main函数，定一个父类指针，用来指向子类的实例地址，通过父类指针-&gt;虚函数，一个父类指针根据指向的具体实例从而调用子类中重新定义的虚函数
+
+代码如下：1234567891011121314151617181920212223242526272829303132333435363738394041424344454
                 
             </p>
             
         </section>
     </article>
     
-    <nav class="pagination" role="pagination">
-        
-        <span class="page-number">Page 1 of 1</span>
-        
-    </nav>
-</main>
+    <article class="post">
 
+        <header class="post-header">
+            <div class="tag-tile">
+                
+                <span class="fa fa-bookmark" style="float:right;color:#f39c12"></span>
+            </div>
+            <h1 class="post-title"><a data-pjax href="/2016/06/28/windows_1_Time/">windows时间的处理</a>
+            </h1>
 
-  
-<footer class="site-footer">
-    
-    <div class="inner">
-        <section class="copyright"><a href="/"></a> &copy; Love-hy 2014</section>
-        <section class="poweredby">Published with <a target="_blank" href="http://hexo.io/">Hexo   </a> and Theme by <a target="_blank" href="https://github.com/yuche/hexo-theme-kael">Kael</a></section>
-    </div>
-</footer>
-</div>
-</div><!-- /scroller -->
-
-</div><!-- /pusher -->
-</div><!-- /container -->
-</div>
-
-<!-- Easter eggs -->
-
-<div class="egg animated">
-    <a id="close-button" href="#">X</a>
-    <div class="block">
-        <div class="loading">
-            <span class="ball1"></span>
-            <span class="ball2"></span>
-        </div>
-    </div>
-</div>
-  
-<script src="//cdn.staticfile.org/jquery/1.11.0/jquery.min.js"></script>
-<script>
-    if (!window.jQuery) {
-        var script = document.createElement('script');
-        script.src = "/js/jquery.min.js";
-        document.body.appendChild(script);
-    }
-</script>
-<script type="text/javascript" src="/js/lib.js"></script>
-<script type="text/javascript" src="/js/main.js"></script>
-
-
-
-
-
-
-
-</body>
-</html>
-看文件属性，看到的是这个间隔加上时区差的，并且显示格式的SYSTEM结构体形式(年月日
+            <div class="post-meta">
+                Post on<span class="fa fa-clock-o"></span>
+                <time datetime="2016-06-28T06:33:58.000Z"
+                      itemprop="datePublished">2016-06-28</time>
+            </div>
+        </header>
+        <section class="post-excerpt">
+            <p>
+                
+                windows时间的处理：系统时间： UTC时间（格林威治时间）,世界标准时间，北京时间是UTC+8
+本地时间： UTC时间+时区偏差，就是计算机右下角显示的时间
+文件时间：类型有三种 1.创建时间
+ 2.访问时间
+ 3.修改时间
+文件时间是：
+ 64位的值记录了自1601年1月1日0点以来的以100纳秒（ns）为单位的格林威治时间间隔，我们鼠标右键查看文件属性，看到的是这个间隔加上时区差的，并且显示格式的SYSTEM结构体形式(年月日
                 
             </p>
             
