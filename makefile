@@ -5,5 +5,5 @@ ALL:
 	git add *
 	git commit -m  ${FILE}
 	git push -f origin localsource
-	git OK!
+	echo add remote OK!
 
