@@ -1,4 +1,4 @@
-FILE = 'date +%y_%m_%d'
+FILE = 'date +%y_%m_%d_'
 ALL:
 	echo ${FILE}
 	git checkout localsource
