@@ -1,4 +1,4 @@
-### 这里是wedvefv.github.io库的localsource分支，为了备份hexoi生成master分支的网站
+### 这里是wedvefv.github.io库的localsource分支，为了备份hexo生成master分支的网站
 
 
 ## 环境：
