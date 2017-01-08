@@ -3,10 +3,12 @@ layout: post
 title: unix网络编程代码
 category: linux
 date: 2017-1-7 15:30:30
+
 ---
+
 # UNIX网络编程
 
-```c
+```cpp
 //一个简单的时间获取客户程序
 #include    <netinet/in.h>  /* sockaddr_in{} and other Internet defns */
 #include    <strings.h>
@@ -13176,4 +13178,5 @@ Pthread_cond_signal(&clifd_cond);
 Pthread_mutex_unlock(&clifd_mutex);
 }
 }
+
 ```
