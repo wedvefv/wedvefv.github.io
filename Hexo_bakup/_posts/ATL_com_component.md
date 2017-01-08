@@ -1,4 +1,4 @@
-----
+---
 layout: post
 title: ATL编写com组件
 category: C++
@@ -6,7 +6,7 @@ date: 2016-10-5 20:04:30
 tags: c++
 comments: true
 
-----
+---
 
 # ATL编写com组件
 1 打开vc6 ,建立ALT工程，这个工程就是一个com组件（一般是dll形式），也可以是exe形式的二进制。这个组件可以
