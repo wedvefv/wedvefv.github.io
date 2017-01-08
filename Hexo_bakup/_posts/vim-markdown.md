@@ -1,7 +1,7 @@
 ﻿---
 layout: post
 title: vim-markdown插件
-date: 2016-10-27
+date: 2016-10-27 15:30:00
 tags: vim 
 
 ---

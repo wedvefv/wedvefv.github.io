@@ -1,6 +1,7 @@
 ---
 layout: post
-date: 2017-1-8 14:11
+title: windows 管道通信
+date: 2017-1-8 14:11:00
 category: windows 
 
 ---
