@@ -1,7 +1,7 @@
 ---
 layout: post
 title: atom编辑器
-date: 2016-10-09
+date: 2016-10-09 15:30:30
 category: atom
 
 ---
