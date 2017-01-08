@@ -1,11 +1,11 @@
-----
+---
 layout: post
 title: ajax简介
 category: web
 tags: ajax
 date: 2016-10-6 20:04:30
 comments: true
-----
+---
 
 # 1.ajax 简介
 ajax =  异步javascript+XML
