@@ -1,9 +1,11 @@
 ---
 layout: post
 title: atom编辑器
-date: 2016：10：09
-tags: atom
+date: 2016-10-09
+category: atom
+
 ---
+
 # atom 编辑器
 
 ## 比较：

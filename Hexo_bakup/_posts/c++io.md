@@ -1,8 +1,7 @@
 ---
 layout: post
 title: c++格式化I/O
-category: C++
-tags : c++
+category: c++
 date: 2016-06-29 12:55:59
 comments: true
 ---

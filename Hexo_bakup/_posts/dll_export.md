@@ -1,11 +1,11 @@
-----
+---
 layout: post
 title:  DLL导出方法
 category: C++
-tags: c++
 date: 2016-10-6 20:04:30
 comments: true
-----
+
+---
 
 
  # DLL导出方法

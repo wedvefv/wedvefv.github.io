@@ -3,6 +3,7 @@ layout: post
 title: vim-markdown插件
 date: 2016-10-27
 tags: vim 
+
 ---
 
 # 首先为了高亮显示markdown文件 ，安装vim-markdown插件(vundle管理的)

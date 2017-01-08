@@ -1,4 +1,4 @@
-----
+---
 layout: post
 title: sublime text 3 插件
 category: sublime
@@ -6,7 +6,7 @@ date: 2016-10-5 20:07:30
 tags: sublime
 comments: true
 
-----
+---
 
 # sublime text 3 插件
 

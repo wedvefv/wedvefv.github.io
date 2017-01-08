@@ -1,4 +1,4 @@
-----
+---
 layout: post
 title: windowFTP的建立
 category: windows 
@@ -6,7 +6,7 @@ tags: windows
 date: 2016-7-31 15:30:55
 comments: true
 
-----
+---
 
 # windows下建立ftp服务器 
 需要单独建立一个用户，然后把特定目录设置为ftp目录（单独的用户需要有访问权限哦），这样避免别人知道你的计算机用户名和密码。

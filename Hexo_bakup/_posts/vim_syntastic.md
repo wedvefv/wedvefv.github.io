@@ -1,4 +1,4 @@
-----
+---
 layout: post
 title: syntastic vim  静态分析插件
 category: vim
@@ -6,7 +6,7 @@ tags: vim
 date: 2016-10-5 20:10:30
 comments: true
 
-----
+---
 
 # syntastic vim  静态分析插件，里面带有各种语言的分析工具，是为了代码补全提示
 

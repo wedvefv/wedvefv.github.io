@@ -1,4 +1,4 @@
-----
+---
 layout: post
 title: html5标签
 category: html
@@ -6,7 +6,7 @@ date: 2016-8-10 11:30:55
 tags: html5
 comments: true
 
-----
+---
 
 
 # html5标签总结

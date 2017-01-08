@@ -5,7 +5,9 @@ category: git
 tags: git 
 date: 2016-06-28 14:33:58
 comments: true
+
 ---
+
 # 基于公司是代理上网的，所以配置windows下的.gitconfig文件如下：
 
 ```cpp

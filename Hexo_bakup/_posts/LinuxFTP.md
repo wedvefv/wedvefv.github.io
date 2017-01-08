@@ -1,9 +1,8 @@
 ---
 layout: post
 title: LinuxFTP的建立
-category: linux
-tags: linux 
-date: 2016-7-31 1l:30:55
+category: linux 
+date: 2016-7-31 11:30:55
 comments: true
 
 ---

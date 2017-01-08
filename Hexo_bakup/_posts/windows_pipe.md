@@ -1,3 +1,10 @@
+---
+layout: post
+date: 2017-1-8 14:11
+category: windows 
+
+---
+
 #windows 管道通信
 
 思路如下：

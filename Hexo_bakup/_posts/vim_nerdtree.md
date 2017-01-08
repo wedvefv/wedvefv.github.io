@@ -1,4 +1,4 @@
-----
+---
 layout: post
 title: nerdtree插件
 category: vim
@@ -6,7 +6,7 @@ date: 2016-10-6 20:07:30
 tags: vim
 comments: true
 
-----
+---
 
 #nerdtree插件，可以在vim左侧显示目录
 

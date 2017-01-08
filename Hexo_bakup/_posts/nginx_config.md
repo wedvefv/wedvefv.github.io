@@ -1,4 +1,4 @@
-----
+---
 layout: post
 title: nginx  support  php
 category: linux
@@ -6,7 +6,7 @@ tags: linux
 date: 2016-12-10 11:30:55
 comments: true
 
-----
+---
 
 #  ubuntu14.04 +nginx+php5-fpm
 
