@@ -1,4 +1,9 @@
-﻿# apache支持python脚本
+---
+layout: post
+date: 2017-1-7 14:00:00
+category: python
+---
+# apache支持python脚本
 
 配置httpd.conf
 追加：
