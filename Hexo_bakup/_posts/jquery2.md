@@ -1,7 +1,7 @@
 ---
 layout: post
 title: jquery学习笔记2(效果)
-date: 2016-10-23 11:12
+date: 2016-10-23 11:12:00
 
 ---
 

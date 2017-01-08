@@ -1,8 +1,8 @@
 ---
 layout: post
 title: jquery笔记
-tags: jquery
-date: 2016-10-13
+category: jquery
+date: 2016-10-13 15:30:00 
 
 ---
 
