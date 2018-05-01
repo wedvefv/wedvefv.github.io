@@ -2,46 +2,75 @@
 ## Docs: https://hexo.io/docs/configuration.html
 ## Source: https://github.com/hexojs/hexo/
 
-# Site
-title: Love_hy
-subtitle:
-description:
-author: wedvefv 
-language: zh-CN
-timezone:
+# 网站信息
+#标题
+title: wedvefvの博客
+#副标题
+subtitle: 记录学习的技能和遇到的问题
+#网站描述
+description: 做自己爱做的事，爱自己在做的事！
+#作者昵称
+author: wedvefv
+#网站语言，默认英语，设置简体汉语
+language: zh-Hans
 
-# URL
+#时区，默认电脑时区
+#timezone:
+timezone: Asia/Shanghai
+
+
+# 网址设置
+#如果网站是放在子目录中，将url设置成'http://yoursite.com/child'，将root设置成'/child/'
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
+#网址
 url: http://wedvefv.github.io
+#网站根目录。如果网站是放在子目录中，将root设置成'子目录名'
 root: /
+#文章链接地址格式 。即文章存放的目录。
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 
-# Directory
+# 目录设置
+#资源文件夹，放在里面的文件会上传到github中
 source_dir: source
+#公共文件夹，存放生成的静态文件
 public_dir: public
+#标签文件夹，默认是tags。实际存放在source/tags中。
 tag_dir: tags
+rss_dir: rss
+#档案文件夹，默认是archives。
 archive_dir: archives
+#分类文件夹，默认是categories。实际存放在source/categories中。
 category_dir: categories
+#代码文件夹，默认是downloads/code
 code_dir: downloads/code
+#国际化文件夹，默认跟language相同
 i18n_dir: :lang
-skip_render:
+#不需要渲染的文件夹或文件夹,放在[]中
+# 这两个文件是百度和google的站长验证文件，不能渲染，否则会改变内容，不能验证过
+skip_render: [baidu_verify_R9MZjdMkXT.html, google0f8fac7da2b48ef8.html, README.md, 模板.md]
 
-# Writing
-new_post_name: :title.md # File name of new posts
+
+# 写作选项
+# 新建博文（帖子）的默认名称
+# File name of new posts
+new_post_name: :title.md 
+#默认布局模板是post，而不是draft和page
 default_layout: post
+#是否将标题转换成标题形式（首字母大写）
 titlecase: false # Transform title into titlecase
+#在新标签页面中打开网页
 external_link: true # Open external links in new tab
 filename_case: 0
+#是否渲染草稿
 render_drafts: false
+#启动 Asset 文件夹
 post_asset_folder: false
+#把链接改为与根目录的相对位址
 relative_link: false
+#显示未来的文章
 future: true
-highlight:
-  enable: true
-  line_number: true
-  auto_detect: false
-  tab_replace:
+
 
 # Category & Tag
 default_category: uncategorized
@@ -55,26 +84,78 @@ tag_map:
 date_format: YYYY-MM-DD
 time_format: HH:mm:ss
 
-# Pagination
-## Set per_page to 0 to disable pagination
-per_page: 5
-pagination_dir: page
+#每页显示的文章量 
+#per_page: 20
+#首页的分页设置
+index_generator:
+  per_page: 20
+#归档页的分页设置
+archive_generator:
+  per_page: 30
+  yearly: true
+  monthly: true
+#标签页的分页设置
+tag_generator:
+  per_page: 20
+
 
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
 #theme: hexo-theme-kael 
-theme: kael 
+#theme: yilia
+theme: maupassant
+
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: https://wedvefv:dong1990819@github.com/wedvefv/wedvefv.github.io.git
+  repo: git@github.com:wedvefv/wedvefv.github.io.git
   branch: master
 
-feed:
-  type: atom       #feed 类型 (atom/rss2)
-  path: atom.xml   #rss 路径
-  limit: 20        #在 rss 中最多生成的文章数(0显示所有)
 
+#代码块的设置
+highlight:
+  enable: true          #  使用代码高亮
+  line_number: true # 显示行号
+  auto_detect: true  # 自动检测语言
+  tab_replace:
+
+# 配置RSS
+feed: 
+  #feed 类型 (atom/rss2)
+  type: atom   
+  #rss 路径
+  path: atom.xml  
+  #在 rss 中最多生成的文章数(0显示所有)
+  limit: 0
+
+
+# 自定义站点内容搜索
+# 需要先安装插件：
+# npm install hexo-generator-search --save
+search:
+  path: search.xml
+  # 如只想索引文章，可设置为post
+  field: all 
+
+
+#jsonContent:
+#  meta: false
+#  pages: false
+#  posts:
+#    title: true
+#    date: true
+#    path: true
+#    text: false
+#    raw: false
+#    content: false
+#    slug: false
+#    updated: false
+#    comments: false
+#    link: false
+#    permalink: false
+#    excerpt: false
+#    categories: false
+#    tags: true
