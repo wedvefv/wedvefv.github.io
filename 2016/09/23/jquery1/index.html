@@ -1,0 +1,105 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="做自己爱做的事，爱自己在做的事！"><title>jquery学习笔记1(基础) | wedvefvの博客</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">jquery学习笔记1(基础)</h1><a id="logo" href="/.">wedvefvの博客</a><p class="description">记录学习的技能和遇到的问题</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> Start</i></a><a href="/archives/"><i class="fa fa-archive"> Archiv</i></a><a href="/about/"><i class="fa fa-user"> Über</i></a><a href="/atom.xml"><i class="fa fa-rss"> RSS</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">jquery学习笔记1(基础)</h1><div class="post-meta">Sep 23, 2016</div><div class="post-content"><h2 id="1-安装"><a href="#1-安装" class="headerlink" title="1.安装"></a>1.安装</h2><p>jquery就是一个js文件,国内CDN下载 引入：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;head&gt;</span><br><span class="line">&lt;script src=<span class="string">"jquery-1.10.2.min.js"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line">&lt;<span class="regexp">/head&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="2-jquery语法"><a href="#2-jquery语法" class="headerlink" title="2.jquery语法"></a>2.jquery语法</h2><p>基础语法：<br>$(selector).action()<br>$:定义jquery<br>selector：查询的html元素<br>action：对元素执行的函数<br>实例：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="keyword">this</span>).hide()  <span class="comment">//隐藏当前元素</span></span><br><span class="line">$(<span class="string">"p"</span>).hide() <span class="comment">//隐藏p元素</span></span><br><span class="line">$(<span class="string">"p.test"</span>).hide() <span class="comment">//隐藏class属性是test的&lt;p&gt;元素</span></span><br><span class="line">$(<span class="string">"#test"</span>).hide() <span class="comment">//隐藏所有id为test的元素</span></span><br></pre></td></tr></table></figure></p>
+<p> 文档必须就绪完成才能执行jquery代码，否则操作不存在的元素，就会报错。<br> <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> $(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">   <span class="comment">// 开始写 jQuery 代码...</span></span><br><span class="line"></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h2 id="jquery选择器"><a href="#jquery选择器" class="headerlink" title="jquery选择器"></a>jquery选择器</h2><p>jQuery 选择器允许您对 HTML 元素组或单个元素进行操作。<br>jQuery 选择器基于元素的 id、类、类型、属性、属性值等”查找”（或选择）HTML 元素。 它基于已经存在的 CSS 选择器，除此之外，它还有一些自定义的选择器。<br>jQuery 中所有选择器都以美元符号开头：$()。</p>
+<p>元素选择器 ：依据元素名<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  $(<span class="string">"button"</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    $(<span class="string">"p"</span>).hide();</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>id选择器 依据元素id<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  $(<span class="string">"button"</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    $(<span class="string">"#test"</span>).hide();</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>class选择器 依据class属性<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  $(<span class="string">"button"</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    $(<span class="string">".test"</span>).hide();</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>更多实例：</p>
+<table>
+<thead>
+<tr>
+<th>语法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$(“*”)</td>
+<td>选取所有元素</td>
+</tr>
+<tr>
+<td>$(this)</td>
+<td>选取当前html元素</td>
+</tr>
+<tr>
+<td>$(“p.intro”)</td>
+<td>选取class是intro的p元素</td>
+</tr>
+<tr>
+<td>$(“p:first”)</td>
+<td>选取第一个p元素</td>
+</tr>
+<tr>
+<td>$(“ul li:first”)</td>
+<td>选取第一个ul元素的第一个li元素</td>
+</tr>
+<tr>
+<td>$(“ul li:first-child”)</td>
+<td>选取每个ul的第一个li</td>
+</tr>
+<tr>
+<td>$(“[href]”)</td>
+<td>选取带有href属性的元素</td>
+</tr>
+<tr>
+<td>$(“a[target=’blank’]”)</td>
+<td>所有target属性是<em>blank的a元素</em></td>
+</tr>
+<tr>
+<td>$(“a[target!=’blank’]”)</td>
+<td>所有target属性不是<em>blank的a元素</em></td>
+</tr>
+<tr>
+<td>$(“:button”)</td>
+<td>选取所有 type=’button’ 的 \<input> 元素 和 \<button> 元素</button></td>
+</tr>
+<tr>
+<td>$(“tr:even”)</td>
+<td>偶数行</td>
+</tr>
+<tr>
+<td>$(“tr:odd”)</td>
+<td>奇数行</td>
+</tr>
+</tbody>
+</table>
+<p>对于多个页面需要jquery代码文件，需要把你写的jquery代码放到单独文件：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;head&gt;</span><br><span class="line">&lt;script src=<span class="string">"http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"</span>&gt;</span><br><span class="line">&lt;\/script&gt;</span><br><span class="line">&lt;script src=<span class="string">"my_jquery_functions.js"</span>&gt; <span class="xml"><span class="tag">&lt;<span class="name">\</span>/<span class="attr">script</span>&gt;</span></span></span><br><span class="line">&lt;\/head&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="jquery-事件"><a href="#jquery-事件" class="headerlink" title="jquery 事件"></a>jquery 事件</h2><table>
+<thead>
+<tr>
+<th>鼠标事件</th>
+<th>键盘事件</th>
+<th>表单事件</th>
+<th>文档/窗口事件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>click</td>
+<td>keypress</td>
+<td>submit</td>
+<td>load</td>
+</tr>
+<tr>
+<td>dblclick</td>
+<td>keydown</td>
+<td>change</td>
+<td>resize</td>
+</tr>
+<tr>
+<td>mouseenter</td>
+<td>keyup</td>
+<td>focus</td>
+<td>scroll</td>
+</tr>
+<tr>
+<td>mouseleave</td>
+<td>blur</td>
+<td>unload</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>每个事件都如此：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">"p"</span>).dblclick(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;   <span class="comment">//选择器+事件+函数部分</span></span><br><span class="line">  $(<span class="keyword">this</span>).hide();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+</div><div class="tags"></div><div class="post-nav"><a class="pre" href="/2016/10/05/linux_c_help/">linux常用函数手册</a><a class="next" href="/2016/08/10/html5_tags/">html5标签</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="http://wedvefv.github.io"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> Kategorien</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C/">C++</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/atom/">atom</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/c/">c++</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo用法/">hexo用法</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/html/">html</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/jquery/">jquery</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/sublime/">sublime</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/vim/">vim</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/">web</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/windows/">windows</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密/">加密</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> Tags</i></div><div class="tagcloud"><a href="/tags/ajax/" style="font-size: 15px;">ajax</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/html5/" style="font-size: 15px;">html5</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/encrypt/" style="font-size: 15px;">encrypt</a> <a href="/tags/sublime/" style="font-size: 15px;">sublime</a> <a href="/tags/vim/" style="font-size: 15px;">vim</a> <a href="/tags/c/" style="font-size: 15px;">c++</a> <a href="/tags/windows/" style="font-size: 15px;">windows</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> Letzte</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/01/08/windows_pipe/">windows 管道通信</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/07/unix_netcode/">unix网络编程代码</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/07/apache_wsgi/">apache_wsgi支持python脚本</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/10/nginx_config/">nginx  support  php</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/27/vim-markdown/">vim-markdown插件</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/27/vim-emmet/">vim-emmet插件/html/css</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/26/vim_luanma/">vim 乱码</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/23/jquery2/">jquery学习笔记2(效果)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/13/jquery/">jquery笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/09/atom/">atom编辑器</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> Blogroll</i></div><ul></ul><a href="http://github.com/wedvefv" title="github" target="_blank">github</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2018 <a href="/." rel="nofollow">wedvefvの博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.3.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.3.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
