@@ -178,7 +178,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="1-安装"><a href="#1-安装" class="headerlink" title="1.安装"></a>1.安装</h2><p>jquery就是一个js文件,国内CDN下载 引入：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;head&gt;</span><br><span class="line">&lt;script src=<span class="string">"jquery-1.10.2.min.js"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line">&lt;<span class="regexp">/head&gt;</span></span><br></pre></td></tr></table></figure></p>
+        <h2 id="1-安装"><a href="#1-安装" class="headerlink" title="1.安装"></a>1.安装</h2><p>jquery就是一个js文件,国内CDN下载 引入：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;head&gt;</span><br><span class="line">&lt;script src=<span class="string">"jquery-1.10.2.min.js"</span>&gt;&lt;/script&gt;</span><br><span class="line">&lt;<span class="regexp">/head&gt;</span></span><br></pre></td></tr></table></figure></p>
 <h2 id="2-jquery语法"><a href="#2-jquery语法" class="headerlink" title="2.jquery语法"></a>2.jquery语法</h2><p>基础语法：<br>$(selector).action()<br>$:定义jquery<br>selector：查询的html元素<br>action：对元素执行的函数<br>实例：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="keyword">this</span>).hide()  <span class="comment">//隐藏当前元素</span></span><br><span class="line">$(<span class="string">"p"</span>).hide() <span class="comment">//隐藏p元素</span></span><br><span class="line">$(<span class="string">"p.test"</span>).hide() <span class="comment">//隐藏class属性是test的&lt;p&gt;元素</span></span><br><span class="line">$(<span class="string">"#test"</span>).hide() <span class="comment">//隐藏所有id为test的元素</span></span><br></pre></td></tr></table></figure></p>
 <p> 文档必须就绪完成才能执行jquery代码，否则操作不存在的元素，就会报错。<br> <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> $(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">   <span class="comment">// 开始写 jQuery 代码...</span></span><br><span class="line"></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
 <h2 id="jquery选择器"><a href="#jquery选择器" class="headerlink" title="jquery选择器"></a>jquery选择器</h2><p>jQuery 选择器允许您对 HTML 元素组或单个元素进行操作。<br>jQuery 选择器基于元素的 id、类、类型、属性、属性值等”查找”（或选择）HTML 元素。 它基于已经存在的 CSS 选择器，除此之外，它还有一些自定义的选择器。<br>jQuery 中所有选择器都以美元符号开头：$()。</p>
@@ -244,7 +244,7 @@
 </tr>
 </tbody>
 </table>
-<p>对于多个页面需要jquery代码文件，需要把你写的jquery代码放到单独文件：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;head&gt;</span><br><span class="line">&lt;script src=<span class="string">"http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"</span>&gt;</span><br><span class="line">&lt;\/script&gt;</span><br><span class="line">&lt;script src=<span class="string">"my_jquery_functions.js"</span>&gt; <span class="xml"><span class="tag">&lt;<span class="name">\</span>/<span class="attr">script</span>&gt;</span></span></span><br><span class="line">&lt;\/head&gt;</span><br></pre></td></tr></table></figure></p>
+<p>对于多个页面需要jquery代码文件，需要把你写的jquery代码放到单独文件：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;head&gt;</span><br><span class="line">&lt;script src=<span class="string">"http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"</span>&gt;</span><br><span class="line">&lt;\/script&gt;</span><br><span class="line">&lt;script src=<span class="string">"my_jquery_functions.js"</span>&gt; &lt;\/script&gt;</span><br><span class="line">&lt;\/head&gt;</span><br></pre></td></tr></table></figure></p>
 <h2 id="jquery-事件"><a href="#jquery-事件" class="headerlink" title="jquery 事件"></a>jquery 事件</h2><table>
 <thead>
 <tr>
@@ -516,15 +516,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">html5</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -549,6 +545,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">html5</a>
               </li>
             
             <div class="clearfix"></div>
