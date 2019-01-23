@@ -2,13 +2,15 @@
 <html>
 <head>
   <meta charset="utf-8">
- <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <script>
   (adsbygoogle = window.adsbygoogle || []).push({
     google_ad_client: "ca-pub-9224870466612638",
     enable_page_level_ads: true
   });
-</script> 
+</script>
+
+  
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://wedvefv.github.io">
@@ -164,68 +166,6 @@
           </div>
           <div id="js-content" class="content-ll">
             
-  
-    <article id="post-2018/2018-10-21-1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/10/21/2018/2018-10-21-1/">1</a>
-    </h1>
-  
-
-        
-        <a href="/2018/10/21/2018/2018-10-21-1/" class="archive-article-date">
-  	<time datetime="2018-10-20T16:21:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h1>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/10/21/2018/2018-10-21-1/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
     <article id="post-2018-10-07_openresty" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -418,6 +358,74 @@
 
 
   
+    <article id="post-centos6.4升级python" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/06/30/centos6.4升级python/">centos6.4 升级python到2.7</a>
+    </h1>
+  
+
+        
+        <a href="/2018/06/30/centos6.4升级python/" class="archive-article-date">
+  	<time datetime="2018-06-30T02:15:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-30</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="1-download-source"><a href="#1-download-source" class="headerlink" title="1. download source"></a>1. download source</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https:<span class="comment">//www.python.org/ftp/python/2.7.12/Python-2.7.12.tgz</span></span><br></pre></td></tr></table></figure>
+<h1 id="2-compire-and-install"><a href="#2-compire-and-install" class="headerlink" title="2. compire and install"></a>2. compire and install</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tar zxvf Python<span class="number">-2.7</span><span class="number">.12</span>.tgz</span><br><span class="line">cd Python<span class="number">-2.7</span><span class="number">.12</span></span><br><span class="line">./configure --prefix=/usr/local/python27 &amp;&amp; make &amp;&amp; make install &amp;&amp; echo $?</span><br><span class="line">如果以上输出为<span class="number">0</span>，说明没有报错，安装正常</span><br></pre></td></tr></table></figure>
+<h1 id="3-add-path-and-backup-the-python2-6"><a href="#3-add-path-and-backup-the-python2-6" class="headerlink" title="3. add path and backup the python2.6"></a>3. add path and backup the python2.6</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">移除以前的版本</span><br><span class="line">mv /usr/bin/python /usr/bin/python26</span><br><span class="line">创建软连接</span><br><span class="line">ln -s /usr/local/python27/bin/python /usr/bin/python</span><br><span class="line">查看版本是否升级成功</span><br><span class="line">python -V</span><br><span class="line">Python <span class="number">2.7</span><span class="number">.12</span></span><br></pre></td></tr></table></figure>
+<h1 id="4-modify-yum"><a href="#4-modify-yum" class="headerlink" title="4. modify yum"></a>4. modify yum</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">如果不修改此项，会导致yum无法使用</span><br><span class="line">vim /usr/bin/yum</span><br><span class="line">修改第一行即可，将环境变量指向以前的python版本</span><br><span class="line">#!/usr/bin/python26</span><br></pre></td></tr></table></figure>
+<h1 id="5-reinstall-pip"><a href="#5-reinstall-pip" class="headerlink" title="5. reinstall pip"></a>5. reinstall pip</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span>安装pip之前首先需要安装setuptools</span><br><span class="line">下载链接</span><br><span class="line">https:<span class="comment">//pypi.python.org/pypi/setuptools</span></span><br><span class="line">下载地址</span><br><span class="line">wget https:<span class="comment">//pypi.python.org/packages/ff/d4/209f4939c49e31f5524fa0027bf1c8ec3107abaf7c61fdaad704a648c281/setuptools-21.0.0.tar.gz#md5=81964fdb89534118707742e6d1a1ddb4 --no-check-certificate</span></span><br><span class="line">解压</span><br><span class="line">tar zxvf setuptools<span class="number">-21.0</span><span class="number">.0</span>.tar.gz</span><br><span class="line">安装</span><br><span class="line">cd setuptools<span class="number">-21.0</span><span class="number">.0</span></span><br><span class="line">python setup.py  install</span><br><span class="line"></span><br><span class="line"><span class="number">2.</span>安装pip</span><br><span class="line">下载链接</span><br><span class="line">https:<span class="comment">//pypi.python.org/pypi/pip</span></span><br><span class="line">下载地址</span><br><span class="line">wget https:<span class="comment">//pypi.python.org/packages/41/27/9a8d24e1b55bd8c85e4d022da2922cb206f183e2d18fee4e320c9547e751/pip-8.1.1.tar.gz#md5=6b86f11841e89c8241d689956ba99ed7 --no-check-certificate</span></span><br><span class="line">解压</span><br><span class="line">tar zxvf pip<span class="number">-8.1</span><span class="number">.1</span>.tar.gz </span><br><span class="line">安装 </span><br><span class="line">cd pip<span class="number">-8.1</span><span class="number">.1</span></span><br><span class="line">python setup.py install</span><br><span class="line"></span><br><span class="line"><span class="number">3.</span>添加环境变量</span><br><span class="line">安装完之后，之后执行pip还是调用的以前的环境变量，需要手动添加环境变量</span><br><span class="line">mv /usr/bin/pip /usr/bin/pip26</span><br><span class="line">ln -s /usr/local/python27/bin/pip /usr/bin/</span><br><span class="line">再次查看版本</span><br><span class="line">pip -V</span><br><span class="line">pip <span class="number">8.1</span><span class="number">.1</span> from /usr/local/python27/lib/python2<span class="number">.7</span>/site-packages/pip<span class="number">-8.1</span><span class="number">.1</span>-py2<span class="number">.7</span>.egg (python <span class="number">2.7</span>)</span><br></pre></td></tr></table></figure>
+<h1 id="6-使用pip安装第三方库"><a href="#6-使用pip安装第三方库" class="headerlink" title="6.使用pip安装第三方库"></a>6.使用pip安装第三方库</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">如果报错locale.Error: unsupported locale setting</span><br><span class="line">加入环境变量：</span><br><span class="line"><span class="keyword">export</span> LANGUAGE=en_US.UTF<span class="number">-8</span></span><br><span class="line"><span class="keyword">export</span> LC_ALL=en_US.UTF<span class="number">-8</span></span><br><span class="line"></span><br><span class="line">pip install psutil</span><br><span class="line">pip install MySQLdb-python</span><br><span class="line">pip install django=<span class="number">1.8</span><span class="number">.2</span></span><br><span class="line"></span><br><span class="line">报错：</span><br><span class="line"> pip install MySQLdb-python</span><br><span class="line">Collecting MySQLdb-python</span><br><span class="line">  Retrying (Retry(total=4, connect=None, read=None, redirect=None)) after connection broken by 'ReadTimeoutError("HTTPSConnectionPool(host='pypi.python.org', port=443): Read timed out. (read timeout=15)",)': /simple/mysqldb-python/</span><br><span class="line">  Could <span class="keyword">not</span> find a version that satisfies the requirement MySQLdb-python (from versions: )</span><br><span class="line">No matching distribution found <span class="keyword">for</span> MySQLdb-python</span><br><span class="line">You are <span class="keyword">using</span> pip version <span class="number">8.1</span><span class="number">.1</span>, however version <span class="number">9.0</span><span class="number">.1</span> is available.</span><br><span class="line">You should consider upgrading via the 'pip install --upgrade pip' command.</span><br><span class="line">当安装中提示版本太低的时候，执行提示的命令进行升级即可</span><br><span class="line">pip install --upgrade pip</span><br><span class="line">升级完重新执行要安装的库</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/06/30/centos6.4升级python/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-centos6.4install-mysql-python" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -470,74 +478,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2018/06/30/centos6.4install-mysql-python/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-centos6.4升级python" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/06/30/centos6.4升级python/">centos6.4 升级python到2.7</a>
-    </h1>
-  
-
-        
-        <a href="/2018/06/30/centos6.4升级python/" class="archive-article-date">
-  	<time datetime="2018-06-30T02:15:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-30</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="1-download-source"><a href="#1-download-source" class="headerlink" title="1. download source"></a>1. download source</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https:<span class="comment">//www.python.org/ftp/python/2.7.12/Python-2.7.12.tgz</span></span><br></pre></td></tr></table></figure>
-<h1 id="2-compire-and-install"><a href="#2-compire-and-install" class="headerlink" title="2. compire and install"></a>2. compire and install</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tar zxvf Python<span class="number">-2.7</span><span class="number">.12</span>.tgz</span><br><span class="line">cd Python<span class="number">-2.7</span><span class="number">.12</span></span><br><span class="line">./configure --prefix=/usr/local/python27 &amp;&amp; make &amp;&amp; make install &amp;&amp; echo $?</span><br><span class="line">如果以上输出为<span class="number">0</span>，说明没有报错，安装正常</span><br></pre></td></tr></table></figure>
-<h1 id="3-add-path-and-backup-the-python2-6"><a href="#3-add-path-and-backup-the-python2-6" class="headerlink" title="3. add path and backup the python2.6"></a>3. add path and backup the python2.6</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">移除以前的版本</span><br><span class="line">mv /usr/bin/python /usr/bin/python26</span><br><span class="line">创建软连接</span><br><span class="line">ln -s /usr/local/python27/bin/python /usr/bin/python</span><br><span class="line">查看版本是否升级成功</span><br><span class="line">python -V</span><br><span class="line">Python <span class="number">2.7</span><span class="number">.12</span></span><br></pre></td></tr></table></figure>
-<h1 id="4-modify-yum"><a href="#4-modify-yum" class="headerlink" title="4. modify yum"></a>4. modify yum</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">如果不修改此项，会导致yum无法使用</span><br><span class="line">vim /usr/bin/yum</span><br><span class="line">修改第一行即可，将环境变量指向以前的python版本</span><br><span class="line">#!/usr/bin/python26</span><br></pre></td></tr></table></figure>
-<h1 id="5-reinstall-pip"><a href="#5-reinstall-pip" class="headerlink" title="5. reinstall pip"></a>5. reinstall pip</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span>安装pip之前首先需要安装setuptools</span><br><span class="line">下载链接</span><br><span class="line">https:<span class="comment">//pypi.python.org/pypi/setuptools</span></span><br><span class="line">下载地址</span><br><span class="line">wget https:<span class="comment">//pypi.python.org/packages/ff/d4/209f4939c49e31f5524fa0027bf1c8ec3107abaf7c61fdaad704a648c281/setuptools-21.0.0.tar.gz#md5=81964fdb89534118707742e6d1a1ddb4 --no-check-certificate</span></span><br><span class="line">解压</span><br><span class="line">tar zxvf setuptools<span class="number">-21.0</span><span class="number">.0</span>.tar.gz</span><br><span class="line">安装</span><br><span class="line">cd setuptools<span class="number">-21.0</span><span class="number">.0</span></span><br><span class="line">python setup.py  install</span><br><span class="line"></span><br><span class="line"><span class="number">2.</span>安装pip</span><br><span class="line">下载链接</span><br><span class="line">https:<span class="comment">//pypi.python.org/pypi/pip</span></span><br><span class="line">下载地址</span><br><span class="line">wget https:<span class="comment">//pypi.python.org/packages/41/27/9a8d24e1b55bd8c85e4d022da2922cb206f183e2d18fee4e320c9547e751/pip-8.1.1.tar.gz#md5=6b86f11841e89c8241d689956ba99ed7 --no-check-certificate</span></span><br><span class="line">解压</span><br><span class="line">tar zxvf pip<span class="number">-8.1</span><span class="number">.1</span>.tar.gz </span><br><span class="line">安装 </span><br><span class="line">cd pip<span class="number">-8.1</span><span class="number">.1</span></span><br><span class="line">python setup.py install</span><br><span class="line"></span><br><span class="line"><span class="number">3.</span>添加环境变量</span><br><span class="line">安装完之后，之后执行pip还是调用的以前的环境变量，需要手动添加环境变量</span><br><span class="line">mv /usr/bin/pip /usr/bin/pip26</span><br><span class="line">ln -s /usr/local/python27/bin/pip /usr/bin/</span><br><span class="line">再次查看版本</span><br><span class="line">pip -V</span><br><span class="line">pip <span class="number">8.1</span><span class="number">.1</span> from /usr/local/python27/lib/python2<span class="number">.7</span>/site-packages/pip<span class="number">-8.1</span><span class="number">.1</span>-py2<span class="number">.7</span>.egg (python <span class="number">2.7</span>)</span><br></pre></td></tr></table></figure>
-<h1 id="6-使用pip安装第三方库"><a href="#6-使用pip安装第三方库" class="headerlink" title="6.使用pip安装第三方库"></a>6.使用pip安装第三方库</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">如果报错locale.Error: unsupported locale setting</span><br><span class="line">加入环境变量：</span><br><span class="line"><span class="keyword">export</span> LANGUAGE=en_US.UTF<span class="number">-8</span></span><br><span class="line"><span class="keyword">export</span> LC_ALL=en_US.UTF<span class="number">-8</span></span><br><span class="line"></span><br><span class="line">pip install psutil</span><br><span class="line">pip install MySQLdb-python</span><br><span class="line">pip install django=<span class="number">1.8</span><span class="number">.2</span></span><br><span class="line"></span><br><span class="line">报错：</span><br><span class="line"> pip install MySQLdb-python</span><br><span class="line">Collecting MySQLdb-python</span><br><span class="line">  Retrying (Retry(total=4, connect=None, read=None, redirect=None)) after connection broken by 'ReadTimeoutError("HTTPSConnectionPool(host='pypi.python.org', port=443): Read timed out. (read timeout=15)",)': /simple/mysqldb-python/</span><br><span class="line">  Could <span class="keyword">not</span> find a version that satisfies the requirement MySQLdb-python (from versions: )</span><br><span class="line">No matching distribution found <span class="keyword">for</span> MySQLdb-python</span><br><span class="line">You are <span class="keyword">using</span> pip version <span class="number">8.1</span><span class="number">.1</span>, however version <span class="number">9.0</span><span class="number">.1</span> is available.</span><br><span class="line">You should consider upgrading via the 'pip install --upgrade pip' command.</span><br><span class="line">当安装中提示版本太低的时候，执行提示的命令进行升级即可</span><br><span class="line">pip install --upgrade pip</span><br><span class="line">升级完重新执行要安装的库</span><br></pre></td></tr></table></figure>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/06/30/centos6.4升级python/">展开全文 >></a>
         </p>
       
 
@@ -1796,6 +1736,124 @@
 
 
   
+    <article id="post-ajax2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/06/ajax2/">ajax简介</a>
+    </h1>
+  
+
+        
+        <a href="/2016/10/06/ajax2/" class="archive-article-date">
+  	<time datetime="2016-10-06T12:04:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-10-06</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="1-ajax-简介"><a href="#1-ajax-简介" class="headerlink" title="1.ajax 简介"></a>1.ajax 简介</h1><p>ajax =  异步javascript+XML<br>AAJAX是基于现有的Internet标准，并且联合使用它们：<br>XMLHttpRequest 对象 (异步的与服务器交换数据)<br>JavaScript/DOM (信息显示/交互)<br>CSS (给数据定义样式)<br>XML (作为转换数据的格式)<br>lamp  AJAX应用程序与浏览器和平台无关的！<br>实现不刷新整个页面，实现页面动态更新的技术。</p>
+<p>ajax工作原理：</p>
+<p><img src="http://www.ziqiangxuetang.com/static/images/ajax.gif" alt=""></p>
+<h1 id="2-ajax实例"><a href="#2-ajax实例" class="headerlink" title="2.ajax实例"></a>2.ajax实例</h1><p> 1.首先建立XMLHttpRequest对象，区分不同的浏览器版本，IE5,IE6不支持直接建立XMLHttpRequest对象，所以： </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> xmlhttp;</span><br><span class="line"><span class="keyword">if</span>(<span class="built_in">window</span>.XMLHttpRequest)&#123; <span class="comment">//如果为真，则支持XMLHttpRequest对象</span></span><br><span class="line">    xmlhttp = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="comment">//code for IE5,6</span></span><br><span class="line">    xmlhttp = <span class="keyword">new</span> ActiveXObject(<span class="string">"Microsoft.XMLHTTP"</span>;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>2.XMLHttpRequest对象用于和服务器交换数据</p>
+<p>open方法用于发送请求，参数1：方法，参数2：url，参数3:异步/同步</p>
+<blockquote>
+<p>xmlhttp.open(“GET”,”ajax_info.txt”,true)</p>
+</blockquote>
+<p>send方法也用于请求，不过只支持post请求，参数：string</p>
+<blockquote>
+<p>xmlhttp.send(string);</p>
+</blockquote>
+<p>GET和POST的区别：</p>
+<ul>
+<li>GET更简单，更快，大部分情况都能用。以下情况使用POST：</li>
+<li>无法使用缓存文件更新服务器上的文件或数据库。</li>
+<li>发送大量数据到服务器。</li>
+<li>发送用户输入的未知字符到服务器时。 </li>
+</ul>
+<h1 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h1><p>get请求：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">xmlhttp.open(<span class="string">"GET"</span>,<span class="string">"demo_get2.html?fname=Henry&amp;lname=Ford"</span>,<span class="literal">true</span>);</span><br><span class="line">xmlhttp.send();</span><br></pre></td></tr></table></figure></p>
+<p>post请求：</p>
+<p>如果post表单那样的提交数据，需要添加http头<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">xmlhttp.open(<span class="string">"POST"</span>,<span class="string">"ajax_test.html"</span>,<span class="literal">true</span>);</span><br><span class="line">xmlhttp.setRequestHeader(<span class="string">"Content-type"</span>,<span class="string">"application/x-www-form-urlencoded"</span>);</span><br><span class="line">xmlhttp.send(<span class="string">"fname=Henry&amp;lname=Ford"</span>);</span><br><span class="line"></span><br><span class="line">setRequestHeader方法：</span><br><span class="line">setRequestHeader(header,value)  </span><br><span class="line">向请求添加 HTTP 头。</span><br><span class="line">header: 规定头的名称</span><br><span class="line">value: 规定头的值</span><br></pre></td></tr></table></figure></p>
+<h1 id="Async-true"><a href="#Async-true" class="headerlink" title="Async=true"></a>Async=true</h1><ul>
+<li>使用XMLRequest.open()方法时，一般在ajax第三个参数必须是true（异步）<br>而且规定请求就绪时执行的函数。也就是定义 XMLHttpRequest.onreadystatechange 事件函数。<br>当请求完成时，触发该函数，类似定时器。</li>
+<li>因为web请求也许需要一段时间，所以发送异步请求，等待请求的这段时间可以执行其他代码。请求得到返回时，再执行onreadystatechange中的函数。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">xmlhttp.onreadystatechange=<span class="function"><span class="keyword">function</span>(<span class="params"></span>) //</span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (xmlhttp.readyState==<span class="number">4</span> &amp;&amp; xmlhttp.status==<span class="number">200</span>)<span class="comment">//请求正确返回http code 200时</span></span><br><span class="line">  <span class="comment">//执行修改id为mydiv的html元素内容。</span></span><br><span class="line">    &#123;</span><br><span class="line">    <span class="built_in">document</span>.getElementById(<span class="string">"myDiv"</span>).innerHTML=xmlhttp.responseText;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">xmlhttp.open(<span class="string">"GET"</span>,<span class="string">"ajax_info.txt"</span>,<span class="literal">true</span>); <span class="comment">//请求ajax_info.txt文件，</span></span><br><span class="line">xmlhttp.send();</span><br></pre></td></tr></table></figure>
+<p>#Async=false </p>
+<ul>
+<li>不推荐，对于小型的请求也下可以。因为javascript会等待服务器返回后才继续向下执行。如果服务器繁忙，应用程序会挂起或者挂掉。</li>
+</ul>
+<h1 id="XMLHttpRequest响应"><a href="#XMLHttpRequest响应" class="headerlink" title="XMLHttpRequest响应"></a>XMLHttpRequest响应</h1><p>如果返回200,就可以使用</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">ajax</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/web//" class="article-tag-list-link color4">web</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2016/10/06/ajax2/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-ajax" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -2013,7 +2071,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018 wedvefv
+    		&copy; 2019 wedvefv
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -2124,11 +2182,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">windows</a>
+                <a href="javascript:void(0)" class="js-tag color4">c++</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">c++</a>
+                <a href="javascript:void(0)" class="js-tag color3">windows</a>
               </li>
              
               <li class="article-tag-list-item">
