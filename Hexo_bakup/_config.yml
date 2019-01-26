@@ -4,7 +4,7 @@
 
 # 网站信息
 #标题
-title: wedvefvの博客
+title: 小莺の博客
 #副标题
 subtitle: 记录学习的技能和遇到的问题
 #网站描述
@@ -104,7 +104,8 @@ tag_generator:
 ## Themes: https://hexo.io/themes/
 #theme: hexo-theme-kael 
 #theme: yilia
-theme: maupassant
+#theme: maupassant
+theme: jacman
 
 
 # Deployment
