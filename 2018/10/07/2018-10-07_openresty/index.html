@@ -71,10 +71,9 @@
 					
 					<li>
  					
-					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+					<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
 						<label>Search</label>
-						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
-						<input type="hidden" name="q" value="site:wedvefv.github.io">
+						<input type="search" id="search" autocomplete="off" name="q" maxlength="20" placeholder="Search" />
 					</form>
 					
 					</li>
@@ -163,6 +162,25 @@
 
 
 
+
+
+<div id="gitmentContainer"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+    var gitment = new Gitment({
+        id: 'Sun Oct 07 2018 11:23:58 GMT+0800',
+        owner: '{{site.github_username}}',
+        repo: '{{site.comment_gitment_repo}}',
+        oauth: {
+            client_id: '{{site.comment_gitment_clientId}}',
+            client_secret: '{{site.comment_gitment_clientSecret}}',
+        },
+    });
+    gitment.render('gitmentContainer')
+</script>
+
+
 </div>  
       <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
 
@@ -178,6 +196,12 @@
 <aside class="clearfix">
 
   
+<div class="github-card">
+<p class="asidetitle">Github Card</p>
+<div class="github-card" data-github="http://github.com/wedvefv" data-theme="medium"></div>
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+
 
 
   
@@ -271,7 +295,7 @@
 			
 		
 			
-				<li><a href="/tags/linux/" title="linux">linux<sup>1</sup></a></li>
+				<li><a href="/tags/sublime/" title="sublime">sublime<sup>1</sup></a></li>
 			
 		
 			
@@ -279,7 +303,7 @@
 			
 		
 			
-				<li><a href="/tags/sublime/" title="sublime">sublime<sup>1</sup></a></li>
+				<li><a href="/tags/linux/" title="linux">linux<sup>1</sup></a></li>
 			
 		
 			
@@ -305,12 +329,6 @@
           <li>
             
             	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
-            
-          </li>
-        
-          <li>
-            
-            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
             
           </li>
         
@@ -342,15 +360,19 @@
 	
 	
 	<section class="info">
-		<p> Hello ,I&#39;m Larry Page in Google. <br/>
+		<p> Hello ,I&#39;m wedvefv Page in Google. <br/>
 			This is my blog,believe it or not.</p>
 	</section>
 	 
 	<div class="social-font" class="clearfix">
 		
-		<a href="http://weibo.com/2176287895" target="_blank" class="icon-weibo" title="微博"></a>
+		<a href="http://weibo.com/5803571716" target="_blank" class="icon-weibo" title="微博"></a>
 		
 		
+		<a href="https://github.com/http://github.com/wedvefv" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		<a href="http://stackoverflow.com/users/10970080" target="_blank" class="icon-stack-overflow" title="stackoverflow"></a>
 		
 		
 		
@@ -535,6 +557,15 @@ $(document).ready(function(){
 
 <!-- Analytics Begin -->
 
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', '', '');  
+ga('send', 'pageview');
+</script>
+
 
 
 <script>
@@ -567,6 +598,23 @@ var _hmt = _hmt || [];
 <!-- MathJax End -->
 
 <!-- Tiny_search Begin -->
+
+<script>
+var option = {
+  engineKey: ''
+};
+(function(w,d,t,u,n,s,e){
+  s = d.createElement(t);
+  s.src = u;
+  s.async = 1;
+  w[n] = function(r){
+    w[n].opts = r;
+  };
+  e = d.getElementsByTagName(t)[0];
+  e.parentNode.insertBefore(s, e);
+})(window,document,'script','//tinysou-cdn.b0.upaiyun.com/ts.js','_ts');
+_ts(option);
+</script>
 
 <!-- Tiny_search End -->
 
