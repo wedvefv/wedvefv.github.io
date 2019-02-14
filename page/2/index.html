@@ -101,38 +101,89 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/10/06/windows/dll_export/" title="DLL导出方法" itemprop="url">DLL导出方法</a>
+      <a href="/2016/10/27/vim/vim-markdown/" title="vim-markdown插件" itemprop="url">vim-markdown插件</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
 		
   <p class="article-time">
-    <time datetime="2016-10-06T12:04:30.000Z" itemprop="datePublished"> Published 2016-10-06</time>
+    <time datetime="2016-10-27T07:30:00.000Z" itemprop="datePublished"> Published 2016-10-27</time>
     
   </p>
 </header>
     <div class="article-content">
         
-        <h1 id="DLL导出方法"><a href="#DLL导出方法" class="headerlink" title="DLL导出方法"></a>DLL导出方法</h1><h2 id="dll导出方法1-："><a href="#dll导出方法1-：" class="headerlink" title="dll导出方法1 ："></a>dll导出方法1 ：</h2><p>模块定义def文件，不支持c++的重载，以c的方式编译，导出的函数名不被修改，这样<br>显示调用dll取得函数地址就没事。提供给vb，python等语言,需要_stdcall约定(函数自己清理堆栈)，这样无论是c文件还是c++文件，导出函数都会被改名字。所以dll做成必须要用def文件，否则找不到名字。除非你记得<br>修饰过的函数名。</p>
-<h2 id="dll导出方法2："><a href="#dll导出方法2：" class="headerlink" title="dll导出方法2："></a>dll导出方法2：</h2><p>函数声明头文件声明如下：<br>__declspec(dllexport)这种方式，方便c++代码的重载，同名函数不同参数，导出名字会被修饰，所以能区分开。<br>这种方式实现了DLL的隐式调用（只提供dll的导出符号lib文件，就可直接调用函数，（只是导出函数符号，没有具体实现，<br>不同于静态库的lib文件），def文件导出的dll不能用隐式调用，只能取得函数地址getProcAddress方式）</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> _EXSOPINF_H_</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _EXSOPINF_H_</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __cplusplus  <span class="comment">//cpp文件时，用c方式编译导出，不会修改导出函数名。但是_stdcall</span></span></span><br><span class="line"><span class="comment">//调用也会修改，_cdecl(默认)调用不会修改</span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">"C"</span> &#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">__declspec(dllexport) <span class="function">DWORD WINAPI <span class="title">function1</span><span class="params">( LPCSTR lpszFolderName, LPSTR lpszCode )</span></span>;</span><br><span class="line">__declspec(dllexport) <span class="function">DWORD WINAPI <span class="title">function2</span><span class="params">( LPCSTR lpszFolderName, LPSTR lpszCode )</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __cplusplus</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">函数定义时，也需要在函数名前：加入修饰</span><br><span class="line">__declspec(dllexport) <span class="function">DWORD WINAPI <span class="title">function1</span><span class="params">(LPCSTR lpszFolderName, LPSTR lpszCode )</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line">其中WINAPI是调用约定。</span><br></pre></td></tr></table></figure>
-<h2 id="常见调用约定"><a href="#常见调用约定" class="headerlink" title="常见调用约定"></a>常见调用约定</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">调用协议常用场合</span><br><span class="line">__stdcall：Windows API默认的函数调用协议。</span><br><span class="line">__cdecl：C/C++默认的函数调用协议。</span><br><span class="line">__fastcall：适用于对性能要求较高的场合。</span><br><span class="line">函数参数入栈方式</span><br><span class="line">__stdcall：函数参数由右向左入栈。</span><br><span class="line">__cdecl：函数参数由右向左入栈。</span><br><span class="line">__fastcall：从左开始不大于<span class="number">4</span>字节的参数放入CPU的ECX和EDX寄存器，其余参数从右向左入栈。</span><br><span class="line">问题一：__fastcall在寄存器中放入不大于<span class="number">4</span>字节的参数，故性能较高，适用于需要高性能的场合。</span><br><span class="line">栈内数据清除方式</span><br><span class="line">__stdcall：函数调用结束后由被调用函数清除栈内数据。</span><br><span class="line">__cdecl：函数调用结束后由函数调用者清除栈内数据。</span><br><span class="line">__fastcall：函数调用结束后由被调用函数清除栈内数据。</span><br><span class="line">问题一：不同编译器设定的栈结构不尽相同，跨开发平台时由函数调用者清除栈内数据不可行。</span><br><span class="line">问题二：某些函数的参数是可变的，如<span class="built_in">printf</span>函数，这样的函数只能由函数调用者清除栈内数据。</span><br><span class="line">问题三：由调用者清除栈内数据时，每次调用都包含清除栈内数据的代码，故可执行文件较大。</span><br><span class="line">C语言编译器函数名称修饰规则</span><br><span class="line">__stdcall：编译后，函数名被修饰为“_functionname@number”。</span><br><span class="line">__cdecl：编译后，函数名被修饰为“_functionname”。</span><br><span class="line">__fastcall：编译后，函数名给修饰为“@functionname@nmuber”。</span><br><span class="line">注：“functionname”为函数名，“number”为参数字节数。</span><br><span class="line">注：函数实现和函数定义时如果使用了不同的函数调用协议，则无法实现函数调用。</span><br><span class="line">C++语言编译器函数名称修饰规则</span><br><span class="line">__stdcall：编译后，函数名被修饰为“?functionname@@YG******@Z”。</span><br><span class="line">__cdecl：编译后，函数名被修饰为“?functionname@@YA******@Z”。</span><br><span class="line">__fastcall：编译后，函数名被修饰为“?functionname@@YI******@Z”。</span><br><span class="line">注：“******”为函数返回值类型和参数类型表。</span><br><span class="line">注：函数实现和函数定义时如果使用了不同的函数调用协议，则无法实现函数调用。</span><br><span class="line">C语言和C++语言间如果不进行特殊处理，也无法实现函数的互相调用。</span><br></pre></td></tr></table></figure>
-<h2 id="stdcall与-cdecl的区别-函数调用方式"><a href="#stdcall与-cdecl的区别-函数调用方式" class="headerlink" title="_stdcall与_cdecl的区别(函数调用方式)"></a>_stdcall与_cdecl的区别(函数调用方式)</h2><p>(1). 是C Declaration的缩写，表示C语言默认的函数调用方法，实际上也是C++的默认的函数调用方法。<br>(2). 所有参数从右到左依次入栈，这些参数由调用者清除，称为手动清栈。具体所示：调用方的函数调用-&gt;被调用函数的执行-&gt;被调用函数的结果返回-&gt;调用方清除调整堆栈。<br>(3). 被调用函数无需要求调用者传递多少参数，调用者传递过多或者过少的参数，甚至完全不同的参数都不会产生编译阶段的错误。总的来说函数的参数个数可变的(就像printf函数一样)，因为只有调用者才知道它传给被调用函数几个参数，才能在调用结束时适当地调整堆栈。<br>(4). 因为每个调用的地方都需要生成一段调整堆栈的代码，所以最后生成的文件较大。</p>
-<h3 id="stdcall-CALLBACK-WINAPI"><a href="#stdcall-CALLBACK-WINAPI" class="headerlink" title="_stdcall(CALLBACK/WINAPI)"></a>_stdcall(CALLBACK/WINAPI)</h3><p>(1). 是Standard Call的缩写，要想函数按照此调用方式必须在函数名加入<em>stdcall，通常</em> win32 api 应该是_stdcall调用规则。通过VC++编写的DLL欲被其他语言编写的程序调用，应将函数的调用方式声明为_stdcall 方式，WINAPI都采用这种方式。<br>(2).  所有参数从右到左依次入栈，如果是调用类成员的话，最后一个入栈的是this指针。具体所示：调用方的函数调用-&gt;被调用函数的执行-&gt; 被调用方清除调整堆栈-&gt;被调用函数的结果返回。<br>(3).  这些堆栈中的参数由被调用的函数在返回后清除，使用的指令是 retn X，X表示参数占用的字节数，CPU在ret之后自动弹出X个字节的堆栈空间。称为自动清栈。<br>(4).  函数在编译的时候就必须确定参数个数，并且调用者必须严格的控制参数的生成，不能多，不能少，否则返回后会出错。总的来说，就是函数的参数个数不能是可变的。是从 _cdecl 修改而来, _stdcall 不支持可变参数,并且清栈由被调用者负责,其他的都一样<br>(5).  因为只需在被调用函数的地方生成一段调整堆栈的代码，所以最后生成的文件较小。</p>
-<p>PASCAL 是Pascal语言的函数调用方式，也可以在C/C++中使用，参数压栈顺序与前两者相反。返回时的清栈方式忘记了。。。</p>
-<p>_fastcall 是编译器指定的快速调用方式。由于大多数的函数参数个数很少，使用堆栈传递比较费时。因此_fastcall通常规定将前两个（或若干个）参数由寄存器传递，其余参数还是通过堆栈传递。不同编译器编译的程序规定的寄存器不同。返回方式和_stdcall相当。</p>
-<p>_thiscall 是为了解决类成员调用中this指针传递而规定的。_thiscall要求把this指针放在特定寄存器中，该寄存器由编译器决定。VC使用ecx，Borland的C++编译器使用eax。返回方式和_stdcall相当。</p>
-<p>_fastcall 和 _thiscall涉及的寄存器由编译器决定，因此不能用作跨编译器的接口。所以Windows上的COM对象接口都定义为_stdcall调用方式。</p>
-<p>C中不加说明默认函数为_cdecl方式（C中也只能用这种方式），C++也一样，但是默认的调用方式可以在IDE环境中设置。</p>
-<p>带有可变参数的函数必须且只能使用_cdecl方式，例如下面的函数:<br>      int printf(char * fmtStr, …);</p>
-<pre><code>int scanf(char * fmtStr, ...);
-</code></pre><h3 id="函数名修饰"><a href="#函数名修饰" class="headerlink" title="函数名修饰"></a>函数名修饰</h3><p>(1). _cdecl ：对于_cdecl而言，如果对于定义在C程序文件(编译器会通过后缀名为.C判断)的输出函数，函数名会保持原样；对于定义在C++程序文件中的输出函数，函数名会被修饰(见10)。为使函数名不被修饰，有两种方法：A.可通过在前面加上extern “c”以去除函数名修饰；B. 可通过.def文件去除函数名修饰。</p>
-<p>(2). _stdcall：无论是C程序文件中的输出函数还是C++程序文件中的输出函数，函数名都会被修饰。对于定义在C++程序文件中的输出函数，好像更复杂，和_cdecl的情况类似。去除函数名修饰方法：只能通过.def文件去除函数名修饰。</p>
-<h3 id="函数名修饰规则："><a href="#函数名修饰规则：" class="headerlink" title="函数名修饰规则："></a>函数名修饰规则：</h3><p>(1). 为什么要函数名修饰：<br>      函数名修饰就是编译器在编译期间创建的一个字符串，用来指明函数的定义和原型。LINK程序或其他工具有时需要指定函数的名字修饰来定位函数的正确位置。多少情况下程序员并不需要知道函数的名字修饰，LINK程序或其他工具会自动区分他们。当然，在某些情况下需要指定函数名修饰，例如在c++程序中，为了让LINK程序或其他工具能够匹配到正确的函数名字，就必须为重载函数后一些特殊函数(如构造函数和析构函数)指定名字修饰。另一种需要指定函数名修饰的情况是在汇编程序中调用C或C++函数。<br>(2). C语言：<br>      对于_stdcall调用约定，编译器和链接器会在输出函数名前加上一个下划线前缀，函数名后面加上一个“@”符号和其参数的字节数，例如_functionname@number。_cdecl调用约定仅在输出函数名前加上一个下划线前缀，例如_functionname。_fastcall调用约定在输出函数名前加上一个 “@“符号，后面也是一个”@“符号和其参数的字节数，例如@functionname@number。<br>(3). C++语言：<br>   C++的函数名修饰规则有些复杂，但是信息更充分，通过分析修饰名不仅能够知道函数的调用方式，返回值类型，参数个数甚至参数类型。不管<strong>cdecl，</strong>fastcall还是<strong>stdcall调用方式，函数修饰都是以一个“?”开始，后面紧跟函数的名字，再后面是参数表的开始标识和按照参数类型代号拼出的参数表。对于</strong>stdcall方式，参数表的开始标识是“@@YG”，对于<strong>cdecl方式则是“@@YA”，对于</strong>fastcall方式则是“@@YI”。参数表的拼写代号如下所示：<br>X–void<br>D–char<br>E–unsigned char<br>F–short<br>H–int<br>I–unsigned int<br>J–long<br>K–unsigned long（DWORD）<br>M–float<br>N–double<br>_N—bool<br>U—struct</p>
-<p>指针的方式有些特别，用PA表示指针，用PB表示const类型的指针。后面的代号表明指针类型，如果相同类型的指针连续出现，以“0”代替，一个“0”代表一次重复。U表示结构类型，通常后跟结构体的类型名，用“@@”表示结构类型名的结束。函数的返回值不作特殊处理，它的描述方式和函数参数一样，紧跟着参数表的开始标志，也就是说，函数参数表的第一项实际上是表示函数的返回值类型。参数表后以“@Z”标识整个名字的结束，如果该函数无参数，则以“Z”标识结束。下面举两个例子，假如有以下函数声明：<br>int Function1(char *var1,unsigned long);<br>其函数修饰名为“?Function1@@YGHPADK@Z”，而对于函数声明：<br>oid Function2();<br>其函数修饰名则为“?Function2@@YGXXZ” 。<br>对于C++的类成员函数（其调用方式是thiscall），函数的名字修饰与非成员的C++函数稍有不同，首先就是在函数名字和参数表之间插入以“@”字符引导的类名；其次是参数表的开始标识不同，公有（public）成员函数的标识是“@@QAE”,保护（protected）成员函数的标识是“@@IAE”,私有（private）成员函数的标识是“@@AAE”，如果函数声明使用了const关键字，则相应的标识应分别为“@@QBE”，“@@IBE”和“@@ABE”。如果参数类型是类实例的引用，则使用“AAV1”，对于const类型的引用，则使用“ABV1”。</p>
-<h3 id="查看函数的名字修饰"><a href="#查看函数的名字修饰" class="headerlink" title="查看函数的名字修饰"></a>查看函数的名字修饰</h3><p> 有两种方式可以检查你的程序中的函数的名字修饰：使用编译输出列表或使用Dumpbin工具。使用/FAc，/FAs或/FAcs命令行参数可以让编译器输出函数或变量名字列表。使用dumpbin.exe /SYMBOLS命令也可以获得obj文件或lib文件中的函数或变量名字列表。此外，还可以使用 undname.exe 将修饰名转换为未修饰形式。</p>
-<h3 id="beginthread需要-cdecl的线程函数地址，-beginthreadex和-CreateThread需要-stdcall的线程函数地址。"><a href="#beginthread需要-cdecl的线程函数地址，-beginthreadex和-CreateThread需要-stdcall的线程函数地址。" class="headerlink" title="_beginthread需要_cdecl的线程函数地址，_beginthreadex和_CreateThread需要_stdcall的线程函数地址。"></a>_beginthread需要_cdecl的线程函数地址，_beginthreadex和_CreateThread需要_stdcall的线程函数地址。</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CALLBACK __stdcall <span class="comment">//这就是传说中的回调函数</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> WINAPI __stdcall <span class="comment">//这就是传说中的WINAPI</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> WINAPIV __cdecl</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> APIENTRY WINAPI <span class="comment">//DllMain的入口就在这里</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> APIPRIVATE __stdcall</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PASCAL __stdcall</span></span><br></pre></td></tr></table></figure>
+        <h1 id="首先为了高亮显示markdown文件-，安装vim-markdown插件-vundle管理的"><a href="#首先为了高亮显示markdown文件-，安装vim-markdown插件-vundle管理的" class="headerlink" title="首先为了高亮显示markdown文件 ，安装vim-markdown插件(vundle管理的)"></a>首先为了高亮显示markdown文件 ，安装vim-markdown插件(vundle管理的)</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Plugin 'godlygeek/tabular'</span><br><span class="line">Plugin 'tpope/vim-markdown'</span><br></pre></td></tr></table></figure>
+<h1 id="安装时时预览插件-只支持macos-linux-打开markdown文件就会出现浏览器窗口预览"><a href="#安装时时预览插件-只支持macos-linux-打开markdown文件就会出现浏览器窗口预览" class="headerlink" title="安装时时预览插件 只支持macos/linux ,打开markdown文件就会出现浏览器窗口预览"></a>安装时时预览插件 只支持macos/linux ,打开markdown文件就会出现浏览器窗口预览</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">"Plugin 'suan/vim-instant-markdown'</span><br></pre></td></tr></table></figure>
+<p>#windows 下有一个python2支持的插件，也能预览</p>
+<p>需要python2的支持–python2.7就可以。<br>需要nodejs的支持，自行安装。<br>完成后：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm -g install instant-markdown-d</span><br></pre></td></tr></table></figure>
+<p>在vim配置文件中添加:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Plugin 'suan/vim-instant-markdown'</span><br></pre></td></tr></table></figure>
+<p>打开vim 更新安装插件 ：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:PluginInstall</span><br></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/vim/">vim</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/10/27/vim/vim-emmet/" title="vim-emmet插件/html/css" itemprop="url">vim-emmet插件/html/css</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
+		
+  <p class="article-time">
+    <time datetime="2016-10-26T16:00:00.000Z" itemprop="datePublished"> Published 2016-10-27</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h1 id="emmet-vim-插件就是以前的zencoding"><a href="#emmet-vim-插件就是以前的zencoding" class="headerlink" title="emmet-vim 插件就是以前的zencoding"></a>emmet-vim 插件就是以前的zencoding</h1><p>安装 可以git clone ，可以在vim里面安装PluginInstall</p>
+<p>来说一下快捷键<br>快捷键一：</p>
+<p>输入html：5  按下ctrl+y 松开后在按逗号（英文的哦）<br>立刻展开成如下了<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    </span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>html:xt 就是兼容的html版本</p>
+<p>快捷键二：<br>div#page&gt;div.logo+ul#navigation<em>2&gt;li</em>5&gt;a<br>也是ctrl+y，松开后按英文逗号，展开后是：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"page"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"logo"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span> <span class="attr">id</span>=<span class="string">"navigation"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">""</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">""</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">""</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">""</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">""</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span> <span class="attr">id</span>=<span class="string">"navigation"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">""</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">""</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">""</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">""</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">""</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>可以看出来：</p>
+<p>#号是表示id<br>.表示class<br>+ 表示同一级的元素<br>可以用*n 产生多个同名同级的元素<br>>表示要包含的元素<br>#xxx 默认的这个表示默认div元素，且id为xxx</p>
 
         
         
@@ -145,9 +196,283 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/windows/">windows</a>
+  <a class="article-category-link" href="/categories/vim/">vim</a>
 </div>
 
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/10/26/vim/vim_luanma/" title="vim 乱码" itemprop="url">vim 乱码</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
+		
+  <p class="article-time">
+    <time datetime="2016-10-26T10:37:00.000Z" itemprop="datePublished"> Published 2016-10-26</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h1 id="首先-中文os下，我们一般的设置是："><a href="#首先-中文os下，我们一般的设置是：" class="headerlink" title="首先 中文os下，我们一般的设置是："></a>首先 中文os下，我们一般的设置是：</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">set encoding=utf-8                                "设置gvim内部编码</span><br><span class="line">set fileencoding=utf-8                               "设置当前文件编码</span><br><span class="line">set fileencodings=gbk,utf-8,shift_jis,ucs-bom,latin1,gb2312,cp936,cp932    设置支持打开的文件的编码</span><br><span class="line"></span><br><span class="line">set termencoding=utf-8</span><br><span class="line">set guifont=DejaVu\\ Sans\\ Mono\\:h13</span><br></pre></td></tr></table></figure>
+<p>上述，set fileencodings设置的文字编码解析顺位，对于中文是可以解析出来的,shift_jis编码的文件，就会出现乱码。除非你把shift_jis设置第一位：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set fileencodings=shift_jis,gbk,utf-8,ucs-bom,latin1,gb2312,cp936,cp932</span><br></pre></td></tr></table></figure>
+<h1 id="对于日文os-，安装gvim后，需要如下设置："><a href="#对于日文os-，安装gvim后，需要如下设置：" class="headerlink" title="对于日文os ，安装gvim后，需要如下设置："></a>对于日文os ，安装gvim后，需要如下设置：</h1><p>由于本地ANSI是cp932 , 所以把cp932 放在第一或者第二的位置，<br>如果放到第三或者后面就会出现shift_jis编码的日文打开后是文本乱码现象。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">set encoding=utf-8                                    "设置gvim内部编码</span><br><span class="line">set fileencoding=utf-8                               "设置当前文件编码</span><br><span class="line">set fileencodings=CP932,utf-8,gbk,,ucs-bom,latin1,gb2312,cp936 #设置支持打开的文件的编码</span><br><span class="line"></span><br><span class="line">set termencoding=utf-8</span><br><span class="line"></span><br><span class="line">set guifont=DejaVu\ Sans\ Mono\:h13 </span><br><span class="line">set guifontwide=NSimsun\:h14  </span><br><span class="line"><span class="meta">#</span>设置新宋体</span><br></pre></td></tr></table></figure>
+<p>由于DejaVu Sans Mono 字体是英文字符字体，无法正确显示宽字体，所以需要特别加入<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">set guifontwide=NSimsun\:h14 </span><br><span class="line"><span class="meta">#</span>设置新宋体 ，显示汉字</span><br></pre></td></tr></table></figure></p>
+<p>所以大家在自己的sublime 或者vim中设置编辑器字体DejaVu Sans Mono就好像可以显示正确的汉字和英文，其实我们设置的只是英文字符显示的样式。汉字其实是系统本地ANSI编码。</p>
+<h2 id="本地ANSI编码"><a href="#本地ANSI编码" class="headerlink" title="本地ANSI编码"></a>本地ANSI编码</h2><p>世界上每种语言对应的windows 系统都有各自的ANSI，互相不兼容。</p>
+<p>比如 中文ANSI == GBK(中文) ，gbk是gb2312(简体中文)的扩展，包含繁体，日文片假名。cp936就是gbk<br>    日文ANSI == Windows-31J  就是cp932.<br>shift_jis也是一种日文字符编码,不过，只实现了cp932的部分，所以cp932编码的东东，shift_jis可能乱码。shift_jis编码的，cp932一定正常显示。</p>
+<p>这是微软早起应对不同国家一种混合的编码：字母+对应的国家文字,这种字符也是多字节字符。比如：中文ANSI,字母数字是1字节 ,汉字是2字节。两种语言文字有可能在一起就显示乱码。不过微软提供了本地ANSI转换为标准unicode字符的方案，通过代码页转换表技术这一过度方案。</p>
+<h2 id="nnicode编码规范"><a href="#nnicode编码规范" class="headerlink" title="nnicode编码规范"></a>nnicode编码规范</h2><p>unicode 是将全世界所有的字符都统一编码的方案(规范))。那么字符a的编码本来是1byte ,现在统一和一个汉字一样长了。那么问题来了，字符串是’\0’字符结尾。世界上的很久以前写的c程序，就没办法用了。所以说unicode应该早点出来。</p>
+<p>有了这种全字符集，解决了乱码，却没法用，蛋疼吧，可是utf8这一实现字符保存，传输的方案出现了。因为utf8是可变长的。不同位段，长度不一致。 </p>
+<h2 id="utf-8编码"><a href="#utf-8编码" class="headerlink" title="utf-8编码"></a>utf-8编码</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">UCS-2编码(16进制)   UTF-8 字节流(二进制)</span><br><span class="line">0000 - 007F         0xxxxxxx</span><br><span class="line">0080 - 07FF         110xxxxx 10xxxxxx</span><br><span class="line">0800 - FFFF         1110xxxx 10xxxxxx 10xxxxxx </span><br><span class="line"> </span><br><span class="line">例如“汉”字的Unicode编码是6C49。6C49在0800-FFFF之间，所以肯定要用3字节模板了：1110xxxx 10xxxxxx 10xxxxxx。将6C49写成二进制是：0110 110001 001001，用这个比特流依次代替模板中的x，得到：11100110 10110001 10001001，即E6 B1 89。</span><br><span class="line"> </span><br><span class="line">可见UTF-8是变长的，将Unicode编码为00000000-0000007F的字符，用单个字节来表示； 00000080-000007FF的字符用两个字节表示；00000800-0000FFFF的字符用3字节表示。因为目前为止Unicode-16规范没有指定FFFF以上的字符，所以UTF-8最多是使用3个字节来表示一个字符。但理论上来说，UTF-8最多需要用6字节表示一个字符。 </span><br><span class="line"> </span><br><span class="line">UTF-8兼容ASCII。</span><br></pre></td></tr></table></figure>
+<p>#utf16编码<br>utf-16 和unicode规范是一致的，所以不兼容ascii。<br>以上信息来源参考： <img src="http://polaris.blog.51cto.com/1146394/377468/" alt="这里的博客"></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/10/23/web/jquery2/" title="jquery学习笔记2(效果)" itemprop="url">jquery学习笔记2(效果)</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
+		
+  <p class="article-time">
+    <time datetime="2016-10-23T03:12:00.000Z" itemprop="datePublished"> Published 2016-10-23</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>##jquery隐藏和显示<br>hide/show函数: $(“p”).show(); 或者$(“p”).hide();<br>toggle()函数 切换隐藏和显示。</p>
+<p>##jquery淡入淡出<br>fadeIn(speed,callback) 渐渐显示(淡入)<br>fadeOut(…) 渐渐显示(淡出)<br>fadeToggle()切换 淡入淡出<br>fadeTo(速度，透明度，callback) 调整透明度0-1之间值</p>
+<p>##jquery滑动效果<br>像投影屏幕收起或下拉一样的效果<br>slideDown()    滑下面板<br>slideUp()      收起面板<br>slideToggle()  切换Down/up</p>
+<p>##jquery 动画操作<br>$(selector).animate({params},speed,callback);</p>
+<p>例如：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">"button"</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  $(<span class="string">"div"</span>).animate(&#123;<span class="attr">left</span>:<span class="string">'250px'</span>&#125;);</span><br><span class="line">&#125;);</span><br><span class="line">或者 多个属性操作</span><br><span class="line">$(<span class="string">"button"</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  $(<span class="string">"div"</span>).animate(&#123;</span><br><span class="line">    left:<span class="string">'250px'</span>,</span><br><span class="line">    opacity:<span class="string">'0.5'</span>,</span><br><span class="line">    height:<span class="string">'150px'</span>,</span><br><span class="line">    width:<span class="string">'150px'</span></span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>##jquery停止动画</p>
+<p>stop函数,或者带参数$(selector).stop(stopAll,goToEnd);<br>stopall参数默认false，表示只停止当前动画，队列中其他的动画继续执行<br>goToEnd参数默认false表示，不立即完成当前动画，多个动画时，多次点击能依次停止各个动画</p>
+<p>##jquery callback函数</p>
+<p>许多jquery动画函数会有speed参数或者duration(持续) slow/fast/normal<br>然后第二个参数写一个回调函数，动画完成后会执行。</p>
+<p>##jquery的Chaining(链式)操作<br>可以接连在一个元素上执行多个函数操作，这样就不用寻找同一个元素多次。俗称：链式操作<br>例如：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">"##p1"</span>).css(<span class="string">"color"</span>,<span class="string">"red"</span>).slideUp(<span class="number">2000</span>).slideDown(<span class="number">2000</span>);</span><br><span class="line"><span class="comment">//p元素变红色，然后上滑，再下滑</span></span><br></pre></td></tr></table></figure></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/web/">web</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/10/09/vim/atom/" title="atom编辑器" itemprop="url">atom编辑器</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
+		
+  <p class="article-time">
+    <time datetime="2016-10-09T07:30:30.000Z" itemprop="datePublished"> Published 2016-10-09</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h1 id="atom-编辑器"><a href="#atom-编辑器" class="headerlink" title="atom 编辑器"></a>atom 编辑器</h1><h2 id="比较："><a href="#比较：" class="headerlink" title="比较："></a>比较：</h2><p>优点：开源，免费，可定制型强，中文支持比sublime做的好，sublime是收费的。<br>缺点：稍微有一点慢，相对于sublime，画面类似sublime，体积也比较大。</p>
+<h2 id="发展："><a href="#发展：" class="headerlink" title="发展："></a>发展：</h2><p>  vim基本都是插件扩展， 插件一般是vimscript编写，现在为了可维护性，加入python支持。<br>  sublime：也是插件扩展，主要是json配置，可扩展性没atom好。收费，维护仅由编写者维护。<br>  atom：开源，界面类似sublime，插件脚本由js编写，利于扩展，社区支持强大。有人说atom是编辑器<br>  的集大成者。</p>
+<h2 id="windows下安装"><a href="#windows下安装" class="headerlink" title="windows下安装"></a>windows下安装</h2><ol>
+<li>需要node.js支持（安装了node.js ，安装npm包管理器（为了解决nodejs代码的部署问题））</li>
+<li>安装atom编辑器</li>
+<li>打开编辑器，packages-&gt;settings-view-&gt;manager packages ,安装插件即可。</li>
+<li>网络被公司设置代理的，需要设置~/.atom/.apmrc 文件如下：<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">strict-ssl=<span class="literal">false</span></span><br><span class="line">http-proxy=http:<span class="comment">//xxxx:xx</span></span><br><span class="line">https-proxy=https:<span class="comment">//xxxx:xx</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>有些时候还是提示 atom.io:433访问地址错误。</p>
+<ol start="5">
+<li><p>那么可以登录：<a href="https://atom.io/packages/" target="_blank" rel="noopener">https://atom.io/packages/</a> 搜索需要的插件，进入Repo页面。<br>复制 git需要的地址。例如qolor插件地址：<a href="https://github.com/DavidLGoldberg/qolor.git" target="_blank" rel="noopener">https://github.com/DavidLGoldberg/qolor.git</a></p>
+</li>
+<li><p>进入~/.atom/packages目录下, 打开cmd，执行git clone <a href="https://github.com/DavidLGoldberg/qolor.git" target="_blank" rel="noopener">https://github.com/DavidLGoldberg/qolor.git</a></p>
+</li>
+<li><p>cd qolor 进入qolor目录，在执行npm install 就会安装 qolor插件了。</p>
+</li>
+<li><p>npm如果需要设置代理，配置文件是~/.npmrc ，写入：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">registry=http:<span class="comment">//registry.cnpmjs.org/</span></span><br><span class="line">proxy=http:<span class="comment">//xxx:xx</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="测试环境"><a href="#测试环境" class="headerlink" title="测试环境"></a>测试环境</h2><p> windows 8.1</p>
+<p> nodejs-4.6.0</p>
+<p> python2.7.9</p>
+<p> ~表示用户目录。我的是 c:/users/administrator/</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/atom/">atom</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/10/06/vim/vim_nerdtree/" title="nerdtree插件" itemprop="url">nerdtree插件</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
+		
+  <p class="article-time">
+    <time datetime="2016-10-06T12:07:30.000Z" itemprop="datePublished"> Published 2016-10-06</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>#nerdtree插件，可以在vim左侧显示目录</p>
+<h2 id="使用说明"><a href="#使用说明" class="headerlink" title="使用说明"></a>使用说明</h2><p>1、在linux命令行界面，输入vim</p>
+<p>2、输入 :NERDTree ，回车</p>
+<p>3、进入当前目录的树形界面，通过小键盘上下键，能移动选中的目录或文件</p>
+<p>4、目录前面有+或者&gt;号，摁Enter会展开目录，文件前面是-号，摁Enter会在右侧窗口展现该文件的内容，光标自动移到右侧文件窗口。</p>
+<p>5、ctr+w+h 光标移到左侧树形目录，ctrl+w+l 光标移到右侧文件显示窗口。多次摁 ctrl+w，光标自动在左右侧窗口切换</p>
+<p>6、光标focus左侧树形窗口，摁? 弹出NERDTree的帮助，再次摁？关闭帮助显示</p>
+<p>7、输入:q回车，关闭光标所在窗口</p>
+<h2 id="进阶用法"><a href="#进阶用法" class="headerlink" title="进阶用法"></a>进阶用法</h2><p>o 打开关闭文件或者目录<br>t 在标签页中打开<br>T 在后台标签页中打开<br>! 执行此文件<br>p 到上层目录<br>P 到根目录<br>K 到第一个节点<br>J 到最后一个节点<br>u 打开上层目录<br>m 显示文件系统菜单（添加、删除、移动操作）<br>? 帮助<br>q 关闭</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/vim/">vim</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/vim/">vim</a>
+  </div>
 
 </div>
 
@@ -241,6 +566,79 @@
   
   <span></span> <a href="/tags/ajax/">ajax</a>
   </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/10/06/windows/dll_export/" title="DLL导出方法" itemprop="url">DLL导出方法</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
+		
+  <p class="article-time">
+    <time datetime="2016-10-06T12:04:30.000Z" itemprop="datePublished"> Published 2016-10-06</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h1 id="DLL导出方法"><a href="#DLL导出方法" class="headerlink" title="DLL导出方法"></a>DLL导出方法</h1><h2 id="dll导出方法1-："><a href="#dll导出方法1-：" class="headerlink" title="dll导出方法1 ："></a>dll导出方法1 ：</h2><p>模块定义def文件，不支持c++的重载，以c的方式编译，导出的函数名不被修改，这样<br>显示调用dll取得函数地址就没事。提供给vb，python等语言,需要_stdcall约定(函数自己清理堆栈)，这样无论是c文件还是c++文件，导出函数都会被改名字。所以dll做成必须要用def文件，否则找不到名字。除非你记得<br>修饰过的函数名。</p>
+<h2 id="dll导出方法2："><a href="#dll导出方法2：" class="headerlink" title="dll导出方法2："></a>dll导出方法2：</h2><p>函数声明头文件声明如下：<br>__declspec(dllexport)这种方式，方便c++代码的重载，同名函数不同参数，导出名字会被修饰，所以能区分开。<br>这种方式实现了DLL的隐式调用（只提供dll的导出符号lib文件，就可直接调用函数，（只是导出函数符号，没有具体实现，<br>不同于静态库的lib文件），def文件导出的dll不能用隐式调用，只能取得函数地址getProcAddress方式）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> _EXSOPINF_H_</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _EXSOPINF_H_</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __cplusplus  <span class="comment">//cpp文件时，用c方式编译导出，不会修改导出函数名。但是_stdcall</span></span></span><br><span class="line"><span class="comment">//调用也会修改，_cdecl(默认)调用不会修改</span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">"C"</span> &#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">__declspec(dllexport) <span class="function">DWORD WINAPI <span class="title">function1</span><span class="params">( LPCSTR lpszFolderName, LPSTR lpszCode )</span></span>;</span><br><span class="line">__declspec(dllexport) <span class="function">DWORD WINAPI <span class="title">function2</span><span class="params">( LPCSTR lpszFolderName, LPSTR lpszCode )</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __cplusplus</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">函数定义时，也需要在函数名前：加入修饰</span><br><span class="line">__declspec(dllexport) <span class="function">DWORD WINAPI <span class="title">function1</span><span class="params">(LPCSTR lpszFolderName, LPSTR lpszCode )</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line">其中WINAPI是调用约定。</span><br></pre></td></tr></table></figure>
+<h2 id="常见调用约定"><a href="#常见调用约定" class="headerlink" title="常见调用约定"></a>常见调用约定</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">调用协议常用场合</span><br><span class="line">__stdcall：Windows API默认的函数调用协议。</span><br><span class="line">__cdecl：C/C++默认的函数调用协议。</span><br><span class="line">__fastcall：适用于对性能要求较高的场合。</span><br><span class="line">函数参数入栈方式</span><br><span class="line">__stdcall：函数参数由右向左入栈。</span><br><span class="line">__cdecl：函数参数由右向左入栈。</span><br><span class="line">__fastcall：从左开始不大于<span class="number">4</span>字节的参数放入CPU的ECX和EDX寄存器，其余参数从右向左入栈。</span><br><span class="line">问题一：__fastcall在寄存器中放入不大于<span class="number">4</span>字节的参数，故性能较高，适用于需要高性能的场合。</span><br><span class="line">栈内数据清除方式</span><br><span class="line">__stdcall：函数调用结束后由被调用函数清除栈内数据。</span><br><span class="line">__cdecl：函数调用结束后由函数调用者清除栈内数据。</span><br><span class="line">__fastcall：函数调用结束后由被调用函数清除栈内数据。</span><br><span class="line">问题一：不同编译器设定的栈结构不尽相同，跨开发平台时由函数调用者清除栈内数据不可行。</span><br><span class="line">问题二：某些函数的参数是可变的，如<span class="built_in">printf</span>函数，这样的函数只能由函数调用者清除栈内数据。</span><br><span class="line">问题三：由调用者清除栈内数据时，每次调用都包含清除栈内数据的代码，故可执行文件较大。</span><br><span class="line">C语言编译器函数名称修饰规则</span><br><span class="line">__stdcall：编译后，函数名被修饰为“_functionname@number”。</span><br><span class="line">__cdecl：编译后，函数名被修饰为“_functionname”。</span><br><span class="line">__fastcall：编译后，函数名给修饰为“@functionname@nmuber”。</span><br><span class="line">注：“functionname”为函数名，“number”为参数字节数。</span><br><span class="line">注：函数实现和函数定义时如果使用了不同的函数调用协议，则无法实现函数调用。</span><br><span class="line">C++语言编译器函数名称修饰规则</span><br><span class="line">__stdcall：编译后，函数名被修饰为“?functionname@@YG******@Z”。</span><br><span class="line">__cdecl：编译后，函数名被修饰为“?functionname@@YA******@Z”。</span><br><span class="line">__fastcall：编译后，函数名被修饰为“?functionname@@YI******@Z”。</span><br><span class="line">注：“******”为函数返回值类型和参数类型表。</span><br><span class="line">注：函数实现和函数定义时如果使用了不同的函数调用协议，则无法实现函数调用。</span><br><span class="line">C语言和C++语言间如果不进行特殊处理，也无法实现函数的互相调用。</span><br></pre></td></tr></table></figure>
+<h2 id="stdcall与-cdecl的区别-函数调用方式"><a href="#stdcall与-cdecl的区别-函数调用方式" class="headerlink" title="_stdcall与_cdecl的区别(函数调用方式)"></a>_stdcall与_cdecl的区别(函数调用方式)</h2><p>(1). 是C Declaration的缩写，表示C语言默认的函数调用方法，实际上也是C++的默认的函数调用方法。<br>(2). 所有参数从右到左依次入栈，这些参数由调用者清除，称为手动清栈。具体所示：调用方的函数调用-&gt;被调用函数的执行-&gt;被调用函数的结果返回-&gt;调用方清除调整堆栈。<br>(3). 被调用函数无需要求调用者传递多少参数，调用者传递过多或者过少的参数，甚至完全不同的参数都不会产生编译阶段的错误。总的来说函数的参数个数可变的(就像printf函数一样)，因为只有调用者才知道它传给被调用函数几个参数，才能在调用结束时适当地调整堆栈。<br>(4). 因为每个调用的地方都需要生成一段调整堆栈的代码，所以最后生成的文件较大。</p>
+<h3 id="stdcall-CALLBACK-WINAPI"><a href="#stdcall-CALLBACK-WINAPI" class="headerlink" title="_stdcall(CALLBACK/WINAPI)"></a>_stdcall(CALLBACK/WINAPI)</h3><p>(1). 是Standard Call的缩写，要想函数按照此调用方式必须在函数名加入<em>stdcall，通常</em> win32 api 应该是_stdcall调用规则。通过VC++编写的DLL欲被其他语言编写的程序调用，应将函数的调用方式声明为_stdcall 方式，WINAPI都采用这种方式。<br>(2).  所有参数从右到左依次入栈，如果是调用类成员的话，最后一个入栈的是this指针。具体所示：调用方的函数调用-&gt;被调用函数的执行-&gt; 被调用方清除调整堆栈-&gt;被调用函数的结果返回。<br>(3).  这些堆栈中的参数由被调用的函数在返回后清除，使用的指令是 retn X，X表示参数占用的字节数，CPU在ret之后自动弹出X个字节的堆栈空间。称为自动清栈。<br>(4).  函数在编译的时候就必须确定参数个数，并且调用者必须严格的控制参数的生成，不能多，不能少，否则返回后会出错。总的来说，就是函数的参数个数不能是可变的。是从 _cdecl 修改而来, _stdcall 不支持可变参数,并且清栈由被调用者负责,其他的都一样<br>(5).  因为只需在被调用函数的地方生成一段调整堆栈的代码，所以最后生成的文件较小。</p>
+<p>PASCAL 是Pascal语言的函数调用方式，也可以在C/C++中使用，参数压栈顺序与前两者相反。返回时的清栈方式忘记了。。。</p>
+<p>_fastcall 是编译器指定的快速调用方式。由于大多数的函数参数个数很少，使用堆栈传递比较费时。因此_fastcall通常规定将前两个（或若干个）参数由寄存器传递，其余参数还是通过堆栈传递。不同编译器编译的程序规定的寄存器不同。返回方式和_stdcall相当。</p>
+<p>_thiscall 是为了解决类成员调用中this指针传递而规定的。_thiscall要求把this指针放在特定寄存器中，该寄存器由编译器决定。VC使用ecx，Borland的C++编译器使用eax。返回方式和_stdcall相当。</p>
+<p>_fastcall 和 _thiscall涉及的寄存器由编译器决定，因此不能用作跨编译器的接口。所以Windows上的COM对象接口都定义为_stdcall调用方式。</p>
+<p>C中不加说明默认函数为_cdecl方式（C中也只能用这种方式），C++也一样，但是默认的调用方式可以在IDE环境中设置。</p>
+<p>带有可变参数的函数必须且只能使用_cdecl方式，例如下面的函数:<br>      int printf(char * fmtStr, …);</p>
+<pre><code>int scanf(char * fmtStr, ...);
+</code></pre><h3 id="函数名修饰"><a href="#函数名修饰" class="headerlink" title="函数名修饰"></a>函数名修饰</h3><p>(1). _cdecl ：对于_cdecl而言，如果对于定义在C程序文件(编译器会通过后缀名为.C判断)的输出函数，函数名会保持原样；对于定义在C++程序文件中的输出函数，函数名会被修饰(见10)。为使函数名不被修饰，有两种方法：A.可通过在前面加上extern “c”以去除函数名修饰；B. 可通过.def文件去除函数名修饰。</p>
+<p>(2). _stdcall：无论是C程序文件中的输出函数还是C++程序文件中的输出函数，函数名都会被修饰。对于定义在C++程序文件中的输出函数，好像更复杂，和_cdecl的情况类似。去除函数名修饰方法：只能通过.def文件去除函数名修饰。</p>
+<h3 id="函数名修饰规则："><a href="#函数名修饰规则：" class="headerlink" title="函数名修饰规则："></a>函数名修饰规则：</h3><p>(1). 为什么要函数名修饰：<br>      函数名修饰就是编译器在编译期间创建的一个字符串，用来指明函数的定义和原型。LINK程序或其他工具有时需要指定函数的名字修饰来定位函数的正确位置。多少情况下程序员并不需要知道函数的名字修饰，LINK程序或其他工具会自动区分他们。当然，在某些情况下需要指定函数名修饰，例如在c++程序中，为了让LINK程序或其他工具能够匹配到正确的函数名字，就必须为重载函数后一些特殊函数(如构造函数和析构函数)指定名字修饰。另一种需要指定函数名修饰的情况是在汇编程序中调用C或C++函数。<br>(2). C语言：<br>      对于_stdcall调用约定，编译器和链接器会在输出函数名前加上一个下划线前缀，函数名后面加上一个“@”符号和其参数的字节数，例如_functionname@number。_cdecl调用约定仅在输出函数名前加上一个下划线前缀，例如_functionname。_fastcall调用约定在输出函数名前加上一个 “@“符号，后面也是一个”@“符号和其参数的字节数，例如@functionname@number。<br>(3). C++语言：<br>   C++的函数名修饰规则有些复杂，但是信息更充分，通过分析修饰名不仅能够知道函数的调用方式，返回值类型，参数个数甚至参数类型。不管<strong>cdecl，</strong>fastcall还是<strong>stdcall调用方式，函数修饰都是以一个“?”开始，后面紧跟函数的名字，再后面是参数表的开始标识和按照参数类型代号拼出的参数表。对于</strong>stdcall方式，参数表的开始标识是“@@YG”，对于<strong>cdecl方式则是“@@YA”，对于</strong>fastcall方式则是“@@YI”。参数表的拼写代号如下所示：<br>X–void<br>D–char<br>E–unsigned char<br>F–short<br>H–int<br>I–unsigned int<br>J–long<br>K–unsigned long（DWORD）<br>M–float<br>N–double<br>_N—bool<br>U—struct</p>
+<p>指针的方式有些特别，用PA表示指针，用PB表示const类型的指针。后面的代号表明指针类型，如果相同类型的指针连续出现，以“0”代替，一个“0”代表一次重复。U表示结构类型，通常后跟结构体的类型名，用“@@”表示结构类型名的结束。函数的返回值不作特殊处理，它的描述方式和函数参数一样，紧跟着参数表的开始标志，也就是说，函数参数表的第一项实际上是表示函数的返回值类型。参数表后以“@Z”标识整个名字的结束，如果该函数无参数，则以“Z”标识结束。下面举两个例子，假如有以下函数声明：<br>int Function1(char *var1,unsigned long);<br>其函数修饰名为“?Function1@@YGHPADK@Z”，而对于函数声明：<br>oid Function2();<br>其函数修饰名则为“?Function2@@YGXXZ” 。<br>对于C++的类成员函数（其调用方式是thiscall），函数的名字修饰与非成员的C++函数稍有不同，首先就是在函数名字和参数表之间插入以“@”字符引导的类名；其次是参数表的开始标识不同，公有（public）成员函数的标识是“@@QAE”,保护（protected）成员函数的标识是“@@IAE”,私有（private）成员函数的标识是“@@AAE”，如果函数声明使用了const关键字，则相应的标识应分别为“@@QBE”，“@@IBE”和“@@ABE”。如果参数类型是类实例的引用，则使用“AAV1”，对于const类型的引用，则使用“ABV1”。</p>
+<h3 id="查看函数的名字修饰"><a href="#查看函数的名字修饰" class="headerlink" title="查看函数的名字修饰"></a>查看函数的名字修饰</h3><p> 有两种方式可以检查你的程序中的函数的名字修饰：使用编译输出列表或使用Dumpbin工具。使用/FAc，/FAs或/FAcs命令行参数可以让编译器输出函数或变量名字列表。使用dumpbin.exe /SYMBOLS命令也可以获得obj文件或lib文件中的函数或变量名字列表。此外，还可以使用 undname.exe 将修饰名转换为未修饰形式。</p>
+<h3 id="beginthread需要-cdecl的线程函数地址，-beginthreadex和-CreateThread需要-stdcall的线程函数地址。"><a href="#beginthread需要-cdecl的线程函数地址，-beginthreadex和-CreateThread需要-stdcall的线程函数地址。" class="headerlink" title="_beginthread需要_cdecl的线程函数地址，_beginthreadex和_CreateThread需要_stdcall的线程函数地址。"></a>_beginthread需要_cdecl的线程函数地址，_beginthreadex和_CreateThread需要_stdcall的线程函数地址。</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CALLBACK __stdcall <span class="comment">//这就是传说中的回调函数</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> WINAPI __stdcall <span class="comment">//这就是传说中的WINAPI</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> WINAPIV __cdecl</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> APIENTRY WINAPI <span class="comment">//DllMain的入口就在这里</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> APIPRIVATE __stdcall</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PASCAL __stdcall</span></span><br></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/windows/">windows</a>
+</div>
+
 
 </div>
 
@@ -801,61 +1199,6 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/06/29/c/c++io/" title="c++格式化I/O" itemprop="url">c++格式化I/O</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
-		
-  <p class="article-time">
-    <time datetime="2016-06-29T04:55:59.000Z" itemprop="datePublished"> Published 2016-06-29</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h1 id="使用函数模板"><a href="#使用函数模板" class="headerlink" title="使用函数模板"></a>使用函数模板</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iomanip&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> namepsace <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">char</span> bookname[<span class="number">100</span>],<span class="keyword">double</span> price ,<span class="keyword">int</span> counts;</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;<span class="string">"请输入书名："</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cin</span>&gt;&gt;bookname;</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;<span class="string">"请输入单价："</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cin</span>&gt;&gt;price;</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;<span class="string">"请输入销售数量："</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;<span class="string">"使用标志和成员函数进行格式化输出："</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;<span class="string">"《"</span>&lt;&lt;bookname&lt;&lt; <span class="string">"》："</span>;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span>.width(<span class="number">5</span>);</span><br><span class="line">	<span class="built_in">cout</span>.fill(<span class="string">'*'</span>);</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;price &lt;&lt;<span class="string">"单价"</span>;</span><br><span class="line">	<span class="built_in">cout</span>.self(ios::scientific);</span><br><span class="line">	<span class="built_in">cout</span>.precision(<span class="number">3</span>);</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;price*counts&lt;&lt;<span class="string">"销售额"</span>;</span><br><span class="line">	<span class="built_in">cout</span>.self(ios::showpos|ios::left);</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;counts&lt;&lt;<span class="string">"销售数量："</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/c/">c++</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
       <a href="/2016/06/28/windows/win_time_func/" title="windows时间的处理" itemprop="url">windows时间的处理</a>
   </h1>
   <p class="article-author">By
@@ -1016,11 +1359,7 @@
 		  
 		
 		  
-			<li><a href="/categories/c/" title="c++">c++<sup>1</sup></a></li>
-		  
-		
-		  
-			<li><a href="/categories/flask/" title="flask">flask<sup>5</sup></a></li>
+			<li><a href="/categories/flask/" title="flask">flask<sup>9</sup></a></li>
 		  
 		
 		  
@@ -1028,11 +1367,15 @@
 		  
 		
 		  
-			<li><a href="/categories/linux/" title="linux">linux<sup>5</sup></a></li>
+			<li><a href="/categories/linux/" title="linux">linux<sup>6</sup></a></li>
 		  
 		
 		  
 			<li><a href="/categories/lua/" title="lua">lua<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/python/" title="python">python<sup>1</sup></a></li>
 		  
 		
 		  
@@ -1077,11 +1420,11 @@
 			
 		
 			
-				<li><a href="/tags/c/" title="c++">c++<sup>1</sup></a></li>
+				<li><a href="/tags/windows/" title="windows">windows<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/windows/" title="windows">windows<sup>1</sup></a></li>
+				<li><a href="/tags/c/" title="c++">c++<sup>1</sup></a></li>
 			
 		
 			
