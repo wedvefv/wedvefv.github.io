@@ -37,7 +37,7 @@
 <meta property="og:site_name" content="小莺の博客">
 <meta property="og:description" content="什么是ip地址？ ip是在一个网段中的一台计算机的ip地址（192.168.1.2） 如果你家的联通宽带给你家的公网ip地址是10.10.123.234(假设的)，那么接到你家路由器，首先路由器需要有一个ip地址，一般是192.168.1.1（也可能是192.168.0.1），这个应该可以登录到路由器中设置。 其中192.168.1.255 就是广播地址，比如centos中ifconfig命令查看">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-02-14T09:37:26.821Z">
+<meta property="og:updated_time" content="2019-02-14T09:47:30.171Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ip地址和子网掩码，广播地址关系">
 <meta name="twitter:description" content="什么是ip地址？ ip是在一个网段中的一台计算机的ip地址（192.168.1.2） 如果你家的联通宽带给你家的公网ip地址是10.10.123.234(假设的)，那么接到你家路由器，首先路由器需要有一个ip地址，一般是192.168.1.1（也可能是192.168.0.1），这个应该可以登录到路由器中设置。 其中192.168.1.255 就是广播地址，比如centos中ifconfig命令查看">
@@ -138,7 +138,7 @@
 <ul>
 <li>网关是什么，比如两个A客户端192.168.1.2 和B客户端192.168.2.2 就是两个网络的设备，前提是他们的子网掩码都是255.255.255.0， 那么他们通信就需要A客户端发送给网关ip，有网关路由转发到B所在的网关，再转发到B客户端。 比如我的路由器ip是192.168.2.1， 我自己的ip是192.168.2.110， 默认网关也是192.168.2.1</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">netstat -rn</span><br><span class="line"></span><br><span class="line">Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface</span><br><span class="line">0.0.0.0         192.168.2.1     0.0.0.0         UG        0 0          0 ens33</span><br><span class="line">0.0.0.0表示发给任何人的包，都发给192.168.2.1这个网关。</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">netstat -rn</span><br><span class="line"></span><br><span class="line">Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface</span><br><span class="line">0.0.0.0         192.168.2.1     0.0.0.0         UG        0 0          0 ens33</span><br><span class="line">0.0.0.0表示发给任何人的包，都发给192.168.2.1这个网关， Genmask写0.0.0.0是默认路由的网络掩码。</span><br></pre></td></tr></table></figure>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -169,19 +169,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2019/02/14/python/1_三种装饰器/" title="python类的三种装饰器">
-  <strong>上一篇：</strong><br/>
-  <span>
-  python类的三种装饰器</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2019/02/13/flask/9_大型程序结构/"  title="flask 第9章（大型程序目录结构）">
+<a href="/2019/02/14/python/1_三种装饰器/"  title="python类的三种装饰器">
  <strong>下一篇：</strong><br/> 
- <span>flask 第9章（大型程序目录结构）
+ <span>python类的三种装饰器
 </span>
 </a>
 </div>
@@ -310,11 +302,11 @@
 			
 		
 			
-				<li><a href="/tags/windows/" title="windows">windows<sup>1</sup></a></li>
+				<li><a href="/tags/c/" title="c++">c++<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/c/" title="c++">c++<sup>1</sup></a></li>
+				<li><a href="/tags/windows/" title="windows">windows<sup>1</sup></a></li>
 			
 		
 			
