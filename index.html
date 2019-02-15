@@ -101,38 +101,175 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2019/02/14/linux/ip地址/" title="ip地址和子网掩码，广播地址关系" itemprop="url">ip地址和子网掩码，广播地址关系</a>
+      <a href="/2019/02/16/linux/nginx连接数和内核参数关系/" title="nginx连接数和内核参数的联系" itemprop="url">nginx连接数和内核参数的联系</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
 		
   <p class="article-time">
-    <time datetime="2019-02-14T06:00:00.000Z" itemprop="datePublished"> Published 2019-02-14</time>
+    <time datetime="2019-02-16T04:06:00.000Z" itemprop="datePublished"> Published 2019-02-16</time>
     
   </p>
 </header>
     <div class="article-content">
         
-        <h2 id="什么是ip地址？"><a href="#什么是ip地址？" class="headerlink" title="什么是ip地址？"></a>什么是ip地址？</h2><ul>
-<li>ip是在一个网段中的一台计算机的ip地址（192.168.1.2）</li>
-<li>如果你家的联通宽带给你家的公网ip地址是10.10.123.234(假设的)，那么接到你家路由器，首先路由器需要有一个ip地址，一般是192.168.1.1（也可能是192.168.0.1），这个应该可以登录到路由器中设置。</li>
-<li>其中192.168.1.255 就是广播地址，比如centos中ifconfig命令查看的broadcast</li>
-<li>剩余的ip段192.168.1.2~192.168.1.254 就是可以分配给手机，电脑等客户端使用的ip。一共是253（255-2）个。</li>
+        
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/linux/">linux</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2019/02/15/linux/tcp半连接队列和全连接队列/" title="tcp连接过程，半连接队列和全连接队列" itemprop="url">tcp连接过程，半连接队列和全连接队列</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
+		
+  <p class="article-time">
+    <time datetime="2019-02-15T04:06:00.000Z" itemprop="datePublished"> Published 2019-02-15</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="tcp三次握手的过程"><a href="#tcp三次握手的过程" class="headerlink" title="tcp三次握手的过程"></a>tcp三次握手的过程</h2><ul>
+<li>第一次：客户端发送SYN(Synchronize Sequence Numbers)报文，标志位SYN=1,序列号seq=j。</li>
+<li>第二次：服务端收到SYN报文后，回应ACK(Acknowledgement)，标志位ACK=1,确认号ack为j+1， 同时自己也发送一个SYN报文，SYN=1,序列号seq假设为k， 即一个ACK+SYN包</li>
+<li>第三次：客户端收到报文后，发送一个ACK报文，标志位ACK=1，确认号ack=(k+1) 到服务器，客户端和服务器进入ESTABLISHED状态，TCP链接成功。</li>
+<li>SYN是同步报文标志位，建立连接时为1，连接建立后置为0，ACK时确认标志位一般为1</li>
 </ul>
-<h2 id="ip由什么组成？"><a href="#ip由什么组成？" class="headerlink" title="ip由什么组成？"></a>ip由什么组成？</h2><ul>
-<li>例如一个ip 192.168.1.2，是一个C类网络，一般有254台主机。二进制表示就是 网络号标识|1100 0000 |1000 0000| 0000 0001|  + 主机号标识|0000 0010| </li>
-<li>点号分割每个数字都是8位二进制,网络号部分就是192.168.1,主机号部分就是2。</li>
-<li>网络标识部分越短，那么标识主机部分可用的范围越大，但是需要子网掩码配合决定由多少可用ip</li>
+<h2 id="tcp四次挥手过程，为什么是4次呢？"><a href="#tcp四次挥手过程，为什么是4次呢？" class="headerlink" title="tcp四次挥手过程，为什么是4次呢？"></a>tcp四次挥手过程，为什么是4次呢？</h2><ul>
+<li>假如客户端主动发起关闭操作</li>
+<li>第一次： 客户端发送FIN报文，假设为序列号seq=i给服务器。</li>
+<li>第二次： 服务发送ACK报文，ack=(i+1)给客户端，可能数据还没有接收完毕，所以服务端socket状态由ESTABLISHED -&gt; CLOSE_WAIT状态。</li>
+<li>第三次： 服务端端处理完毕，发送FIN报文，序列号为j。</li>
+<li>第四次： 客户端收到报文后，发送ACK报文，ack=j+1, 并进入TIME_WAIT状态。等待2MSL后自动关闭</li>
 </ul>
-<h2 id="什么是子网掩码？"><a href="#什么是子网掩码？" class="headerlink" title="什么是子网掩码？"></a>什么是子网掩码？</h2><ul>
-<li>子网掩码，顾名思义，遮掩的意思，子网掩码就是把ip地址分为网络部分和主机部分，主机部分用二进制位用1标识，主机号部分用0标识。C类子网掩码一般是255.255.255.0 </li>
-<li>如果所需的ip比较多，比如学校这种环境，子网掩码可以设置成255.255.0.0 ,那么ip返回就是255的2次方-2，就是65023个。那么ip网络部分就是192.168,后面两部分是主机号。</li>
+<blockquote>
+<ul>
+<li>为什么客户端不发完ack就释放呢，因为服务器可能没收到ack，服务器会重新发送FIN请求关闭连接，客户端重新发送ack，所以一个来回就是2<br>个报文周期。当连接处于2MSL等待阶段时任何迟到的报文段都将被丢弃。</li>
+</ul>
+</blockquote>
+<p>借用一张图表示一下<br><img src="https://img-blog.csdnimg.cn/20190214095421560.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1pXRTc2MTYxNzU=,size_16,color_FFFFFF,t_70" alt="aa"></p>
+<h2 id="如果已经建立了连接，但是客户端突然出现故障了怎么办？"><a href="#如果已经建立了连接，但是客户端突然出现故障了怎么办？" class="headerlink" title="如果已经建立了连接，但是客户端突然出现故障了怎么办？"></a>如果已经建立了连接，但是客户端突然出现故障了怎么办？</h2><blockquote>
+<p>TCP还设有一个保活计时器，显然，客户端如果出现故障，服务器不能一直等下去，白白浪费资源。服务器每收到一次客户端的请求后都会重新复位这个计时器，时间通常是设置为2小时，若两小时还没有收到客户端的任何数据，服务器就会发送一个探测报文段，以后每隔75分钟发送一次。若一连发送10个探测报文仍然没反应，服务器就认为客户端出了故障，接着就关闭连接。</p>
+</blockquote>
+<h2 id="查看网络链接的命令"><a href="#查看网络链接的命令" class="headerlink" title="查看网络链接的命令"></a>查看网络链接的命令</h2><ul>
+<li>查看不同状态的链接数<blockquote>
+<ul>
+<li>netstat -an | awk ‘/^tcp/ {++y[$NF]} END {for(w in y) print w, y[w]}’</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<h2 id="半连接状态队列sync-queue和全连接队列accept-queue"><a href="#半连接状态队列sync-queue和全连接队列accept-queue" class="headerlink" title="半连接状态队列sync_queue和全连接队列accept_queue"></a>半连接状态队列sync_queue和全连接队列accept_queue</h2><ul>
+<li>第一种实现：<blockquote>
+<ul>
+<li>BSD实现和在linux2.2之前，listen系统调用backlog参数表示半链接+全链接队列数之和</li>
+<li>当队列满了以后，服务端再收到SYN时，将不会返回SYN/ACK。比较优雅的处理方法就是不处理这条连接，不返回RST，让客户端重试.</li>
+<li>accept系统调用只是简单地从完成队列中取出连接.</li>
 </ul>
 <ul>
-<li>网关是什么，比如两个A客户端192.168.1.2 和B客户端192.168.2.2 就是两个网络的设备，前提是他们的子网掩码都是255.255.255.0， 那么他们通信就需要A客户端发送给网关ip，有网关路由转发到B所在的网关，再转发到B客户端。 比如我的路由器ip是192.168.2.1， 我自己的ip是192.168.2.110， 默认网关也是192.168.2.1</li>
+<li>第二种实现：</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">netstat -rn</span><br><span class="line"></span><br><span class="line">Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface</span><br><span class="line">0.0.0.0         192.168.2.1     0.0.0.0         UG        0 0          0 ens33</span><br><span class="line">0.0.0.0表示发给任何人的包，都发给192.168.2.1这个网关， Genmask写0.0.0.0是默认路由的网络掩码。</span><br></pre></td></tr></table></figure>
+<ul>
+<li>linux内核2.2以上的版本，SYN_RCVD队列的大小由proc/sys/net/ipv4/tcp_max_syn_backlog系统参数指定，ESTABLISHED队列由backlog和/proc/sys/net/core/somaxconn中较小的指定</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<ul>
+<li><img src="http://img2.cnxct.com/2015/06/tcp-sync-queue-and-accept-queue-small.jpg" alt=""></li>
+</ul>
+<ul>
+<li>如果全连接队列满了怎么办？</li>
+</ul>
+<blockquote>
+<ul>
+<li>服务器不予处理，这样客户端会任务数据丢失，重新发送ack确认，如果服务器有空间，会重新加入到ESTABLISHED队列。</li>
+</ul>
+</blockquote>
+<ul>
+<li>如果client端没收到服务器发来的FIN，那么client会一直是FIN_WAIT_2吗？</li>
+</ul>
+<blockquote>
+<ul>
+<li>设置系统变量</li>
+<li>sysctl -w net.ipv4.tcp_fin_timeout=5  </li>
+<li>直接ctrl+c杀死客户端，发现FIN_WAIT_2的状态的链接，一会就消失了，并不会进入TIMEWAIT状态。</li>
+</ul>
+</blockquote>
+<ul>
+<li>怎么查看链接状态呢？</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">netstat -natp | grep 8888</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span>8888是服务端监听的端口，因为tcp链接总是有一端是8888端口的。</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>查看每个ip和服务器的连接数</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -nat|awk '&#123;print$5&#125;'|awk -F : '&#123;print$1&#125;'|sort|uniq -c|sort -rn</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>什么是MSL呢？</p>
+</li>
+</ul>
+<blockquote>
+<ul>
+<li>linux上的定义，就是60s<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> TCP_TIMEWAIT_LEN (60*HZ) <span class="comment">/* how long to wait to destroy TIME-WAIT</span></span></span><br><span class="line"><span class="meta"><span class="comment">                  * state, about 60 seconds */</span></span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li>全连接队列满了怎么办呢？<blockquote>
+<ul>
+<li>服务器根据 /proc/sys/net/ipv4/tcp_abort_on_overflow的值处理</li>
+<li>0 表示丢弃ack，让客户端重新发ack</li>
+<li>1 表示表示发送一个RST给客户端，直接废弃掉这个握手过程，客户端会出现connection reset by peer的错误</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<ul>
+<li><a href="https://tools.ietf.org/html/rfc793" target="_blank" rel="noopener">tcp协议RFC文档</a></li>
+<li><a href="https://blog.csdn.net/yangbodong22011/article/details/60399728" target="_blank" rel="noopener">参考链接1</a></li>
+<li><a href="https://blog.csdn.net/hhhanpan/article/details/79388945" target="_blank" rel="noopener">参考链接2</a></li>
+<li><a href="https://blog.csdn.net/dog250/article/details/81256550" target="_blank" rel="noopener">参考链接3</a></li>
+<li><a href="https://blog.csdn.net/jhcsdb/article/details/34921167" target="_blank" rel="noopener">socket耗尽，半连接队列限制</a></li>
+<li><a href="https://www.cnblogs.com/jessezeng/p/5617105.html" target="_blank" rel="noopener">参考链接4</a></li>
+</ul>
 
         
         
@@ -220,6 +357,79 @@
 <div class="article-categories">
   <span></span>
   <a class="article-category-link" href="/categories/python/">python</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2019/02/14/linux/ip地址/" title="ip地址和子网掩码，广播地址关系" itemprop="url">ip地址和子网掩码，广播地址关系</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
+		
+  <p class="article-time">
+    <time datetime="2019-02-14T06:00:00.000Z" itemprop="datePublished"> Published 2019-02-14</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="什么是ip地址？"><a href="#什么是ip地址？" class="headerlink" title="什么是ip地址？"></a>什么是ip地址？</h2><ul>
+<li>ip是在一个网段中的一台计算机的ip地址（192.168.1.2）</li>
+<li>如果你家的联通宽带给你家的公网ip地址是10.10.123.234(假设的)，那么接到你家路由器，首先路由器需要有一个ip地址，一般是192.168.1.1（也可能是192.168.0.1），这个应该可以登录到路由器中设置。</li>
+<li>其中192.168.1.255 就是广播地址，比如centos中ifconfig命令查看的broadcast</li>
+<li>剩余的ip段192.168.1.2~192.168.1.254 就是可以分配给手机，电脑等客户端使用的ip。一共是253（255-2）个。</li>
+</ul>
+<h2 id="ip由什么组成？"><a href="#ip由什么组成？" class="headerlink" title="ip由什么组成？"></a>ip由什么组成？</h2><ul>
+<li>例如一个ip 192.168.1.2，是一个C类网络，一般有254台主机。二进制表示就是 网络号标识|1100 0000 |1000 0000| 0000 0001|  + 主机号标识|0000 0010| </li>
+<li>点号分割每个数字都是8位二进制,网络号部分就是192.168.1,主机号部分就是2。</li>
+<li>网络标识部分越短，那么标识主机部分可用的范围越大，但是需要子网掩码配合决定由多少可用ip</li>
+</ul>
+<h2 id="什么是子网掩码？"><a href="#什么是子网掩码？" class="headerlink" title="什么是子网掩码？"></a>什么是子网掩码？</h2><ul>
+<li>子网掩码，顾名思义，遮掩的意思，子网掩码就是把ip地址分为网络部分和主机部分，主机部分用二进制位用1标识，主机号部分用0标识。C类子网掩码一般是255.255.255.0 </li>
+<li>如果所需的ip比较多，比如学校这种环境，子网掩码可以设置成255.255.0.0 ,那么ip返回就是255的2次方-2，就是65023个。那么ip网络部分就是192.168,后面两部分是主机号。</li>
+</ul>
+<ul>
+<li>网关是什么，比如两个A客户端192.168.1.2 和B客户端192.168.2.2 就是两个网络的设备，前提是他们的子网掩码都是255.255.255.0， 那么他们通信就需要A客户端发送给网关ip，有网关路由转发到B所在的网关，再转发到B客户端。 比如我的路由器ip是192.168.2.1， 我自己的ip是192.168.2.110， 默认网关也是192.168.2.1</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">netstat -rn</span><br><span class="line"></span><br><span class="line">Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface</span><br><span class="line">0.0.0.0         192.168.2.1     0.0.0.0         UG        0 0          0 ens33</span><br><span class="line">0.0.0.0表示发给任何人的包，都发给192.168.2.1这个网关， Genmask写0.0.0.0是默认路由的网络掩码。</span><br></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/linux/">linux</a>
 </div>
 
 
@@ -649,6 +859,141 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2019/01/28/flask/1基本结构/" title="flask 第1章(基本结构和概念)" itemprop="url">flask 第1章(基本结构和概念)</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
+		
+  <p class="article-time">
+    <time datetime="2019-01-28T14:22:00.000Z" itemprop="datePublished"> Published 2019-01-28</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h1 id="开始和程序基本结构"><a href="#开始和程序基本结构" class="headerlink" title="开始和程序基本结构"></a>开始和程序基本结构</h1><h2 id="1-首先安装虚拟环境包和git工具"><a href="#1-首先安装虚拟环境包和git工具" class="headerlink" title="1.首先安装虚拟环境包和git工具"></a>1.首先安装虚拟环境包和git工具</h2><ul>
+<li>sudo apt-get install python-virtualenv</li>
+<li>sudo apt-get install git</li>
+</ul>
+<h2 id="2-创建一个目录"><a href="#2-创建一个目录" class="headerlink" title="2.创建一个目录"></a>2.创建一个目录</h2><ul>
+<li>mkdir flask_learn</li>
+<li>cd flask_learn</li>
+</ul>
+<h2 id="3-下载实例代码"><a href="#3-下载实例代码" class="headerlink" title="3.下载实例代码"></a>3.下载实例代码</h2><ul>
+<li>git clone <a href="http://github.com/miguelgrinberg/flasky.git" target="_blank" rel="noopener">http://github.com/miguelgrinberg/flasky.git</a></li>
+<li>cd flask</li>
+<li>建立一个虚拟环境</li>
+<li>virtualenv venv</li>
+<li>激活虚拟环境</li>
+<li>source venv/bin/activate</li>
+<li>取消激活分区</li>
+<li>deactivate</li>
+<li>虚拟环境下安装pip</li>
+<li>pip install flask</li>
+<li>切换分支</li>
+<li>git checkout 2a</li>
+</ul>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">'&lt;h1&gt;Hello World!&lt;/h1&gt;'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    app.run(debug=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>执行 python hello.py</li>
+<li>浏览器输入<a href="http://127.0.0.1:5000/" target="_blank" rel="noopener">http://127.0.0.1:5000/</a> 就可以看到helloword了。</li>
+<li>但是这样会出现一个问题。你在linux虚拟机里面执行的代码。在window上浏览器看就不行，需要设置</li>
+<li>如下改动 app.run(debug=True，host=”0.0.0.0”)或者使用manage模块扩展传参数，后面会提到。</li>
+</ul>
+<h2 id="4-flask程序有四个上下文"><a href="#4-flask程序有四个上下文" class="headerlink" title="4. flask程序有四个上下文"></a>4. flask程序有四个上下文</h2><ul>
+<li>curent_app  程序上下文， 当前激活的程序实例</li>
+<li>g 程序上下文 处理请求的临时存储对象，每次请求都会重设这个变量。</li>
+<li>request  请求上下文    请求对象，封装了每次http请求的内容</li>
+<li>sesion  请求上下文    用户会话， 用于存储之间需要记住的值的词典。</li>
+<li>这是个变量每次请求 都是独立属于这一次请求的，或者说是属于同一个线程内全局可见。</li>
+</ul>
+<h2 id="5-请求调度"><a href="#5-请求调度" class="headerlink" title="5. 请求调度"></a>5. 请求调度</h2><ul>
+<li>这个主要是 url和处理函数的映射关系，即视图。</li>
+<li>通过app.url_map 可以看到映射关系。</li>
+<li>生成映射的方法2中，1 app.route修饰器 2，app.add_url_rule()</li>
+</ul>
+<h2 id="6-请求钩子"><a href="#6-请求钩子" class="headerlink" title="6. 请求钩子"></a>6. 请求钩子</h2><ul>
+<li>主要是为了每个请求开始可能都需要认证，数据库连接等重复操作的代码复。</li>
+<li>通过钩子装饰器，注册函数，在到达视图函数前运行这些函数。</li>
+<li>有四种个钩子 brefore_first_request,brefore_request,after_request,teardown_request<blockquote>
+<p>after_request 有没做处理的异常抛出时，是不运行的。<br>teardown_request 即使有没处理的异常抛出，也会运行。</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="7-响应"><a href="#7-响应" class="headerlink" title="7. 响应"></a>7. 响应</h2><ul>
+<li>flask 默认返回200 状态吗</li>
+<li><p>可以返回其他状态吗</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> <span class="string">"hello word!"</span>, <span class="number">400</span></span><br><span class="line">或者</span><br><span class="line"><span class="keyword">return</span> <span class="string">"hello world!"</span>, <span class="number">500</span>, &#123;<span class="string">"ua"</span>:<span class="number">10</span>&#125;</span><br><span class="line">返回的是一个元组，第二个是状态吗，第三个是header，字典形式。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>还可以使用make_response(“hello world!”, 500, {“ua”:10})生成一个对象，以便调用函数设置cookie等其他值。</p>
+</li>
+<li>320重定向，使用redirect(“<a href="http://www.baidu.com&quot;)函数。" target="_blank" rel="noopener">www.baidu.com&quot;)函数。</a></li>
+<li>特殊响应，比如404 可以使用abort(404)函数，这个直接就吧控制权交给web服务器了，不会再调用其它函数。</li>
+</ul>
+<h2 id="8-flask扩展"><a href="#8-flask扩展" class="headerlink" title="8. flask扩展"></a>8. flask扩展</h2><ul>
+<li><p>pip install flask-script</p>
+</li>
+<li><p>用manager吧app对象包住，这样就可以使用manager扩展了。</p>
+</li>
+</ul>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</span><br><span class="line"><span class="keyword">from</span> flask_script <span class="keyword">import</span> Manager</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line">manager = Manager(app)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">'&lt;h1&gt;Hello World!&lt;/h1&gt;'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/user/&lt;name&gt;')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">user</span><span class="params">(name)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">'&lt;h1&gt;Hello, %s!&lt;/h1&gt;'</span> % name</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    manager.run()</span><br></pre></td></tr></table></figure>
+<ul>
+<li>启动服务：<blockquote>
+<p>python hello.py  runserver –host 0.0.0.0</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="9-模板的继承"><a href="#9-模板的继承" class="headerlink" title="9 模板的继承"></a>9 模板的继承</h2><ul>
+<li>类似于python中的类的继承</li>
+<li>首先需要一个基类模板base.html 然后把对应的可修改的块用    格式包含即可。</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">  &lt;haed&gt;</span><br><span class="line">  &#123;% block  head%&#125;  &#123;%endblock%&#125;</span><br><span class="line">  &#123;% block title%&#125; &#123;%endblock%&#125;</span><br><span class="line">  &lt;/head&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">    &#123;%block body%&#125;  &#123;%endblock%&#125;</span><br><span class="line">  &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>在子类模板中使用基类模板</li>
+</ul>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;%extends <span class="string">"base.html"</span>% &#125;</span><br><span class="line"></span><br><span class="line">&#123;%block title%&#125; 这是index标题 &#123;%endblock%&#125;</span><br><span class="line"></span><br><span class="line">&#123;%block head%&#125;</span><br><span class="line">  &#123;&#123;super()&#125;&#125;   <span class="comment">#基类head部分原本的内容用supper获取</span></span><br><span class="line">  &lt;style&gt;</span><br><span class="line">  &lt;/style&gt;</span><br><span class="line">&#123;%endblock%&#125;</span><br><span class="line"></span><br><span class="line">&#123;%block body%&#125;</span><br><span class="line">  &lt;h1&gt; hello world &lt;/h1&gt;</span><br><span class="line">&#123;%endblock%&#125;</span><br></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/flask/">flask</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2019/01/28/flask/6_数据库2/" title="flask 第6章(数据库操作2)" itemprop="url">flask 第6章(数据库操作2)</a>
   </h1>
   <p class="article-author">By
@@ -822,6 +1167,85 @@
 <h2 id="3-控制结构"><a href="#3-控制结构" class="headerlink" title="3. 控制结构"></a>3. 控制结构</h2><h3 id="if结构"><a href="#if结构" class="headerlink" title="if结构"></a>if结构</h3><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123; % <span class="keyword">if</span> user %&#125;</span><br><span class="line">  hello &#123;&#123;user&#125;&#125;</span><br><span class="line">&#123;% <span class="keyword">else</span> %&#125;</span><br><span class="line">  hello stranger</span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="for循环结构"><a href="#for循环结构" class="headerlink" title="for循环结构"></a>for循环结构</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;ul&gt;</span><br><span class="line">&#123; % <span class="keyword">for</span> x <span class="keyword">in</span> list %&#125;</span><br><span class="line">  &lt;li&gt;&#123;&#123; x &#125;&#125;&lt;/li&gt;</span><br><span class="line">&#123; %endfor% &#125;</span><br><span class="line">&lt;/ul&gt;</span><br></pre></td></tr></table></figure>
 <h3 id="宏。-类似python的函数"><a href="#宏。-类似python的函数" class="headerlink" title="宏。 类似python的函数"></a>宏。 类似python的函数</h3><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">* 定义宏</span><br><span class="line"> &#123;% macro render_comment(x) %&#125;</span><br><span class="line">  &lt;li&gt;&#123;&#123; x &#125;&#125;&lt;/li&gt;</span><br><span class="line"> &#123;% endmacro%&#125;</span><br><span class="line"></span><br><span class="line">* 使用</span><br><span class="line"></span><br><span class="line">&lt;ul&gt;</span><br><span class="line"> &#123;% <span class="keyword">for</span> x <span class="keyword">in</span> list %&gt;</span><br><span class="line">    &#123;&#123; render_comment(x) &#125;&#125;</span><br><span class="line"> &#123; %endfor%&#125;</span><br><span class="line"> &lt;/ul&gt;</span><br><span class="line"></span><br><span class="line">* 可以将宏放入单独的文件，一边重复使用，使用时导入即可。</span><br><span class="line">&#123; % <span class="keyword">import</span> <span class="string">'macros.html'</span> <span class="keyword">as</span> macros % &#125;</span><br><span class="line">&lt;ul&gt;</span><br><span class="line">   &#123;% <span class="keyword">for</span> x <span class="keyword">in</span> list %&gt;</span><br><span class="line">      &#123;&#123; macros.render_comment(x) &#125;&#125;</span><br><span class="line">   &#123; %endfor%&#125;</span><br><span class="line">&lt;/ul&gt;</span><br><span class="line"></span><br><span class="line">* 需要重复使用的模板也可单独放一个文件中</span><br><span class="line">用到的地方 &#123;% include <span class="string">'common.html'</span>%&#125; 包含即可。</span><br></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/flask/">flask</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2019/01/28/flask/3_模板的bootstrap扩展/" title="flask 第3章(bootstrap扩展模板)" itemprop="url">flask 第3章(bootstrap扩展模板)</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
+		
+  <p class="article-time">
+    <time datetime="2019-01-28T14:22:00.000Z" itemprop="datePublished"> Published 2019-01-28</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h1 id="模板的bootstrap扩展"><a href="#模板的bootstrap扩展" class="headerlink" title="模板的bootstrap扩展"></a>模板的bootstrap扩展</h1><ul>
+<li>安装扩展包</li>
+<li><p>pip install flask-bootstrap</p>
+</li>
+<li><p>如法炮制，从flask.ext中导入Bootstrap 包含app对象生成新的对象实例，即可使用bootstrap的特性。</p>
+</li>
+</ul>
+<p>如果使用bootstrap那么需要先用bootstrap包含app，在用manager包含app。</p>
+<ul>
+<li>自定一个base.html(继承自bootstrap的base.html)</li>
+</ul>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#123;% extends <span class="string">"bootstrap/base.html"</span> %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% block title %&#125;  &#123;% endblock %&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#123;% block navbar %&#125;</span><br><span class="line">    &lt;div class="navbar navbar-inverse" role="navigation"&gt;</span><br><span class="line">        &lt;div class="container"&gt;</span><br><span class="line">            &lt;div class="navbar-header"&gt;</span><br><span class="line">                &lt;button type="button" class="navbar-toggle"</span><br><span class="line">                    data-toogle=<span class="string">"collapse"</span> data-target=<span class="string">".narvar-collapse"</span>&gt;</span><br><span class="line">                    &lt;span class="sr-only"&gt; Toggle navigation    &lt;/span&gt;</span><br><span class="line">                    &lt;span class="icon-bar"&gt; &lt;/span&gt;</span><br><span class="line">                    &lt;span class="icon-bar"&gt; &lt;/span&gt;</span><br><span class="line">                    &lt;span class="icon-bar"&gt; &lt;/span&gt;</span><br><span class="line">                    &lt;span class="icon-bar"&gt; &lt;/span&gt;</span><br><span class="line">                &lt;/button&gt;</span><br><span class="line">                &lt;a class="navbar-brand" href="/"&gt;Home/a&gt;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">            &lt;div class="navbar-collapse collapse"&gt;</span><br><span class="line">                &lt;ul class="nav navbar-nav"&gt;</span><br><span class="line">                    &lt;li&gt; &lt;a hre="/"&gt; Home &lt;/a&gt;&lt;/li&gt;</span><br><span class="line">                &lt;/ul&gt;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&#123;% endblock %&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;% block comment %&gt;</span><br><span class="line">    &lt;div class="container"&gt;</span><br><span class="line">        &#123;% block page_comment %&#125;     &#123;% endblock %&#125;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;% endblock %&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="自定义基类模板"><a href="#自定义基类模板" class="headerlink" title="自定义基类模板"></a>自定义基类模板</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 404.html</span></span><br><span class="line"></span><br><span class="line">&#123;% extends <span class="string">"base.html"</span> %&#125;</span><br><span class="line">&#123;% block title %&#125; flask-pagenot found   &#123;% endblock %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% block page_comment %&#125;</span><br><span class="line">&lt;div class="page-header"&gt;</span><br><span class="line">    &lt;h1&gt; Not Found. &lt;/h1&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&#123;%endblock%&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="整个代码文件"><a href="#整个代码文件" class="headerlink" title="整个代码文件"></a>整个代码文件</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, render_template</span><br><span class="line"><span class="keyword">from</span> flask_script <span class="keyword">import</span> Manager</span><br><span class="line"><span class="keyword">from</span> flask_bootstrap <span class="keyword">import</span> Bootstrap</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line">bootstrap = Bootstrap(app)</span><br><span class="line">manager = Manager(app)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">"index.html"</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/user/&lt;name&gt;')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">user</span><span class="params">(name)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">"user.html"</span>,name=name)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.errorhandler(404)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">page_not_found</span><span class="params">(e)</span>:</span></span><br><span class="line">    <span class="keyword">return</span>  render_template(<span class="string">"404.html"</span>), <span class="number">404</span> </span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    manager.run()</span><br></pre></td></tr></table></figure>
+<ul>
+<li>运行命令 ： python hello.py  runserver –host 0.0.0.0 –d</li>
+</ul>
+<h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h2><p>a标签常用的href 可以使用url_for 函数生成<br>url_for(“index”) –&gt; /</p>
+<p>url_for(“index”,_external=True) –&gt; 绝对路径</p>
+<p>url_for(“index”, page=2 ) 返回？/page=2</p>
+<p>静态文件生成链接<br>url_for(‘static’, filename=’css/styles.css’, _external=True)<br>返回 <a href="http://localhost:5000/statics/css/style.css" target="_blank" rel="noopener">http://localhost:5000/statics/css/style.css</a></p>
+<h2 id="flask-moment组件本地化时间和日期"><a href="#flask-moment组件本地化时间和日期" class="headerlink" title="flask-moment组件本地化时间和日期"></a>flask-moment组件本地化时间和日期</h2><ul>
+<li>pip install flask-moment</li>
+</ul>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#123;% extends <span class="string">"base.html"</span> %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% block page_content %&#125;</span><br><span class="line">&lt;h1&gt; hello world!&lt;/h1&gt;</span><br><span class="line">&lt;p&gt; local date and time is &#123;&#123; moment(current_time).format('LLL')&#125;&#125;. &lt;/p&gt;</span><br><span class="line">&lt;p&gt; that was &#123;&#123; moment(current_time).fromNow(refresh=True) &#125;&#125;. &lt;/p&gt;</span><br><span class="line"></span><br><span class="line">&#123;% endblock %&#125;</span><br></pre></td></tr></table></figure>
 
         
         
@@ -1076,220 +1500,6 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2019/01/28/flask/1基本结构/" title="flask 第1章(基本结构和概念)" itemprop="url">flask 第1章(基本结构和概念)</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
-		
-  <p class="article-time">
-    <time datetime="2019-01-28T14:22:00.000Z" itemprop="datePublished"> Published 2019-01-28</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h1 id="开始和程序基本结构"><a href="#开始和程序基本结构" class="headerlink" title="开始和程序基本结构"></a>开始和程序基本结构</h1><h2 id="1-首先安装虚拟环境包和git工具"><a href="#1-首先安装虚拟环境包和git工具" class="headerlink" title="1.首先安装虚拟环境包和git工具"></a>1.首先安装虚拟环境包和git工具</h2><ul>
-<li>sudo apt-get install python-virtualenv</li>
-<li>sudo apt-get install git</li>
-</ul>
-<h2 id="2-创建一个目录"><a href="#2-创建一个目录" class="headerlink" title="2.创建一个目录"></a>2.创建一个目录</h2><ul>
-<li>mkdir flask_learn</li>
-<li>cd flask_learn</li>
-</ul>
-<h2 id="3-下载实例代码"><a href="#3-下载实例代码" class="headerlink" title="3.下载实例代码"></a>3.下载实例代码</h2><ul>
-<li>git clone <a href="http://github.com/miguelgrinberg/flasky.git" target="_blank" rel="noopener">http://github.com/miguelgrinberg/flasky.git</a></li>
-<li>cd flask</li>
-<li>建立一个虚拟环境</li>
-<li>virtualenv venv</li>
-<li>激活虚拟环境</li>
-<li>source venv/bin/activate</li>
-<li>取消激活分区</li>
-<li>deactivate</li>
-<li>虚拟环境下安装pip</li>
-<li>pip install flask</li>
-<li>切换分支</li>
-<li>git checkout 2a</li>
-</ul>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">'&lt;h1&gt;Hello World!&lt;/h1&gt;'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    app.run(debug=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure>
-<ul>
-<li>执行 python hello.py</li>
-<li>浏览器输入<a href="http://127.0.0.1:5000/" target="_blank" rel="noopener">http://127.0.0.1:5000/</a> 就可以看到helloword了。</li>
-<li>但是这样会出现一个问题。你在linux虚拟机里面执行的代码。在window上浏览器看就不行，需要设置</li>
-<li>如下改动 app.run(debug=True，host=”0.0.0.0”)或者使用manage模块扩展传参数，后面会提到。</li>
-</ul>
-<h2 id="4-flask程序有四个上下文"><a href="#4-flask程序有四个上下文" class="headerlink" title="4. flask程序有四个上下文"></a>4. flask程序有四个上下文</h2><ul>
-<li>curent_app  程序上下文， 当前激活的程序实例</li>
-<li>g 程序上下文 处理请求的临时存储对象，每次请求都会重设这个变量。</li>
-<li>request  请求上下文    请求对象，封装了每次http请求的内容</li>
-<li>sesion  请求上下文    用户会话， 用于存储之间需要记住的值的词典。</li>
-<li>这是个变量每次请求 都是独立属于这一次请求的，或者说是属于同一个线程内全局可见。</li>
-</ul>
-<h2 id="5-请求调度"><a href="#5-请求调度" class="headerlink" title="5. 请求调度"></a>5. 请求调度</h2><ul>
-<li>这个主要是 url和处理函数的映射关系，即视图。</li>
-<li>通过app.url_map 可以看到映射关系。</li>
-<li>生成映射的方法2中，1 app.route修饰器 2，app.add_url_rule()</li>
-</ul>
-<h2 id="6-请求钩子"><a href="#6-请求钩子" class="headerlink" title="6. 请求钩子"></a>6. 请求钩子</h2><ul>
-<li>主要是为了每个请求开始可能都需要认证，数据库连接等重复操作的代码复。</li>
-<li>通过钩子装饰器，注册函数，在到达视图函数前运行这些函数。</li>
-<li>有四种个钩子 brefore_first_request,brefore_request,after_request,teardown_request<blockquote>
-<p>after_request 有没做处理的异常抛出时，是不运行的。<br>teardown_request 即使有没处理的异常抛出，也会运行。</p>
-</blockquote>
-</li>
-</ul>
-<h2 id="7-响应"><a href="#7-响应" class="headerlink" title="7. 响应"></a>7. 响应</h2><ul>
-<li>flask 默认返回200 状态吗</li>
-<li><p>可以返回其他状态吗</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> <span class="string">"hello word!"</span>, <span class="number">400</span></span><br><span class="line">或者</span><br><span class="line"><span class="keyword">return</span> <span class="string">"hello world!"</span>, <span class="number">500</span>, &#123;<span class="string">"ua"</span>:<span class="number">10</span>&#125;</span><br><span class="line">返回的是一个元组，第二个是状态吗，第三个是header，字典形式。</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>还可以使用make_response(“hello world!”, 500, {“ua”:10})生成一个对象，以便调用函数设置cookie等其他值。</p>
-</li>
-<li>320重定向，使用redirect(“<a href="http://www.baidu.com&quot;)函数。" target="_blank" rel="noopener">www.baidu.com&quot;)函数。</a></li>
-<li>特殊响应，比如404 可以使用abort(404)函数，这个直接就吧控制权交给web服务器了，不会再调用其它函数。</li>
-</ul>
-<h2 id="8-flask扩展"><a href="#8-flask扩展" class="headerlink" title="8. flask扩展"></a>8. flask扩展</h2><ul>
-<li><p>pip install flask-script</p>
-</li>
-<li><p>用manager吧app对象包住，这样就可以使用manager扩展了。</p>
-</li>
-</ul>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</span><br><span class="line"><span class="keyword">from</span> flask_script <span class="keyword">import</span> Manager</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line">manager = Manager(app)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">'&lt;h1&gt;Hello World!&lt;/h1&gt;'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/user/&lt;name&gt;')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">user</span><span class="params">(name)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">'&lt;h1&gt;Hello, %s!&lt;/h1&gt;'</span> % name</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    manager.run()</span><br></pre></td></tr></table></figure>
-<ul>
-<li>启动服务：<blockquote>
-<p>python hello.py  runserver –host 0.0.0.0</p>
-</blockquote>
-</li>
-</ul>
-<h2 id="9-模板的继承"><a href="#9-模板的继承" class="headerlink" title="9 模板的继承"></a>9 模板的继承</h2><ul>
-<li>类似于python中的类的继承</li>
-<li>首先需要一个基类模板base.html 然后把对应的可修改的块用    格式包含即可。</li>
-</ul>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">  &lt;haed&gt;</span><br><span class="line">  &#123;% block  head%&#125;  &#123;%endblock%&#125;</span><br><span class="line">  &#123;% block title%&#125; &#123;%endblock%&#125;</span><br><span class="line">  &lt;/head&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">    &#123;%block body%&#125;  &#123;%endblock%&#125;</span><br><span class="line">  &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>在子类模板中使用基类模板</li>
-</ul>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;%extends <span class="string">"base.html"</span>% &#125;</span><br><span class="line"></span><br><span class="line">&#123;%block title%&#125; 这是index标题 &#123;%endblock%&#125;</span><br><span class="line"></span><br><span class="line">&#123;%block head%&#125;</span><br><span class="line">  &#123;&#123;super()&#125;&#125;   <span class="comment">#基类head部分原本的内容用supper获取</span></span><br><span class="line">  &lt;style&gt;</span><br><span class="line">  &lt;/style&gt;</span><br><span class="line">&#123;%endblock%&#125;</span><br><span class="line"></span><br><span class="line">&#123;%block body%&#125;</span><br><span class="line">  &lt;h1&gt; hello world &lt;/h1&gt;</span><br><span class="line">&#123;%endblock%&#125;</span><br></pre></td></tr></table></figure>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/flask/">flask</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2019/01/28/flask/3_模板的bootstrap扩展/" title="flask 第3章(bootstrap扩展模板)" itemprop="url">flask 第3章(bootstrap扩展模板)</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
-		
-  <p class="article-time">
-    <time datetime="2019-01-28T14:22:00.000Z" itemprop="datePublished"> Published 2019-01-28</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h1 id="模板的bootstrap扩展"><a href="#模板的bootstrap扩展" class="headerlink" title="模板的bootstrap扩展"></a>模板的bootstrap扩展</h1><ul>
-<li>安装扩展包</li>
-<li><p>pip install flask-bootstrap</p>
-</li>
-<li><p>如法炮制，从flask.ext中导入Bootstrap 包含app对象生成新的对象实例，即可使用bootstrap的特性。</p>
-</li>
-</ul>
-<p>如果使用bootstrap那么需要先用bootstrap包含app，在用manager包含app。</p>
-<ul>
-<li>自定一个base.html(继承自bootstrap的base.html)</li>
-</ul>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#123;% extends <span class="string">"bootstrap/base.html"</span> %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% block title %&#125;  &#123;% endblock %&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#123;% block navbar %&#125;</span><br><span class="line">    &lt;div class="navbar navbar-inverse" role="navigation"&gt;</span><br><span class="line">        &lt;div class="container"&gt;</span><br><span class="line">            &lt;div class="navbar-header"&gt;</span><br><span class="line">                &lt;button type="button" class="navbar-toggle"</span><br><span class="line">                    data-toogle=<span class="string">"collapse"</span> data-target=<span class="string">".narvar-collapse"</span>&gt;</span><br><span class="line">                    &lt;span class="sr-only"&gt; Toggle navigation    &lt;/span&gt;</span><br><span class="line">                    &lt;span class="icon-bar"&gt; &lt;/span&gt;</span><br><span class="line">                    &lt;span class="icon-bar"&gt; &lt;/span&gt;</span><br><span class="line">                    &lt;span class="icon-bar"&gt; &lt;/span&gt;</span><br><span class="line">                    &lt;span class="icon-bar"&gt; &lt;/span&gt;</span><br><span class="line">                &lt;/button&gt;</span><br><span class="line">                &lt;a class="navbar-brand" href="/"&gt;Home/a&gt;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">            &lt;div class="navbar-collapse collapse"&gt;</span><br><span class="line">                &lt;ul class="nav navbar-nav"&gt;</span><br><span class="line">                    &lt;li&gt; &lt;a hre="/"&gt; Home &lt;/a&gt;&lt;/li&gt;</span><br><span class="line">                &lt;/ul&gt;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&#123;% endblock %&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;% block comment %&gt;</span><br><span class="line">    &lt;div class="container"&gt;</span><br><span class="line">        &#123;% block page_comment %&#125;     &#123;% endblock %&#125;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;% endblock %&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="自定义基类模板"><a href="#自定义基类模板" class="headerlink" title="自定义基类模板"></a>自定义基类模板</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 404.html</span></span><br><span class="line"></span><br><span class="line">&#123;% extends <span class="string">"base.html"</span> %&#125;</span><br><span class="line">&#123;% block title %&#125; flask-pagenot found   &#123;% endblock %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% block page_comment %&#125;</span><br><span class="line">&lt;div class="page-header"&gt;</span><br><span class="line">    &lt;h1&gt; Not Found. &lt;/h1&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&#123;%endblock%&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="整个代码文件"><a href="#整个代码文件" class="headerlink" title="整个代码文件"></a>整个代码文件</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, render_template</span><br><span class="line"><span class="keyword">from</span> flask_script <span class="keyword">import</span> Manager</span><br><span class="line"><span class="keyword">from</span> flask_bootstrap <span class="keyword">import</span> Bootstrap</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line">bootstrap = Bootstrap(app)</span><br><span class="line">manager = Manager(app)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">"index.html"</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/user/&lt;name&gt;')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">user</span><span class="params">(name)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">"user.html"</span>,name=name)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.errorhandler(404)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">page_not_found</span><span class="params">(e)</span>:</span></span><br><span class="line">    <span class="keyword">return</span>  render_template(<span class="string">"404.html"</span>), <span class="number">404</span> </span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    manager.run()</span><br></pre></td></tr></table></figure>
-<ul>
-<li>运行命令 ： python hello.py  runserver –host 0.0.0.0 –d</li>
-</ul>
-<h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h2><p>a标签常用的href 可以使用url_for 函数生成<br>url_for(“index”) –&gt; /</p>
-<p>url_for(“index”,_external=True) –&gt; 绝对路径</p>
-<p>url_for(“index”, page=2 ) 返回？/page=2</p>
-<p>静态文件生成链接<br>url_for(‘static’, filename=’css/styles.css’, _external=True)<br>返回 <a href="http://localhost:5000/statics/css/style.css" target="_blank" rel="noopener">http://localhost:5000/statics/css/style.css</a></p>
-<h2 id="flask-moment组件本地化时间和日期"><a href="#flask-moment组件本地化时间和日期" class="headerlink" title="flask-moment组件本地化时间和日期"></a>flask-moment组件本地化时间和日期</h2><ul>
-<li>pip install flask-moment</li>
-</ul>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#123;% extends <span class="string">"base.html"</span> %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% block page_content %&#125;</span><br><span class="line">&lt;h1&gt; hello world!&lt;/h1&gt;</span><br><span class="line">&lt;p&gt; local date and time is &#123;&#123; moment(current_time).format('LLL')&#125;&#125;. &lt;/p&gt;</span><br><span class="line">&lt;p&gt; that was &#123;&#123; moment(current_time).fromNow(refresh=True) &#125;&#125;. &lt;/p&gt;</span><br><span class="line"></span><br><span class="line">&#123;% endblock %&#125;</span><br></pre></td></tr></table></figure>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/flask/">flask</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
       <a href="/2018/10/07/lua/2018-10-07_openresty/" title="centos编译安装opensty" itemprop="url">centos编译安装opensty</a>
   </h1>
   <p class="article-author">By
@@ -1431,61 +1641,6 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2018/06/30/linux/centos6.4升级python/" title="centos6.4 升级python到2.7" itemprop="url">centos6.4 升级python到2.7</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
-		
-  <p class="article-time">
-    <time datetime="2018-06-30T02:15:00.000Z" itemprop="datePublished"> Published 2018-06-30</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h1 id="1-download-source"><a href="#1-download-source" class="headerlink" title="1. download source"></a>1. download source</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https:<span class="comment">//www.python.org/ftp/python/2.7.12/Python-2.7.12.tgz</span></span><br></pre></td></tr></table></figure>
-<h1 id="2-compire-and-install"><a href="#2-compire-and-install" class="headerlink" title="2. compire and install"></a>2. compire and install</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tar zxvf Python<span class="number">-2.7</span><span class="number">.12</span>.tgz</span><br><span class="line">cd Python<span class="number">-2.7</span><span class="number">.12</span></span><br><span class="line">./configure --prefix=/usr/local/python27 &amp;&amp; make &amp;&amp; make install &amp;&amp; echo $?</span><br><span class="line">如果以上输出为<span class="number">0</span>，说明没有报错，安装正常</span><br></pre></td></tr></table></figure>
-<h1 id="3-add-path-and-backup-the-python2-6"><a href="#3-add-path-and-backup-the-python2-6" class="headerlink" title="3. add path and backup the python2.6"></a>3. add path and backup the python2.6</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">移除以前的版本</span><br><span class="line">mv /usr/bin/python /usr/bin/python26</span><br><span class="line">创建软连接</span><br><span class="line">ln -s /usr/local/python27/bin/python /usr/bin/python</span><br><span class="line">查看版本是否升级成功</span><br><span class="line">python -V</span><br><span class="line">Python <span class="number">2.7</span><span class="number">.12</span></span><br></pre></td></tr></table></figure>
-<h1 id="4-modify-yum"><a href="#4-modify-yum" class="headerlink" title="4. modify yum"></a>4. modify yum</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">如果不修改此项，会导致yum无法使用</span><br><span class="line">vim /usr/bin/yum</span><br><span class="line">修改第一行即可，将环境变量指向以前的python版本</span><br><span class="line">#!/usr/bin/python26</span><br></pre></td></tr></table></figure>
-<h1 id="5-reinstall-pip"><a href="#5-reinstall-pip" class="headerlink" title="5. reinstall pip"></a>5. reinstall pip</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span>安装pip之前首先需要安装setuptools</span><br><span class="line">下载链接</span><br><span class="line">https:<span class="comment">//pypi.python.org/pypi/setuptools</span></span><br><span class="line">下载地址</span><br><span class="line">wget https:<span class="comment">//pypi.python.org/packages/ff/d4/209f4939c49e31f5524fa0027bf1c8ec3107abaf7c61fdaad704a648c281/setuptools-21.0.0.tar.gz#md5=81964fdb89534118707742e6d1a1ddb4 --no-check-certificate</span></span><br><span class="line">解压</span><br><span class="line">tar zxvf setuptools<span class="number">-21.0</span><span class="number">.0</span>.tar.gz</span><br><span class="line">安装</span><br><span class="line">cd setuptools<span class="number">-21.0</span><span class="number">.0</span></span><br><span class="line">python setup.py  install</span><br><span class="line"></span><br><span class="line"><span class="number">2.</span>安装pip</span><br><span class="line">下载链接</span><br><span class="line">https:<span class="comment">//pypi.python.org/pypi/pip</span></span><br><span class="line">下载地址</span><br><span class="line">wget https:<span class="comment">//pypi.python.org/packages/41/27/9a8d24e1b55bd8c85e4d022da2922cb206f183e2d18fee4e320c9547e751/pip-8.1.1.tar.gz#md5=6b86f11841e89c8241d689956ba99ed7 --no-check-certificate</span></span><br><span class="line">解压</span><br><span class="line">tar zxvf pip<span class="number">-8.1</span><span class="number">.1</span>.tar.gz </span><br><span class="line">安装 </span><br><span class="line">cd pip<span class="number">-8.1</span><span class="number">.1</span></span><br><span class="line">python setup.py install</span><br><span class="line"></span><br><span class="line"><span class="number">3.</span>添加环境变量</span><br><span class="line">安装完之后，之后执行pip还是调用的以前的环境变量，需要手动添加环境变量</span><br><span class="line">mv /usr/bin/pip /usr/bin/pip26</span><br><span class="line">ln -s /usr/local/python27/bin/pip /usr/bin/</span><br><span class="line">再次查看版本</span><br><span class="line">pip -V</span><br><span class="line">pip <span class="number">8.1</span><span class="number">.1</span> from /usr/local/python27/lib/python2<span class="number">.7</span>/site-packages/pip<span class="number">-8.1</span><span class="number">.1</span>-py2<span class="number">.7</span>.egg (python <span class="number">2.7</span>)</span><br></pre></td></tr></table></figure>
-<h1 id="6-使用pip安装第三方库"><a href="#6-使用pip安装第三方库" class="headerlink" title="6.使用pip安装第三方库"></a>6.使用pip安装第三方库</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">如果报错locale.Error: unsupported locale setting</span><br><span class="line">加入环境变量：</span><br><span class="line"><span class="keyword">export</span> LANGUAGE=en_US.UTF<span class="number">-8</span></span><br><span class="line"><span class="keyword">export</span> LC_ALL=en_US.UTF<span class="number">-8</span></span><br><span class="line"></span><br><span class="line">pip install psutil</span><br><span class="line">pip install MySQLdb-python</span><br><span class="line">pip install django=<span class="number">1.8</span><span class="number">.2</span></span><br><span class="line"></span><br><span class="line">报错：</span><br><span class="line"> pip install MySQLdb-python</span><br><span class="line">Collecting MySQLdb-python</span><br><span class="line">  Retrying (Retry(total=4, connect=None, read=None, redirect=None)) after connection broken by 'ReadTimeoutError("HTTPSConnectionPool(host='pypi.python.org', port=443): Read timed out. (read timeout=15)",)': /simple/mysqldb-python/</span><br><span class="line">  Could <span class="keyword">not</span> find a version that satisfies the requirement MySQLdb-python (from versions: )</span><br><span class="line">No matching distribution found <span class="keyword">for</span> MySQLdb-python</span><br><span class="line">You are <span class="keyword">using</span> pip version <span class="number">8.1</span><span class="number">.1</span>, however version <span class="number">9.0</span><span class="number">.1</span> is available.</span><br><span class="line">You should consider upgrading via the 'pip install --upgrade pip' command.</span><br><span class="line">当安装中提示版本太低的时候，执行提示的命令进行升级即可</span><br><span class="line">pip install --upgrade pip</span><br><span class="line">升级完重新执行要安装的库</span><br></pre></td></tr></table></figure>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
       <a href="/2018/06/30/linux/centos6.4install-mysql-python/" title="centos6.4 安装python mysql扩展" itemprop="url">centos6.4 安装python mysql扩展</a>
   </h1>
   <p class="article-author">By
@@ -1532,6 +1687,61 @@
   <span></span>
   <a class="article-category-link" href="/categories/c/">c</a>
 </div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2018/06/30/linux/centos6.4升级python/" title="centos6.4 升级python到2.7" itemprop="url">centos6.4 升级python到2.7</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
+		
+  <p class="article-time">
+    <time datetime="2018-06-30T02:15:00.000Z" itemprop="datePublished"> Published 2018-06-30</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h1 id="1-download-source"><a href="#1-download-source" class="headerlink" title="1. download source"></a>1. download source</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https:<span class="comment">//www.python.org/ftp/python/2.7.12/Python-2.7.12.tgz</span></span><br></pre></td></tr></table></figure>
+<h1 id="2-compire-and-install"><a href="#2-compire-and-install" class="headerlink" title="2. compire and install"></a>2. compire and install</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tar zxvf Python<span class="number">-2.7</span><span class="number">.12</span>.tgz</span><br><span class="line">cd Python<span class="number">-2.7</span><span class="number">.12</span></span><br><span class="line">./configure --prefix=/usr/local/python27 &amp;&amp; make &amp;&amp; make install &amp;&amp; echo $?</span><br><span class="line">如果以上输出为<span class="number">0</span>，说明没有报错，安装正常</span><br></pre></td></tr></table></figure>
+<h1 id="3-add-path-and-backup-the-python2-6"><a href="#3-add-path-and-backup-the-python2-6" class="headerlink" title="3. add path and backup the python2.6"></a>3. add path and backup the python2.6</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">移除以前的版本</span><br><span class="line">mv /usr/bin/python /usr/bin/python26</span><br><span class="line">创建软连接</span><br><span class="line">ln -s /usr/local/python27/bin/python /usr/bin/python</span><br><span class="line">查看版本是否升级成功</span><br><span class="line">python -V</span><br><span class="line">Python <span class="number">2.7</span><span class="number">.12</span></span><br></pre></td></tr></table></figure>
+<h1 id="4-modify-yum"><a href="#4-modify-yum" class="headerlink" title="4. modify yum"></a>4. modify yum</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">如果不修改此项，会导致yum无法使用</span><br><span class="line">vim /usr/bin/yum</span><br><span class="line">修改第一行即可，将环境变量指向以前的python版本</span><br><span class="line">#!/usr/bin/python26</span><br></pre></td></tr></table></figure>
+<h1 id="5-reinstall-pip"><a href="#5-reinstall-pip" class="headerlink" title="5. reinstall pip"></a>5. reinstall pip</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span>安装pip之前首先需要安装setuptools</span><br><span class="line">下载链接</span><br><span class="line">https:<span class="comment">//pypi.python.org/pypi/setuptools</span></span><br><span class="line">下载地址</span><br><span class="line">wget https:<span class="comment">//pypi.python.org/packages/ff/d4/209f4939c49e31f5524fa0027bf1c8ec3107abaf7c61fdaad704a648c281/setuptools-21.0.0.tar.gz#md5=81964fdb89534118707742e6d1a1ddb4 --no-check-certificate</span></span><br><span class="line">解压</span><br><span class="line">tar zxvf setuptools<span class="number">-21.0</span><span class="number">.0</span>.tar.gz</span><br><span class="line">安装</span><br><span class="line">cd setuptools<span class="number">-21.0</span><span class="number">.0</span></span><br><span class="line">python setup.py  install</span><br><span class="line"></span><br><span class="line"><span class="number">2.</span>安装pip</span><br><span class="line">下载链接</span><br><span class="line">https:<span class="comment">//pypi.python.org/pypi/pip</span></span><br><span class="line">下载地址</span><br><span class="line">wget https:<span class="comment">//pypi.python.org/packages/41/27/9a8d24e1b55bd8c85e4d022da2922cb206f183e2d18fee4e320c9547e751/pip-8.1.1.tar.gz#md5=6b86f11841e89c8241d689956ba99ed7 --no-check-certificate</span></span><br><span class="line">解压</span><br><span class="line">tar zxvf pip<span class="number">-8.1</span><span class="number">.1</span>.tar.gz </span><br><span class="line">安装 </span><br><span class="line">cd pip<span class="number">-8.1</span><span class="number">.1</span></span><br><span class="line">python setup.py install</span><br><span class="line"></span><br><span class="line"><span class="number">3.</span>添加环境变量</span><br><span class="line">安装完之后，之后执行pip还是调用的以前的环境变量，需要手动添加环境变量</span><br><span class="line">mv /usr/bin/pip /usr/bin/pip26</span><br><span class="line">ln -s /usr/local/python27/bin/pip /usr/bin/</span><br><span class="line">再次查看版本</span><br><span class="line">pip -V</span><br><span class="line">pip <span class="number">8.1</span><span class="number">.1</span> from /usr/local/python27/lib/python2<span class="number">.7</span>/site-packages/pip<span class="number">-8.1</span><span class="number">.1</span>-py2<span class="number">.7</span>.egg (python <span class="number">2.7</span>)</span><br></pre></td></tr></table></figure>
+<h1 id="6-使用pip安装第三方库"><a href="#6-使用pip安装第三方库" class="headerlink" title="6.使用pip安装第三方库"></a>6.使用pip安装第三方库</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">如果报错locale.Error: unsupported locale setting</span><br><span class="line">加入环境变量：</span><br><span class="line"><span class="keyword">export</span> LANGUAGE=en_US.UTF<span class="number">-8</span></span><br><span class="line"><span class="keyword">export</span> LC_ALL=en_US.UTF<span class="number">-8</span></span><br><span class="line"></span><br><span class="line">pip install psutil</span><br><span class="line">pip install MySQLdb-python</span><br><span class="line">pip install django=<span class="number">1.8</span><span class="number">.2</span></span><br><span class="line"></span><br><span class="line">报错：</span><br><span class="line"> pip install MySQLdb-python</span><br><span class="line">Collecting MySQLdb-python</span><br><span class="line">  Retrying (Retry(total=4, connect=None, read=None, redirect=None)) after connection broken by 'ReadTimeoutError("HTTPSConnectionPool(host='pypi.python.org', port=443): Read timed out. (read timeout=15)",)': /simple/mysqldb-python/</span><br><span class="line">  Could <span class="keyword">not</span> find a version that satisfies the requirement MySQLdb-python (from versions: )</span><br><span class="line">No matching distribution found <span class="keyword">for</span> MySQLdb-python</span><br><span class="line">You are <span class="keyword">using</span> pip version <span class="number">8.1</span><span class="number">.1</span>, however version <span class="number">9.0</span><span class="number">.1</span> is available.</span><br><span class="line">You should consider upgrading via the 'pip install --upgrade pip' command.</span><br><span class="line">当安装中提示版本太低的时候，执行提示的命令进行升级即可</span><br><span class="line">pip install --upgrade pip</span><br><span class="line">升级完重新执行要安装的库</span><br></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
 
 
 </div>
@@ -1802,139 +2012,6 @@
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/01/07/linux/apache_wsgi/" title="apache_wsgi支持python脚本" itemprop="url">apache_wsgi支持python脚本</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
-		
-  <p class="article-time">
-    <time datetime="2017-01-07T06:00:00.000Z" itemprop="datePublished"> Published 2017-01-07</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h1 id="apache支持python脚本"><a href="#apache支持python脚本" class="headerlink" title="apache支持python脚本"></a>apache支持python脚本</h1><p>配置httpd.conf<br>追加：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">LoadModule wsgi_module modules/mod_wsgi.so </span><br><span class="line"></span><br><span class="line">WSGIScriptAlias / C:/xampp/www/py/myweb/myweb/wsgi.py  </span><br><span class="line">WSGIPythonPath C:/xampp/www/py/myweb   #django 项目目录</span><br><span class="line">DocumentRoot "C:/xampp/www/py/myweb/myweb" #具体应用目录</span><br><span class="line">&lt;Directory "C:/xampp/www"&gt;</span><br><span class="line"></span><br><span class="line">Options Indexes FollowSymLinks Includes ExecCGI</span><br><span class="line">AllowOverride All</span><br><span class="line">Require all granted</span><br><span class="line">&lt;/Directory&gt;</span><br></pre></td></tr></table></figure></p>
-<p>Options Indexes FollowSymLinks Includes ExecCGI<br>禁止显示Apache目录列表-Indexes FollowSymLinks<br>如何修改目录的配置以禁止显示 Apache 目录列表。<br>减号和去掉indexes是一样的效果 ，都是不存在index时，不要显示目录结构，安全起见。<br>xampp 中的不带减号，依然不可以访问目录。目前不知道原因。可能做了某些安全设置。</p>
-<p>AllowOverride参数就是指明Apache服务器是否去找.htacess文件作为配置文件，如果设置为none,那么服务器将忽略.htacess文件，如果设置为All,那么所有在.htaccess文件里有的指令都将被重写。</p>
-<p>Require all granted<br>    允许所有请求访问资源</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/linux/">linux</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/12/10/linux/nginx_config/" title="nginx  support  php" itemprop="url">nginx  support  php</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
-		
-  <p class="article-time">
-    <time datetime="2016-12-10T03:30:55.000Z" itemprop="datePublished"> Published 2016-12-10</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h1 id="ubuntu14-04-nginx-php5-fpm"><a href="#ubuntu14-04-nginx-php5-fpm" class="headerlink" title="ubuntu14.04 +nginx+php5-fpm"></a>ubuntu14.04 +nginx+php5-fpm</h1><h2 id="一，安装Nginx"><a href="#一，安装Nginx" class="headerlink" title="一，安装Nginx"></a>一，安装Nginx</h2><p>　　apt-get install nginx</p>
-<p>　　1，配置nginx</p>
-<p>　　　　nginx所有的配置在 /etc/nginx/nginx.conf中</p>
-<p>　　　　nginx.conf配置里面包括了</p>
-<p>　　　　　　include /etc/nginx/conf.d/<em>.conf;<br>        　　　include /etc/nginx/sites-enabled/</em>;<br>        这两个配置，所以这里面的配置也是有效的。<br>       错误日志 error_log /var/log/nginx/error.log;</p>
-<p>　　这里我们把配置写在 /etc/nginx/sites-available/default中<br>　　修改  root /usr/share/nginx/html;   这是网页的根目录，默认里面有一个index.html页面<br>     index  index.html index.htm修改成index index.php index.html index.htm;<br>     增加  </p>
-<p>　　location ~ .php$ {<br>              　　  try_files $uri =404;<br>              　　  fastcgi_pass 127.0.0.1:9000;<br>              　　  fastcgi_index index.php;<br>              　　  include fastcgi_params;<br>      　　  }</p>
-<p>　　2，保存文件，使配置生效 /etc/init.d/nginx reload</p>
-<p>　　3，启动nginx<br>　　　　/etc/init.d/nginx start</p>
-<p>　　4，在 /usr/share/nginx/html下新建index.php<br>　　　　&lt;? php<br>　　　　phpinfo();<br>　　　　?&gt;</p>
-<h2 id="二-安装php"><a href="#二-安装php" class="headerlink" title="二 安装php"></a>二 安装php</h2><p>sudo apt-get install php5-fpm</p>
-<p>sudo apt-get install php5-gd  # Popular image manipulation library; used extensively by Wordpress and it’s plugins.<br>sudo apt-get install php5-cli   # Makes the php5 command available to the terminal for php5 scripting<br>sudo apt-get install php5-curl    # Allows curl (file downloading tool) to be called from PHP5<br>sudo apt-get install php5-mcrypt   # Provides encryption algorithms to PHP scripts<br>sudo apt-get install php5-mysql   # Allows PHP5 scripts to talk to a MySQL Database<br>sudo apt-get install php5-readline  # Allows PHP5 scripts to use the readline function</p>
-<p>查看php5运行进程</p>
-<p>ps -waux | grep php5</p>
-<p>打开关闭php5进程</p>
-<p>sudo service php5-fpm stop<br>sudo service php5-fpm start<br>sudo service php5-fpm restart<br>sudo service php5-fpm status</p>
-<p>配置php5监听端口  /etc/php5/fpm/pool.d/<a href="http://www.conf" target="_blank" rel="noopener">www.conf</a></p>
-<p>把</p>
-<p>listen = /var/run/php5-fpm.sock  改为</p>
-<p>listen = 127.0.0.1:9000</p>
-<p>重新运行php进程</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/linux/">linux</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
@@ -1978,7 +2055,7 @@
 		  
 		
 		  
-			<li><a href="/categories/linux/" title="linux">linux<sup>6</sup></a></li>
+			<li><a href="/categories/linux/" title="linux">linux<sup>8</sup></a></li>
 		  
 		
 		  
