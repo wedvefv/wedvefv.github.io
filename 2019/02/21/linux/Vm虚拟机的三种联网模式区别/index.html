@@ -23,25 +23,25 @@
 
   <meta charset="UTF-8">
   
-    <title>小莺の博客</title>
+    <title>VM虚拟机三种联网模式区别 | 小莺の博客</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="wedvefv">
     
 
     
-    <meta name="description" content="layout: posttitle: VM虚拟机三种联网模式区别category: linux  date: 2019-02-21 16:00:001.HOST-ONLY   对应图中的private to my Mac 选项 这种模式不能联网，能通过DHCP分配到ip地址，使用VMnet1网卡作为交换机，默认网关就是VMnet1的地址，能和主机通信，不能连接外网。 VMnet1网卡作为交换机，">
+    <meta name="description" content="1.HOST-ONLY   对应图中的private to my Mac 选项 这种模式不能联网，能通过DHCP分配到ip地址，使用VMnet1网卡作为交换机，默认网关就是VMnet1的地址，能和主机通信，不能连接外网。 VMnet1网卡作为交换机，一个连接主机HOST，一个端口连接DHCP服务器（一个VM组件），剩下的链接虚拟机，没有提供NAT服务，所以没有路由功能。  2.NAT模式，网络地址">
 <meta property="og:type" content="article">
-<meta property="og:title" content="小莺の博客">
+<meta property="og:title" content="VM虚拟机三种联网模式区别">
 <meta property="og:url" content="http://wedvefv.github.io/2019/02/21/linux/Vm虚拟机的三种联网模式区别/index.html">
 <meta property="og:site_name" content="小莺の博客">
-<meta property="og:description" content="layout: posttitle: VM虚拟机三种联网模式区别category: linux  date: 2019-02-21 16:00:001.HOST-ONLY   对应图中的private to my Mac 选项 这种模式不能联网，能通过DHCP分配到ip地址，使用VMnet1网卡作为交换机，默认网关就是VMnet1的地址，能和主机通信，不能连接外网。 VMnet1网卡作为交换机，">
+<meta property="og:description" content="1.HOST-ONLY   对应图中的private to my Mac 选项 这种模式不能联网，能通过DHCP分配到ip地址，使用VMnet1网卡作为交换机，默认网关就是VMnet1的地址，能和主机通信，不能连接外网。 VMnet1网卡作为交换机，一个连接主机HOST，一个端口连接DHCP服务器（一个VM组件），剩下的链接虚拟机，没有提供NAT服务，所以没有路由功能。  2.NAT模式，网络地址">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://wedvefv.github.io/2019/02/21/linux/Vm虚拟机的三种联网模式区别/images/vmnet.png">
-<meta property="og:updated_time" content="2019-02-21T09:02:07.301Z">
+<meta property="og:updated_time" content="2019-02-21T09:07:55.866Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="小莺の博客">
-<meta name="twitter:description" content="layout: posttitle: VM虚拟机三种联网模式区别category: linux  date: 2019-02-21 16:00:001.HOST-ONLY   对应图中的private to my Mac 选项 这种模式不能联网，能通过DHCP分配到ip地址，使用VMnet1网卡作为交换机，默认网关就是VMnet1的地址，能和主机通信，不能连接外网。 VMnet1网卡作为交换机，">
+<meta name="twitter:title" content="VM虚拟机三种联网模式区别">
+<meta name="twitter:description" content="1.HOST-ONLY   对应图中的private to my Mac 选项 这种模式不能联网，能通过DHCP分配到ip地址，使用VMnet1网卡作为交换机，默认网关就是VMnet1的地址，能和主机通信，不能连接外网。 VMnet1网卡作为交换机，一个连接主机HOST，一个端口连接DHCP服务器（一个VM组件），剩下的链接虚拟机，没有提供NAT服务，所以没有路由功能。  2.NAT模式，网络地址">
 <meta name="twitter:image" content="http://wedvefv.github.io/2019/02/21/linux/Vm虚拟机的三种联网模式区别/images/vmnet.png">
 
     
@@ -102,14 +102,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2019/02/21/linux/Vm虚拟机的三种联网模式区别/" title="" itemprop="url"></a>
+      <a href="/2019/02/21/linux/Vm虚拟机的三种联网模式区别/" title="VM虚拟机三种联网模式区别" itemprop="url">VM虚拟机三种联网模式区别</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
 		
   <p class="article-time">
-    <time datetime="2019-02-21T08:25:46.741Z" itemprop="datePublished"> Published 2019-02-21</time>
+    <time datetime="2019-02-21T08:00:00.000Z" itemprop="datePublished"> Published 2019-02-21</time>
     
   </p>
 </header>
@@ -118,13 +118,11 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#date-2019-02-21-16-00-00"><span class="toc-number">1.</span> <span class="toc-text">date: 2019-02-21 16:00:00</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-HOST-ONLY"><span class="toc-number">2.</span> <span class="toc-text">1.HOST-ONLY</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-NAT模式，网络地址转换"><span class="toc-number">3.</span> <span class="toc-text">2.NAT模式，网络地址转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Bridged模式，（桥接模式）"><span class="toc-number">4.</span> <span class="toc-text">3.Bridged模式，（桥接模式）</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-HOST-ONLY"><span class="toc-number">1.</span> <span class="toc-text">1.HOST-ONLY</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-NAT模式，网络地址转换"><span class="toc-number">2.</span> <span class="toc-text">2.NAT模式，网络地址转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Bridged模式，（桥接模式）"><span class="toc-number">3.</span> <span class="toc-text">3.Bridged模式，（桥接模式）</span></a></li></ol>
 		
 		</div>
 		
-		<hr>
-<p>layout: post<br>title: VM虚拟机三种联网模式区别<br>category: linux </p>
-<h2 id="date-2019-02-21-16-00-00"><a href="#date-2019-02-21-16-00-00" class="headerlink" title="date: 2019-02-21 16:00:00"></a>date: 2019-02-21 16:00:00</h2><h2 id="1-HOST-ONLY"><a href="#1-HOST-ONLY" class="headerlink" title="1.HOST-ONLY"></a>1.HOST-ONLY</h2><p><img src="images/vmnet.png" alt="11"> </p>
+		<h2 id="1-HOST-ONLY"><a href="#1-HOST-ONLY" class="headerlink" title="1.HOST-ONLY"></a>1.HOST-ONLY</h2><p><img src="images/vmnet.png" alt=""> </p>
 <ul>
 <li>对应图中的private to my Mac 选项</li>
 <li>这种模式不能联网，能通过DHCP分配到ip地址，使用VMnet1网卡作为交换机，默认网关就是VMnet1的地址，能和主机通信，不能连接外网。</li>
@@ -149,6 +147,11 @@
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/linux/">linux</a>
+</div>
+
 
 </div>
 
@@ -156,7 +159,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://wedvefv.github.io/2019/02/21/linux/Vm虚拟机的三种联网模式区别/" data-title="小莺の博客" data-tsina="" class="share clearfix">
+	  <div data-url="http://wedvefv.github.io/2019/02/21/linux/Vm虚拟机的三种联网模式区别/" data-title="VM虚拟机三种联网模式区别 | 小莺の博客" data-tsina="" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -171,9 +174,9 @@
  
 
 <div class="next">
-<a href="/2019/02/21/linux/linux虚拟机配置静态ip/"  title="">
+<a href="/2019/02/16/linux/nginx连接数和内核参数关系/"  title="nginx连接数和内核参数的联系">
  <strong>下一篇：</strong><br/> 
- <span>(no title)
+ <span>nginx连接数和内核参数的联系
 </span>
 </a>
 </div>
@@ -192,7 +195,7 @@
 <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
     var gitment = new Gitment({
-        id: 'Thu Feb 21 2019 16:25:46 GMT+0800',
+        id: 'Thu Feb 21 2019 16:00:00 GMT+0800',
         owner: 'wedvefv',
         repo: 'wedvefv.github.io',
         oauth: {
@@ -210,7 +213,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#date-2019-02-21-16-00-00"><span class="toc-number">1.</span> <span class="toc-text">date: 2019-02-21 16:00:00</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-HOST-ONLY"><span class="toc-number">2.</span> <span class="toc-text">1.HOST-ONLY</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-NAT模式，网络地址转换"><span class="toc-number">3.</span> <span class="toc-text">2.NAT模式，网络地址转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Bridged模式，（桥接模式）"><span class="toc-number">4.</span> <span class="toc-text">3.Bridged模式，（桥接模式）</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-HOST-ONLY"><span class="toc-number">1.</span> <span class="toc-text">1.HOST-ONLY</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-NAT模式，网络地址转换"><span class="toc-number">2.</span> <span class="toc-text">2.NAT模式，网络地址转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Bridged模式，（桥接模式）"><span class="toc-number">3.</span> <span class="toc-text">3.Bridged模式，（桥接模式）</span></a></li></ol>
  
   </div>
 
@@ -249,7 +252,7 @@
 		  
 		
 		  
-			<li><a href="/categories/linux/" title="linux">linux<sup>8</sup></a></li>
+			<li><a href="/categories/linux/" title="linux">linux<sup>10</sup></a></li>
 		  
 		
 		  
