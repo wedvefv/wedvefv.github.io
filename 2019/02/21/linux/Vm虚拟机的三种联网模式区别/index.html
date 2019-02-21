@@ -30,18 +30,18 @@
     
 
     
-    <meta name="description" content="1.HOST-ONLY模式   对应图中的private to my Mac 选项 这种模式不能联网，能通过DHCP分配到ip地址，使用VMnet1网卡作为交换机，默认网关就是VMnet1的地址，能和主机通信，不能连接外网。 VMnet1网卡作为交换机，一个连接主机HOST，一个端口连接DHCP服务器（一个VM组件），剩下的链接虚拟机，没有提供NAT服务，所以没有路由功能。  2.NAT模式，网络">
+    <meta name="description" content="1.HOST-ONLY   对应图中的private to my Mac 选项 这种模式不能联网，能通过DHCP分配到ip地址，使用VMnet1网卡作为交换机，默认网关就是VMnet1的地址，能和主机通信，不能连接外网。 VMnet1网卡作为交换机，一个连接主机HOST，一个端口连接DHCP服务器（一个VM组件），剩下的链接虚拟机，没有提供NAT服务，所以没有路由功能。  2.NAT模式，网络地址">
 <meta property="og:type" content="article">
 <meta property="og:title" content="VM虚拟机三种联网模式区别">
 <meta property="og:url" content="http://wedvefv.github.io/2019/02/21/linux/Vm虚拟机的三种联网模式区别/index.html">
 <meta property="og:site_name" content="小莺の博客">
-<meta property="og:description" content="1.HOST-ONLY模式   对应图中的private to my Mac 选项 这种模式不能联网，能通过DHCP分配到ip地址，使用VMnet1网卡作为交换机，默认网关就是VMnet1的地址，能和主机通信，不能连接外网。 VMnet1网卡作为交换机，一个连接主机HOST，一个端口连接DHCP服务器（一个VM组件），剩下的链接虚拟机，没有提供NAT服务，所以没有路由功能。  2.NAT模式，网络">
+<meta property="og:description" content="1.HOST-ONLY   对应图中的private to my Mac 选项 这种模式不能联网，能通过DHCP分配到ip地址，使用VMnet1网卡作为交换机，默认网关就是VMnet1的地址，能和主机通信，不能连接外网。 VMnet1网卡作为交换机，一个连接主机HOST，一个端口连接DHCP服务器（一个VM组件），剩下的链接虚拟机，没有提供NAT服务，所以没有路由功能。  2.NAT模式，网络地址">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://wedvefv.github.io/2019/02/21/linux/Vm虚拟机的三种联网模式区别/images/vmnet.png">
-<meta property="og:updated_time" content="2019-02-21T09:09:26.623Z">
+<meta property="og:updated_time" content="2019-02-21T09:10:26.295Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="VM虚拟机三种联网模式区别">
-<meta name="twitter:description" content="1.HOST-ONLY模式   对应图中的private to my Mac 选项 这种模式不能联网，能通过DHCP分配到ip地址，使用VMnet1网卡作为交换机，默认网关就是VMnet1的地址，能和主机通信，不能连接外网。 VMnet1网卡作为交换机，一个连接主机HOST，一个端口连接DHCP服务器（一个VM组件），剩下的链接虚拟机，没有提供NAT服务，所以没有路由功能。  2.NAT模式，网络">
+<meta name="twitter:description" content="1.HOST-ONLY   对应图中的private to my Mac 选项 这种模式不能联网，能通过DHCP分配到ip地址，使用VMnet1网卡作为交换机，默认网关就是VMnet1的地址，能和主机通信，不能连接外网。 VMnet1网卡作为交换机，一个连接主机HOST，一个端口连接DHCP服务器（一个VM组件），剩下的链接虚拟机，没有提供NAT服务，所以没有路由功能。  2.NAT模式，网络地址">
 <meta name="twitter:image" content="http://wedvefv.github.io/2019/02/21/linux/Vm虚拟机的三种联网模式区别/images/vmnet.png">
 
     
@@ -118,11 +118,11 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-HOST-ONLY模式"><span class="toc-number">1.</span> <span class="toc-text">1.HOST-ONLY模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-NAT模式，网络地址转换"><span class="toc-number">2.</span> <span class="toc-text">2.NAT模式，网络地址转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Bridged模式，（桥接模式）"><span class="toc-number">3.</span> <span class="toc-text">3.Bridged模式，（桥接模式）</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-HOST-ONLY"><span class="toc-number">1.</span> <span class="toc-text">1.HOST-ONLY</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-NAT模式，网络地址转换"><span class="toc-number">2.</span> <span class="toc-text">2.NAT模式，网络地址转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Bridged模式，（桥接模式）"><span class="toc-number">3.</span> <span class="toc-text">3.Bridged模式，（桥接模式）</span></a></li></ol>
 		
 		</div>
 		
-		<h2 id="1-HOST-ONLY模式"><a href="#1-HOST-ONLY模式" class="headerlink" title="1.HOST-ONLY模式"></a>1.HOST-ONLY模式</h2><p><img src="images/vmnet.png" alt=""> </p>
+		<h2 id="1-HOST-ONLY"><a href="#1-HOST-ONLY" class="headerlink" title="1.HOST-ONLY"></a>1.HOST-ONLY</h2><p><img src="images/vmnet.png" alt=""> </p>
 <ul>
 <li>对应图中的private to my Mac 选项</li>
 <li>这种模式不能联网，能通过DHCP分配到ip地址，使用VMnet1网卡作为交换机，默认网关就是VMnet1的地址，能和主机通信，不能连接外网。</li>
@@ -213,7 +213,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-HOST-ONLY模式"><span class="toc-number">1.</span> <span class="toc-text">1.HOST-ONLY模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-NAT模式，网络地址转换"><span class="toc-number">2.</span> <span class="toc-text">2.NAT模式，网络地址转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Bridged模式，（桥接模式）"><span class="toc-number">3.</span> <span class="toc-text">3.Bridged模式，（桥接模式）</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-HOST-ONLY"><span class="toc-number">1.</span> <span class="toc-text">1.HOST-ONLY</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-NAT模式，网络地址转换"><span class="toc-number">2.</span> <span class="toc-text">2.NAT模式，网络地址转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Bridged模式，（桥接模式）"><span class="toc-number">3.</span> <span class="toc-text">3.Bridged模式，（桥接模式）</span></a></li></ol>
  
   </div>
 
