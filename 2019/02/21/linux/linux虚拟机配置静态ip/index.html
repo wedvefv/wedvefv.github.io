@@ -30,18 +30,18 @@
     
 
     
-    <meta name="description" content="layout: posttitle: linux虚拟机配置静态ipcategory: linux  date: 2019-02-12 14:00:001. mac上的虚拟机使用（自动模式）就是桥接模式。 2. 查看自己的网卡名 ifconfig 命令 123456789101112131415161718[root@localhost ~]# ifconfigens33: flags=4163&amp;">
+    <meta name="description" content="layout: posttitle: linux虚拟机配置静态ipcategory: linuxdate: 2019-02-21 14:00:00  1. mac上的虚拟机使用（自动模式）就是桥接模式。 2. 查看自己的网卡名 ifconfig 命令 123456789101112131415161718[root@localhost ~]# ifconfigens33: flags=4163&amp;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="小莺の博客">
 <meta property="og:url" content="http://wedvefv.github.io/2019/02/21/linux/linux虚拟机配置静态ip/index.html">
 <meta property="og:site_name" content="小莺の博客">
-<meta property="og:description" content="layout: posttitle: linux虚拟机配置静态ipcategory: linux  date: 2019-02-12 14:00:001. mac上的虚拟机使用（自动模式）就是桥接模式。 2. 查看自己的网卡名 ifconfig 命令 123456789101112131415161718[root@localhost ~]# ifconfigens33: flags=4163&amp;">
+<meta property="og:description" content="layout: posttitle: linux虚拟机配置静态ipcategory: linuxdate: 2019-02-21 14:00:00  1. mac上的虚拟机使用（自动模式）就是桥接模式。 2. 查看自己的网卡名 ifconfig 命令 123456789101112131415161718[root@localhost ~]# ifconfigens33: flags=4163&amp;">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://wedvefv.github.io/2019/02/21/linux/linux虚拟机配置静态ip/img/vmnet.png">
-<meta property="og:updated_time" content="2019-02-21T08:31:09.520Z">
+<meta property="og:updated_time" content="2019-02-21T08:49:08.071Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="小莺の博客">
-<meta name="twitter:description" content="layout: posttitle: linux虚拟机配置静态ipcategory: linux  date: 2019-02-12 14:00:001. mac上的虚拟机使用（自动模式）就是桥接模式。 2. 查看自己的网卡名 ifconfig 命令 123456789101112131415161718[root@localhost ~]# ifconfigens33: flags=4163&amp;">
+<meta name="twitter:description" content="layout: posttitle: linux虚拟机配置静态ipcategory: linuxdate: 2019-02-21 14:00:00  1. mac上的虚拟机使用（自动模式）就是桥接模式。 2. 查看自己的网卡名 ifconfig 命令 123456789101112131415161718[root@localhost ~]# ifconfigens33: flags=4163&amp;">
 <meta name="twitter:image" content="http://wedvefv.github.io/2019/02/21/linux/linux虚拟机配置静态ip/img/vmnet.png">
 
     
@@ -118,13 +118,14 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#date-2019-02-12-14-00-00"><span class="toc-number">1.</span> <span class="toc-text">date: 2019-02-12 14:00:00</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-mac上的虚拟机使用（自动模式）就是桥接模式。"><span class="toc-number">2.</span> <span class="toc-text">1. mac上的虚拟机使用（自动模式）就是桥接模式。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-查看自己的网卡名"><span class="toc-number">3.</span> <span class="toc-text">2. 查看自己的网卡名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修改网卡配置文件"><span class="toc-number">4.</span> <span class="toc-text">修改网卡配置文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#重启服务"><span class="toc-number">5.</span> <span class="toc-text">重启服务</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-mac上的虚拟机使用（自动模式）就是桥接模式。"><span class="toc-number">1.</span> <span class="toc-text">1. mac上的虚拟机使用（自动模式）就是桥接模式。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-查看自己的网卡名"><span class="toc-number">2.</span> <span class="toc-text">2. 查看自己的网卡名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修改网卡配置文件"><span class="toc-number">3.</span> <span class="toc-text">修改网卡配置文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#重启服务"><span class="toc-number">4.</span> <span class="toc-text">重启服务</span></a></li></ol>
 		
 		</div>
 		
 		<hr>
-<p>layout: post<br>title: linux虚拟机配置静态ip<br>category: linux </p>
-<h2 id="date-2019-02-12-14-00-00"><a href="#date-2019-02-12-14-00-00" class="headerlink" title="date: 2019-02-12 14:00:00"></a>date: 2019-02-12 14:00:00</h2><h2 id="1-mac上的虚拟机使用（自动模式）就是桥接模式。"><a href="#1-mac上的虚拟机使用（自动模式）就是桥接模式。" class="headerlink" title="1. mac上的虚拟机使用（自动模式）就是桥接模式。"></a>1. mac上的虚拟机使用（自动模式）就是桥接模式。</h2><p><img src="img/vmnet.png" alt=""></p>
+<p>layout: post<br>title: linux虚拟机配置静态ip<br>category: linux<br>date: 2019-02-21 14:00:00</p>
+<hr>
+<h2 id="1-mac上的虚拟机使用（自动模式）就是桥接模式。"><a href="#1-mac上的虚拟机使用（自动模式）就是桥接模式。" class="headerlink" title="1. mac上的虚拟机使用（自动模式）就是桥接模式。"></a>1. mac上的虚拟机使用（自动模式）就是桥接模式。</h2><p><img src="img/vmnet.png" alt=""></p>
 <h2 id="2-查看自己的网卡名"><a href="#2-查看自己的网卡名" class="headerlink" title="2. 查看自己的网卡名"></a>2. 查看自己的网卡名</h2><ul>
 <li><p>ifconfig 命令</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# ifconfig</span><br><span class="line">ens33: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500</span><br><span class="line">        inet 192.168.2.132  netmask 255.255.255.0  broadcast 192.168.2.255</span><br><span class="line">        inet6 fe80::315:b3ba:674b:3fdc  prefixlen 64  scopeid 0x20&lt;link&gt;</span><br><span class="line">        ether 00:0c:29:14:d2:38  txqueuelen 1000  (Ethernet)</span><br><span class="line">        RX packets 56630  bytes 20928797 (19.9 MiB)</span><br><span class="line">        RX errors 0  dropped 0  overruns 0  frame 0</span><br><span class="line">        TX packets 24078  bytes 2636531 (2.5 MiB)</span><br><span class="line">        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</span><br><span class="line"></span><br><span class="line">lo: flags=73&lt;UP,LOOPBACK,RUNNING&gt;  mtu 65536</span><br><span class="line">        inet 127.0.0.1  netmask 255.0.0.0</span><br><span class="line">        inet6 ::1  prefixlen 128  scopeid 0x10&lt;host&gt;</span><br><span class="line">        loop  txqueuelen 1  (Local Loopback)</span><br><span class="line">        RX packets 2517  bytes 223561 (218.3 KiB)</span><br><span class="line">        RX errors 0  dropped 0  overruns 0  frame 0</span><br><span class="line">        TX packets 2517  bytes 223561 (218.3 KiB)</span><br><span class="line">        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</span><br></pre></td></tr></table></figure>
@@ -208,7 +209,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#date-2019-02-12-14-00-00"><span class="toc-number">1.</span> <span class="toc-text">date: 2019-02-12 14:00:00</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-mac上的虚拟机使用（自动模式）就是桥接模式。"><span class="toc-number">2.</span> <span class="toc-text">1. mac上的虚拟机使用（自动模式）就是桥接模式。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-查看自己的网卡名"><span class="toc-number">3.</span> <span class="toc-text">2. 查看自己的网卡名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修改网卡配置文件"><span class="toc-number">4.</span> <span class="toc-text">修改网卡配置文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#重启服务"><span class="toc-number">5.</span> <span class="toc-text">重启服务</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-mac上的虚拟机使用（自动模式）就是桥接模式。"><span class="toc-number">1.</span> <span class="toc-text">1. mac上的虚拟机使用（自动模式）就是桥接模式。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-查看自己的网卡名"><span class="toc-number">2.</span> <span class="toc-text">2. 查看自己的网卡名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修改网卡配置文件"><span class="toc-number">3.</span> <span class="toc-text">修改网卡配置文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#重启服务"><span class="toc-number">4.</span> <span class="toc-text">重启服务</span></a></li></ol>
  
   </div>
 
@@ -296,7 +297,7 @@
 			
 		
 			
-				<li><a href="/tags/c/" title="c++">c++<sup>1</sup></a></li>
+				<li><a href="/tags/html5/" title="html5">html5<sup>1</sup></a></li>
 			
 		
 			
@@ -308,7 +309,7 @@
 			
 		
 			
-				<li><a href="/tags/html5/" title="html5">html5<sup>1</sup></a></li>
+				<li><a href="/tags/c/" title="c++">c++<sup>1</sup></a></li>
 			
 		
 		</ul>
