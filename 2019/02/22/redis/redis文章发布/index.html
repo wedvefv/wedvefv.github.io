@@ -23,24 +23,24 @@
 
   <meta charset="UTF-8">
   
-    <title>apache_wsgi支持python脚本 | 小莺の博客</title>
+    <title>redis文章发布 | 小莺の博客</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="wedvefv">
     
 
     
-    <meta name="description" content="apache支持python脚本配置httpd.conf追加：1234567891011LoadModule wsgi_module modules/mod_wsgi.so WSGIScriptAlias / C:/xampp/www/py/myweb/myweb/wsgi.py  WSGIPythonPath C:/xampp/www/py/myweb   #django 项目目录Documen">
+    <meta name="description" content="定时任务发布方式 如果有后台发布文章，需要有定时任务将mysql中录入的文章同步到redis中  这时候文章id当然是mysql自增产生的，生成一个文章id表示的文章内容 123456	conn.hmset(&quot;article:100:hash&quot;,&amp;#123;属性字典&amp;#125;）``` - 2. 作者发布的文章，文章的投票者集合当然有作者，需要设置投票集合。```py	conn.sadd(&quot;art">
 <meta property="og:type" content="article">
-<meta property="og:title" content="apache_wsgi支持python脚本">
-<meta property="og:url" content="http://wedvefv.github.io/2017/01/07/linux/apache_wsgi/index.html">
+<meta property="og:title" content="redis文章发布">
+<meta property="og:url" content="http://wedvefv.github.io/2019/02/22/redis/redis文章发布/index.html">
 <meta property="og:site_name" content="小莺の博客">
-<meta property="og:description" content="apache支持python脚本配置httpd.conf追加：1234567891011LoadModule wsgi_module modules/mod_wsgi.so WSGIScriptAlias / C:/xampp/www/py/myweb/myweb/wsgi.py  WSGIPythonPath C:/xampp/www/py/myweb   #django 项目目录Documen">
+<meta property="og:description" content="定时任务发布方式 如果有后台发布文章，需要有定时任务将mysql中录入的文章同步到redis中  这时候文章id当然是mysql自增产生的，生成一个文章id表示的文章内容 123456	conn.hmset(&quot;article:100:hash&quot;,&amp;#123;属性字典&amp;#125;）``` - 2. 作者发布的文章，文章的投票者集合当然有作者，需要设置投票集合。```py	conn.sadd(&quot;art">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-26T04:59:17.452Z">
+<meta property="og:updated_time" content="2019-02-23T08:55:08.749Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="apache_wsgi支持python脚本">
-<meta name="twitter:description" content="apache支持python脚本配置httpd.conf追加：1234567891011LoadModule wsgi_module modules/mod_wsgi.so WSGIScriptAlias / C:/xampp/www/py/myweb/myweb/wsgi.py  WSGIPythonPath C:/xampp/www/py/myweb   #django 项目目录Documen">
+<meta name="twitter:title" content="redis文章发布">
+<meta name="twitter:description" content="定时任务发布方式 如果有后台发布文章，需要有定时任务将mysql中录入的文章同步到redis中  这时候文章id当然是mysql自增产生的，生成一个文章id表示的文章内容 123456	conn.hmset(&quot;article:100:hash&quot;,&amp;#123;属性字典&amp;#125;）``` - 2. 作者发布的文章，文章的投票者集合当然有作者，需要设置投票集合。```py	conn.sadd(&quot;art">
 
     
     <link rel="alternative" href="/atom.xml" title="小莺の博客" type="application/atom+xml">
@@ -100,14 +100,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/01/07/linux/apache_wsgi/" title="apache_wsgi支持python脚本" itemprop="url">apache_wsgi支持python脚本</a>
+      <a href="/2019/02/22/redis/redis文章发布/" title="redis文章发布" itemprop="url">redis文章发布</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
 		
   <p class="article-time">
-    <time datetime="2017-01-07T06:00:00.000Z" itemprop="datePublished"> Published 2017-01-07</time>
+    <time datetime="2019-02-22T07:50:00.000Z" itemprop="datePublished"> Published 2019-02-22</time>
     
   </p>
 </header>
@@ -116,15 +116,24 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#apache支持python脚本"><span class="toc-number">1.</span> <span class="toc-text">apache支持python脚本</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#定时任务发布方式"><span class="toc-number">1.</span> <span class="toc-text">定时任务发布方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如果是没有mysql，完全用redis这时候，文章id就需要一个string类型的key自增产生，其余步骤一致。"><span class="toc-number">2.</span> <span class="toc-text">如果是没有mysql，完全用redis这时候，文章id就需要一个string类型的key自增产生，其余步骤一致。</span></a></li></ol>
 		
 		</div>
 		
-		<h1 id="apache支持python脚本"><a href="#apache支持python脚本" class="headerlink" title="apache支持python脚本"></a>apache支持python脚本</h1><p>配置httpd.conf<br>追加：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">LoadModule wsgi_module modules/mod_wsgi.so </span><br><span class="line"></span><br><span class="line">WSGIScriptAlias / C:/xampp/www/py/myweb/myweb/wsgi.py  </span><br><span class="line">WSGIPythonPath C:/xampp/www/py/myweb   #django 项目目录</span><br><span class="line">DocumentRoot "C:/xampp/www/py/myweb/myweb" #具体应用目录</span><br><span class="line">&lt;Directory "C:/xampp/www"&gt;</span><br><span class="line"></span><br><span class="line">Options Indexes FollowSymLinks Includes ExecCGI</span><br><span class="line">AllowOverride All</span><br><span class="line">Require all granted</span><br><span class="line">&lt;/Directory&gt;</span><br></pre></td></tr></table></figure></p>
-<p>Options Indexes FollowSymLinks Includes ExecCGI<br>禁止显示Apache目录列表-Indexes FollowSymLinks<br>如何修改目录的配置以禁止显示 Apache 目录列表。<br>减号和去掉indexes是一样的效果 ，都是不存在index时，不要显示目录结构，安全起见。<br>xampp 中的不带减号，依然不可以访问目录。目前不知道原因。可能做了某些安全设置。</p>
-<p>AllowOverride参数就是指明Apache服务器是否去找.htacess文件作为配置文件，如果设置为none,那么服务器将忽略.htacess文件，如果设置为All,那么所有在.htaccess文件里有的指令都将被重写。</p>
-<p>Require all granted<br>    允许所有请求访问资源</p>
-  
+		<h2 id="定时任务发布方式"><a href="#定时任务发布方式" class="headerlink" title="定时任务发布方式"></a>定时任务发布方式</h2><ul>
+<li>如果有后台发布文章，需要有定时任务将mysql中录入的文章同步到redis中</li>
+<li><ol>
+<li>这时候文章id当然是mysql自增产生的，生成一个文章id表示的文章内容 <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">	conn.hmset(<span class="string">"article:100:hash"</span>,&#123;属性字典&#125;）</span><br><span class="line">``` </span><br><span class="line">- <span class="number">2.</span> 作者发布的文章，文章的投票者集合当然有作者，需要设置投票集合。</span><br><span class="line">```py</span><br><span class="line">	conn.sadd(<span class="string">"artile:100:set"</span>,atrticle.uid)</span><br><span class="line">	conn.expire(<span class="string">"artile:100:set"</span>,<span class="number">7</span>*<span class="number">86400</span>) <span class="comment"># 一周有效期</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>文章的评分zset初始化,文章发布时间集合初始化。<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">conn.zincrby(<span class="string">"article:100:score:zset"</span>,<span class="number">432</span>)， <span class="number">432</span> 是一个投票的评分。</span><br><span class="line">conn.zadd(<span class="string">"article:time:zset"</span>,article_id, now)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="如果是没有mysql，完全用redis这时候，文章id就需要一个string类型的key自增产生，其余步骤一致。"><a href="#如果是没有mysql，完全用redis这时候，文章id就需要一个string类型的key自增产生，其余步骤一致。" class="headerlink" title="如果是没有mysql，完全用redis这时候，文章id就需要一个string类型的key自增产生，其余步骤一致。"></a>如果是没有mysql，完全用redis这时候，文章id就需要一个string类型的key自增产生，其余步骤一致。</h2>  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
@@ -141,7 +150,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://wedvefv.github.io/2017/01/07/linux/apache_wsgi/" data-title="apache_wsgi支持python脚本 | 小莺の博客" data-tsina="" class="share clearfix">
+	  <div data-url="http://wedvefv.github.io/2019/02/22/redis/redis文章发布/" data-title="redis文章发布 | 小莺の博客" data-tsina="" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -154,19 +163,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2017/01/07/c/unix_netcode/" title="unix获取时间的小程序">
-  <strong>上一篇：</strong><br/>
-  <span>
-  unix获取时间的小程序</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2016/12/10/linux/nginx_config/"  title="nginx  support  php">
+<a href="/2019/02/22/redis/redis文章投票/"  title="redis文章投票">
  <strong>下一篇：</strong><br/> 
- <span>nginx  support  php
+ <span>redis文章投票
 </span>
 </a>
 </div>
@@ -185,7 +186,7 @@
 <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
     var gitment = new Gitment({
-        id: 'Sat Jan 07 2017 14:00:00 GMT+0800',
+        id: 'Fri Feb 22 2019 15:50:00 GMT+0800',
         owner: 'wedvefv',
         repo: 'wedvefv.github.io',
         oauth: {
@@ -203,7 +204,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#apache支持python脚本"><span class="toc-number">1.</span> <span class="toc-text">apache支持python脚本</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#定时任务发布方式"><span class="toc-number">1.</span> <span class="toc-text">定时任务发布方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如果是没有mysql，完全用redis这时候，文章id就需要一个string类型的key自增产生，其余步骤一致。"><span class="toc-number">2.</span> <span class="toc-text">如果是没有mysql，完全用redis这时候，文章id就需要一个string类型的key自增产生，其余步骤一致。</span></a></li></ol>
  
   </div>
 

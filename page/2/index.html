@@ -101,6 +101,268 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2018/06/30/linux/centos6.4升级python/" title="centos6.4 升级python到2.7" itemprop="url">centos6.4 升级python到2.7</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
+		
+  <p class="article-time">
+    <time datetime="2018-06-30T02:15:00.000Z" itemprop="datePublished"> Published 2018-06-30</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h1 id="1-download-source"><a href="#1-download-source" class="headerlink" title="1. download source"></a>1. download source</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https:<span class="comment">//www.python.org/ftp/python/2.7.12/Python-2.7.12.tgz</span></span><br></pre></td></tr></table></figure>
+<h1 id="2-compire-and-install"><a href="#2-compire-and-install" class="headerlink" title="2. compire and install"></a>2. compire and install</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tar zxvf Python<span class="number">-2.7</span><span class="number">.12</span>.tgz</span><br><span class="line">cd Python<span class="number">-2.7</span><span class="number">.12</span></span><br><span class="line">./configure --prefix=/usr/local/python27 &amp;&amp; make &amp;&amp; make install &amp;&amp; echo $?</span><br><span class="line">如果以上输出为<span class="number">0</span>，说明没有报错，安装正常</span><br></pre></td></tr></table></figure>
+<h1 id="3-add-path-and-backup-the-python2-6"><a href="#3-add-path-and-backup-the-python2-6" class="headerlink" title="3. add path and backup the python2.6"></a>3. add path and backup the python2.6</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">移除以前的版本</span><br><span class="line">mv /usr/bin/python /usr/bin/python26</span><br><span class="line">创建软连接</span><br><span class="line">ln -s /usr/local/python27/bin/python /usr/bin/python</span><br><span class="line">查看版本是否升级成功</span><br><span class="line">python -V</span><br><span class="line">Python <span class="number">2.7</span><span class="number">.12</span></span><br></pre></td></tr></table></figure>
+<h1 id="4-modify-yum"><a href="#4-modify-yum" class="headerlink" title="4. modify yum"></a>4. modify yum</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">如果不修改此项，会导致yum无法使用</span><br><span class="line">vim /usr/bin/yum</span><br><span class="line">修改第一行即可，将环境变量指向以前的python版本</span><br><span class="line">#!/usr/bin/python26</span><br></pre></td></tr></table></figure>
+<h1 id="5-reinstall-pip"><a href="#5-reinstall-pip" class="headerlink" title="5. reinstall pip"></a>5. reinstall pip</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span>安装pip之前首先需要安装setuptools</span><br><span class="line">下载链接</span><br><span class="line">https:<span class="comment">//pypi.python.org/pypi/setuptools</span></span><br><span class="line">下载地址</span><br><span class="line">wget https:<span class="comment">//pypi.python.org/packages/ff/d4/209f4939c49e31f5524fa0027bf1c8ec3107abaf7c61fdaad704a648c281/setuptools-21.0.0.tar.gz#md5=81964fdb89534118707742e6d1a1ddb4 --no-check-certificate</span></span><br><span class="line">解压</span><br><span class="line">tar zxvf setuptools<span class="number">-21.0</span><span class="number">.0</span>.tar.gz</span><br><span class="line">安装</span><br><span class="line">cd setuptools<span class="number">-21.0</span><span class="number">.0</span></span><br><span class="line">python setup.py  install</span><br><span class="line"></span><br><span class="line"><span class="number">2.</span>安装pip</span><br><span class="line">下载链接</span><br><span class="line">https:<span class="comment">//pypi.python.org/pypi/pip</span></span><br><span class="line">下载地址</span><br><span class="line">wget https:<span class="comment">//pypi.python.org/packages/41/27/9a8d24e1b55bd8c85e4d022da2922cb206f183e2d18fee4e320c9547e751/pip-8.1.1.tar.gz#md5=6b86f11841e89c8241d689956ba99ed7 --no-check-certificate</span></span><br><span class="line">解压</span><br><span class="line">tar zxvf pip<span class="number">-8.1</span><span class="number">.1</span>.tar.gz </span><br><span class="line">安装 </span><br><span class="line">cd pip<span class="number">-8.1</span><span class="number">.1</span></span><br><span class="line">python setup.py install</span><br><span class="line"></span><br><span class="line"><span class="number">3.</span>添加环境变量</span><br><span class="line">安装完之后，之后执行pip还是调用的以前的环境变量，需要手动添加环境变量</span><br><span class="line">mv /usr/bin/pip /usr/bin/pip26</span><br><span class="line">ln -s /usr/local/python27/bin/pip /usr/bin/</span><br><span class="line">再次查看版本</span><br><span class="line">pip -V</span><br><span class="line">pip <span class="number">8.1</span><span class="number">.1</span> from /usr/local/python27/lib/python2<span class="number">.7</span>/site-packages/pip<span class="number">-8.1</span><span class="number">.1</span>-py2<span class="number">.7</span>.egg (python <span class="number">2.7</span>)</span><br></pre></td></tr></table></figure>
+<h1 id="6-使用pip安装第三方库"><a href="#6-使用pip安装第三方库" class="headerlink" title="6.使用pip安装第三方库"></a>6.使用pip安装第三方库</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">如果报错locale.Error: unsupported locale setting</span><br><span class="line">加入环境变量：</span><br><span class="line"><span class="keyword">export</span> LANGUAGE=en_US.UTF<span class="number">-8</span></span><br><span class="line"><span class="keyword">export</span> LC_ALL=en_US.UTF<span class="number">-8</span></span><br><span class="line"></span><br><span class="line">pip install psutil</span><br><span class="line">pip install MySQLdb-python</span><br><span class="line">pip install django=<span class="number">1.8</span><span class="number">.2</span></span><br><span class="line"></span><br><span class="line">报错：</span><br><span class="line"> pip install MySQLdb-python</span><br><span class="line">Collecting MySQLdb-python</span><br><span class="line">  Retrying (Retry(total=4, connect=None, read=None, redirect=None)) after connection broken by 'ReadTimeoutError("HTTPSConnectionPool(host='pypi.python.org', port=443): Read timed out. (read timeout=15)",)': /simple/mysqldb-python/</span><br><span class="line">  Could <span class="keyword">not</span> find a version that satisfies the requirement MySQLdb-python (from versions: )</span><br><span class="line">No matching distribution found <span class="keyword">for</span> MySQLdb-python</span><br><span class="line">You are <span class="keyword">using</span> pip version <span class="number">8.1</span><span class="number">.1</span>, however version <span class="number">9.0</span><span class="number">.1</span> is available.</span><br><span class="line">You should consider upgrading via the 'pip install --upgrade pip' command.</span><br><span class="line">当安装中提示版本太低的时候，执行提示的命令进行升级即可</span><br><span class="line">pip install --upgrade pip</span><br><span class="line">升级完重新执行要安装的库</span><br></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2018/06/30/linux/centos6.4install-mysql-python/" title="centos6.4 安装python mysql扩展" itemprop="url">centos6.4 安装python mysql扩展</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
+		
+  <p class="article-time">
+    <time datetime="2018-06-30T02:15:00.000Z" itemprop="datePublished"> Published 2018-06-30</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>要想使python可以操作mysql 就需要MySQL-python驱动，它是python 操作mysql必不可少的模块。</p>
+<p>下载地址：<a href="https://pypi.python.org/pypi/MySQL-python/" target="_blank" rel="noopener">https://pypi.python.org/pypi/MySQL-python/</a></p>
+<p>下载MySQL-python-1.2.5.zip 文件之后直接解压。进入MySQL-python-1.2.5目录:</p>
+<p>python setup.py install</p>
+<p>报错：</p>
+<p>[root@centos7 MySQL-python-1.2.4]# python setup.py install</p>
+<p>sh: mysql_config: command not found</p>
+<p>Traceback (most recent call last):</p>
+<p>  File “setup.py”, line 18, in <module></module></p>
+<pre><code>metadata, options = get_config()
+</code></pre><p>  File “/root/MySQL-python-1.2.4/setup_posix.py”, line 43, in get_config</p>
+<pre><code>libs = mysql_config(&quot;libs_r&quot;)
+</code></pre><p>  File “/root/MySQL-python-1.2.4/setup_posix.py”, line 25, in mysql_config</p>
+<pre><code>raise EnvironmentError(&quot;%s not found&quot; % (mysql_config.path,))
+</code></pre><p>EnvironmentError: mysql_config not found</p>
+<p>网上查了一下需安装mysql-devel </p>
+<p>#yum -y install mysql-devel </p>
+<p>安装成功后</p>
+<h1 id="python-setup-py-install"><a href="#python-setup-py-install" class="headerlink" title="python setup.py install"></a>python setup.py install</h1><p>安装成功。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/c/">c</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2018/05/26/git/git_2_operate/" title="git 常见操作" itemprop="url">git 常见操作</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
+		
+  <p class="article-time">
+    <time datetime="2018-05-26T04:00:00.000Z" itemprop="datePublished"> Published 2018-05-26</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="创建分支"><a href="#创建分支" class="headerlink" title="创建分支"></a>创建分支</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch new_branch</span><br></pre></td></tr></table></figure>
+<h2 id="本地删除分支"><a href="#本地删除分支" class="headerlink" title="本地删除分支"></a>本地删除分支</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -D delete_branch</span><br></pre></td></tr></table></figure>
+<h2 id="更新到远程删除分支"><a href="#更新到远程删除分支" class="headerlink" title="更新到远程删除分支"></a>更新到远程删除分支</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git checkout master </span><br><span class="line">git pull -u   -u origin :delete_branch</span><br></pre></td></tr></table></figure>
+<h2 id="git-pull-失败提示fatal-refusing-to-merge-unrelated-histories-处理方法"><a href="#git-pull-失败提示fatal-refusing-to-merge-unrelated-histories-处理方法" class="headerlink" title="git pull 失败提示fatal: refusing to merge unrelated histories ,处理方法"></a>git pull 失败提示fatal: refusing to merge unrelated histories ,处理方法</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull origin master --allow-unrelated-historiesn</span><br></pre></td></tr></table></figure>
+<h1 id="查看提交提记录"><a href="#查看提交提记录" class="headerlink" title="查看提交提记录"></a>查看提交提记录</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git log</span><br><span class="line">git log -p -2  #查看最近两次的提交差异</span><br><span class="line">git log --stat #仅仅现实行数的变更</span><br><span class="line">git log --pretty=oneline #每次提交，在一行显示</span><br><span class="line">git log --pretty=format:"%h - %an, %ar : %s"   #格式显示</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>%H</td>
+<td>提交对象（提交）的完整哈希字串</td>
+</tr>
+<tr>
+<td>%h</td>
+<td>提交对象的简短哈希字串</td>
+</tr>
+<tr>
+<td>%T</td>
+<td>树对象（树）的完整哈希字串</td>
+</tr>
+<tr>
+<td>%t</td>
+<td>树对象的简短哈希字串</td>
+</tr>
+<tr>
+<td>%P</td>
+<td>父对象（父）的完整哈希字串</td>
+</tr>
+<tr>
+<td>%p</td>
+<td>父对象的简短哈希字串</td>
+</tr>
+<tr>
+<td>%an</td>
+<td>作者（作者）的名字</td>
+</tr>
+<tr>
+<td>%ae</td>
+<td>作者的电子邮件地址</td>
+</tr>
+<tr>
+<td>%ad</td>
+<td>作者修订日期（可以用-date =选项定制格式）</td>
+</tr>
+<tr>
+<td>%ar</td>
+<td>作者修订日期，按多久以前的方式显示</td>
+</tr>
+<tr>
+<td>%cn</td>
+<td>提交者（提交者）的名字</td>
+</tr>
+<tr>
+<td>%ce</td>
+<td>提交者的电子邮件地址</td>
+</tr>
+<tr>
+<td>%cd</td>
+<td>提交日期</td>
+</tr>
+<tr>
+<td>%cr</td>
+<td>提交日期，按多久以前的方式显示</td>
+</tr>
+<tr>
+<td>%s</td>
+<td>提交说明</td>
+</tr>
+</tbody>
+</table>
+<h1 id="待续……"><a href="#待续……" class="headerlink" title="待续……"></a>待续……</h1>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/git/">git</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/git/">git</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2017/01/08/windows/windows_pipe/" title="windows 管道通信" itemprop="url">windows 管道通信</a>
   </h1>
   <p class="article-author">By
@@ -747,79 +1009,6 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/10/06/windows/dll_export/" title="DLL导出方法" itemprop="url">DLL导出方法</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
-		
-  <p class="article-time">
-    <time datetime="2016-10-06T12:04:30.000Z" itemprop="datePublished"> Published 2016-10-06</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h1 id="DLL导出方法"><a href="#DLL导出方法" class="headerlink" title="DLL导出方法"></a>DLL导出方法</h1><h2 id="dll导出方法1-："><a href="#dll导出方法1-：" class="headerlink" title="dll导出方法1 ："></a>dll导出方法1 ：</h2><p>模块定义def文件，不支持c++的重载，以c的方式编译，导出的函数名不被修改，这样<br>显示调用dll取得函数地址就没事。提供给vb，python等语言,需要_stdcall约定(函数自己清理堆栈)，这样无论是c文件还是c++文件，导出函数都会被改名字。所以dll做成必须要用def文件，否则找不到名字。除非你记得<br>修饰过的函数名。</p>
-<h2 id="dll导出方法2："><a href="#dll导出方法2：" class="headerlink" title="dll导出方法2："></a>dll导出方法2：</h2><p>函数声明头文件声明如下：<br>__declspec(dllexport)这种方式，方便c++代码的重载，同名函数不同参数，导出名字会被修饰，所以能区分开。<br>这种方式实现了DLL的隐式调用（只提供dll的导出符号lib文件，就可直接调用函数，（只是导出函数符号，没有具体实现，<br>不同于静态库的lib文件），def文件导出的dll不能用隐式调用，只能取得函数地址getProcAddress方式）</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> _EXSOPINF_H_</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _EXSOPINF_H_</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __cplusplus  <span class="comment">//cpp文件时，用c方式编译导出，不会修改导出函数名。但是_stdcall</span></span></span><br><span class="line"><span class="comment">//调用也会修改，_cdecl(默认)调用不会修改</span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">"C"</span> &#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">__declspec(dllexport) <span class="function">DWORD WINAPI <span class="title">function1</span><span class="params">( LPCSTR lpszFolderName, LPSTR lpszCode )</span></span>;</span><br><span class="line">__declspec(dllexport) <span class="function">DWORD WINAPI <span class="title">function2</span><span class="params">( LPCSTR lpszFolderName, LPSTR lpszCode )</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __cplusplus</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">函数定义时，也需要在函数名前：加入修饰</span><br><span class="line">__declspec(dllexport) <span class="function">DWORD WINAPI <span class="title">function1</span><span class="params">(LPCSTR lpszFolderName, LPSTR lpszCode )</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line">其中WINAPI是调用约定。</span><br></pre></td></tr></table></figure>
-<h2 id="常见调用约定"><a href="#常见调用约定" class="headerlink" title="常见调用约定"></a>常见调用约定</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">调用协议常用场合</span><br><span class="line">__stdcall：Windows API默认的函数调用协议。</span><br><span class="line">__cdecl：C/C++默认的函数调用协议。</span><br><span class="line">__fastcall：适用于对性能要求较高的场合。</span><br><span class="line">函数参数入栈方式</span><br><span class="line">__stdcall：函数参数由右向左入栈。</span><br><span class="line">__cdecl：函数参数由右向左入栈。</span><br><span class="line">__fastcall：从左开始不大于<span class="number">4</span>字节的参数放入CPU的ECX和EDX寄存器，其余参数从右向左入栈。</span><br><span class="line">问题一：__fastcall在寄存器中放入不大于<span class="number">4</span>字节的参数，故性能较高，适用于需要高性能的场合。</span><br><span class="line">栈内数据清除方式</span><br><span class="line">__stdcall：函数调用结束后由被调用函数清除栈内数据。</span><br><span class="line">__cdecl：函数调用结束后由函数调用者清除栈内数据。</span><br><span class="line">__fastcall：函数调用结束后由被调用函数清除栈内数据。</span><br><span class="line">问题一：不同编译器设定的栈结构不尽相同，跨开发平台时由函数调用者清除栈内数据不可行。</span><br><span class="line">问题二：某些函数的参数是可变的，如<span class="built_in">printf</span>函数，这样的函数只能由函数调用者清除栈内数据。</span><br><span class="line">问题三：由调用者清除栈内数据时，每次调用都包含清除栈内数据的代码，故可执行文件较大。</span><br><span class="line">C语言编译器函数名称修饰规则</span><br><span class="line">__stdcall：编译后，函数名被修饰为“_functionname@number”。</span><br><span class="line">__cdecl：编译后，函数名被修饰为“_functionname”。</span><br><span class="line">__fastcall：编译后，函数名给修饰为“@functionname@nmuber”。</span><br><span class="line">注：“functionname”为函数名，“number”为参数字节数。</span><br><span class="line">注：函数实现和函数定义时如果使用了不同的函数调用协议，则无法实现函数调用。</span><br><span class="line">C++语言编译器函数名称修饰规则</span><br><span class="line">__stdcall：编译后，函数名被修饰为“?functionname@@YG******@Z”。</span><br><span class="line">__cdecl：编译后，函数名被修饰为“?functionname@@YA******@Z”。</span><br><span class="line">__fastcall：编译后，函数名被修饰为“?functionname@@YI******@Z”。</span><br><span class="line">注：“******”为函数返回值类型和参数类型表。</span><br><span class="line">注：函数实现和函数定义时如果使用了不同的函数调用协议，则无法实现函数调用。</span><br><span class="line">C语言和C++语言间如果不进行特殊处理，也无法实现函数的互相调用。</span><br></pre></td></tr></table></figure>
-<h2 id="stdcall与-cdecl的区别-函数调用方式"><a href="#stdcall与-cdecl的区别-函数调用方式" class="headerlink" title="_stdcall与_cdecl的区别(函数调用方式)"></a>_stdcall与_cdecl的区别(函数调用方式)</h2><p>(1). 是C Declaration的缩写，表示C语言默认的函数调用方法，实际上也是C++的默认的函数调用方法。<br>(2). 所有参数从右到左依次入栈，这些参数由调用者清除，称为手动清栈。具体所示：调用方的函数调用-&gt;被调用函数的执行-&gt;被调用函数的结果返回-&gt;调用方清除调整堆栈。<br>(3). 被调用函数无需要求调用者传递多少参数，调用者传递过多或者过少的参数，甚至完全不同的参数都不会产生编译阶段的错误。总的来说函数的参数个数可变的(就像printf函数一样)，因为只有调用者才知道它传给被调用函数几个参数，才能在调用结束时适当地调整堆栈。<br>(4). 因为每个调用的地方都需要生成一段调整堆栈的代码，所以最后生成的文件较大。</p>
-<h3 id="stdcall-CALLBACK-WINAPI"><a href="#stdcall-CALLBACK-WINAPI" class="headerlink" title="_stdcall(CALLBACK/WINAPI)"></a>_stdcall(CALLBACK/WINAPI)</h3><p>(1). 是Standard Call的缩写，要想函数按照此调用方式必须在函数名加入<em>stdcall，通常</em> win32 api 应该是_stdcall调用规则。通过VC++编写的DLL欲被其他语言编写的程序调用，应将函数的调用方式声明为_stdcall 方式，WINAPI都采用这种方式。<br>(2).  所有参数从右到左依次入栈，如果是调用类成员的话，最后一个入栈的是this指针。具体所示：调用方的函数调用-&gt;被调用函数的执行-&gt; 被调用方清除调整堆栈-&gt;被调用函数的结果返回。<br>(3).  这些堆栈中的参数由被调用的函数在返回后清除，使用的指令是 retn X，X表示参数占用的字节数，CPU在ret之后自动弹出X个字节的堆栈空间。称为自动清栈。<br>(4).  函数在编译的时候就必须确定参数个数，并且调用者必须严格的控制参数的生成，不能多，不能少，否则返回后会出错。总的来说，就是函数的参数个数不能是可变的。是从 _cdecl 修改而来, _stdcall 不支持可变参数,并且清栈由被调用者负责,其他的都一样<br>(5).  因为只需在被调用函数的地方生成一段调整堆栈的代码，所以最后生成的文件较小。</p>
-<p>PASCAL 是Pascal语言的函数调用方式，也可以在C/C++中使用，参数压栈顺序与前两者相反。返回时的清栈方式忘记了。。。</p>
-<p>_fastcall 是编译器指定的快速调用方式。由于大多数的函数参数个数很少，使用堆栈传递比较费时。因此_fastcall通常规定将前两个（或若干个）参数由寄存器传递，其余参数还是通过堆栈传递。不同编译器编译的程序规定的寄存器不同。返回方式和_stdcall相当。</p>
-<p>_thiscall 是为了解决类成员调用中this指针传递而规定的。_thiscall要求把this指针放在特定寄存器中，该寄存器由编译器决定。VC使用ecx，Borland的C++编译器使用eax。返回方式和_stdcall相当。</p>
-<p>_fastcall 和 _thiscall涉及的寄存器由编译器决定，因此不能用作跨编译器的接口。所以Windows上的COM对象接口都定义为_stdcall调用方式。</p>
-<p>C中不加说明默认函数为_cdecl方式（C中也只能用这种方式），C++也一样，但是默认的调用方式可以在IDE环境中设置。</p>
-<p>带有可变参数的函数必须且只能使用_cdecl方式，例如下面的函数:<br>      int printf(char * fmtStr, …);</p>
-<pre><code>int scanf(char * fmtStr, ...);
-</code></pre><h3 id="函数名修饰"><a href="#函数名修饰" class="headerlink" title="函数名修饰"></a>函数名修饰</h3><p>(1). _cdecl ：对于_cdecl而言，如果对于定义在C程序文件(编译器会通过后缀名为.C判断)的输出函数，函数名会保持原样；对于定义在C++程序文件中的输出函数，函数名会被修饰(见10)。为使函数名不被修饰，有两种方法：A.可通过在前面加上extern “c”以去除函数名修饰；B. 可通过.def文件去除函数名修饰。</p>
-<p>(2). _stdcall：无论是C程序文件中的输出函数还是C++程序文件中的输出函数，函数名都会被修饰。对于定义在C++程序文件中的输出函数，好像更复杂，和_cdecl的情况类似。去除函数名修饰方法：只能通过.def文件去除函数名修饰。</p>
-<h3 id="函数名修饰规则："><a href="#函数名修饰规则：" class="headerlink" title="函数名修饰规则："></a>函数名修饰规则：</h3><p>(1). 为什么要函数名修饰：<br>      函数名修饰就是编译器在编译期间创建的一个字符串，用来指明函数的定义和原型。LINK程序或其他工具有时需要指定函数的名字修饰来定位函数的正确位置。多少情况下程序员并不需要知道函数的名字修饰，LINK程序或其他工具会自动区分他们。当然，在某些情况下需要指定函数名修饰，例如在c++程序中，为了让LINK程序或其他工具能够匹配到正确的函数名字，就必须为重载函数后一些特殊函数(如构造函数和析构函数)指定名字修饰。另一种需要指定函数名修饰的情况是在汇编程序中调用C或C++函数。<br>(2). C语言：<br>      对于_stdcall调用约定，编译器和链接器会在输出函数名前加上一个下划线前缀，函数名后面加上一个“@”符号和其参数的字节数，例如_functionname@number。_cdecl调用约定仅在输出函数名前加上一个下划线前缀，例如_functionname。_fastcall调用约定在输出函数名前加上一个 “@“符号，后面也是一个”@“符号和其参数的字节数，例如@functionname@number。<br>(3). C++语言：<br>   C++的函数名修饰规则有些复杂，但是信息更充分，通过分析修饰名不仅能够知道函数的调用方式，返回值类型，参数个数甚至参数类型。不管<strong>cdecl，</strong>fastcall还是<strong>stdcall调用方式，函数修饰都是以一个“?”开始，后面紧跟函数的名字，再后面是参数表的开始标识和按照参数类型代号拼出的参数表。对于</strong>stdcall方式，参数表的开始标识是“@@YG”，对于<strong>cdecl方式则是“@@YA”，对于</strong>fastcall方式则是“@@YI”。参数表的拼写代号如下所示：<br>X–void<br>D–char<br>E–unsigned char<br>F–short<br>H–int<br>I–unsigned int<br>J–long<br>K–unsigned long（DWORD）<br>M–float<br>N–double<br>_N—bool<br>U—struct</p>
-<p>指针的方式有些特别，用PA表示指针，用PB表示const类型的指针。后面的代号表明指针类型，如果相同类型的指针连续出现，以“0”代替，一个“0”代表一次重复。U表示结构类型，通常后跟结构体的类型名，用“@@”表示结构类型名的结束。函数的返回值不作特殊处理，它的描述方式和函数参数一样，紧跟着参数表的开始标志，也就是说，函数参数表的第一项实际上是表示函数的返回值类型。参数表后以“@Z”标识整个名字的结束，如果该函数无参数，则以“Z”标识结束。下面举两个例子，假如有以下函数声明：<br>int Function1(char *var1,unsigned long);<br>其函数修饰名为“?Function1@@YGHPADK@Z”，而对于函数声明：<br>oid Function2();<br>其函数修饰名则为“?Function2@@YGXXZ” 。<br>对于C++的类成员函数（其调用方式是thiscall），函数的名字修饰与非成员的C++函数稍有不同，首先就是在函数名字和参数表之间插入以“@”字符引导的类名；其次是参数表的开始标识不同，公有（public）成员函数的标识是“@@QAE”,保护（protected）成员函数的标识是“@@IAE”,私有（private）成员函数的标识是“@@AAE”，如果函数声明使用了const关键字，则相应的标识应分别为“@@QBE”，“@@IBE”和“@@ABE”。如果参数类型是类实例的引用，则使用“AAV1”，对于const类型的引用，则使用“ABV1”。</p>
-<h3 id="查看函数的名字修饰"><a href="#查看函数的名字修饰" class="headerlink" title="查看函数的名字修饰"></a>查看函数的名字修饰</h3><p> 有两种方式可以检查你的程序中的函数的名字修饰：使用编译输出列表或使用Dumpbin工具。使用/FAc，/FAs或/FAcs命令行参数可以让编译器输出函数或变量名字列表。使用dumpbin.exe /SYMBOLS命令也可以获得obj文件或lib文件中的函数或变量名字列表。此外，还可以使用 undname.exe 将修饰名转换为未修饰形式。</p>
-<h3 id="beginthread需要-cdecl的线程函数地址，-beginthreadex和-CreateThread需要-stdcall的线程函数地址。"><a href="#beginthread需要-cdecl的线程函数地址，-beginthreadex和-CreateThread需要-stdcall的线程函数地址。" class="headerlink" title="_beginthread需要_cdecl的线程函数地址，_beginthreadex和_CreateThread需要_stdcall的线程函数地址。"></a>_beginthread需要_cdecl的线程函数地址，_beginthreadex和_CreateThread需要_stdcall的线程函数地址。</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CALLBACK __stdcall <span class="comment">//这就是传说中的回调函数</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> WINAPI __stdcall <span class="comment">//这就是传说中的WINAPI</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> WINAPIV __cdecl</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> APIENTRY WINAPI <span class="comment">//DllMain的入口就在这里</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> APIPRIVATE __stdcall</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PASCAL __stdcall</span></span><br></pre></td></tr></table></figure>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/windows/">windows</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
       <a href="/2016/10/06/web/ajax/" title="ajax简介" itemprop="url">ajax简介</a>
   </h1>
   <p class="article-author">By
@@ -887,6 +1076,79 @@
   
   <span></span> <a href="/tags/ajax/">ajax</a>
   </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/10/06/windows/dll_export/" title="DLL导出方法" itemprop="url">DLL导出方法</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
+		
+  <p class="article-time">
+    <time datetime="2016-10-06T12:04:30.000Z" itemprop="datePublished"> Published 2016-10-06</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h1 id="DLL导出方法"><a href="#DLL导出方法" class="headerlink" title="DLL导出方法"></a>DLL导出方法</h1><h2 id="dll导出方法1-："><a href="#dll导出方法1-：" class="headerlink" title="dll导出方法1 ："></a>dll导出方法1 ：</h2><p>模块定义def文件，不支持c++的重载，以c的方式编译，导出的函数名不被修改，这样<br>显示调用dll取得函数地址就没事。提供给vb，python等语言,需要_stdcall约定(函数自己清理堆栈)，这样无论是c文件还是c++文件，导出函数都会被改名字。所以dll做成必须要用def文件，否则找不到名字。除非你记得<br>修饰过的函数名。</p>
+<h2 id="dll导出方法2："><a href="#dll导出方法2：" class="headerlink" title="dll导出方法2："></a>dll导出方法2：</h2><p>函数声明头文件声明如下：<br>__declspec(dllexport)这种方式，方便c++代码的重载，同名函数不同参数，导出名字会被修饰，所以能区分开。<br>这种方式实现了DLL的隐式调用（只提供dll的导出符号lib文件，就可直接调用函数，（只是导出函数符号，没有具体实现，<br>不同于静态库的lib文件），def文件导出的dll不能用隐式调用，只能取得函数地址getProcAddress方式）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> _EXSOPINF_H_</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _EXSOPINF_H_</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __cplusplus  <span class="comment">//cpp文件时，用c方式编译导出，不会修改导出函数名。但是_stdcall</span></span></span><br><span class="line"><span class="comment">//调用也会修改，_cdecl(默认)调用不会修改</span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">"C"</span> &#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">__declspec(dllexport) <span class="function">DWORD WINAPI <span class="title">function1</span><span class="params">( LPCSTR lpszFolderName, LPSTR lpszCode )</span></span>;</span><br><span class="line">__declspec(dllexport) <span class="function">DWORD WINAPI <span class="title">function2</span><span class="params">( LPCSTR lpszFolderName, LPSTR lpszCode )</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __cplusplus</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">函数定义时，也需要在函数名前：加入修饰</span><br><span class="line">__declspec(dllexport) <span class="function">DWORD WINAPI <span class="title">function1</span><span class="params">(LPCSTR lpszFolderName, LPSTR lpszCode )</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line">其中WINAPI是调用约定。</span><br></pre></td></tr></table></figure>
+<h2 id="常见调用约定"><a href="#常见调用约定" class="headerlink" title="常见调用约定"></a>常见调用约定</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">调用协议常用场合</span><br><span class="line">__stdcall：Windows API默认的函数调用协议。</span><br><span class="line">__cdecl：C/C++默认的函数调用协议。</span><br><span class="line">__fastcall：适用于对性能要求较高的场合。</span><br><span class="line">函数参数入栈方式</span><br><span class="line">__stdcall：函数参数由右向左入栈。</span><br><span class="line">__cdecl：函数参数由右向左入栈。</span><br><span class="line">__fastcall：从左开始不大于<span class="number">4</span>字节的参数放入CPU的ECX和EDX寄存器，其余参数从右向左入栈。</span><br><span class="line">问题一：__fastcall在寄存器中放入不大于<span class="number">4</span>字节的参数，故性能较高，适用于需要高性能的场合。</span><br><span class="line">栈内数据清除方式</span><br><span class="line">__stdcall：函数调用结束后由被调用函数清除栈内数据。</span><br><span class="line">__cdecl：函数调用结束后由函数调用者清除栈内数据。</span><br><span class="line">__fastcall：函数调用结束后由被调用函数清除栈内数据。</span><br><span class="line">问题一：不同编译器设定的栈结构不尽相同，跨开发平台时由函数调用者清除栈内数据不可行。</span><br><span class="line">问题二：某些函数的参数是可变的，如<span class="built_in">printf</span>函数，这样的函数只能由函数调用者清除栈内数据。</span><br><span class="line">问题三：由调用者清除栈内数据时，每次调用都包含清除栈内数据的代码，故可执行文件较大。</span><br><span class="line">C语言编译器函数名称修饰规则</span><br><span class="line">__stdcall：编译后，函数名被修饰为“_functionname@number”。</span><br><span class="line">__cdecl：编译后，函数名被修饰为“_functionname”。</span><br><span class="line">__fastcall：编译后，函数名给修饰为“@functionname@nmuber”。</span><br><span class="line">注：“functionname”为函数名，“number”为参数字节数。</span><br><span class="line">注：函数实现和函数定义时如果使用了不同的函数调用协议，则无法实现函数调用。</span><br><span class="line">C++语言编译器函数名称修饰规则</span><br><span class="line">__stdcall：编译后，函数名被修饰为“?functionname@@YG******@Z”。</span><br><span class="line">__cdecl：编译后，函数名被修饰为“?functionname@@YA******@Z”。</span><br><span class="line">__fastcall：编译后，函数名被修饰为“?functionname@@YI******@Z”。</span><br><span class="line">注：“******”为函数返回值类型和参数类型表。</span><br><span class="line">注：函数实现和函数定义时如果使用了不同的函数调用协议，则无法实现函数调用。</span><br><span class="line">C语言和C++语言间如果不进行特殊处理，也无法实现函数的互相调用。</span><br></pre></td></tr></table></figure>
+<h2 id="stdcall与-cdecl的区别-函数调用方式"><a href="#stdcall与-cdecl的区别-函数调用方式" class="headerlink" title="_stdcall与_cdecl的区别(函数调用方式)"></a>_stdcall与_cdecl的区别(函数调用方式)</h2><p>(1). 是C Declaration的缩写，表示C语言默认的函数调用方法，实际上也是C++的默认的函数调用方法。<br>(2). 所有参数从右到左依次入栈，这些参数由调用者清除，称为手动清栈。具体所示：调用方的函数调用-&gt;被调用函数的执行-&gt;被调用函数的结果返回-&gt;调用方清除调整堆栈。<br>(3). 被调用函数无需要求调用者传递多少参数，调用者传递过多或者过少的参数，甚至完全不同的参数都不会产生编译阶段的错误。总的来说函数的参数个数可变的(就像printf函数一样)，因为只有调用者才知道它传给被调用函数几个参数，才能在调用结束时适当地调整堆栈。<br>(4). 因为每个调用的地方都需要生成一段调整堆栈的代码，所以最后生成的文件较大。</p>
+<h3 id="stdcall-CALLBACK-WINAPI"><a href="#stdcall-CALLBACK-WINAPI" class="headerlink" title="_stdcall(CALLBACK/WINAPI)"></a>_stdcall(CALLBACK/WINAPI)</h3><p>(1). 是Standard Call的缩写，要想函数按照此调用方式必须在函数名加入<em>stdcall，通常</em> win32 api 应该是_stdcall调用规则。通过VC++编写的DLL欲被其他语言编写的程序调用，应将函数的调用方式声明为_stdcall 方式，WINAPI都采用这种方式。<br>(2).  所有参数从右到左依次入栈，如果是调用类成员的话，最后一个入栈的是this指针。具体所示：调用方的函数调用-&gt;被调用函数的执行-&gt; 被调用方清除调整堆栈-&gt;被调用函数的结果返回。<br>(3).  这些堆栈中的参数由被调用的函数在返回后清除，使用的指令是 retn X，X表示参数占用的字节数，CPU在ret之后自动弹出X个字节的堆栈空间。称为自动清栈。<br>(4).  函数在编译的时候就必须确定参数个数，并且调用者必须严格的控制参数的生成，不能多，不能少，否则返回后会出错。总的来说，就是函数的参数个数不能是可变的。是从 _cdecl 修改而来, _stdcall 不支持可变参数,并且清栈由被调用者负责,其他的都一样<br>(5).  因为只需在被调用函数的地方生成一段调整堆栈的代码，所以最后生成的文件较小。</p>
+<p>PASCAL 是Pascal语言的函数调用方式，也可以在C/C++中使用，参数压栈顺序与前两者相反。返回时的清栈方式忘记了。。。</p>
+<p>_fastcall 是编译器指定的快速调用方式。由于大多数的函数参数个数很少，使用堆栈传递比较费时。因此_fastcall通常规定将前两个（或若干个）参数由寄存器传递，其余参数还是通过堆栈传递。不同编译器编译的程序规定的寄存器不同。返回方式和_stdcall相当。</p>
+<p>_thiscall 是为了解决类成员调用中this指针传递而规定的。_thiscall要求把this指针放在特定寄存器中，该寄存器由编译器决定。VC使用ecx，Borland的C++编译器使用eax。返回方式和_stdcall相当。</p>
+<p>_fastcall 和 _thiscall涉及的寄存器由编译器决定，因此不能用作跨编译器的接口。所以Windows上的COM对象接口都定义为_stdcall调用方式。</p>
+<p>C中不加说明默认函数为_cdecl方式（C中也只能用这种方式），C++也一样，但是默认的调用方式可以在IDE环境中设置。</p>
+<p>带有可变参数的函数必须且只能使用_cdecl方式，例如下面的函数:<br>      int printf(char * fmtStr, …);</p>
+<pre><code>int scanf(char * fmtStr, ...);
+</code></pre><h3 id="函数名修饰"><a href="#函数名修饰" class="headerlink" title="函数名修饰"></a>函数名修饰</h3><p>(1). _cdecl ：对于_cdecl而言，如果对于定义在C程序文件(编译器会通过后缀名为.C判断)的输出函数，函数名会保持原样；对于定义在C++程序文件中的输出函数，函数名会被修饰(见10)。为使函数名不被修饰，有两种方法：A.可通过在前面加上extern “c”以去除函数名修饰；B. 可通过.def文件去除函数名修饰。</p>
+<p>(2). _stdcall：无论是C程序文件中的输出函数还是C++程序文件中的输出函数，函数名都会被修饰。对于定义在C++程序文件中的输出函数，好像更复杂，和_cdecl的情况类似。去除函数名修饰方法：只能通过.def文件去除函数名修饰。</p>
+<h3 id="函数名修饰规则："><a href="#函数名修饰规则：" class="headerlink" title="函数名修饰规则："></a>函数名修饰规则：</h3><p>(1). 为什么要函数名修饰：<br>      函数名修饰就是编译器在编译期间创建的一个字符串，用来指明函数的定义和原型。LINK程序或其他工具有时需要指定函数的名字修饰来定位函数的正确位置。多少情况下程序员并不需要知道函数的名字修饰，LINK程序或其他工具会自动区分他们。当然，在某些情况下需要指定函数名修饰，例如在c++程序中，为了让LINK程序或其他工具能够匹配到正确的函数名字，就必须为重载函数后一些特殊函数(如构造函数和析构函数)指定名字修饰。另一种需要指定函数名修饰的情况是在汇编程序中调用C或C++函数。<br>(2). C语言：<br>      对于_stdcall调用约定，编译器和链接器会在输出函数名前加上一个下划线前缀，函数名后面加上一个“@”符号和其参数的字节数，例如_functionname@number。_cdecl调用约定仅在输出函数名前加上一个下划线前缀，例如_functionname。_fastcall调用约定在输出函数名前加上一个 “@“符号，后面也是一个”@“符号和其参数的字节数，例如@functionname@number。<br>(3). C++语言：<br>   C++的函数名修饰规则有些复杂，但是信息更充分，通过分析修饰名不仅能够知道函数的调用方式，返回值类型，参数个数甚至参数类型。不管<strong>cdecl，</strong>fastcall还是<strong>stdcall调用方式，函数修饰都是以一个“?”开始，后面紧跟函数的名字，再后面是参数表的开始标识和按照参数类型代号拼出的参数表。对于</strong>stdcall方式，参数表的开始标识是“@@YG”，对于<strong>cdecl方式则是“@@YA”，对于</strong>fastcall方式则是“@@YI”。参数表的拼写代号如下所示：<br>X–void<br>D–char<br>E–unsigned char<br>F–short<br>H–int<br>I–unsigned int<br>J–long<br>K–unsigned long（DWORD）<br>M–float<br>N–double<br>_N—bool<br>U—struct</p>
+<p>指针的方式有些特别，用PA表示指针，用PB表示const类型的指针。后面的代号表明指针类型，如果相同类型的指针连续出现，以“0”代替，一个“0”代表一次重复。U表示结构类型，通常后跟结构体的类型名，用“@@”表示结构类型名的结束。函数的返回值不作特殊处理，它的描述方式和函数参数一样，紧跟着参数表的开始标志，也就是说，函数参数表的第一项实际上是表示函数的返回值类型。参数表后以“@Z”标识整个名字的结束，如果该函数无参数，则以“Z”标识结束。下面举两个例子，假如有以下函数声明：<br>int Function1(char *var1,unsigned long);<br>其函数修饰名为“?Function1@@YGHPADK@Z”，而对于函数声明：<br>oid Function2();<br>其函数修饰名则为“?Function2@@YGXXZ” 。<br>对于C++的类成员函数（其调用方式是thiscall），函数的名字修饰与非成员的C++函数稍有不同，首先就是在函数名字和参数表之间插入以“@”字符引导的类名；其次是参数表的开始标识不同，公有（public）成员函数的标识是“@@QAE”,保护（protected）成员函数的标识是“@@IAE”,私有（private）成员函数的标识是“@@AAE”，如果函数声明使用了const关键字，则相应的标识应分别为“@@QBE”，“@@IBE”和“@@ABE”。如果参数类型是类实例的引用，则使用“AAV1”，对于const类型的引用，则使用“ABV1”。</p>
+<h3 id="查看函数的名字修饰"><a href="#查看函数的名字修饰" class="headerlink" title="查看函数的名字修饰"></a>查看函数的名字修饰</h3><p> 有两种方式可以检查你的程序中的函数的名字修饰：使用编译输出列表或使用Dumpbin工具。使用/FAc，/FAs或/FAcs命令行参数可以让编译器输出函数或变量名字列表。使用dumpbin.exe /SYMBOLS命令也可以获得obj文件或lib文件中的函数或变量名字列表。此外，还可以使用 undname.exe 将修饰名转换为未修饰形式。</p>
+<h3 id="beginthread需要-cdecl的线程函数地址，-beginthreadex和-CreateThread需要-stdcall的线程函数地址。"><a href="#beginthread需要-cdecl的线程函数地址，-beginthreadex和-CreateThread需要-stdcall的线程函数地址。" class="headerlink" title="_beginthread需要_cdecl的线程函数地址，_beginthreadex和_CreateThread需要_stdcall的线程函数地址。"></a>_beginthread需要_cdecl的线程函数地址，_beginthreadex和_CreateThread需要_stdcall的线程函数地址。</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CALLBACK __stdcall <span class="comment">//这就是传说中的回调函数</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> WINAPI __stdcall <span class="comment">//这就是传说中的WINAPI</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> WINAPIV __cdecl</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> APIENTRY WINAPI <span class="comment">//DllMain的入口就在这里</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> APIPRIVATE __stdcall</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PASCAL __stdcall</span></span><br></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/windows/">windows</a>
+</div>
+
 
 </div>
 
@@ -1304,214 +1566,6 @@
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/07/31/linux/LinuxFTP/" title="LinuxFTP的建立" itemprop="url">LinuxFTP的建立</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
-		
-  <p class="article-time">
-    <time datetime="2016-07-31T03:30:55.000Z" itemprop="datePublished"> Published 2016-07-31</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h1 id="linux-FTP建立，条件："><a href="#linux-FTP建立，条件：" class="headerlink" title="linux FTP建立，条件："></a>linux FTP建立，条件：</h1><p>安装vsftpd：<br>配置vsftpd的配置文件：<br>vim /etc/vsftpd.conf</p>
-<p>anonymous_enbale =NO  //关闭匿名登录<br>local_enbale=YES  //允许本地用户，就是ftp建立者的用户名和密码<br>write_enbale=YES  //允许写入，就是上传文件到ftp</p>
-<p>反注释掉：<br>ascii_upload_enbale=YES<br>ascii_download_enbale=YES</p>
-<p>默认的ftp目录就是home下的user目录，包含桌面，下载等等文件夹。</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/linux/">linux</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/07/21/windows/public_key_encryption/" title="非对称加密(公钥加密)" itemprop="url">非对称加密(公钥加密)</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
-		
-  <p class="article-time">
-    <time datetime="2016-07-21T06:35:58.000Z" itemprop="datePublished"> Published 2016-07-21</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p></p><h1><center>公钥加密的工作原理</center></h1><p></p>
-<h2 id="对称加密："><a href="#对称加密：" class="headerlink" title="对称加密："></a>对称加密：</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">* 加密密钥和解密密钥是一样的。</span><br></pre></td></tr></table></figure>
-<p><br></p>
-<h2 id="非对称加密："><a href="#非对称加密：" class="headerlink" title="非对称加密："></a>非对称加密：</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">*	(也叫公钥加密)</span><br><span class="line">* 两个密钥在加密和解密中配合使用，密钥对具有特殊的互补关系，密钥对在数学上存在特殊关系。</span><br></pre></td></tr></table></figure>
-<p><br></p>
-<h2 id="邮件的电子签名过程："><a href="#邮件的电子签名过程：" class="headerlink" title="邮件的电子签名过程："></a>邮件的电子签名过程：</h2><p><img src="http://technet.microsoft.com/zh-cn/library/Aa998077.35451fb8-5e11-4d67-ba6e-e5d4da6febca%28zh-cn,TechNet.10%29.gif" alt=""></p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">* 捕获邮件正文--&gt;计算邮件哈希值--&gt;检索发件人私钥--&gt;用发件人私钥加密哈希值--&gt;附加到邮件底部(明文签名)/与原始邮件组合成二进制附件(不透明签名)--&gt;发送mail</span><br><span class="line">* --私钥只有发件人才唯一拥有，公钥仅仅与一个私钥关联，所以可以用公钥唯一识别一个私钥。</span><br></pre></td></tr></table></figure>
-<p><br></p>
-<h3 id="验证邮件签名的过程："><a href="#验证邮件签名的过程：" class="headerlink" title="验证邮件签名的过程："></a>验证邮件签名的过程：</h3><p><img src="http://technet.microsoft.com/zh-cn/library/Aa998077.d1b14a27-5cfb-4df2-89f7-990219378716%28zh-cn,TechNet.10%29.gif" alt=""><br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">* 接收邮件--&gt;检索加密的哈希值--&gt;检索邮件正文--&gt;用正文计算邮件哈希值--&gt;检索发件人的公钥--&gt;用发件人公钥解密签名(加密的哈希值)--&gt;和计算的哈希值对比--&gt;验证签名邮件</span><br><span class="line">* --文件内容不变，计算的哈希值就不会变。</span><br><span class="line">* --私钥加密的东西，需要对应的公钥解密。</span><br><span class="line">* --如果哈希值一致，说明公钥对应的私钥是对的，私钥只有发件人知道，所以确定发件人属实。</span><br></pre></td></tr></table></figure></p>
-<p><br></p>
-<h2 id="邮件内容的加密"><a href="#邮件内容的加密" class="headerlink" title="邮件内容的加密"></a>邮件内容的加密</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">* 对称密钥加密的话，需要<span class="string">"密钥协商"</span>，必须协商出一个双方都知道的密钥。</span><br><span class="line">* 非对称密钥加密的话，没有协商过程，因为一个公钥，可以很多人拥有，私钥是只有一个人有。</span><br><span class="line">* 由于非对称(公钥加密)密钥加密使用密钥对，加密和解密是一个昂贵的计算过程，速度慢。所以这么做呗......</span><br></pre></td></tr></table></figure>
-<p><br></p>
-<h3 id="send加密mail内容"><a href="#send加密mail内容" class="headerlink" title="send加密mail内容"></a>send加密mail内容</h3><p><img src="http://technet.microsoft.com/zh-cn/library/Aa998077.21058391-2d70-42f9-bf25-8ead79705b27%28zh-cn,TechNet.10%29.gif" alt=""><br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">* -- <span class="number">1.</span>找到邮件正文--&gt;<span class="number">2.</span>检索收件人公钥--&gt;<span class="number">3.</span>生成一次性的会话密钥(这个是对称密钥)--&gt;<span class="number">4.</span>用会话密钥加密正文--&gt;<span class="number">5.</span>用收件人公钥加密会话密钥，并附到邮件--&gt;<span class="number">6.</span>发送邮件</span><br></pre></td></tr></table></figure></p>
-<p><br></p>
-<h3 id="recv解密mail内容"><a href="#recv解密mail内容" class="headerlink" title="recv解密mail内容"></a>recv解密mail内容</h3><p><img src="http://technet.microsoft.com/zh-cn/library/Aa998077.50f0afca-e520-46b5-8e12-6e295dfe86d9%28zh-cn,TechNet.10%29.gif" alt=""><br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">* -- <span class="number">1.</span>接收邮件--&gt;<span class="number">2.</span>检索加密邮件正文和会话密钥-&gt;<span class="number">3.</span>检索收件人私钥解密会话密钥-&gt;<span class="number">4.</span>用解密的会话密钥解密正文-&gt;<span class="number">5.</span>解密邮件返回给收件人</span><br></pre></td></tr></table></figure></p>
-<p><br></p>
-<h3 id="同时使用签名和邮件内容加密"><a href="#同时使用签名和邮件内容加密" class="headerlink" title="同时使用签名和邮件内容加密"></a>同时使用签名和邮件内容加密</h3><p><img src="http://technet.microsoft.com/zh-cn/library/Aa998077.e81cca9b-c780-49d9-a3f9-69cc3c442183%28zh-cn,TechNet.10%29.gif" alt="tu"></p>
-<p><br></p>
-<h3 id="同时使用签名和邮件内容加密后的解密"><a href="#同时使用签名和邮件内容加密后的解密" class="headerlink" title="同时使用签名和邮件内容加密后的解密"></a>同时使用签名和邮件内容加密后的解密</h3><p><img src="http://technet.microsoft.com/zh-cn/library/Aa998077.97705e57-0a94-4197-99c3-40bb58a9eaa0%28zh-cn,TechNet.10%29.gif" alt=""><br><br></p>
-<h3 id="功能和所需的密钥表"><a href="#功能和所需的密钥表" class="headerlink" title="功能和所需的密钥表"></a>功能和所需的密钥表</h3><p><img src="http://technet.microsoft.com/zh-cn/library/Aa998077.ef4e76b6-4799-45a9-90f8-ec7af508152a%28zh-cn,TechNet.10%29.gif" alt=""></p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/windows/">windows</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/encrypt/">encrypt</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/06/28/windows/win_time_func/" title="windows时间的处理" itemprop="url">windows时间的处理</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
-		
-  <p class="article-time">
-    <time datetime="2016-06-28T06:33:59.000Z" itemprop="datePublished"> Published 2016-06-28</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h1 id="windows时间的处理："><a href="#windows时间的处理：" class="headerlink" title="windows时间的处理："></a>windows时间的处理：</h1><h2 id="系统时间："><a href="#系统时间：" class="headerlink" title="系统时间："></a>系统时间：</h2><p> UTC时间（格林威治时间）,世界标准时间，北京时间是UTC+8</p>
-<h2 id="本地时间："><a href="#本地时间：" class="headerlink" title="本地时间："></a>本地时间：</h2><p> UTC时间+时区偏差，就是计算机右下角显示的时间</p>
-<h2 id="文件时间：类型有三种"><a href="#文件时间：类型有三种" class="headerlink" title="文件时间：类型有三种"></a>文件时间：类型有三种</h2><p> 1.创建时间</p>
-<p> 2.访问时间</p>
-<p> 3.修改时间</p>
-<p>文件时间是：</p>
-<p> 64位的值记录了自1601年1月1日0点以来的以100纳秒（ns）为单位的格林威治时间间隔，我们鼠标右键查看文件属性，看到的是这个间隔加上时区差的，并且显示格式的SYSTEM结构体形式(年月日的形式)，不是FILETIME结构体形式（两个DWORD成员）。所以看起来跟本地时间差别不大。</p>
-<h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><p>先来看看这两个结构体的定义：</p>
-<h3 id="FILETIME结构体"><a href="#FILETIME结构体" class="headerlink" title="FILETIME结构体:"></a>FILETIME结构体:</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">FILETIME</span> &#123;</span></span><br><span class="line">    DWORDdwLowDateTime;</span><br><span class="line">    DWORDdwHighDateTime;</span><br><span class="line">&#125; FILETIME, *PFILETIME, *LPFILETIME;</span><br></pre></td></tr></table></figure>
-<p>它在MSDN上的说明——Contains a 64-bit value representing the number of 100-nanosecond intervals since January 1, 1601 (UTC时间).</p>
-<h3 id="SYSTEMTIME结构体："><a href="#SYSTEMTIME结构体：" class="headerlink" title="SYSTEMTIME结构体："></a>SYSTEMTIME结构体：</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">SYSTEMTIME</span> &#123;</span></span><br><span class="line"></span><br><span class="line">    WORDwYear;</span><br><span class="line"></span><br><span class="line">    WORDwMonth;</span><br><span class="line"></span><br><span class="line">    WORDwDayOfWeek;</span><br><span class="line"></span><br><span class="line">    WORDwDay;</span><br><span class="line"></span><br><span class="line">    WORDwHour;</span><br><span class="line"></span><br><span class="line">    WORDwMinute;</span><br><span class="line"></span><br><span class="line">    WORDwSecond;</span><br><span class="line"></span><br><span class="line">    WORDwMilliseconds;</span><br><span class="line"></span><br><span class="line">&#125; SYSTEMTIME, *PSYSTEMTIME, *LPSYSTEMTIME;</span><br></pre></td></tr></table></figure>
-<h3 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h3> <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"> <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"stdafx.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;windows.h&gt;  </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;  </span></span></span><br><span class="line"><span class="comment">//#include &lt;conio.h&gt;  </span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CLocaltimeAndFiletime</span>  </span></span><br><span class="line"><span class="class">&#123;</span>  </span><br><span class="line"><span class="keyword">public</span>:  </span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">GetCurrentLocalTime</span><span class="params">(<span class="keyword">char</span> *pstrDate, <span class="keyword">char</span> *pstrTime)</span></span>;  </span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">FileTimeToLocalTime</span><span class="params">(FILETIME &amp;ft, <span class="keyword">char</span> *pstrDate, <span class="keyword">char</span> *pstrTime)</span></span>;  </span><br><span class="line">&#125;;  </span><br><span class="line"></span><br><span class="line"><span class="comment">//取得：本地时间 = UTC+8（北京的）  //UTC是系统时间</span></span><br><span class="line"><span class="keyword">void</span> CLocaltimeAndFiletime::GetCurrentLocalTime(<span class="keyword">char</span> *pstrDate, <span class="keyword">char</span> *pstrTime)  </span><br><span class="line">&#123;  </span><br><span class="line">    SYSTEMTIME st;  </span><br><span class="line">    GetLocalTime(&amp;st);  <span class="comment">//取得本地时间</span></span><br><span class="line">	<span class="comment">//getsystemtime(&amp;st) //依据所在时区，和本地时间，推算出UTC时间=本地-8小时</span></span><br><span class="line">    <span class="keyword">if</span> (pstrDate != <span class="literal">NULL</span>)  </span><br><span class="line">        <span class="built_in">sprintf</span>(pstrDate, <span class="string">"%d-%d-%d"</span>, st.wYear, st.wMonth, st.wDay);  </span><br><span class="line">    <span class="keyword">if</span> (pstrTime != <span class="literal">NULL</span>)  </span><br><span class="line">        <span class="built_in">sprintf</span>(pstrTime, <span class="string">"%02d:%02d:%02d"</span>, st.wHour, st.wMinute, st.wSecond);  </span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line"><span class="comment">//把一个64e位的文件时间（三种类型，创建/访问/修改），转换成SYSTEEMTIME结构类型</span></span><br><span class="line"><span class="keyword">void</span> CLocaltimeAndFiletime::FileTimeToLocalTime(FILETIME &amp;ft, <span class="keyword">char</span> *pstrDate, <span class="keyword">char</span> *pstrTime)  </span><br><span class="line">&#123;  </span><br><span class="line">    FILETIME localft;  <span class="comment">//文件时间是1601年--目前的UTC时间的差（64位整数），转换成UTC+本地时区的64位值，</span></span><br><span class="line">    FileTimeToLocalFileTime(&amp;ft, &amp;localft);  </span><br><span class="line">    SYSTEMTIME st;  </span><br><span class="line">    FileTimeToSystemTime(&amp;localft, &amp;st);  <span class="comment">//转换成年月日形式</span></span><br><span class="line">	</span><br><span class="line">    <span class="keyword">if</span> (pstrDate != <span class="literal">NULL</span>)  </span><br><span class="line">        <span class="built_in">sprintf</span>(pstrDate, <span class="string">"%d-%d-%d"</span>, st.wYear, st.wMonth, st.wDay);  </span><br><span class="line">    <span class="keyword">if</span> (pstrTime != <span class="literal">NULL</span>)  </span><br><span class="line">        <span class="built_in">sprintf</span>(pstrTime, <span class="string">"%02d:%02d:%02d"</span>, st.wHour, st.wMinute, st.wSecond);  </span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"windows(FILETIME和SYSTEMTIME) \n"</span>);          </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> MAX_LEN = <span class="number">30</span>;  </span><br><span class="line">    <span class="keyword">char</span> strDate[MAX_LEN], strTime[MAX_LEN];  </span><br><span class="line">    CLocaltimeAndFiletime::GetCurrentLocalTime(strDate, strTime);  </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"current: %s %s\n"</span>, strDate, strTime);  </span><br><span class="line">	</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">char</span>* pstrFileName = <span class="string">"C:\\1.html"</span>;  </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"文件名：%s\n"</span>, pstrFileName);  </span><br><span class="line">    <span class="comment">//打开一个文件取得句柄，利用这个句柄取得文件的时间属性（创建，访问，修改）</span></span><br><span class="line">    HANDLE handleFile = CreateFile(pstrFileName, GENERIC_READ,   </span><br><span class="line">        FILE_SHARE_READ, <span class="literal">NULL</span>, OPEN_EXISTING, <span class="number">0</span>, <span class="literal">NULL</span>);  </span><br><span class="line">    FILETIME ftCreationTime, ftLastAccessTime, ftLastWriteTime;  </span><br><span class="line">    <span class="comment">//取得时间属性</span></span><br><span class="line">    GetFileTime(handleFile, &amp;ftCreationTime, &amp;ftLastAccessTime, &amp;ftLastWriteTime);  </span><br><span class="line">    <span class="comment">//转换创建时间</span></span><br><span class="line">    CLocaltimeAndFiletime::FileTimeToLocalTime(ftCreationTime, strDate, strTime);  </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"create: %s %s\n"</span>, strDate, strTime);  </span><br><span class="line">    <span class="comment">//转换最后一次访问时间</span></span><br><span class="line">    CLocaltimeAndFiletime::FileTimeToLocalTime(ftLastAccessTime, strDate, strTime);  </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"access: %s %s\n"</span>, strDate, strTime);</span><br><span class="line">    <span class="comment">//转换修改时间</span></span><br><span class="line">    CLocaltimeAndFiletime::FileTimeToLocalTime(ftLastWriteTime, strDate, strTime);  </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"modify: %s %s\n"</span>, strDate, strTime);  </span><br><span class="line">    <span class="comment">//getch();  </span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/windows/">windows</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/c/">c++</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <a class="extend prev" rel="prev" href="/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next<span></span></a>
@@ -1555,7 +1609,7 @@
 		  
 		
 		  
-			<li><a href="/categories/linux/" title="linux">linux<sup>10</sup></a></li>
+			<li><a href="/categories/linux/" title="linux">linux<sup>13</sup></a></li>
 		  
 		
 		  
@@ -1608,11 +1662,11 @@
 			
 		
 			
-				<li><a href="/tags/c/" title="c++">c++<sup>1</sup></a></li>
+				<li><a href="/tags/windows/" title="windows">windows<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/windows/" title="windows">windows<sup>1</sup></a></li>
+				<li><a href="/tags/c/" title="c++">c++<sup>1</sup></a></li>
 			
 		
 			

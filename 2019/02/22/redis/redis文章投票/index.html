@@ -23,24 +23,24 @@
 
   <meta charset="UTF-8">
   
-    <title>apache_wsgi支持python脚本 | 小莺の博客</title>
+    <title>redis文章投票 | 小莺の博客</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="wedvefv">
     
 
     
-    <meta name="description" content="apache支持python脚本配置httpd.conf追加：1234567891011LoadModule wsgi_module modules/mod_wsgi.so WSGIScriptAlias / C:/xampp/www/py/myweb/myweb/wsgi.py  WSGIPythonPath C:/xampp/www/py/myweb   #django 项目目录Documen">
+    <meta name="description" content="1. 文章信息可以用hash表示 比如文章id为key，文章属性为filed，属性值为value 1234key : articel:1 title : 这是标题link： www.baidu.comupdatetime: 2019-02-21 00:00:00  也可以用大的hash，每个filed是一个文章id，value是一个json表示文章属性，   2. 文章id和发布时间对应关系用zs">
 <meta property="og:type" content="article">
-<meta property="og:title" content="apache_wsgi支持python脚本">
-<meta property="og:url" content="http://wedvefv.github.io/2017/01/07/linux/apache_wsgi/index.html">
+<meta property="og:title" content="redis文章投票">
+<meta property="og:url" content="http://wedvefv.github.io/2019/02/22/redis/redis文章投票/index.html">
 <meta property="og:site_name" content="小莺の博客">
-<meta property="og:description" content="apache支持python脚本配置httpd.conf追加：1234567891011LoadModule wsgi_module modules/mod_wsgi.so WSGIScriptAlias / C:/xampp/www/py/myweb/myweb/wsgi.py  WSGIPythonPath C:/xampp/www/py/myweb   #django 项目目录Documen">
+<meta property="og:description" content="1. 文章信息可以用hash表示 比如文章id为key，文章属性为filed，属性值为value 1234key : articel:1 title : 这是标题link： www.baidu.comupdatetime: 2019-02-21 00:00:00  也可以用大的hash，每个filed是一个文章id，value是一个json表示文章属性，   2. 文章id和发布时间对应关系用zs">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-26T04:59:17.452Z">
+<meta property="og:updated_time" content="2019-02-23T08:50:34.766Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="apache_wsgi支持python脚本">
-<meta name="twitter:description" content="apache支持python脚本配置httpd.conf追加：1234567891011LoadModule wsgi_module modules/mod_wsgi.so WSGIScriptAlias / C:/xampp/www/py/myweb/myweb/wsgi.py  WSGIPythonPath C:/xampp/www/py/myweb   #django 项目目录Documen">
+<meta name="twitter:title" content="redis文章投票">
+<meta name="twitter:description" content="1. 文章信息可以用hash表示 比如文章id为key，文章属性为filed，属性值为value 1234key : articel:1 title : 这是标题link： www.baidu.comupdatetime: 2019-02-21 00:00:00  也可以用大的hash，每个filed是一个文章id，value是一个json表示文章属性，   2. 文章id和发布时间对应关系用zs">
 
     
     <link rel="alternative" href="/atom.xml" title="小莺の博客" type="application/atom+xml">
@@ -100,14 +100,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/01/07/linux/apache_wsgi/" title="apache_wsgi支持python脚本" itemprop="url">apache_wsgi支持python脚本</a>
+      <a href="/2019/02/22/redis/redis文章投票/" title="redis文章投票" itemprop="url">redis文章投票</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
 		
   <p class="article-time">
-    <time datetime="2017-01-07T06:00:00.000Z" itemprop="datePublished"> Published 2017-01-07</time>
+    <time datetime="2019-02-22T07:50:00.000Z" itemprop="datePublished"> Published 2019-02-22</time>
     
   </p>
 </header>
@@ -116,14 +116,45 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#apache支持python脚本"><span class="toc-number">1.</span> <span class="toc-text">apache支持python脚本</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-文章信息可以用hash表示"><span class="toc-number">1.</span> <span class="toc-text">1. 文章信息可以用hash表示</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-文章id和发布时间对应关系用zset表示"><span class="toc-number">2.</span> <span class="toc-text">2. 文章id和发布时间对应关系用zset表示</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-文章id和文章评分对应关系也可用zset表示"><span class="toc-number">3.</span> <span class="toc-text">3. 文章id和文章评分对应关系也可用zset表示</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-对一篇文章首次投票之后，发生什么变化？"><span class="toc-number">4.</span> <span class="toc-text">4. 对一篇文章首次投票之后，发生什么变化？</span></a></li></ol>
 		
 		</div>
 		
-		<h1 id="apache支持python脚本"><a href="#apache支持python脚本" class="headerlink" title="apache支持python脚本"></a>apache支持python脚本</h1><p>配置httpd.conf<br>追加：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">LoadModule wsgi_module modules/mod_wsgi.so </span><br><span class="line"></span><br><span class="line">WSGIScriptAlias / C:/xampp/www/py/myweb/myweb/wsgi.py  </span><br><span class="line">WSGIPythonPath C:/xampp/www/py/myweb   #django 项目目录</span><br><span class="line">DocumentRoot "C:/xampp/www/py/myweb/myweb" #具体应用目录</span><br><span class="line">&lt;Directory "C:/xampp/www"&gt;</span><br><span class="line"></span><br><span class="line">Options Indexes FollowSymLinks Includes ExecCGI</span><br><span class="line">AllowOverride All</span><br><span class="line">Require all granted</span><br><span class="line">&lt;/Directory&gt;</span><br></pre></td></tr></table></figure></p>
-<p>Options Indexes FollowSymLinks Includes ExecCGI<br>禁止显示Apache目录列表-Indexes FollowSymLinks<br>如何修改目录的配置以禁止显示 Apache 目录列表。<br>减号和去掉indexes是一样的效果 ，都是不存在index时，不要显示目录结构，安全起见。<br>xampp 中的不带减号，依然不可以访问目录。目前不知道原因。可能做了某些安全设置。</p>
-<p>AllowOverride参数就是指明Apache服务器是否去找.htacess文件作为配置文件，如果设置为none,那么服务器将忽略.htacess文件，如果设置为All,那么所有在.htaccess文件里有的指令都将被重写。</p>
-<p>Require all granted<br>    允许所有请求访问资源</p>
+		<h2 id="1-文章信息可以用hash表示"><a href="#1-文章信息可以用hash表示" class="headerlink" title="1. 文章信息可以用hash表示"></a>1. 文章信息可以用hash表示</h2><ul>
+<li><p>比如文章id为key，文章属性为filed，属性值为value</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">key : articel:<span class="number">1</span> </span><br><span class="line">title : 这是标题</span><br><span class="line">link： www.baidu.com</span><br><span class="line">updatetime: <span class="number">2019</span><span class="number">-02</span><span class="number">-21</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>也可以用大的hash，每个filed是一个文章id，value是一个json表示文章属性，</p>
+</li>
+</ul>
+<h2 id="2-文章id和发布时间对应关系用zset表示"><a href="#2-文章id和发布时间对应关系用zset表示" class="headerlink" title="2. 文章id和发布时间对应关系用zset表示"></a>2. 文章id和发布时间对应关系用zset表示</h2><ul>
+<li>文章id对应member，发布时间是score</li>
+</ul>
+<h2 id="3-文章id和文章评分对应关系也可用zset表示"><a href="#3-文章id和文章评分对应关系也可用zset表示" class="headerlink" title="3. 文章id和文章评分对应关系也可用zset表示"></a>3. 文章id和文章评分对应关系也可用zset表示</h2><ul>
+<li>文章id对应member， 分数对应score</li>
+</ul>
+<h2 id="4-对一篇文章首次投票之后，发生什么变化？"><a href="#4-对一篇文章首次投票之后，发生什么变化？" class="headerlink" title="4. 对一篇文章首次投票之后，发生什么变化？"></a>4. 对一篇文章首次投票之后，发生什么变化？</h2><ul>
+<li><ol start="0">
+<li>有时只需要7天之内发布的文章才可以投票，否则直接返回。</li>
+</ol>
+</li>
+<li><ol>
+<li>用户是不支持重复投票的，所有应该有一个文章id对应的set类型的key，将投过票的uid加入到里面，如果加入失败，就说明重复了，就不增加评分。</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>首先对应文章id的评分增加，具体增加规则： 将文章的已获得的支持票数*一个常量 +发布时间戳；常量可以432（86400/200）200个投票需求，平均一天时间。，这只是我见到的一个方法。</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>增加文章的投票+1，使用hincrby ，前提是如果用hash记录文章属性的话，投票数就是一个属性。</li>
+</ol>
+</li>
+<li><ol start="4">
+<li>考虑到并发，如果以上三个操作应该用事物操作，保证原子性。</li>
+</ol>
+</li>
+</ul>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -141,7 +172,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://wedvefv.github.io/2017/01/07/linux/apache_wsgi/" data-title="apache_wsgi支持python脚本 | 小莺の博客" data-tsina="" class="share clearfix">
+	  <div data-url="http://wedvefv.github.io/2019/02/22/redis/redis文章投票/" data-title="redis文章投票 | 小莺の博客" data-tsina="" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -155,18 +186,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2017/01/07/c/unix_netcode/" title="unix获取时间的小程序">
+ <a href="/2019/02/22/redis/redis文章发布/" title="redis文章发布">
   <strong>上一篇：</strong><br/>
   <span>
-  unix获取时间的小程序</span>
+  redis文章发布</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2016/12/10/linux/nginx_config/"  title="nginx  support  php">
+<a href="/2019/02/22/redis/redis文章分组的用途/"  title="redis文章分组的用途">
  <strong>下一篇：</strong><br/> 
- <span>nginx  support  php
+ <span>redis文章分组的用途
 </span>
 </a>
 </div>
@@ -185,7 +216,7 @@
 <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
     var gitment = new Gitment({
-        id: 'Sat Jan 07 2017 14:00:00 GMT+0800',
+        id: 'Fri Feb 22 2019 15:50:00 GMT+0800',
         owner: 'wedvefv',
         repo: 'wedvefv.github.io',
         oauth: {
@@ -203,7 +234,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#apache支持python脚本"><span class="toc-number">1.</span> <span class="toc-text">apache支持python脚本</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-文章信息可以用hash表示"><span class="toc-number">1.</span> <span class="toc-text">1. 文章信息可以用hash表示</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-文章id和发布时间对应关系用zset表示"><span class="toc-number">2.</span> <span class="toc-text">2. 文章id和发布时间对应关系用zset表示</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-文章id和文章评分对应关系也可用zset表示"><span class="toc-number">3.</span> <span class="toc-text">3. 文章id和文章评分对应关系也可用zset表示</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-对一篇文章首次投票之后，发生什么变化？"><span class="toc-number">4.</span> <span class="toc-text">4. 对一篇文章首次投票之后，发生什么变化？</span></a></li></ol>
  
   </div>
 

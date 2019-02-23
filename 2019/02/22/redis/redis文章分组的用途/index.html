@@ -23,24 +23,24 @@
 
   <meta charset="UTF-8">
   
-    <title>apache_wsgi支持python脚本 | 小莺の博客</title>
+    <title>redis文章分组的用途 | 小莺の博客</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="wedvefv">
     
 
     
-    <meta name="description" content="apache支持python脚本配置httpd.conf追加：1234567891011LoadModule wsgi_module modules/mod_wsgi.so WSGIScriptAlias / C:/xampp/www/py/myweb/myweb/wsgi.py  WSGIPythonPath C:/xampp/www/py/myweb   #django 项目目录Documen">
+    <meta name="description" content="文章分组的用途 文章分组，可以用set结构存储同一个分组的文章id set可以和zset使用zinterstore命令求交集，set默认的score是1， zset默认的一般不是1，可以指定参数max，取score大的值。 比如获取一个分组A中的文章按时间排序，就拿这个分组和发布时间集合zset求交集，交集可以取一个临时名字，设置有效期60s。 比如获取一个分组B中的文章按照评分大小排序，就拿这个">
 <meta property="og:type" content="article">
-<meta property="og:title" content="apache_wsgi支持python脚本">
-<meta property="og:url" content="http://wedvefv.github.io/2017/01/07/linux/apache_wsgi/index.html">
+<meta property="og:title" content="redis文章分组的用途">
+<meta property="og:url" content="http://wedvefv.github.io/2019/02/22/redis/redis文章分组的用途/index.html">
 <meta property="og:site_name" content="小莺の博客">
-<meta property="og:description" content="apache支持python脚本配置httpd.conf追加：1234567891011LoadModule wsgi_module modules/mod_wsgi.so WSGIScriptAlias / C:/xampp/www/py/myweb/myweb/wsgi.py  WSGIPythonPath C:/xampp/www/py/myweb   #django 项目目录Documen">
+<meta property="og:description" content="文章分组的用途 文章分组，可以用set结构存储同一个分组的文章id set可以和zset使用zinterstore命令求交集，set默认的score是1， zset默认的一般不是1，可以指定参数max，取score大的值。 比如获取一个分组A中的文章按时间排序，就拿这个分组和发布时间集合zset求交集，交集可以取一个临时名字，设置有效期60s。 比如获取一个分组B中的文章按照评分大小排序，就拿这个">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-26T04:59:17.452Z">
+<meta property="og:updated_time" content="2019-02-23T09:09:45.312Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="apache_wsgi支持python脚本">
-<meta name="twitter:description" content="apache支持python脚本配置httpd.conf追加：1234567891011LoadModule wsgi_module modules/mod_wsgi.so WSGIScriptAlias / C:/xampp/www/py/myweb/myweb/wsgi.py  WSGIPythonPath C:/xampp/www/py/myweb   #django 项目目录Documen">
+<meta name="twitter:title" content="redis文章分组的用途">
+<meta name="twitter:description" content="文章分组的用途 文章分组，可以用set结构存储同一个分组的文章id set可以和zset使用zinterstore命令求交集，set默认的score是1， zset默认的一般不是1，可以指定参数max，取score大的值。 比如获取一个分组A中的文章按时间排序，就拿这个分组和发布时间集合zset求交集，交集可以取一个临时名字，设置有效期60s。 比如获取一个分组B中的文章按照评分大小排序，就拿这个">
 
     
     <link rel="alternative" href="/atom.xml" title="小莺の博客" type="application/atom+xml">
@@ -100,14 +100,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/01/07/linux/apache_wsgi/" title="apache_wsgi支持python脚本" itemprop="url">apache_wsgi支持python脚本</a>
+      <a href="/2019/02/22/redis/redis文章分组的用途/" title="redis文章分组的用途" itemprop="url">redis文章分组的用途</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
 		
   <p class="article-time">
-    <time datetime="2017-01-07T06:00:00.000Z" itemprop="datePublished"> Published 2017-01-07</time>
+    <time datetime="2019-02-22T07:50:00.000Z" itemprop="datePublished"> Published 2019-02-22</time>
     
   </p>
 </header>
@@ -116,14 +116,17 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#apache支持python脚本"><span class="toc-number">1.</span> <span class="toc-text">apache支持python脚本</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#文章分组的用途"><span class="toc-number">1.</span> <span class="toc-text">文章分组的用途</span></a></li></ol>
 		
 		</div>
 		
-		<h1 id="apache支持python脚本"><a href="#apache支持python脚本" class="headerlink" title="apache支持python脚本"></a>apache支持python脚本</h1><p>配置httpd.conf<br>追加：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">LoadModule wsgi_module modules/mod_wsgi.so </span><br><span class="line"></span><br><span class="line">WSGIScriptAlias / C:/xampp/www/py/myweb/myweb/wsgi.py  </span><br><span class="line">WSGIPythonPath C:/xampp/www/py/myweb   #django 项目目录</span><br><span class="line">DocumentRoot "C:/xampp/www/py/myweb/myweb" #具体应用目录</span><br><span class="line">&lt;Directory "C:/xampp/www"&gt;</span><br><span class="line"></span><br><span class="line">Options Indexes FollowSymLinks Includes ExecCGI</span><br><span class="line">AllowOverride All</span><br><span class="line">Require all granted</span><br><span class="line">&lt;/Directory&gt;</span><br></pre></td></tr></table></figure></p>
-<p>Options Indexes FollowSymLinks Includes ExecCGI<br>禁止显示Apache目录列表-Indexes FollowSymLinks<br>如何修改目录的配置以禁止显示 Apache 目录列表。<br>减号和去掉indexes是一样的效果 ，都是不存在index时，不要显示目录结构，安全起见。<br>xampp 中的不带减号，依然不可以访问目录。目前不知道原因。可能做了某些安全设置。</p>
-<p>AllowOverride参数就是指明Apache服务器是否去找.htacess文件作为配置文件，如果设置为none,那么服务器将忽略.htacess文件，如果设置为All,那么所有在.htaccess文件里有的指令都将被重写。</p>
-<p>Require all granted<br>    允许所有请求访问资源</p>
+		<h2 id="文章分组的用途"><a href="#文章分组的用途" class="headerlink" title="文章分组的用途"></a>文章分组的用途</h2><ul>
+<li>文章分组，可以用set结构存储同一个分组的文章id</li>
+<li>set可以和zset使用zinterstore命令求交集，set默认的score是1， zset默认的一般不是1，可以指定参数max，取score大的值。</li>
+<li>比如获取一个分组A中的文章按时间排序，就拿这个分组和发布时间集合zset求交集，交集可以取一个临时名字，设置有效期60s。</li>
+<li>比如获取一个分组B中的文章按照评分大小排序，就拿这个分组和评分集合zset求交集。</li>
+<li>一般接口直接就拿redis获取的数据返回了。</li>
+</ul>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -141,7 +144,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://wedvefv.github.io/2017/01/07/linux/apache_wsgi/" data-title="apache_wsgi支持python脚本 | 小莺の博客" data-tsina="" class="share clearfix">
+	  <div data-url="http://wedvefv.github.io/2019/02/22/redis/redis文章分组的用途/" data-title="redis文章分组的用途 | 小莺の博客" data-tsina="" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -155,18 +158,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2017/01/07/c/unix_netcode/" title="unix获取时间的小程序">
+ <a href="/2019/02/22/redis/redis文章投票/" title="redis文章投票">
   <strong>上一篇：</strong><br/>
   <span>
-  unix获取时间的小程序</span>
+  redis文章投票</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2016/12/10/linux/nginx_config/"  title="nginx  support  php">
+<a href="/2019/02/21/linux/Vm虚拟机的三种联网模式区别/"  title="VM虚拟机三种联网模式区别">
  <strong>下一篇：</strong><br/> 
- <span>nginx  support  php
+ <span>VM虚拟机三种联网模式区别
 </span>
 </a>
 </div>
@@ -185,7 +188,7 @@
 <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
     var gitment = new Gitment({
-        id: 'Sat Jan 07 2017 14:00:00 GMT+0800',
+        id: 'Fri Feb 22 2019 15:50:00 GMT+0800',
         owner: 'wedvefv',
         repo: 'wedvefv.github.io',
         oauth: {
@@ -203,7 +206,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#apache支持python脚本"><span class="toc-number">1.</span> <span class="toc-text">apache支持python脚本</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#文章分组的用途"><span class="toc-number">1.</span> <span class="toc-text">文章分组的用途</span></a></li></ol>
  
   </div>
 
