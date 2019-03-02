@@ -23,24 +23,25 @@
 
   <meta charset="UTF-8">
   
-    <title>redis文章分组的用途 | 小莺の博客</title>
+    <title>git_linux搭建服务器 | 小莺の博客</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="wedvefv">
     
 
     
-    <meta name="description" content="文章分组的用途 文章分组，可以用set结构存储同一个分组的文章id set可以和zset使用zinterstore命令求交集，set默认的score是1， zset默认的一般不是1，可以指定参数max，取score大的值。 比如获取一个分组A中的文章按时间排序，就拿这个分组和发布时间集合zset求交集，交集可以取一个临时名字，设置有效期60s。 比如获取一个分组B中的文章按照评分大小排序，就拿这个">
+    <meta name="description" content="为什么本地搭建一个git服务器 对于自己学习使用的代码，在没有网络的情况下不能用github，gitlab,所以本地建立一个git服务器。  环境准备centos7创建git用户1234id git # 查看是否存在git用户，存在就不创建了。useradd gitpasswd git输入密码，我设置的是xxx@123 服务端创建git仓库123456789mkdir -p /data/git/g">
+<meta name="keywords" content="git">
 <meta property="og:type" content="article">
-<meta property="og:title" content="redis文章分组的用途">
-<meta property="og:url" content="http://wedvefv.github.io/2019/02/22/redis/redis文章分组的用途/index.html">
+<meta property="og:title" content="git_linux搭建服务器">
+<meta property="og:url" content="http://wedvefv.github.io/2019/03/02/git/git_linux搭建服务器/index.html">
 <meta property="og:site_name" content="小莺の博客">
-<meta property="og:description" content="文章分组的用途 文章分组，可以用set结构存储同一个分组的文章id set可以和zset使用zinterstore命令求交集，set默认的score是1， zset默认的一般不是1，可以指定参数max，取score大的值。 比如获取一个分组A中的文章按时间排序，就拿这个分组和发布时间集合zset求交集，交集可以取一个临时名字，设置有效期60s。 比如获取一个分组B中的文章按照评分大小排序，就拿这个">
+<meta property="og:description" content="为什么本地搭建一个git服务器 对于自己学习使用的代码，在没有网络的情况下不能用github，gitlab,所以本地建立一个git服务器。  环境准备centos7创建git用户1234id git # 查看是否存在git用户，存在就不创建了。useradd gitpasswd git输入密码，我设置的是xxx@123 服务端创建git仓库123456789mkdir -p /data/git/g">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-02-23T09:09:45.312Z">
+<meta property="og:updated_time" content="2019-03-02T04:06:44.675Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="redis文章分组的用途">
-<meta name="twitter:description" content="文章分组的用途 文章分组，可以用set结构存储同一个分组的文章id set可以和zset使用zinterstore命令求交集，set默认的score是1， zset默认的一般不是1，可以指定参数max，取score大的值。 比如获取一个分组A中的文章按时间排序，就拿这个分组和发布时间集合zset求交集，交集可以取一个临时名字，设置有效期60s。 比如获取一个分组B中的文章按照评分大小排序，就拿这个">
+<meta name="twitter:title" content="git_linux搭建服务器">
+<meta name="twitter:description" content="为什么本地搭建一个git服务器 对于自己学习使用的代码，在没有网络的情况下不能用github，gitlab,所以本地建立一个git服务器。  环境准备centos7创建git用户1234id git # 查看是否存在git用户，存在就不创建了。useradd gitpasswd git输入密码，我设置的是xxx@123 服务端创建git仓库123456789mkdir -p /data/git/g">
 
     
     <link rel="alternative" href="/atom.xml" title="小莺の博客" type="application/atom+xml">
@@ -100,14 +101,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2019/02/22/redis/redis文章分组的用途/" title="redis文章分组的用途" itemprop="url">redis文章分组的用途</a>
+      <a href="/2019/03/02/git/git_linux搭建服务器/" title="git_linux搭建服务器" itemprop="url">git_linux搭建服务器</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
 		
   <p class="article-time">
-    <time datetime="2019-02-22T07:50:00.000Z" itemprop="datePublished"> Published 2019-02-22</time>
+    <time datetime="2019-03-02T04:00:00.000Z" itemprop="datePublished"> Published 2019-03-02</time>
     
   </p>
 </header>
@@ -116,27 +117,31 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#文章分组的用途"><span class="toc-number">1.</span> <span class="toc-text">文章分组的用途</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么本地搭建一个git服务器"><span class="toc-number">1.</span> <span class="toc-text">为什么本地搭建一个git服务器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#环境准备centos7"><span class="toc-number">2.</span> <span class="toc-text">环境准备centos7</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建git用户"><span class="toc-number">3.</span> <span class="toc-text">创建git用户</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#服务端创建git仓库"><span class="toc-number">4.</span> <span class="toc-text">服务端创建git仓库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#客户端clone远程仓库"><span class="toc-number">5.</span> <span class="toc-text">客户端clone远程仓库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#开启RSA认证"><span class="toc-number">6.</span> <span class="toc-text">开启RSA认证</span></a></li></ol>
 		
 		</div>
 		
-		<h2 id="文章分组的用途"><a href="#文章分组的用途" class="headerlink" title="文章分组的用途"></a>文章分组的用途</h2><ul>
-<li>文章分组，可以用set结构存储同一个分组的文章id</li>
-<li>set可以和zset使用zinterstore命令求交集，set默认的score是1， zset默认的一般不是1，可以指定参数max，取score大的值。</li>
-<li>比如获取一个分组A中的文章按时间排序，就拿这个分组和发布时间集合zset求交集，交集可以取一个临时名字，设置有效期60s。</li>
-<li>比如获取一个分组B中的文章按照评分大小排序，就拿这个分组和评分集合zset求交集。</li>
-<li>一般接口直接就拿redis获取的数据返回了。</li>
+		<h2 id="为什么本地搭建一个git服务器"><a href="#为什么本地搭建一个git服务器" class="headerlink" title="为什么本地搭建一个git服务器"></a>为什么本地搭建一个git服务器</h2><ul>
+<li>对于自己学习使用的代码，在没有网络的情况下不能用github，gitlab,所以本地建立一个git服务器。</li>
 </ul>
-  
+<h2 id="环境准备centos7"><a href="#环境准备centos7" class="headerlink" title="环境准备centos7"></a>环境准备centos7</h2><h2 id="创建git用户"><a href="#创建git用户" class="headerlink" title="创建git用户"></a>创建git用户</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">id git # 查看是否存在git用户，存在就不创建了。</span><br><span class="line">useradd git</span><br><span class="line">passwd git</span><br><span class="line">输入密码，我设置的是xxx@123</span><br></pre></td></tr></table></figure>
+<h2 id="服务端创建git仓库"><a href="#服务端创建git仓库" class="headerlink" title="服务端创建git仓库"></a>服务端创建git仓库</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /data/git/gittest.git</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 初始化这个仓库</span><br><span class="line">cd /data/git/gittest.git</span><br><span class="line">git init --bare .</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 目录所属用户设置</span><br><span class="line">cd /data/git/</span><br><span class="line">chown -R git:git gittest.git</span><br></pre></td></tr></table></figure>
+<h2 id="客户端clone远程仓库"><a href="#客户端clone远程仓库" class="headerlink" title="客户端clone远程仓库"></a>客户端clone远程仓库</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkdir localgit</span><br><span class="line">cd localgit</span><br><span class="line">git clone git@192.168.61.128:/data/git/gittest.git .</span><br><span class="line"><span class="meta">#</span> 提示输入服务端git账户的密码。</span><br></pre></td></tr></table></figure>
+<h2 id="开启RSA认证"><a href="#开启RSA认证" class="headerlink" title="开启RSA认证"></a>开启RSA认证</h2>  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/linux/">linux</a>
+  <a class="article-category-link" href="/categories/git/">git</a>
 </div>
 
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/git/">git</a>
+  </div>
 
 </div>
 
@@ -144,7 +149,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://wedvefv.github.io/2019/02/22/redis/redis文章分组的用途/" data-title="redis文章分组的用途 | 小莺の博客" data-tsina="" class="share clearfix">
+	  <div data-url="http://wedvefv.github.io/2019/03/02/git/git_linux搭建服务器/" data-title="git_linux搭建服务器 | 小莺の博客" data-tsina="" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -157,19 +162,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2019/02/22/redis/redis文章发布/" title="redis文章发布">
-  <strong>上一篇：</strong><br/>
-  <span>
-  redis文章发布</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2019/02/21/linux/Vm虚拟机的三种联网模式区别/"  title="VM虚拟机三种联网模式区别">
+<a href="/2019/03/02/aes/AES_RSA_DSA/"  title="简单总结一下加密算法AES-DES-RAS-DSA-ECDSA-ECC">
  <strong>下一篇：</strong><br/> 
- <span>VM虚拟机三种联网模式区别
+ <span>简单总结一下加密算法AES-DES-RAS-DSA-ECDSA-ECC
 </span>
 </a>
 </div>
@@ -188,7 +185,7 @@
 <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
     var gitment = new Gitment({
-        id: 'Fri Feb 22 2019 15:50:00 GMT+0800',
+        id: 'Sat Mar 02 2019 12:00:00 GMT+0800',
         owner: 'wedvefv',
         repo: 'wedvefv.github.io',
         oauth: {
@@ -206,7 +203,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#文章分组的用途"><span class="toc-number">1.</span> <span class="toc-text">文章分组的用途</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么本地搭建一个git服务器"><span class="toc-number">1.</span> <span class="toc-text">为什么本地搭建一个git服务器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#环境准备centos7"><span class="toc-number">2.</span> <span class="toc-text">环境准备centos7</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建git用户"><span class="toc-number">3.</span> <span class="toc-text">创建git用户</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#服务端创建git仓库"><span class="toc-number">4.</span> <span class="toc-text">服务端创建git仓库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#客户端clone远程仓库"><span class="toc-number">5.</span> <span class="toc-text">客户端clone远程仓库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#开启RSA认证"><span class="toc-number">6.</span> <span class="toc-text">开启RSA认证</span></a></li></ol>
  
   </div>
 
