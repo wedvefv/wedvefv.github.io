@@ -30,18 +30,18 @@
     
 
     
-    <meta name="description" content="为什么本地搭建一个git服务器 对于自己学习使用的代码，在没有网络的情况下不能用github，gitlab,所以本地建立一个git服务器。  环境准备centos7创建git用户1234id git # 查看是否存在git用户，存在就不创建了。useradd gitpasswd git输入密码，我设置的是xxx@123 服务端创建git仓库123456789mkdir -p /data/git/g">
+    <meta name="description" content="为什么本地搭建一个git服务器 对于自己学习使用的代码，在没有网络的情况下不能用github，gitlab,所以本地建立一个git服务器。  git服务器环境准备centos7服务端创建git用户1234id git # 查看是否存在git用户，存在就不创建了。useradd gitpasswd git输入密码，我设置的是xxx@123 客户端开启公钥认证认证，免密push/pull 首先服务端需">
 <meta name="keywords" content="git">
 <meta property="og:type" content="article">
 <meta property="og:title" content="git_linux搭建服务器">
 <meta property="og:url" content="http://wedvefv.github.io/2019/03/02/git/git_linux搭建服务器/index.html">
 <meta property="og:site_name" content="小莺の博客">
-<meta property="og:description" content="为什么本地搭建一个git服务器 对于自己学习使用的代码，在没有网络的情况下不能用github，gitlab,所以本地建立一个git服务器。  环境准备centos7创建git用户1234id git # 查看是否存在git用户，存在就不创建了。useradd gitpasswd git输入密码，我设置的是xxx@123 服务端创建git仓库123456789mkdir -p /data/git/g">
+<meta property="og:description" content="为什么本地搭建一个git服务器 对于自己学习使用的代码，在没有网络的情况下不能用github，gitlab,所以本地建立一个git服务器。  git服务器环境准备centos7服务端创建git用户1234id git # 查看是否存在git用户，存在就不创建了。useradd gitpasswd git输入密码，我设置的是xxx@123 客户端开启公钥认证认证，免密push/pull 首先服务端需">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-02T10:16:38.002Z">
+<meta property="og:updated_time" content="2019-03-02T10:48:23.077Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git_linux搭建服务器">
-<meta name="twitter:description" content="为什么本地搭建一个git服务器 对于自己学习使用的代码，在没有网络的情况下不能用github，gitlab,所以本地建立一个git服务器。  环境准备centos7创建git用户1234id git # 查看是否存在git用户，存在就不创建了。useradd gitpasswd git输入密码，我设置的是xxx@123 服务端创建git仓库123456789mkdir -p /data/git/g">
+<meta name="twitter:description" content="为什么本地搭建一个git服务器 对于自己学习使用的代码，在没有网络的情况下不能用github，gitlab,所以本地建立一个git服务器。  git服务器环境准备centos7服务端创建git用户1234id git # 查看是否存在git用户，存在就不创建了。useradd gitpasswd git输入密码，我设置的是xxx@123 客户端开启公钥认证认证，免密push/pull 首先服务端需">
 
     
     <link rel="alternative" href="/atom.xml" title="小莺の博客" type="application/atom+xml">
@@ -117,21 +117,24 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么本地搭建一个git服务器"><span class="toc-number">1.</span> <span class="toc-text">为什么本地搭建一个git服务器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#环境准备centos7"><span class="toc-number">2.</span> <span class="toc-text">环境准备centos7</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建git用户"><span class="toc-number">3.</span> <span class="toc-text">创建git用户</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#服务端创建git仓库"><span class="toc-number">4.</span> <span class="toc-text">服务端创建git仓库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#客户端clone远程仓库"><span class="toc-number">5.</span> <span class="toc-text">客户端clone远程仓库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#开启公钥认证认证，免密push-pull"><span class="toc-number">6.</span> <span class="toc-text">开启公钥认证认证，免密push/pull</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么本地搭建一个git服务器"><span class="toc-number">1.</span> <span class="toc-text">为什么本地搭建一个git服务器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#git服务器环境准备centos7"><span class="toc-number">2.</span> <span class="toc-text">git服务器环境准备centos7</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#服务端创建git用户"><span class="toc-number">3.</span> <span class="toc-text">服务端创建git用户</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#客户端开启公钥认证认证，免密push-pull"><span class="toc-number">4.</span> <span class="toc-text">客户端开启公钥认证认证，免密push/pull</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#服务端创建git仓库"><span class="toc-number">5.</span> <span class="toc-text">服务端创建git仓库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#客户端clone远程仓库"><span class="toc-number">6.</span> <span class="toc-text">客户端clone远程仓库</span></a></li></ol>
 		
 		</div>
 		
 		<h2 id="为什么本地搭建一个git服务器"><a href="#为什么本地搭建一个git服务器" class="headerlink" title="为什么本地搭建一个git服务器"></a>为什么本地搭建一个git服务器</h2><ul>
 <li>对于自己学习使用的代码，在没有网络的情况下不能用github，gitlab,所以本地建立一个git服务器。</li>
 </ul>
-<h2 id="环境准备centos7"><a href="#环境准备centos7" class="headerlink" title="环境准备centos7"></a>环境准备centos7</h2><h2 id="创建git用户"><a href="#创建git用户" class="headerlink" title="创建git用户"></a>创建git用户</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">id git # 查看是否存在git用户，存在就不创建了。</span><br><span class="line">useradd git</span><br><span class="line">passwd git</span><br><span class="line">输入密码，我设置的是xxx@123</span><br></pre></td></tr></table></figure>
-<h2 id="服务端创建git仓库"><a href="#服务端创建git仓库" class="headerlink" title="服务端创建git仓库"></a>服务端创建git仓库</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /data/git/gittest.git</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 初始化这个仓库</span><br><span class="line">cd /data/git/gittest.git</span><br><span class="line">git init --bare .</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 目录所属用户设置</span><br><span class="line">cd /data/git/</span><br><span class="line">chown -R git:git gittest.git</span><br></pre></td></tr></table></figure>
-<h2 id="客户端clone远程仓库"><a href="#客户端clone远程仓库" class="headerlink" title="客户端clone远程仓库"></a>客户端clone远程仓库</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkdir localgit</span><br><span class="line">cd localgit</span><br><span class="line">git clone git@192.168.61.128:/data/git/gittest.git .</span><br><span class="line"><span class="meta">#</span> 提示输入服务端git账户的密码。</span><br></pre></td></tr></table></figure>
-<h2 id="开启公钥认证认证，免密push-pull"><a href="#开启公钥认证认证，免密push-pull" class="headerlink" title="开启公钥认证认证，免密push/pull"></a>开启公钥认证认证，免密push/pull</h2><ul>
-<li>首先服务端需要开启ssh服务</li>
-<li>客户端执行 执行ssh-keygen -t rsa 生成公钥和私钥</li>
+<h2 id="git服务器环境准备centos7"><a href="#git服务器环境准备centos7" class="headerlink" title="git服务器环境准备centos7"></a>git服务器环境准备centos7</h2><h2 id="服务端创建git用户"><a href="#服务端创建git用户" class="headerlink" title="服务端创建git用户"></a>服务端创建git用户</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">id git # 查看是否存在git用户，存在就不创建了。</span><br><span class="line">useradd git</span><br><span class="line">passwd git</span><br><span class="line">输入密码，我设置的是xxx@123</span><br></pre></td></tr></table></figure>
+<h2 id="客户端开启公钥认证认证，免密push-pull"><a href="#客户端开启公钥认证认证，免密push-pull" class="headerlink" title="客户端开启公钥认证认证，免密push/pull"></a>客户端开启公钥认证认证，免密push/pull</h2><ul>
+<li><p>首先服务端需要开启ssh服务</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/ssh/sshd_config</span><br><span class="line">RSAAuthentication yes </span><br><span class="line">PubkeyAuthentication yes</span><br><span class="line">AuthorizedKeysFile .ssh/authorized_keys</span><br><span class="line">如果是centos7.4以上（含7.4），ssh1已经不支持了，只支持ssh2代协议。所以RSAAuthentication项是没有的</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>客户端执行 执行ssh-keygen -t rsa 生成公钥和私钥</p>
+</li>
 <li>复制客户端公钥到服务器端ssh-copy-id -i ~/.ssh/id_rsa.pub <a href="mailto:git@192.168.61.128" target="_blank" rel="noopener">git@192.168.61.128</a> </li>
 </ul>
+<h2 id="服务端创建git仓库"><a href="#服务端创建git仓库" class="headerlink" title="服务端创建git仓库"></a>服务端创建git仓库</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /data/git/gittest.git</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 初始化这个仓库</span><br><span class="line">cd /data/git/gittest.git</span><br><span class="line">git init --bare .</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 目录所属用户设置</span><br><span class="line">chown -R git:git /data/git</span><br></pre></td></tr></table></figure>
+<h2 id="客户端clone远程仓库"><a href="#客户端clone远程仓库" class="headerlink" title="客户端clone远程仓库"></a>客户端clone远程仓库</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mkdir localgit</span><br><span class="line">cd localgit</span><br><span class="line">git clone git@192.168.61.128:/data/git/gittest.git .</span><br><span class="line"><span class="meta">#</span> 提示输入服务端git账户的密码。</span><br><span class="line"><span class="meta">#</span>修改完就可以提交了</span><br><span class="line"></span><br><span class="line">touch abc.txt</span><br><span class="line">git add .</span><br><span class="line">git commit -m 'aaa'</span><br><span class="line">git push</span><br></pre></td></tr></table></figure>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -168,18 +171,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2019/03/02/aes/AES_RSA_DSA/" title="简单总结一下加密算法AES-DES-RAS-DSA-ECDSA-ECC">
+ <a href="/2019/03/02/git/git_tag用法/" title="git_tag用法">
   <strong>上一篇：</strong><br/>
   <span>
-  简单总结一下加密算法AES-DES-RAS-DSA-ECDSA-ECC</span>
+  git_tag用法</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2019/02/22/redis/redis文章投票/"  title="redis文章投票">
+<a href="/2019/02/22/redis/redis文章发布/"  title="redis文章发布">
  <strong>下一篇：</strong><br/> 
- <span>redis文章投票
+ <span>redis文章发布
 </span>
 </a>
 </div>
@@ -216,7 +219,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么本地搭建一个git服务器"><span class="toc-number">1.</span> <span class="toc-text">为什么本地搭建一个git服务器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#环境准备centos7"><span class="toc-number">2.</span> <span class="toc-text">环境准备centos7</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建git用户"><span class="toc-number">3.</span> <span class="toc-text">创建git用户</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#服务端创建git仓库"><span class="toc-number">4.</span> <span class="toc-text">服务端创建git仓库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#客户端clone远程仓库"><span class="toc-number">5.</span> <span class="toc-text">客户端clone远程仓库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#开启公钥认证认证，免密push-pull"><span class="toc-number">6.</span> <span class="toc-text">开启公钥认证认证，免密push/pull</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么本地搭建一个git服务器"><span class="toc-number">1.</span> <span class="toc-text">为什么本地搭建一个git服务器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#git服务器环境准备centos7"><span class="toc-number">2.</span> <span class="toc-text">git服务器环境准备centos7</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#服务端创建git用户"><span class="toc-number">3.</span> <span class="toc-text">服务端创建git用户</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#客户端开启公钥认证认证，免密push-pull"><span class="toc-number">4.</span> <span class="toc-text">客户端开启公钥认证认证，免密push/pull</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#服务端创建git仓库"><span class="toc-number">5.</span> <span class="toc-text">服务端创建git仓库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#客户端clone远程仓库"><span class="toc-number">6.</span> <span class="toc-text">客户端clone远程仓库</span></a></li></ol>
  
   </div>
 
@@ -251,7 +254,7 @@
 		  
 		
 		  
-			<li><a href="/categories/git/" title="git">git<sup>3</sup></a></li>
+			<li><a href="/categories/git/" title="git">git<sup>4</sup></a></li>
 		  
 		
 		  
@@ -292,7 +295,7 @@
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/git/" title="git">git<sup>3</sup></a></li>
+				<li><a href="/tags/git/" title="git">git<sup>4</sup></a></li>
 			
 		
 			
@@ -312,11 +315,11 @@
 			
 		
 			
-				<li><a href="/tags/c/" title="c++">c++<sup>1</sup></a></li>
+				<li><a href="/tags/windows/" title="windows">windows<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/windows/" title="windows">windows<sup>1</sup></a></li>
+				<li><a href="/tags/c/" title="c++">c++<sup>1</sup></a></li>
 			
 		
 			
