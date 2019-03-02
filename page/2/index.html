@@ -23,7 +23,7 @@
 
   <meta charset="UTF-8">
   
-    <title>Loveying_の博客</title>
+    <title>小莺の博客</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="wedvefv">
@@ -32,17 +32,17 @@
     
     <meta name="description" content="做自己爱做的事，爱自己在做的事！">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Loveying_の博客">
+<meta property="og:title" content="小莺の博客">
 <meta property="og:url" content="http://wedvefv.github.io/page/2/index.html">
-<meta property="og:site_name" content="Loveying_の博客">
+<meta property="og:site_name" content="小莺の博客">
 <meta property="og:description" content="做自己爱做的事，爱自己在做的事！">
 <meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Loveying_の博客">
+<meta name="twitter:title" content="小莺の博客">
 <meta name="twitter:description" content="做自己爱做的事，爱自己在做的事！">
 
     
-    <link rel="alternative" href="/atom.xml" title="Loveying_の博客" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="小莺の博客" type="application/atom+xml">
     
     
     <link rel="icon" href="/img/favicon.ico">
@@ -60,11 +60,11 @@
 <div>
 		
 			<div id="imglogo">
-				<a href="/"><img src="/img/logo.png" alt="Loveying_の博客" title="Loveying_の博客"/></a>
+				<a href="/"><img src="/img/logo.png" alt="小莺の博客" title="小莺の博客"/></a>
 			</div>
 			
 			<div id="textlogo">
-				<h1 class="site-name"><a href="/" title="Loveying_の博客">Loveying_の博客</a></h1>
+				<h1 class="site-name"><a href="/" title="小莺の博客">小莺の博客</a></h1>
 				<h2 class="blog-motto">记录学习的技能和遇到的问题</h2>
 			</div>
 			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
@@ -242,61 +242,6 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2018/06/30/linux/centos6.4升级python/" title="centos6.4 升级python到2.7" itemprop="url">centos6.4 升级python到2.7</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
-		
-  <p class="article-time">
-    <time datetime="2018-06-30T02:15:00.000Z" itemprop="datePublished"> Published 2018-06-30</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h1 id="1-download-source"><a href="#1-download-source" class="headerlink" title="1. download source"></a>1. download source</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https:<span class="comment">//www.python.org/ftp/python/2.7.12/Python-2.7.12.tgz</span></span><br></pre></td></tr></table></figure>
-<h1 id="2-compire-and-install"><a href="#2-compire-and-install" class="headerlink" title="2. compire and install"></a>2. compire and install</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tar zxvf Python<span class="number">-2.7</span><span class="number">.12</span>.tgz</span><br><span class="line">cd Python<span class="number">-2.7</span><span class="number">.12</span></span><br><span class="line">./configure --prefix=/usr/local/python27 &amp;&amp; make &amp;&amp; make install &amp;&amp; echo $?</span><br><span class="line">如果以上输出为<span class="number">0</span>，说明没有报错，安装正常</span><br></pre></td></tr></table></figure>
-<h1 id="3-add-path-and-backup-the-python2-6"><a href="#3-add-path-and-backup-the-python2-6" class="headerlink" title="3. add path and backup the python2.6"></a>3. add path and backup the python2.6</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">移除以前的版本</span><br><span class="line">mv /usr/bin/python /usr/bin/python26</span><br><span class="line">创建软连接</span><br><span class="line">ln -s /usr/local/python27/bin/python /usr/bin/python</span><br><span class="line">查看版本是否升级成功</span><br><span class="line">python -V</span><br><span class="line">Python <span class="number">2.7</span><span class="number">.12</span></span><br></pre></td></tr></table></figure>
-<h1 id="4-modify-yum"><a href="#4-modify-yum" class="headerlink" title="4. modify yum"></a>4. modify yum</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">如果不修改此项，会导致yum无法使用</span><br><span class="line">vim /usr/bin/yum</span><br><span class="line">修改第一行即可，将环境变量指向以前的python版本</span><br><span class="line">#!/usr/bin/python26</span><br></pre></td></tr></table></figure>
-<h1 id="5-reinstall-pip"><a href="#5-reinstall-pip" class="headerlink" title="5. reinstall pip"></a>5. reinstall pip</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span>安装pip之前首先需要安装setuptools</span><br><span class="line">下载链接</span><br><span class="line">https:<span class="comment">//pypi.python.org/pypi/setuptools</span></span><br><span class="line">下载地址</span><br><span class="line">wget https:<span class="comment">//pypi.python.org/packages/ff/d4/209f4939c49e31f5524fa0027bf1c8ec3107abaf7c61fdaad704a648c281/setuptools-21.0.0.tar.gz#md5=81964fdb89534118707742e6d1a1ddb4 --no-check-certificate</span></span><br><span class="line">解压</span><br><span class="line">tar zxvf setuptools<span class="number">-21.0</span><span class="number">.0</span>.tar.gz</span><br><span class="line">安装</span><br><span class="line">cd setuptools<span class="number">-21.0</span><span class="number">.0</span></span><br><span class="line">python setup.py  install</span><br><span class="line"></span><br><span class="line"><span class="number">2.</span>安装pip</span><br><span class="line">下载链接</span><br><span class="line">https:<span class="comment">//pypi.python.org/pypi/pip</span></span><br><span class="line">下载地址</span><br><span class="line">wget https:<span class="comment">//pypi.python.org/packages/41/27/9a8d24e1b55bd8c85e4d022da2922cb206f183e2d18fee4e320c9547e751/pip-8.1.1.tar.gz#md5=6b86f11841e89c8241d689956ba99ed7 --no-check-certificate</span></span><br><span class="line">解压</span><br><span class="line">tar zxvf pip<span class="number">-8.1</span><span class="number">.1</span>.tar.gz </span><br><span class="line">安装 </span><br><span class="line">cd pip<span class="number">-8.1</span><span class="number">.1</span></span><br><span class="line">python setup.py install</span><br><span class="line"></span><br><span class="line"><span class="number">3.</span>添加环境变量</span><br><span class="line">安装完之后，之后执行pip还是调用的以前的环境变量，需要手动添加环境变量</span><br><span class="line">mv /usr/bin/pip /usr/bin/pip26</span><br><span class="line">ln -s /usr/local/python27/bin/pip /usr/bin/</span><br><span class="line">再次查看版本</span><br><span class="line">pip -V</span><br><span class="line">pip <span class="number">8.1</span><span class="number">.1</span> from /usr/local/python27/lib/python2<span class="number">.7</span>/site-packages/pip<span class="number">-8.1</span><span class="number">.1</span>-py2<span class="number">.7</span>.egg (python <span class="number">2.7</span>)</span><br></pre></td></tr></table></figure>
-<h1 id="6-使用pip安装第三方库"><a href="#6-使用pip安装第三方库" class="headerlink" title="6.使用pip安装第三方库"></a>6.使用pip安装第三方库</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">如果报错locale.Error: unsupported locale setting</span><br><span class="line">加入环境变量：</span><br><span class="line"><span class="keyword">export</span> LANGUAGE=en_US.UTF<span class="number">-8</span></span><br><span class="line"><span class="keyword">export</span> LC_ALL=en_US.UTF<span class="number">-8</span></span><br><span class="line"></span><br><span class="line">pip install psutil</span><br><span class="line">pip install MySQLdb-python</span><br><span class="line">pip install django=<span class="number">1.8</span><span class="number">.2</span></span><br><span class="line"></span><br><span class="line">报错：</span><br><span class="line"> pip install MySQLdb-python</span><br><span class="line">Collecting MySQLdb-python</span><br><span class="line">  Retrying (Retry(total=4, connect=None, read=None, redirect=None)) after connection broken by 'ReadTimeoutError("HTTPSConnectionPool(host='pypi.python.org', port=443): Read timed out. (read timeout=15)",)': /simple/mysqldb-python/</span><br><span class="line">  Could <span class="keyword">not</span> find a version that satisfies the requirement MySQLdb-python (from versions: )</span><br><span class="line">No matching distribution found <span class="keyword">for</span> MySQLdb-python</span><br><span class="line">You are <span class="keyword">using</span> pip version <span class="number">8.1</span><span class="number">.1</span>, however version <span class="number">9.0</span><span class="number">.1</span> is available.</span><br><span class="line">You should consider upgrading via the 'pip install --upgrade pip' command.</span><br><span class="line">当安装中提示版本太低的时候，执行提示的命令进行升级即可</span><br><span class="line">pip install --upgrade pip</span><br><span class="line">升级完重新执行要安装的库</span><br></pre></td></tr></table></figure>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
       <a href="/2018/06/30/linux/centos6.4install-mysql-python/" title="centos6.4 安装python mysql扩展" itemprop="url">centos6.4 安装python mysql扩展</a>
   </h1>
   <p class="article-author">By
@@ -343,6 +288,61 @@
   <span></span>
   <a class="article-category-link" href="/categories/c/">c</a>
 </div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2018/06/30/linux/centos6.4升级python/" title="centos6.4 升级python到2.7" itemprop="url">centos6.4 升级python到2.7</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
+		
+  <p class="article-time">
+    <time datetime="2018-06-30T02:15:00.000Z" itemprop="datePublished"> Published 2018-06-30</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h1 id="1-download-source"><a href="#1-download-source" class="headerlink" title="1. download source"></a>1. download source</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https:<span class="comment">//www.python.org/ftp/python/2.7.12/Python-2.7.12.tgz</span></span><br></pre></td></tr></table></figure>
+<h1 id="2-compire-and-install"><a href="#2-compire-and-install" class="headerlink" title="2. compire and install"></a>2. compire and install</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tar zxvf Python<span class="number">-2.7</span><span class="number">.12</span>.tgz</span><br><span class="line">cd Python<span class="number">-2.7</span><span class="number">.12</span></span><br><span class="line">./configure --prefix=/usr/local/python27 &amp;&amp; make &amp;&amp; make install &amp;&amp; echo $?</span><br><span class="line">如果以上输出为<span class="number">0</span>，说明没有报错，安装正常</span><br></pre></td></tr></table></figure>
+<h1 id="3-add-path-and-backup-the-python2-6"><a href="#3-add-path-and-backup-the-python2-6" class="headerlink" title="3. add path and backup the python2.6"></a>3. add path and backup the python2.6</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">移除以前的版本</span><br><span class="line">mv /usr/bin/python /usr/bin/python26</span><br><span class="line">创建软连接</span><br><span class="line">ln -s /usr/local/python27/bin/python /usr/bin/python</span><br><span class="line">查看版本是否升级成功</span><br><span class="line">python -V</span><br><span class="line">Python <span class="number">2.7</span><span class="number">.12</span></span><br></pre></td></tr></table></figure>
+<h1 id="4-modify-yum"><a href="#4-modify-yum" class="headerlink" title="4. modify yum"></a>4. modify yum</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">如果不修改此项，会导致yum无法使用</span><br><span class="line">vim /usr/bin/yum</span><br><span class="line">修改第一行即可，将环境变量指向以前的python版本</span><br><span class="line">#!/usr/bin/python26</span><br></pre></td></tr></table></figure>
+<h1 id="5-reinstall-pip"><a href="#5-reinstall-pip" class="headerlink" title="5. reinstall pip"></a>5. reinstall pip</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span>安装pip之前首先需要安装setuptools</span><br><span class="line">下载链接</span><br><span class="line">https:<span class="comment">//pypi.python.org/pypi/setuptools</span></span><br><span class="line">下载地址</span><br><span class="line">wget https:<span class="comment">//pypi.python.org/packages/ff/d4/209f4939c49e31f5524fa0027bf1c8ec3107abaf7c61fdaad704a648c281/setuptools-21.0.0.tar.gz#md5=81964fdb89534118707742e6d1a1ddb4 --no-check-certificate</span></span><br><span class="line">解压</span><br><span class="line">tar zxvf setuptools<span class="number">-21.0</span><span class="number">.0</span>.tar.gz</span><br><span class="line">安装</span><br><span class="line">cd setuptools<span class="number">-21.0</span><span class="number">.0</span></span><br><span class="line">python setup.py  install</span><br><span class="line"></span><br><span class="line"><span class="number">2.</span>安装pip</span><br><span class="line">下载链接</span><br><span class="line">https:<span class="comment">//pypi.python.org/pypi/pip</span></span><br><span class="line">下载地址</span><br><span class="line">wget https:<span class="comment">//pypi.python.org/packages/41/27/9a8d24e1b55bd8c85e4d022da2922cb206f183e2d18fee4e320c9547e751/pip-8.1.1.tar.gz#md5=6b86f11841e89c8241d689956ba99ed7 --no-check-certificate</span></span><br><span class="line">解压</span><br><span class="line">tar zxvf pip<span class="number">-8.1</span><span class="number">.1</span>.tar.gz </span><br><span class="line">安装 </span><br><span class="line">cd pip<span class="number">-8.1</span><span class="number">.1</span></span><br><span class="line">python setup.py install</span><br><span class="line"></span><br><span class="line"><span class="number">3.</span>添加环境变量</span><br><span class="line">安装完之后，之后执行pip还是调用的以前的环境变量，需要手动添加环境变量</span><br><span class="line">mv /usr/bin/pip /usr/bin/pip26</span><br><span class="line">ln -s /usr/local/python27/bin/pip /usr/bin/</span><br><span class="line">再次查看版本</span><br><span class="line">pip -V</span><br><span class="line">pip <span class="number">8.1</span><span class="number">.1</span> from /usr/local/python27/lib/python2<span class="number">.7</span>/site-packages/pip<span class="number">-8.1</span><span class="number">.1</span>-py2<span class="number">.7</span>.egg (python <span class="number">2.7</span>)</span><br></pre></td></tr></table></figure>
+<h1 id="6-使用pip安装第三方库"><a href="#6-使用pip安装第三方库" class="headerlink" title="6.使用pip安装第三方库"></a>6.使用pip安装第三方库</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">如果报错locale.Error: unsupported locale setting</span><br><span class="line">加入环境变量：</span><br><span class="line"><span class="keyword">export</span> LANGUAGE=en_US.UTF<span class="number">-8</span></span><br><span class="line"><span class="keyword">export</span> LC_ALL=en_US.UTF<span class="number">-8</span></span><br><span class="line"></span><br><span class="line">pip install psutil</span><br><span class="line">pip install MySQLdb-python</span><br><span class="line">pip install django=<span class="number">1.8</span><span class="number">.2</span></span><br><span class="line"></span><br><span class="line">报错：</span><br><span class="line"> pip install MySQLdb-python</span><br><span class="line">Collecting MySQLdb-python</span><br><span class="line">  Retrying (Retry(total=4, connect=None, read=None, redirect=None)) after connection broken by 'ReadTimeoutError("HTTPSConnectionPool(host='pypi.python.org', port=443): Read timed out. (read timeout=15)",)': /simple/mysqldb-python/</span><br><span class="line">  Could <span class="keyword">not</span> find a version that satisfies the requirement MySQLdb-python (from versions: )</span><br><span class="line">No matching distribution found <span class="keyword">for</span> MySQLdb-python</span><br><span class="line">You are <span class="keyword">using</span> pip version <span class="number">8.1</span><span class="number">.1</span>, however version <span class="number">9.0</span><span class="number">.1</span> is available.</span><br><span class="line">You should consider upgrading via the 'pip install --upgrade pip' command.</span><br><span class="line">当安装中提示版本太低的时候，执行提示的命令进行升级即可</span><br><span class="line">pip install --upgrade pip</span><br><span class="line">升级完重新执行要安装的库</span><br></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
 
 
 </div>
