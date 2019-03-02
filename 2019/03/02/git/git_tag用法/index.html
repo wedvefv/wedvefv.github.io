@@ -38,7 +38,7 @@
 <meta property="og:site_name" content="小莺の博客">
 <meta property="og:description" content="tag 和branch的区别 Git tag是一系列commit的中的一个点，只能查看，不能移动。 branch是一系列串联的commit的线。  git tag的用法 我们常常在代码封板时,使用git 创建一个tag ,这样一个不可修改的历史代码版本就像被我们封存起来一样,不论是运维发布拉取,或者以后的代码版本管理,都是十分方便的  git的tag功能 git 下打标签其实有2种情况轻量级的：它">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-02T10:49:22.347Z">
+<meta property="og:updated_time" content="2019-03-02T10:52:16.254Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git_tag用法">
 <meta name="twitter:description" content="tag 和branch的区别 Git tag是一系列commit的中的一个点，只能查看，不能移动。 branch是一系列串联的commit的线。  git tag的用法 我们常常在代码封板时,使用git 创建一个tag ,这样一个不可修改的历史代码版本就像被我们封存起来一样,不论是运维发布拉取,或者以后的代码版本管理,都是十分方便的  git的tag功能 git 下打标签其实有2种情况轻量级的：它">
@@ -151,9 +151,13 @@
 </li>
 <li><p>到这一步我们只是删除了本地 V1.2的版本,可是线上V1.2的版本还是存在,如何办?这时我们可以推送的空的同名版本到线下,达到删除线上版本的目标:</p>
 </li>
-<li>git push origin :refs/tags/V1.2</li>
+<li><p>git push origin :refs/tags/V1.2</p>
+</li>
+<li><p>如何获取远程版本?</p>
+</li>
+<li>git fetch origin tag V1.2</li>
+<li>这样我们可以精准拉取指定的某一个版本.适用于运维同学部署指定版本.</li>
 </ul>
-<p>-如何获取远程版本?<br>-git fetch origin tag V1.2<br>-这样我们可以精准拉取指定的某一个版本.适用于运维同学部署指定版本.</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -334,11 +338,11 @@
 			
 		
 			
-				<li><a href="/tags/windows/" title="windows">windows<sup>1</sup></a></li>
+				<li><a href="/tags/c/" title="c++">c++<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/c/" title="c++">c++<sup>1</sup></a></li>
+				<li><a href="/tags/windows/" title="windows">windows<sup>1</sup></a></li>
 			
 		
 			
