@@ -37,7 +37,7 @@
 <meta property="og:site_name" content="依の博客">
 <meta property="og:description" content="1. 创建目录结构1234567891011121314151617181920212223242526272829mkdir myflask &amp;amp; cd myflasktouch reuirments.txttouch config.py # 配置touch manger.py mkdir app # 一个应用一个app这样的目录touch app/__init__.py # 说明这是一个">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-02T10:16:37.967Z">
+<meta property="og:updated_time" content="2019-03-10T15:11:08.322Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="flask 第9章（大型程序目录结构）">
 <meta name="twitter:description" content="1. 创建目录结构1234567891011121314151617181920212223242526272829mkdir myflask &amp;amp; cd myflasktouch reuirments.txttouch config.py # 配置touch manger.py mkdir app # 一个应用一个app这样的目录touch app/__init__.py # 说明这是一个">
@@ -116,12 +116,15 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-创建目录结构"><span class="toc-number">1.</span> <span class="toc-text">1. 创建目录结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-开始编码第一步-配置文件config-py"><span class="toc-number">2.</span> <span class="toc-text">2.  开始编码第一步-配置文件config.py</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-创建目录结构"><span class="toc-number">1.</span> <span class="toc-text">1. 创建目录结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-代码下载"><span class="toc-number">2.</span> <span class="toc-text">2. 代码下载</span></a></li></ol>
 		
 		</div>
 		
 		<h2 id="1-创建目录结构"><a href="#1-创建目录结构" class="headerlink" title="1. 创建目录结构"></a>1. 创建目录结构</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">mkdir myflask &amp; cd myflask</span><br><span class="line"></span><br><span class="line">touch reuirments.txt</span><br><span class="line">touch config.py # 配置</span><br><span class="line">touch manger.py </span><br><span class="line"></span><br><span class="line">mkdir app # 一个应用一个app这样的目录</span><br><span class="line">touch app/__init__.py # 说明这是一个包</span><br><span class="line">touch app/emails.py</span><br><span class="line">touch app/models.py</span><br><span class="line"></span><br><span class="line">mkdir app/templates</span><br><span class="line">mkdir app/static</span><br><span class="line">mkdir app/main</span><br><span class="line"></span><br><span class="line">touch app/main/__init__.py  #为了保存蓝本，整一个子包</span><br><span class="line">touch app/main/errors.py</span><br><span class="line">touch app/main/forms.py</span><br><span class="line">touch app/main/views.py</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 迁移目录</span><br><span class="line">mkdir migrations</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 单元测试目录</span><br><span class="line">mkdir test</span><br><span class="line">touch test/__init__.py</span><br><span class="line">touch test/test.py</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> venv  这个目录是虚拟环境目录，命令自动创建</span><br></pre></td></tr></table></figure>
-<h2 id="2-开始编码第一步-配置文件config-py"><a href="#2-开始编码第一步-配置文件config-py" class="headerlink" title="2.  开始编码第一步-配置文件config.py"></a>2.  开始编码第一步-配置文件config.py</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="2-代码下载"><a href="#2-代码下载" class="headerlink" title="2. 代码下载"></a>2. 代码下载</h2><ul>
+<li>代码太多就不站粘贴了,下面是下载地址，前面是每个章节是一个详细流程，这个结构中上下文这块还不是很懂，继续学习…<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/wedvefv/my_flask_learn.git</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -153,10 +156,10 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2019/02/14/linux/ip地址子网掩码的关系/" title="ip地址和子网掩码，广播地址关系">
+ <a href="/2019/02/14/python/2__init__文件的作用/" title="python 导入模块文件以及相对导入和__init__文件作用">
   <strong>上一篇：</strong><br/>
   <span>
-  ip地址和子网掩码，广播地址关系</span>
+  python 导入模块文件以及相对导入和__init__文件作用</span>
 </a>
 </div>
 
@@ -201,7 +204,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-创建目录结构"><span class="toc-number">1.</span> <span class="toc-text">1. 创建目录结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-开始编码第一步-配置文件config-py"><span class="toc-number">2.</span> <span class="toc-text">2.  开始编码第一步-配置文件config.py</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-创建目录结构"><span class="toc-number">1.</span> <span class="toc-text">1. 创建目录结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-代码下载"><span class="toc-number">2.</span> <span class="toc-text">2. 代码下载</span></a></li></ol>
  
   </div>
 
@@ -293,11 +296,11 @@
 			
 		
 			
-				<li><a href="/tags/encrypt/" title="encrypt">encrypt<sup>1</sup></a></li>
+				<li><a href="/tags/ajax/" title="ajax">ajax<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/c/" title="c++">c++<sup>1</sup></a></li>
+				<li><a href="/tags/encrypt/" title="encrypt">encrypt<sup>1</sup></a></li>
 			
 		
 			
@@ -305,7 +308,7 @@
 			
 		
 			
-				<li><a href="/tags/ajax/" title="ajax">ajax<sup>1</sup></a></li>
+				<li><a href="/tags/c/" title="c++">c++<sup>1</sup></a></li>
 			
 		
 			
