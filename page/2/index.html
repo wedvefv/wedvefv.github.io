@@ -101,123 +101,6 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2019/01/28/flask/2_模板/" title="flask 第2章(模板)" itemprop="url">flask 第2章(模板)</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
-		
-  <p class="article-time">
-    <time datetime="2019-01-28T14:22:00.000Z" itemprop="datePublished"> Published 2019-01-28</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h1 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h1><h2 id="1-jinja2模板引擎"><a href="#1-jinja2模板引擎" class="headerlink" title="1. jinja2模板引擎"></a>1. jinja2模板引擎</h2><ul>
-<li>创建模板目录</li>
-<li>mkdir templates</li>
-<li>cd templates</li>
-<li>vim index.html</li>
-<li><p>输入 &lt;h1> hello world! &lt;/h1></p>
-</li>
-<li><p>vim user.html</p>
-</li>
-<li>输入 &lt;h1> hello  &lt;/h1></li>
-</ul>
-<h2 id="2-变量"><a href="#2-变量" class="headerlink" title="2. 变量"></a>2. 变量</h2><h3 id="普通变量"><a href="#普通变量" class="headerlink" title="普通变量"></a>普通变量</h3><ul>
-<li>占位符变量可以是python中的类型<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123; mydict[<span class="string">'key'</span>] &#125;&#125;</span><br><span class="line">&#123;&#123; mylist[<span class="number">3</span>] &#125;&#125;</span><br><span class="line">&#123;&#123; mylist[value] &#125;&#125;</span><br><span class="line">&#123;&#123; obje.func() &#125;&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="过滤器"><a href="#过滤器" class="headerlink" title="过滤器"></a>过滤器</h3><ul>
-<li>hello   把name转成搜字符大写。</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>过滤器名字</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>safe</td>
-<td>渲染时不转义</td>
-</tr>
-<tr>
-<td>capitalize</td>
-<td>首字母大写</td>
-</tr>
-<tr>
-<td>lower</td>
-<td>转成小写</td>
-</tr>
-<tr>
-<td>upper</td>
-<td>转成大写</td>
-</tr>
-<tr>
-<td>title</td>
-<td>每个单词首字母转大写</td>
-</tr>
-<tr>
-<td>trim</td>
-<td>去掉首尾空格</td>
-</tr>
-<tr>
-<td>striptags</td>
-<td>渲染前把其中的html标签都删除掉</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li>safe 常用在现实html代码本身，不然标签会被引擎默认转义(这样也是为了安全考虑)。</li>
-<li>不要再不可信的值上使用safe过滤器，比如表单输入。</li>
-</ul>
-<h2 id="3-控制结构"><a href="#3-控制结构" class="headerlink" title="3. 控制结构"></a>3. 控制结构</h2><h3 id="if结构"><a href="#if结构" class="headerlink" title="if结构"></a>if结构</h3><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123; % <span class="keyword">if</span> user %&#125;</span><br><span class="line">  hello &#123;&#123;user&#125;&#125;</span><br><span class="line">&#123;% <span class="keyword">else</span> %&#125;</span><br><span class="line">  hello stranger</span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="for循环结构"><a href="#for循环结构" class="headerlink" title="for循环结构"></a>for循环结构</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;ul&gt;</span><br><span class="line">&#123; % <span class="keyword">for</span> x <span class="keyword">in</span> list %&#125;</span><br><span class="line">  &lt;li&gt;&#123;&#123; x &#125;&#125;&lt;/li&gt;</span><br><span class="line">&#123; %endfor% &#125;</span><br><span class="line">&lt;/ul&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="宏。-类似python的函数"><a href="#宏。-类似python的函数" class="headerlink" title="宏。 类似python的函数"></a>宏。 类似python的函数</h3><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">* 定义宏</span><br><span class="line"> &#123;% macro render_comment(x) %&#125;</span><br><span class="line">  &lt;li&gt;&#123;&#123; x &#125;&#125;&lt;/li&gt;</span><br><span class="line"> &#123;% endmacro%&#125;</span><br><span class="line"></span><br><span class="line">* 使用</span><br><span class="line"></span><br><span class="line">&lt;ul&gt;</span><br><span class="line"> &#123;% <span class="keyword">for</span> x <span class="keyword">in</span> list %&gt;</span><br><span class="line">    &#123;&#123; render_comment(x) &#125;&#125;</span><br><span class="line"> &#123; %endfor%&#125;</span><br><span class="line"> &lt;/ul&gt;</span><br><span class="line"></span><br><span class="line">* 可以将宏放入单独的文件，一边重复使用，使用时导入即可。</span><br><span class="line">&#123; % <span class="keyword">import</span> <span class="string">'macros.html'</span> <span class="keyword">as</span> macros % &#125;</span><br><span class="line">&lt;ul&gt;</span><br><span class="line">   &#123;% <span class="keyword">for</span> x <span class="keyword">in</span> list %&gt;</span><br><span class="line">      &#123;&#123; macros.render_comment(x) &#125;&#125;</span><br><span class="line">   &#123; %endfor%&#125;</span><br><span class="line">&lt;/ul&gt;</span><br><span class="line"></span><br><span class="line">* 需要重复使用的模板也可单独放一个文件中</span><br><span class="line">用到的地方 &#123;% include <span class="string">'common.html'</span>%&#125; 包含即可。</span><br></pre></td></tr></table></figure>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/flask/">flask</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
       <a href="/2019/01/28/flask/3_模板的bootstrap扩展/" title="flask 第3章(bootstrap扩展模板)" itemprop="url">flask 第3章(bootstrap扩展模板)</a>
   </h1>
   <p class="article-author">By
@@ -297,7 +180,7 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2019/01/28/flask/1基本结构/" title="flask 第1章(基本结构和概念)" itemprop="url">flask 第1章(基本结构和概念)</a>
+      <a href="/2019/01/28/flask/2_模板/" title="flask 第2章(模板)" itemprop="url">flask 第2章(模板)</a>
   </h1>
   <p class="article-author">By
        
@@ -310,87 +193,69 @@
 </header>
     <div class="article-content">
         
-        <h1 id="开始和程序基本结构"><a href="#开始和程序基本结构" class="headerlink" title="开始和程序基本结构"></a>开始和程序基本结构</h1><h2 id="1-首先安装虚拟环境包和git工具"><a href="#1-首先安装虚拟环境包和git工具" class="headerlink" title="1.首先安装虚拟环境包和git工具"></a>1.首先安装虚拟环境包和git工具</h2><ul>
-<li>sudo apt-get install python-virtualenv</li>
-<li>sudo apt-get install git</li>
+        <h1 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h1><h2 id="1-jinja2模板引擎"><a href="#1-jinja2模板引擎" class="headerlink" title="1. jinja2模板引擎"></a>1. jinja2模板引擎</h2><ul>
+<li>创建模板目录</li>
+<li>mkdir templates</li>
+<li>cd templates</li>
+<li>vim index.html</li>
+<li><p>输入 &lt;h1> hello world! &lt;/h1></p>
+</li>
+<li><p>vim user.html</p>
+</li>
+<li>输入 &lt;h1> hello  &lt;/h1></li>
 </ul>
-<h2 id="2-创建一个目录"><a href="#2-创建一个目录" class="headerlink" title="2.创建一个目录"></a>2.创建一个目录</h2><ul>
-<li>mkdir flask_learn</li>
-<li>cd flask_learn</li>
+<h2 id="2-变量"><a href="#2-变量" class="headerlink" title="2. 变量"></a>2. 变量</h2><h3 id="普通变量"><a href="#普通变量" class="headerlink" title="普通变量"></a>普通变量</h3><ul>
+<li>占位符变量可以是python中的类型<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123; mydict[<span class="string">'key'</span>] &#125;&#125;</span><br><span class="line">&#123;&#123; mylist[<span class="number">3</span>] &#125;&#125;</span><br><span class="line">&#123;&#123; mylist[value] &#125;&#125;</span><br><span class="line">&#123;&#123; obje.func() &#125;&#125;</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
-<h2 id="3-下载实例代码"><a href="#3-下载实例代码" class="headerlink" title="3.下载实例代码"></a>3.下载实例代码</h2><ul>
-<li>git clone <a href="http://github.com/miguelgrinberg/flasky.git" target="_blank" rel="noopener">http://github.com/miguelgrinberg/flasky.git</a></li>
-<li>cd flask</li>
-<li>建立一个虚拟环境</li>
-<li>virtualenv venv</li>
-<li>激活虚拟环境</li>
-<li>source venv/bin/activate</li>
-<li>取消激活分区</li>
-<li>deactivate</li>
-<li>虚拟环境下安装pip</li>
-<li>pip install flask</li>
-<li>切换分支</li>
-<li>git checkout 2a</li>
+<h3 id="过滤器"><a href="#过滤器" class="headerlink" title="过滤器"></a>过滤器</h3><ul>
+<li>hello   把name转成搜字符大写。</li>
 </ul>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">'&lt;h1&gt;Hello World!&lt;/h1&gt;'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    app.run(debug=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>过滤器名字</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>safe</td>
+<td>渲染时不转义</td>
+</tr>
+<tr>
+<td>capitalize</td>
+<td>首字母大写</td>
+</tr>
+<tr>
+<td>lower</td>
+<td>转成小写</td>
+</tr>
+<tr>
+<td>upper</td>
+<td>转成大写</td>
+</tr>
+<tr>
+<td>title</td>
+<td>每个单词首字母转大写</td>
+</tr>
+<tr>
+<td>trim</td>
+<td>去掉首尾空格</td>
+</tr>
+<tr>
+<td>striptags</td>
+<td>渲染前把其中的html标签都删除掉</td>
+</tr>
+</tbody>
+</table>
 <ul>
-<li>执行 python hello.py</li>
-<li>浏览器输入<a href="http://127.0.0.1:5000/" target="_blank" rel="noopener">http://127.0.0.1:5000/</a> 就可以看到helloword了。</li>
-<li>但是这样会出现一个问题。你在linux虚拟机里面执行的代码。在window上浏览器看就不行，需要设置</li>
-<li>如下改动 app.run(debug=True，host=”0.0.0.0”)或者使用manage模块扩展传参数，后面会提到。</li>
+<li>safe 常用在现实html代码本身，不然标签会被引擎默认转义(这样也是为了安全考虑)。</li>
+<li>不要再不可信的值上使用safe过滤器，比如表单输入。</li>
 </ul>
-<h2 id="4-flask程序有四个上下文"><a href="#4-flask程序有四个上下文" class="headerlink" title="4. flask程序有四个上下文"></a>4. flask程序有四个上下文</h2><ul>
-<li>curent_app  程序上下文， 当前激活的程序实例</li>
-<li>g 程序上下文 处理请求的临时存储对象，每次请求都会重设这个变量。</li>
-<li>request  请求上下文    请求对象，封装了每次http请求的内容</li>
-<li>sesion  请求上下文    用户会话， 用于存储之间需要记住的值的词典。</li>
-<li>这是个变量每次请求 都是独立属于这一次请求的，或者说是属于同一个线程内全局可见。</li>
-</ul>
-<h2 id="5-请求调度"><a href="#5-请求调度" class="headerlink" title="5. 请求调度"></a>5. 请求调度</h2><ul>
-<li>这个主要是 url和处理函数的映射关系，即视图。</li>
-<li>通过app.url_map 可以看到映射关系。</li>
-<li>生成映射的方法2中，1 app.route修饰器 2，app.add_url_rule()</li>
-</ul>
-<h2 id="6-请求钩子"><a href="#6-请求钩子" class="headerlink" title="6. 请求钩子"></a>6. 请求钩子</h2><ul>
-<li>主要是为了每个请求开始可能都需要认证，数据库连接等重复操作的代码复。</li>
-<li>通过钩子装饰器，注册函数，在到达视图函数前运行这些函数。</li>
-<li>有四种个钩子 brefore_first_request,brefore_request,after_request,teardown_request<blockquote>
-<p>after_request 有没做处理的异常抛出时，是不运行的。<br>teardown_request 即使有没处理的异常抛出，也会运行。</p>
-</blockquote>
-</li>
-</ul>
-<h2 id="7-响应"><a href="#7-响应" class="headerlink" title="7. 响应"></a>7. 响应</h2><ul>
-<li>flask 默认返回200 状态吗</li>
-<li><p>可以返回其他状态吗</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> <span class="string">"hello word!"</span>, <span class="number">400</span></span><br><span class="line">或者</span><br><span class="line"><span class="keyword">return</span> <span class="string">"hello world!"</span>, <span class="number">500</span>, &#123;<span class="string">"ua"</span>:<span class="number">10</span>&#125;</span><br><span class="line">返回的是一个元组，第二个是状态吗，第三个是header，字典形式。</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>还可以使用make_response(“hello world!”, 500, {“ua”:10})生成一个对象，以便调用函数设置cookie等其他值。</p>
-</li>
-<li>320重定向，使用redirect(“<a href="http://www.baidu.com&quot;)函数。" target="_blank" rel="noopener">www.baidu.com&quot;)函数。</a></li>
-<li>特殊响应，比如404 可以使用abort(404)函数，这个直接就吧控制权交给web服务器了，不会再调用其它函数。</li>
-</ul>
-<h2 id="8-flask扩展"><a href="#8-flask扩展" class="headerlink" title="8. flask扩展"></a>8. flask扩展</h2><ul>
-<li><p>pip install flask-script</p>
-</li>
-<li><p>用manager吧app对象包住，这样就可以使用manager扩展了。</p>
-</li>
-</ul>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</span><br><span class="line"><span class="keyword">from</span> flask_script <span class="keyword">import</span> Manager</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line">manager = Manager(app)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">'&lt;h1&gt;Hello World!&lt;/h1&gt;'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/user/&lt;name&gt;')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">user</span><span class="params">(name)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">'&lt;h1&gt;Hello, %s!&lt;/h1&gt;'</span> % name</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    manager.run()</span><br></pre></td></tr></table></figure>
-<ul>
-<li>启动服务：<blockquote>
-<p>python hello.py  runserver –host 0.0.0.0</p>
-</blockquote>
-</li>
-</ul>
-<h2 id="9-模板的继承"><a href="#9-模板的继承" class="headerlink" title="9 模板的继承"></a>9 模板的继承</h2><ul>
-<li>类似于python中的类的继承</li>
-<li>首先需要一个基类模板base.html 然后把对应的可修改的块用    格式包含即可。</li>
-</ul>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">  &lt;haed&gt;</span><br><span class="line">  &#123;% block  head%&#125;  &#123;%endblock%&#125;</span><br><span class="line">  &#123;% block title%&#125; &#123;%endblock%&#125;</span><br><span class="line">  &lt;/head&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">    &#123;%block body%&#125;  &#123;%endblock%&#125;</span><br><span class="line">  &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>在子类模板中使用基类模板</li>
-</ul>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;%extends <span class="string">"base.html"</span>% &#125;</span><br><span class="line"></span><br><span class="line">&#123;%block title%&#125; 这是index标题 &#123;%endblock%&#125;</span><br><span class="line"></span><br><span class="line">&#123;%block head%&#125;</span><br><span class="line">  &#123;&#123;super()&#125;&#125;   <span class="comment">#基类head部分原本的内容用supper获取</span></span><br><span class="line">  &lt;style&gt;</span><br><span class="line">  &lt;/style&gt;</span><br><span class="line">&#123;%endblock%&#125;</span><br><span class="line"></span><br><span class="line">&#123;%block body%&#125;</span><br><span class="line">  &lt;h1&gt; hello world &lt;/h1&gt;</span><br><span class="line">&#123;%endblock%&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="3-控制结构"><a href="#3-控制结构" class="headerlink" title="3. 控制结构"></a>3. 控制结构</h2><h3 id="if结构"><a href="#if结构" class="headerlink" title="if结构"></a>if结构</h3><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123; % <span class="keyword">if</span> user %&#125;</span><br><span class="line">  hello &#123;&#123;user&#125;&#125;</span><br><span class="line">&#123;% <span class="keyword">else</span> %&#125;</span><br><span class="line">  hello stranger</span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="for循环结构"><a href="#for循环结构" class="headerlink" title="for循环结构"></a>for循环结构</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;ul&gt;</span><br><span class="line">&#123; % <span class="keyword">for</span> x <span class="keyword">in</span> list %&#125;</span><br><span class="line">  &lt;li&gt;&#123;&#123; x &#125;&#125;&lt;/li&gt;</span><br><span class="line">&#123; %endfor% &#125;</span><br><span class="line">&lt;/ul&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="宏。-类似python的函数"><a href="#宏。-类似python的函数" class="headerlink" title="宏。 类似python的函数"></a>宏。 类似python的函数</h3><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">* 定义宏</span><br><span class="line"> &#123;% macro render_comment(x) %&#125;</span><br><span class="line">  &lt;li&gt;&#123;&#123; x &#125;&#125;&lt;/li&gt;</span><br><span class="line"> &#123;% endmacro%&#125;</span><br><span class="line"></span><br><span class="line">* 使用</span><br><span class="line"></span><br><span class="line">&lt;ul&gt;</span><br><span class="line"> &#123;% <span class="keyword">for</span> x <span class="keyword">in</span> list %&gt;</span><br><span class="line">    &#123;&#123; render_comment(x) &#125;&#125;</span><br><span class="line"> &#123; %endfor%&#125;</span><br><span class="line"> &lt;/ul&gt;</span><br><span class="line"></span><br><span class="line">* 可以将宏放入单独的文件，一边重复使用，使用时导入即可。</span><br><span class="line">&#123; % <span class="keyword">import</span> <span class="string">'macros.html'</span> <span class="keyword">as</span> macros % &#125;</span><br><span class="line">&lt;ul&gt;</span><br><span class="line">   &#123;% <span class="keyword">for</span> x <span class="keyword">in</span> list %&gt;</span><br><span class="line">      &#123;&#123; macros.render_comment(x) &#125;&#125;</span><br><span class="line">   &#123; %endfor%&#125;</span><br><span class="line">&lt;/ul&gt;</span><br><span class="line"></span><br><span class="line">* 需要重复使用的模板也可单独放一个文件中</span><br><span class="line">用到的地方 &#123;% include <span class="string">'common.html'</span>%&#125; 包含即可。</span><br></pre></td></tr></table></figure>
 
         
         
@@ -645,6 +510,103 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2019/01/28/flask/6_数据库2/" title="flask 第6章(数据库操作2)" itemprop="url">flask 第6章(数据库操作2)</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
+		
+  <p class="article-time">
+    <time datetime="2019-01-28T14:22:00.000Z" itemprop="datePublished"> Published 2019-01-28</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="创建数据写入数据"><a href="#创建数据写入数据" class="headerlink" title="创建数据写入数据"></a>创建数据写入数据</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>db.create_all()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> hello <span class="keyword">import</span> Role,User</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>admin_role=Role(name=<span class="string">"Admin"</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>mod_role = Role(name=<span class="string">"Moderator"</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>user_role=Role(name=<span class="string">"User"</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>user_john=User(username=<span class="string">"john"</span>,role=admin_role)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>user_susan=User(username=<span class="string">"susan"</span>,role=user_role)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>user_david = Ueser(username=<span class="string">"david"</span>,role=user_role)</span><br><span class="line"></span><br><span class="line">这个时候还没有写入数据库，比如打印</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(admin_role.id)</span><br><span class="line"><span class="keyword">None</span></span><br><span class="line"></span><br><span class="line">然后可以这样将之前的对象加入到回话中即可</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>db.session.add(mod_role)   </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>db.session.add(user_role)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>db.session.add(user_john)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>db.session.add(user_david)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>db.session.commit() <span class="comment"># 没有这一句是不行的。</span></span><br><span class="line"></span><br><span class="line">或者可以全部添加</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>db.session.add([admin_role,mod_role,...])</span><br><span class="line"></span><br><span class="line">再次查看admin_role.id就有值了</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">print</span> admin_role.id</span><br><span class="line"><span class="number">1</span></span><br></pre></td></tr></table></figure>
+<h2 id="修改一行"><a href="#修改一行" class="headerlink" title="修改一行"></a>修改一行</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 比如修改admin_role的name为new_admin</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>admin_role.name = <span class="string">"new_admin"</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>db.session.add(admin_role)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>db.session.commit()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">print</span> admin_role.name</span><br><span class="line">new_admin</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="删除一行"><a href="#删除一行" class="headerlink" title="删除一行"></a>删除一行</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">db.session.delete(mod_role)</span><br><span class="line">db.session.commit()</span><br></pre></td></tr></table></figure>
+<h2 id="查询行"><a href="#查询行" class="headerlink" title="查询行"></a>查询行</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">查询<span class="number">2</span>个表所有字段</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>Role.query.all()</span><br><span class="line">[&lt;Role <span class="string">u'Moderator'</span>&gt; , &lt;Role <span class="string">u'new_admin'</span>&gt; , &lt;Role <span class="string">u'User'</span>&gt; ]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>User.query.all()</span><br><span class="line">[&lt;User <span class="string">u'john'</span>&gt; , &lt;User <span class="string">u'susan'</span>&gt; , &lt;User <span class="string">u'david'</span>&gt; ]</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="常用的sql过滤器"><a href="#常用的sql过滤器" class="headerlink" title="常用的sql过滤器"></a>常用的sql过滤器</h2><p>|过滤器|说明|<br>||-|<br>|filter|把过滤器添加到查询上，返回一个新查询|<br>|filter_by|把等值过滤添加到原查询上，返回一个新查询|<br>|limit|指定原查询的数量限制|<br>|offset|便宜原查询的结果，返回一个新查询|<br>|order_by|根据指定条件对原查询进行排序，返回一个新查询|<br>|group_by|执行分组条件|</p>
+<h2 id="过滤器之后可以跟执行函数"><a href="#过滤器之后可以跟执行函数" class="headerlink" title="过滤器之后可以跟执行函数"></a>过滤器之后可以跟执行函数</h2><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>all</td>
+<td>以列表的形式返回所有结果</td>
+</tr>
+<tr>
+<td>first</td>
+<td>返回查询的第一个结果，没有返回None</td>
+</tr>
+<tr>
+<td>first_or_404</td>
+<td>返回第一个查询结果，否则终止请求，返回404</td>
+</tr>
+<tr>
+<td>get</td>
+<td>返回指定主键对应的列，否则返回None</td>
+</tr>
+<tr>
+<td>get_or_404</td>
+<td>返回指定主键对应的行，否则返回404</td>
+</tr>
+<tr>
+<td>count</td>
+<td>返回结果数量</td>
+</tr>
+<tr>
+<td>paginate</td>
+<td>返回一个paginate对象，包含指定范围的结果</td>
+</tr>
+</tbody>
+</table>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/flask/">flask</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2018/10/07/lua/2018-10-07_openresty/" title="centos编译安装opensty" itemprop="url">centos编译安装opensty</a>
   </h1>
   <p class="article-author">By
@@ -786,6 +748,61 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2018/06/30/linux/centos6.4升级python/" title="centos6.4 升级python到2.7" itemprop="url">centos6.4 升级python到2.7</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
+		
+  <p class="article-time">
+    <time datetime="2018-06-30T02:15:00.000Z" itemprop="datePublished"> Published 2018-06-30</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h1 id="1-download-source"><a href="#1-download-source" class="headerlink" title="1. download source"></a>1. download source</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https:<span class="comment">//www.python.org/ftp/python/2.7.12/Python-2.7.12.tgz</span></span><br></pre></td></tr></table></figure>
+<h1 id="2-compire-and-install"><a href="#2-compire-and-install" class="headerlink" title="2. compire and install"></a>2. compire and install</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tar zxvf Python<span class="number">-2.7</span><span class="number">.12</span>.tgz</span><br><span class="line">cd Python<span class="number">-2.7</span><span class="number">.12</span></span><br><span class="line">./configure --prefix=/usr/local/python27 &amp;&amp; make &amp;&amp; make install &amp;&amp; echo $?</span><br><span class="line">如果以上输出为<span class="number">0</span>，说明没有报错，安装正常</span><br></pre></td></tr></table></figure>
+<h1 id="3-add-path-and-backup-the-python2-6"><a href="#3-add-path-and-backup-the-python2-6" class="headerlink" title="3. add path and backup the python2.6"></a>3. add path and backup the python2.6</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">移除以前的版本</span><br><span class="line">mv /usr/bin/python /usr/bin/python26</span><br><span class="line">创建软连接</span><br><span class="line">ln -s /usr/local/python27/bin/python /usr/bin/python</span><br><span class="line">查看版本是否升级成功</span><br><span class="line">python -V</span><br><span class="line">Python <span class="number">2.7</span><span class="number">.12</span></span><br></pre></td></tr></table></figure>
+<h1 id="4-modify-yum"><a href="#4-modify-yum" class="headerlink" title="4. modify yum"></a>4. modify yum</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">如果不修改此项，会导致yum无法使用</span><br><span class="line">vim /usr/bin/yum</span><br><span class="line">修改第一行即可，将环境变量指向以前的python版本</span><br><span class="line">#!/usr/bin/python26</span><br></pre></td></tr></table></figure>
+<h1 id="5-reinstall-pip"><a href="#5-reinstall-pip" class="headerlink" title="5. reinstall pip"></a>5. reinstall pip</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span>安装pip之前首先需要安装setuptools</span><br><span class="line">下载链接</span><br><span class="line">https:<span class="comment">//pypi.python.org/pypi/setuptools</span></span><br><span class="line">下载地址</span><br><span class="line">wget https:<span class="comment">//pypi.python.org/packages/ff/d4/209f4939c49e31f5524fa0027bf1c8ec3107abaf7c61fdaad704a648c281/setuptools-21.0.0.tar.gz#md5=81964fdb89534118707742e6d1a1ddb4 --no-check-certificate</span></span><br><span class="line">解压</span><br><span class="line">tar zxvf setuptools<span class="number">-21.0</span><span class="number">.0</span>.tar.gz</span><br><span class="line">安装</span><br><span class="line">cd setuptools<span class="number">-21.0</span><span class="number">.0</span></span><br><span class="line">python setup.py  install</span><br><span class="line"></span><br><span class="line"><span class="number">2.</span>安装pip</span><br><span class="line">下载链接</span><br><span class="line">https:<span class="comment">//pypi.python.org/pypi/pip</span></span><br><span class="line">下载地址</span><br><span class="line">wget https:<span class="comment">//pypi.python.org/packages/41/27/9a8d24e1b55bd8c85e4d022da2922cb206f183e2d18fee4e320c9547e751/pip-8.1.1.tar.gz#md5=6b86f11841e89c8241d689956ba99ed7 --no-check-certificate</span></span><br><span class="line">解压</span><br><span class="line">tar zxvf pip<span class="number">-8.1</span><span class="number">.1</span>.tar.gz </span><br><span class="line">安装 </span><br><span class="line">cd pip<span class="number">-8.1</span><span class="number">.1</span></span><br><span class="line">python setup.py install</span><br><span class="line"></span><br><span class="line"><span class="number">3.</span>添加环境变量</span><br><span class="line">安装完之后，之后执行pip还是调用的以前的环境变量，需要手动添加环境变量</span><br><span class="line">mv /usr/bin/pip /usr/bin/pip26</span><br><span class="line">ln -s /usr/local/python27/bin/pip /usr/bin/</span><br><span class="line">再次查看版本</span><br><span class="line">pip -V</span><br><span class="line">pip <span class="number">8.1</span><span class="number">.1</span> from /usr/local/python27/lib/python2<span class="number">.7</span>/site-packages/pip<span class="number">-8.1</span><span class="number">.1</span>-py2<span class="number">.7</span>.egg (python <span class="number">2.7</span>)</span><br></pre></td></tr></table></figure>
+<h1 id="6-使用pip安装第三方库"><a href="#6-使用pip安装第三方库" class="headerlink" title="6.使用pip安装第三方库"></a>6.使用pip安装第三方库</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">如果报错locale.Error: unsupported locale setting</span><br><span class="line">加入环境变量：</span><br><span class="line"><span class="keyword">export</span> LANGUAGE=en_US.UTF<span class="number">-8</span></span><br><span class="line"><span class="keyword">export</span> LC_ALL=en_US.UTF<span class="number">-8</span></span><br><span class="line"></span><br><span class="line">pip install psutil</span><br><span class="line">pip install MySQLdb-python</span><br><span class="line">pip install django=<span class="number">1.8</span><span class="number">.2</span></span><br><span class="line"></span><br><span class="line">报错：</span><br><span class="line"> pip install MySQLdb-python</span><br><span class="line">Collecting MySQLdb-python</span><br><span class="line">  Retrying (Retry(total=4, connect=None, read=None, redirect=None)) after connection broken by 'ReadTimeoutError("HTTPSConnectionPool(host='pypi.python.org', port=443): Read timed out. (read timeout=15)",)': /simple/mysqldb-python/</span><br><span class="line">  Could <span class="keyword">not</span> find a version that satisfies the requirement MySQLdb-python (from versions: )</span><br><span class="line">No matching distribution found <span class="keyword">for</span> MySQLdb-python</span><br><span class="line">You are <span class="keyword">using</span> pip version <span class="number">8.1</span><span class="number">.1</span>, however version <span class="number">9.0</span><span class="number">.1</span> is available.</span><br><span class="line">You should consider upgrading via the 'pip install --upgrade pip' command.</span><br><span class="line">当安装中提示版本太低的时候，执行提示的命令进行升级即可</span><br><span class="line">pip install --upgrade pip</span><br><span class="line">升级完重新执行要安装的库</span><br></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2018/06/30/linux/centos6.4install-mysql-python/" title="centos6.4 安装python mysql扩展" itemprop="url">centos6.4 安装python mysql扩展</a>
   </h1>
   <p class="article-author">By
@@ -832,61 +849,6 @@
   <span></span>
   <a class="article-category-link" href="/categories/c/">c</a>
 </div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2018/06/30/linux/centos6.4升级python/" title="centos6.4 升级python到2.7" itemprop="url">centos6.4 升级python到2.7</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
-		
-  <p class="article-time">
-    <time datetime="2018-06-30T02:15:00.000Z" itemprop="datePublished"> Published 2018-06-30</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h1 id="1-download-source"><a href="#1-download-source" class="headerlink" title="1. download source"></a>1. download source</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https:<span class="comment">//www.python.org/ftp/python/2.7.12/Python-2.7.12.tgz</span></span><br></pre></td></tr></table></figure>
-<h1 id="2-compire-and-install"><a href="#2-compire-and-install" class="headerlink" title="2. compire and install"></a>2. compire and install</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tar zxvf Python<span class="number">-2.7</span><span class="number">.12</span>.tgz</span><br><span class="line">cd Python<span class="number">-2.7</span><span class="number">.12</span></span><br><span class="line">./configure --prefix=/usr/local/python27 &amp;&amp; make &amp;&amp; make install &amp;&amp; echo $?</span><br><span class="line">如果以上输出为<span class="number">0</span>，说明没有报错，安装正常</span><br></pre></td></tr></table></figure>
-<h1 id="3-add-path-and-backup-the-python2-6"><a href="#3-add-path-and-backup-the-python2-6" class="headerlink" title="3. add path and backup the python2.6"></a>3. add path and backup the python2.6</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">移除以前的版本</span><br><span class="line">mv /usr/bin/python /usr/bin/python26</span><br><span class="line">创建软连接</span><br><span class="line">ln -s /usr/local/python27/bin/python /usr/bin/python</span><br><span class="line">查看版本是否升级成功</span><br><span class="line">python -V</span><br><span class="line">Python <span class="number">2.7</span><span class="number">.12</span></span><br></pre></td></tr></table></figure>
-<h1 id="4-modify-yum"><a href="#4-modify-yum" class="headerlink" title="4. modify yum"></a>4. modify yum</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">如果不修改此项，会导致yum无法使用</span><br><span class="line">vim /usr/bin/yum</span><br><span class="line">修改第一行即可，将环境变量指向以前的python版本</span><br><span class="line">#!/usr/bin/python26</span><br></pre></td></tr></table></figure>
-<h1 id="5-reinstall-pip"><a href="#5-reinstall-pip" class="headerlink" title="5. reinstall pip"></a>5. reinstall pip</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span>安装pip之前首先需要安装setuptools</span><br><span class="line">下载链接</span><br><span class="line">https:<span class="comment">//pypi.python.org/pypi/setuptools</span></span><br><span class="line">下载地址</span><br><span class="line">wget https:<span class="comment">//pypi.python.org/packages/ff/d4/209f4939c49e31f5524fa0027bf1c8ec3107abaf7c61fdaad704a648c281/setuptools-21.0.0.tar.gz#md5=81964fdb89534118707742e6d1a1ddb4 --no-check-certificate</span></span><br><span class="line">解压</span><br><span class="line">tar zxvf setuptools<span class="number">-21.0</span><span class="number">.0</span>.tar.gz</span><br><span class="line">安装</span><br><span class="line">cd setuptools<span class="number">-21.0</span><span class="number">.0</span></span><br><span class="line">python setup.py  install</span><br><span class="line"></span><br><span class="line"><span class="number">2.</span>安装pip</span><br><span class="line">下载链接</span><br><span class="line">https:<span class="comment">//pypi.python.org/pypi/pip</span></span><br><span class="line">下载地址</span><br><span class="line">wget https:<span class="comment">//pypi.python.org/packages/41/27/9a8d24e1b55bd8c85e4d022da2922cb206f183e2d18fee4e320c9547e751/pip-8.1.1.tar.gz#md5=6b86f11841e89c8241d689956ba99ed7 --no-check-certificate</span></span><br><span class="line">解压</span><br><span class="line">tar zxvf pip<span class="number">-8.1</span><span class="number">.1</span>.tar.gz </span><br><span class="line">安装 </span><br><span class="line">cd pip<span class="number">-8.1</span><span class="number">.1</span></span><br><span class="line">python setup.py install</span><br><span class="line"></span><br><span class="line"><span class="number">3.</span>添加环境变量</span><br><span class="line">安装完之后，之后执行pip还是调用的以前的环境变量，需要手动添加环境变量</span><br><span class="line">mv /usr/bin/pip /usr/bin/pip26</span><br><span class="line">ln -s /usr/local/python27/bin/pip /usr/bin/</span><br><span class="line">再次查看版本</span><br><span class="line">pip -V</span><br><span class="line">pip <span class="number">8.1</span><span class="number">.1</span> from /usr/local/python27/lib/python2<span class="number">.7</span>/site-packages/pip<span class="number">-8.1</span><span class="number">.1</span>-py2<span class="number">.7</span>.egg (python <span class="number">2.7</span>)</span><br></pre></td></tr></table></figure>
-<h1 id="6-使用pip安装第三方库"><a href="#6-使用pip安装第三方库" class="headerlink" title="6.使用pip安装第三方库"></a>6.使用pip安装第三方库</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">如果报错locale.Error: unsupported locale setting</span><br><span class="line">加入环境变量：</span><br><span class="line"><span class="keyword">export</span> LANGUAGE=en_US.UTF<span class="number">-8</span></span><br><span class="line"><span class="keyword">export</span> LC_ALL=en_US.UTF<span class="number">-8</span></span><br><span class="line"></span><br><span class="line">pip install psutil</span><br><span class="line">pip install MySQLdb-python</span><br><span class="line">pip install django=<span class="number">1.8</span><span class="number">.2</span></span><br><span class="line"></span><br><span class="line">报错：</span><br><span class="line"> pip install MySQLdb-python</span><br><span class="line">Collecting MySQLdb-python</span><br><span class="line">  Retrying (Retry(total=4, connect=None, read=None, redirect=None)) after connection broken by 'ReadTimeoutError("HTTPSConnectionPool(host='pypi.python.org', port=443): Read timed out. (read timeout=15)",)': /simple/mysqldb-python/</span><br><span class="line">  Could <span class="keyword">not</span> find a version that satisfies the requirement MySQLdb-python (from versions: )</span><br><span class="line">No matching distribution found <span class="keyword">for</span> MySQLdb-python</span><br><span class="line">You are <span class="keyword">using</span> pip version <span class="number">8.1</span><span class="number">.1</span>, however version <span class="number">9.0</span><span class="number">.1</span> is available.</span><br><span class="line">You should consider upgrading via the 'pip install --upgrade pip' command.</span><br><span class="line">当安装中提示版本太低的时候，执行提示的命令进行升级即可</span><br><span class="line">pip install --upgrade pip</span><br><span class="line">升级完重新执行要安装的库</span><br></pre></td></tr></table></figure>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
 
 
 </div>
