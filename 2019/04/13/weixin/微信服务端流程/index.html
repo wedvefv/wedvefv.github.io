@@ -37,7 +37,7 @@
 <meta property="og:site_name" content="依の博客">
 <meta property="og:description" content="三个平台都有什么？ 微信公众平台: 微信官方平台，功能： 群发推送、自动回复、二维码订阅，用途：消息推送、品牌传播、分享 微信开放平台: 为第三方提供接口，比如分享朋友圈，发送给微信好友等 微信商户平台：主要是用于微信支付的，比如APP和公众号需要接入支付功能，就需要申请一个商户号。  前提 在开放平台，注册自己的app，通俗讲就是在微信备案一下。  客户端需要干嘛？ 需要下载微信安卓或者ios版">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-14T08:08:13.280Z">
+<meta property="og:updated_time" content="2019-04-14T08:13:44.238Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="微信支付流程">
 <meta name="twitter:description" content="三个平台都有什么？ 微信公众平台: 微信官方平台，功能： 群发推送、自动回复、二维码订阅，用途：消息推送、品牌传播、分享 微信开放平台: 为第三方提供接口，比如分享朋友圈，发送给微信好友等 微信商户平台：主要是用于微信支付的，比如APP和公众号需要接入支付功能，就需要申请一个商户号。  前提 在开放平台，注册自己的app，通俗讲就是在微信备案一下。  客户端需要干嘛？ 需要下载微信安卓或者ios版">
@@ -130,7 +130,7 @@
 </ul>
 <h2 id="客户端需要干嘛？"><a href="#客户端需要干嘛？" class="headerlink" title="客户端需要干嘛？"></a>客户端需要干嘛？</h2><ul>
 <li>需要下载微信安卓或者ios版SDK,集成到自己的app中，主要是为了调起微信支付模块。</li>
-<li>利用sdk调起支付模块，需要传参数吧，不然请求微信服务器也不知道具体转给谁钱，转多少钱…</li>
+<li>app调起支付模块，需要传参数吧，不然请求微信服务器也不知道具体转给谁钱，转多少钱…</li>
 <li>支付参数哪里来呢？服务器生成啊…..</li>
 <li>支付完成后微信会返回微信订单号的信心，后期可以用于到微信服务器查询订单状态。</li>
 </ul>
@@ -168,6 +168,10 @@
 </li>
 <li><blockquote>
 <p>8.有了prepayid加上其他参数，返回给客户端用于真正调起sdk支付模块。</p>
+</blockquote>
+</li>
+<li><blockquote>
+<p>9.调完支付模块后，微信服务器会立刻返回到app中，这时候客户端需要实现onResp回调函数，如果支付成功，需要去服务器查询是否真的ok，永远以服务端返回的支付结果为准。</p>
 </blockquote>
 </li>
 <li><p>2.主动查询订单接口</p>

@@ -124,7 +124,7 @@
 </ul>
 <h2 id="客户端需要干嘛？"><a href="#客户端需要干嘛？" class="headerlink" title="客户端需要干嘛？"></a>客户端需要干嘛？</h2><ul>
 <li>需要下载微信安卓或者ios版SDK,集成到自己的app中，主要是为了调起微信支付模块。</li>
-<li>利用sdk调起支付模块，需要传参数吧，不然请求微信服务器也不知道具体转给谁钱，转多少钱…</li>
+<li>app调起支付模块，需要传参数吧，不然请求微信服务器也不知道具体转给谁钱，转多少钱…</li>
 <li>支付参数哪里来呢？服务器生成啊…..</li>
 <li>支付完成后微信会返回微信订单号的信心，后期可以用于到微信服务器查询订单状态。</li>
 </ul>
@@ -162,6 +162,10 @@
 </li>
 <li><blockquote>
 <p>8.有了prepayid加上其他参数，返回给客户端用于真正调起sdk支付模块。</p>
+</blockquote>
+</li>
+<li><blockquote>
+<p>9.调完支付模块后，微信服务器会立刻返回到app中，这时候客户端需要实现onResp回调函数，如果支付成功，需要去服务器查询是否真的ok，永远以服务端返回的支付结果为准。</p>
 </blockquote>
 </li>
 <li><p>2.主动查询订单接口</p>
@@ -604,6 +608,67 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2019/02/22/redis/redis文章分组的用途/" title="redis文章分组的用途" itemprop="url">redis文章分组的用途</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
+		
+  <p class="article-time">
+    <time datetime="2019-02-22T07:50:00.000Z" itemprop="datePublished"> Published 2019-02-22</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="文章分组的用途"><a href="#文章分组的用途" class="headerlink" title="文章分组的用途"></a>文章分组的用途</h2><ul>
+<li>文章分组，可以用set结构存储同一个分组的文章id</li>
+<li>set可以和zset使用zinterstore命令求交集，set默认的score是1， zset默认的一般不是1，可以指定参数max，取score大的值。</li>
+<li>比如获取一个分组A中的文章按时间排序，就拿这个分组和发布时间集合zset求交集，交集可以取一个临时名字，设置有效期60s。</li>
+<li>比如获取一个分组B中的文章按照评分大小排序，就拿这个分组和评分集合zset求交集。</li>
+<li>一般接口直接就拿redis获取的数据返回了。</li>
+</ul>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/redis/">redis</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2019/02/22/redis/redis文章投票/" title="redis文章投票" itemprop="url">redis文章投票</a>
   </h1>
   <p class="article-author">By
@@ -651,67 +716,6 @@
 <li>考虑到并发，如果以上三个操作应该用事物操作，保证原子性。</li>
 </ol>
 </li>
-</ul>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/redis/">redis</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2019/02/22/redis/redis文章分组的用途/" title="redis文章分组的用途" itemprop="url">redis文章分组的用途</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
-		
-  <p class="article-time">
-    <time datetime="2019-02-22T07:50:00.000Z" itemprop="datePublished"> Published 2019-02-22</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="文章分组的用途"><a href="#文章分组的用途" class="headerlink" title="文章分组的用途"></a>文章分组的用途</h2><ul>
-<li>文章分组，可以用set结构存储同一个分组的文章id</li>
-<li>set可以和zset使用zinterstore命令求交集，set默认的score是1， zset默认的一般不是1，可以指定参数max，取score大的值。</li>
-<li>比如获取一个分组A中的文章按时间排序，就拿这个分组和发布时间集合zset求交集，交集可以取一个临时名字，设置有效期60s。</li>
-<li>比如获取一个分组B中的文章按照评分大小排序，就拿这个分组和评分集合zset求交集。</li>
-<li>一般接口直接就拿redis获取的数据返回了。</li>
 </ul>
 
         
@@ -1113,79 +1117,6 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2019/02/14/linux/ip地址子网掩码的关系/" title="ip地址和子网掩码，广播地址关系" itemprop="url">ip地址和子网掩码，广播地址关系</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
-		
-  <p class="article-time">
-    <time datetime="2019-02-14T06:00:00.000Z" itemprop="datePublished"> Published 2019-02-14</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="什么是ip地址？"><a href="#什么是ip地址？" class="headerlink" title="什么是ip地址？"></a>什么是ip地址？</h2><ul>
-<li>ip是在一个网段中的一台计算机的ip地址（192.168.1.2）</li>
-<li>如果你家的联通宽带给你家的公网ip地址是10.10.123.234(假设的)，那么接到你家路由器，首先路由器需要有一个ip地址，一般是192.168.1.1（也可能是192.168.0.1），这个应该可以登录到路由器中设置。</li>
-<li>其中192.168.1.255 就是广播地址，比如centos中ifconfig命令查看的broadcast</li>
-<li>剩余的ip段192.168.1.2~192.168.1.254 就是可以分配给手机，电脑等客户端使用的ip。一共是253（255-2）个。</li>
-</ul>
-<h2 id="ip由什么组成？"><a href="#ip由什么组成？" class="headerlink" title="ip由什么组成？"></a>ip由什么组成？</h2><ul>
-<li>例如一个ip 192.168.1.2，是一个C类网络，一般有254台主机。二进制表示就是 网络号标识|1100 0000 |1000 0000| 0000 0001|  + 主机号标识|0000 0010| </li>
-<li>点号分割每个数字都是8位二进制,网络号部分就是192.168.1,主机号部分就是2。</li>
-<li>网络标识部分越短，那么标识主机部分可用的范围越大，但是需要子网掩码配合决定由多少可用ip</li>
-</ul>
-<h2 id="什么是子网掩码？"><a href="#什么是子网掩码？" class="headerlink" title="什么是子网掩码？"></a>什么是子网掩码？</h2><ul>
-<li>子网掩码，顾名思义，遮掩的意思，子网掩码就是把ip地址分为网络部分和主机部分，主机部分用二进制位用1标识，主机号部分用0标识。C类子网掩码一般是255.255.255.0 </li>
-<li>如果所需的ip比较多，比如学校这种环境，子网掩码可以设置成255.255.0.0 ,那么ip返回就是255的2次方-2，就是65023个。那么ip网络部分就是192.168,后面两部分是主机号。</li>
-</ul>
-<ul>
-<li>网关是什么，比如两个A客户端192.168.1.2 和B客户端192.168.2.2 就是两个网络的设备，前提是他们的子网掩码都是255.255.255.0， 那么他们通信就需要A客户端发送给网关ip，有网关路由转发到B所在的网关，再转发到B客户端。 比如我的路由器ip是192.168.2.1， 我自己的ip是192.168.2.110， 默认网关也是192.168.2.1</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">netstat -rn</span><br><span class="line"></span><br><span class="line">Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface</span><br><span class="line">0.0.0.0         192.168.2.1     0.0.0.0         UG        0 0          0 ens33</span><br><span class="line">0.0.0.0表示发给任何人的包，都发给192.168.2.1这个网关， Genmask写0.0.0.0是默认路由的网络掩码。</span><br></pre></td></tr></table></figure>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/linux/">linux</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
       <a href="/2019/02/14/python/2__init__文件的作用/" title="python 导入模块文件以及相对导入和__init__文件作用" itemprop="url">python 导入模块文件以及相对导入和__init__文件作用</a>
   </h1>
   <p class="article-author">By
@@ -1233,6 +1164,79 @@
 <div class="article-categories">
   <span></span>
   <a class="article-category-link" href="/categories/python/">python</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2019/02/14/linux/ip地址子网掩码的关系/" title="ip地址和子网掩码，广播地址关系" itemprop="url">ip地址和子网掩码，广播地址关系</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
+		
+  <p class="article-time">
+    <time datetime="2019-02-14T06:00:00.000Z" itemprop="datePublished"> Published 2019-02-14</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="什么是ip地址？"><a href="#什么是ip地址？" class="headerlink" title="什么是ip地址？"></a>什么是ip地址？</h2><ul>
+<li>ip是在一个网段中的一台计算机的ip地址（192.168.1.2）</li>
+<li>如果你家的联通宽带给你家的公网ip地址是10.10.123.234(假设的)，那么接到你家路由器，首先路由器需要有一个ip地址，一般是192.168.1.1（也可能是192.168.0.1），这个应该可以登录到路由器中设置。</li>
+<li>其中192.168.1.255 就是广播地址，比如centos中ifconfig命令查看的broadcast</li>
+<li>剩余的ip段192.168.1.2~192.168.1.254 就是可以分配给手机，电脑等客户端使用的ip。一共是253（255-2）个。</li>
+</ul>
+<h2 id="ip由什么组成？"><a href="#ip由什么组成？" class="headerlink" title="ip由什么组成？"></a>ip由什么组成？</h2><ul>
+<li>例如一个ip 192.168.1.2，是一个C类网络，一般有254台主机。二进制表示就是 网络号标识|1100 0000 |1000 0000| 0000 0001|  + 主机号标识|0000 0010| </li>
+<li>点号分割每个数字都是8位二进制,网络号部分就是192.168.1,主机号部分就是2。</li>
+<li>网络标识部分越短，那么标识主机部分可用的范围越大，但是需要子网掩码配合决定由多少可用ip</li>
+</ul>
+<h2 id="什么是子网掩码？"><a href="#什么是子网掩码？" class="headerlink" title="什么是子网掩码？"></a>什么是子网掩码？</h2><ul>
+<li>子网掩码，顾名思义，遮掩的意思，子网掩码就是把ip地址分为网络部分和主机部分，主机部分用二进制位用1标识，主机号部分用0标识。C类子网掩码一般是255.255.255.0 </li>
+<li>如果所需的ip比较多，比如学校这种环境，子网掩码可以设置成255.255.0.0 ,那么ip返回就是255的2次方-2，就是65023个。那么ip网络部分就是192.168,后面两部分是主机号。</li>
+</ul>
+<ul>
+<li>网关是什么，比如两个A客户端192.168.1.2 和B客户端192.168.2.2 就是两个网络的设备，前提是他们的子网掩码都是255.255.255.0， 那么他们通信就需要A客户端发送给网关ip，有网关路由转发到B所在的网关，再转发到B客户端。 比如我的路由器ip是192.168.2.1， 我自己的ip是192.168.2.110， 默认网关也是192.168.2.1</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">netstat -rn</span><br><span class="line"></span><br><span class="line">Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface</span><br><span class="line">0.0.0.0         192.168.2.1     0.0.0.0         UG        0 0          0 ens33</span><br><span class="line">0.0.0.0表示发给任何人的包，都发给192.168.2.1这个网关， Genmask写0.0.0.0是默认路由的网络掩码。</span><br></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/linux/">linux</a>
 </div>
 
 
@@ -1547,7 +1551,7 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2019/01/28/flask/5_数据库1/" title="flask 第5章(数据库操作)" itemprop="url">flask 第5章(数据库操作)</a>
+      <a href="/2019/01/28/flask/4_web表单/" title="flask 第4章(表单)" itemprop="url">flask 第4章(表单)</a>
   </h1>
   <p class="article-author">By
        
@@ -1560,137 +1564,165 @@
 </header>
     <div class="article-content">
         
-        <h1 id="数据库操作"><a href="#数据库操作" class="headerlink" title="数据库操作"></a>数据库操作</h1><h2 id="1-安装需要的包"><a href="#1-安装需要的包" class="headerlink" title="1. 安装需要的包"></a>1. 安装需要的包</h2><ul>
-<li>pip install flask-sqlalchemy</li>
+        <h1 id="表单的处理"><a href="#表单的处理" class="headerlink" title="表单的处理"></a>表单的处理</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install flask-wtf</span><br></pre></td></tr></table></figure>
+<h1 id="1-跨站请求伪造保护XSRF和XSS"><a href="#1-跨站请求伪造保护XSRF和XSS" class="headerlink" title="1. 跨站请求伪造保护XSRF和XSS"></a>1. 跨站请求伪造保护XSRF和XSS</h1><ul>
+<li><p>XSRF 跨站请求伪造<br>** 利用用户已经登陆了的网站上执行非法操作，利用了网站对已登录用户的信任。</p>
+</li>
+<li><p>XSS 跨站脚本攻击<br>** 利用用户对制定网站的信任，执行一些非法操作。</p>
+</li>
+<li><p>为了防止XSRF攻击，所以有了 SECRET_KEY配置项。</p>
+</li>
 </ul>
-<p>hello.py</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding=utf=8</span></span><br><span class="line"><span class="keyword">import</span> pymysql</span><br><span class="line">pymysql.install_as_MySQLdb()</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> MySQLdb <span class="comment"># MySQLdb 只支持python2 ,我这limitlinux转不上，只能装pymysql代替，但是需要上面2行代码</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 引入核心模块和模板加载模块</span></span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, render_template,session,redirect,url_for,flash</span><br><span class="line"><span class="comment"># 引入bootstrap前端框架</span></span><br><span class="line"><span class="keyword">from</span> flask_bootstrap <span class="keyword">import</span> Bootstrap</span><br><span class="line"><span class="comment"># 引入时间模块,实现了momment.js</span></span><br><span class="line"><span class="keyword">from</span> flask_moment <span class="keyword">import</span> Moment</span><br><span class="line"><span class="comment"># 引入manage模块，服务器启动参数控制</span></span><br><span class="line"><span class="keyword">from</span> flask_script <span class="keyword">import</span> Manager</span><br><span class="line"><span class="comment"># 引入表单模块</span></span><br><span class="line"><span class="keyword">from</span> flask_wtf <span class="keyword">import</span> FlaskForm</span><br><span class="line"><span class="comment"># 引入表单字段类</span></span><br><span class="line"><span class="keyword">from</span> wtforms <span class="keyword">import</span> StringField,SubmitField</span><br><span class="line"><span class="comment"># 引入表单验证函数</span></span><br><span class="line"><span class="keyword">from</span> wtforms.validators <span class="keyword">import</span> Required</span><br><span class="line"><span class="comment">#导入数据库包</span></span><br><span class="line"><span class="keyword">from</span> flask_sqlalchemy <span class="keyword">import</span> SQLAlchemy</span><br><span class="line"></span><br><span class="line"><span class="comment"># 每个web表单都有一个继承自FlaskForm的类表示,所以先定义一个类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NameForm</span><span class="params">(FlaskForm)</span>:</span></span><br><span class="line">    name = StringField(<span class="string">"what is your name ?"</span>,validators=[Required()]) <span class="comment"># 字段对象可附加多个验证函数，所以是列表, Required确保非空</span></span><br><span class="line">    submit = SubmitField(<span class="string">"Submit1"</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"><span class="comment"># 生成加密令牌的密钥,再用令牌验证请求的表单数据真伪</span></span><br><span class="line">app.config[<span class="string">'SECRET_KEY'</span>] = <span class="string">'this random string！'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 数据库配置</span></span><br><span class="line">app.config[<span class="string">"SQLALCHEMY_DATABASE_URI"</span>] = <span class="string">"mysql://appwriter:appwr@zxcv@192.168.43.186/flask?charset=utf8"</span></span><br><span class="line">app.config[<span class="string">"SQLALCHEMY_COMMIT_ON_TEARDOWN"</span>] = <span class="keyword">True</span> <span class="comment"># 请求结束自动提交数据库变动</span></span><br><span class="line">app.config[<span class="string">"SQLALCHEMY_TRACK_MODIFICATIONS"</span>] = <span class="keyword">True</span> <span class="comment"># 这行不能缺</span></span><br><span class="line"><span class="comment">#SQLALCHEMY_COMMIT_TEARDOWN = True</span></span><br><span class="line"></span><br><span class="line">db = SQLAlchemy(app) <span class="comment"># 数据库实例 模型继承于db.model, 模型在python就是一个类，数据库中是一个表，类属性就是表字段</span></span><br><span class="line"></span><br><span class="line">bootstrap = Bootstrap(app)</span><br><span class="line">moment = Moment(app)</span><br><span class="line">manager = Manager(app)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义模型</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Role</span><span class="params">(db.Model)</span>:</span></span><br><span class="line">    __tablename__ = <span class="string">'roles'</span></span><br><span class="line">    id = db.Column(db.Integer, primary_key=<span class="keyword">True</span>)</span><br><span class="line">    name = db.Column(db.String(<span class="number">64</span>),unique=<span class="keyword">True</span>)</span><br><span class="line">    users = db.relationship(<span class="string">"User"</span>, backref=<span class="string">'role'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'&lt;Role %r&gt; '</span> % self.name</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span><span class="params">(db.Model)</span>:</span></span><br><span class="line">    __tablename__ = <span class="string">"users"</span></span><br><span class="line">    id = db.Column(db.Integer,primary_key=<span class="keyword">True</span>)</span><br><span class="line">    username = db.Column(db.String(<span class="number">64</span>),unique=<span class="keyword">True</span>)</span><br><span class="line">    role_id = db.Column(db.Integer, db.ForeignKey(<span class="string">'roles.id'</span>))</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'&lt;User %r&gt; '</span> % self.username</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.errorhandler(404)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">page_not_found</span><span class="params">(e)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">'404.html'</span>), <span class="number">404</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.errorhandler(500)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">internal_server_error</span><span class="params">(e)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">'500.html'</span>), <span class="number">500</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/', methods=['GET', 'POST'])</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">()</span>:</span></span><br><span class="line">    form = NameForm()</span><br><span class="line">    <span class="keyword">if</span> form.validate_on_submit():</span><br><span class="line">        old_name = session.get(<span class="string">"name"</span>)</span><br><span class="line">        <span class="keyword">if</span> old_name <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span> <span class="keyword">and</span> old_name != form.name.data:</span><br><span class="line">            flash(<span class="string">"your are changing your name ."</span>)</span><br><span class="line">        session[<span class="string">"name"</span>] = form.name.data</span><br><span class="line">        <span class="keyword">return</span> redirect(url_for(<span class="string">"index"</span>)) <span class="comment"># 一般endpoint就是视图函数名</span></span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">"index.html"</span>, form=form, name = session.get(<span class="string">'name'</span>))</span><br><span class="line">    <span class="comment">#return render_template("index.html", form=form, name = None)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    manager.run()</span><br></pre></td></tr></table></figure>
-<h2 id="2-SQLAlchemy-常用的列类型"><a href="#2-SQLAlchemy-常用的列类型" class="headerlink" title="2. SQLAlchemy 常用的列类型"></a>2. SQLAlchemy 常用的列类型</h2><table>
+<h1 id="2-主文件hello-py-代码"><a href="#2-主文件hello-py-代码" class="headerlink" title="2. 主文件hello.py 代码"></a>2. 主文件hello.py 代码</h1><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding=utf=8</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 引入核心模块和模板加载模块</span></span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, render_template</span><br><span class="line"><span class="comment"># 引入bootstrap前端框架</span></span><br><span class="line"><span class="keyword">from</span> flask_bootstrap <span class="keyword">import</span> Bootstrap</span><br><span class="line"><span class="comment"># 引入时间模块,实现了momment.js</span></span><br><span class="line"><span class="keyword">from</span> flask_moment <span class="keyword">import</span> Moment</span><br><span class="line"><span class="comment"># 引入manage模块，服务器启动参数控制</span></span><br><span class="line"><span class="keyword">from</span> flask_script <span class="keyword">import</span> Manager</span><br><span class="line"><span class="comment"># 引入表单模块</span></span><br><span class="line"><span class="keyword">from</span> flask_wtf <span class="keyword">import</span> FlaskForm</span><br><span class="line"><span class="comment"># 引入表单字段类</span></span><br><span class="line"><span class="keyword">from</span> wtforms <span class="keyword">import</span> StringField,SubmitField</span><br><span class="line"><span class="comment"># 引入表单验证函数</span></span><br><span class="line"><span class="keyword">from</span> wtforms.validators <span class="keyword">import</span> Required</span><br><span class="line"></span><br><span class="line"><span class="comment"># 每个web表单都有一个继承自FlaskForm的类表示,所以先定义一个类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NameForm</span><span class="params">(FlaskForm)</span>:</span></span><br><span class="line">    name = StringField(<span class="string">"what is your name ?"</span>,validators=[Required()]) <span class="comment"># 字段对象可附加多个验证函数，所以是列表, Required确保非空</span></span><br><span class="line">    submit = SubmitField(<span class="string">"Submit1"</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"><span class="comment"># 生成加密令牌的密钥,再用令牌验证请求的表单数据真伪,</span></span><br><span class="line">app.config[<span class="string">'SECRET_KEY'</span>] = <span class="string">'this random string！'</span></span><br><span class="line"></span><br><span class="line">bootstrap = Bootstrap(app)</span><br><span class="line">moment = Moment(app)</span><br><span class="line">manager = Manager(app)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.errorhandler(404)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">page_not_found</span><span class="params">(e)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">'404.html'</span>), <span class="number">404</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.errorhandler(500)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">internal_server_error</span><span class="params">(e)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">'500.html'</span>), <span class="number">500</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/', methods=['GET', 'POST']) #如果不附加post方法，会get提交表单，信息就暴漏在浏览器地址栏中了。</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">()</span>:</span></span><br><span class="line">    name = <span class="keyword">None</span></span><br><span class="line">    form = NameForm()</span><br><span class="line">    <span class="keyword">if</span> form.validate_on_submit():</span><br><span class="line">        name = form.name.data</span><br><span class="line">        form.name.data = <span class="string">''</span></span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">"index.html"</span>,form = form, name = name)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    manager.run()</span><br></pre></td></tr></table></figure>
+<ul>
+<li>第一次请求页面是get方式，validate_on_submit()函数返回false , 表单对象和name=None传入模板，用户看到就是表单的样子</li>
+<li>用户输入name提交时，是post请求，validate_on_submit()返回true，表单对象传入name会被清空，name参数也传入，显示在页面。hello， nama！</li>
+</ul>
+<h1 id="3-模板文件index-html"><a href="#3-模板文件index-html" class="headerlink" title="3.模板文件index.html"></a>3.模板文件index.html</h1><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;% extends "base.html" %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% import "bootstrap/wtf.html" as wtf %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% block title %&#125;Flasky&#123;% endblock %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% block page_content %&#125;</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"page-header"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello, &#123;% if name %&#125;&#123;&#123; name &#125;&#125;&#123;% else %&#125;Stranger&#123;% endif %&#125;!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">&#123;&#123; wtf.quick_form(form) &#125;&#125;</span><br><span class="line">&#123;% endblock %&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;% <span class="keyword">import</span> <span class="string">"bootstrap\/wtf.html"</span> <span class="keyword">as</span> wtf %&#125; 引入wtf模板，</span><br><span class="line">&#123;&#123; wtf.quick_form(form) &#125;&#125;填充表单数据</span><br></pre></td></tr></table></figure>
+<h1 id="4-wtdforms-支持的表单字段类型"><a href="#4-wtdforms-支持的表单字段类型" class="headerlink" title="4. wtdforms 支持的表单字段类型"></a>4. wtdforms 支持的表单字段类型</h1><table>
 <thead>
 <tr>
-<th>类型名</th>
-<th>python类型</th>
+<th>字段类型</th>
 <th>说明</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Integer</td>
-<td>int</td>
-<td>普通整数一般32位</td>
+<td>StringField</td>
+<td>文本字段</td>
 </tr>
 <tr>
-<td>Smallinteger</td>
-<td>int</td>
-<td>一般16位的整数</td>
+<td>TextAreaField</td>
+<td>多行文本</td>
 </tr>
 <tr>
-<td>BigInteger</td>
-<td>int</td>
-<td>不限制精度的整数</td>
+<td>PasswordField</td>
+<td>密码文本字段</td>
 </tr>
 <tr>
-<td>Float</td>
-<td>float</td>
-<td>浮点数</td>
+<td>HiddenField</td>
+<td>隐藏文本字段</td>
 </tr>
 <tr>
-<td>Numeric</td>
-<td>decimal.Decimal</td>
-<td>定点数，小数</td>
+<td>DateField</td>
+<td>文本字段，值为datetime.date格式</td>
 </tr>
 <tr>
-<td>String</td>
-<td>str</td>
-<td>字符串</td>
+<td>IntrgerField</td>
+<td>文本字段，为整数</td>
 </tr>
 <tr>
-<td>Text</td>
-<td>str</td>
-<td>较长的字符串，做了优化，或不限制长度</td>
+<td>DecimalField</td>
+<td>文本字段，值为小数</td>
 </tr>
 <tr>
-<td>Unicode</td>
-<td>unicode</td>
-<td>变长unicode字符串，对不限长度的字符串做了优化</td>
+<td>FloatField</td>
+<td>文本字段，值为浮点数</td>
 </tr>
 <tr>
-<td>Boolean</td>
-<td>bool</td>
-<td>布尔值</td>
+<td>BooleanField</td>
+<td>复选框，值为flase和true</td>
 </tr>
 <tr>
-<td>Date</td>
-<td>datetime.date</td>
-<td>日期</td>
+<td>RadioField</td>
+<td>一组单选框</td>
 </tr>
 <tr>
-<td>Time</td>
-<td>datetime.time</td>
-<td>时间</td>
+<td>SelectField</td>
+<td>下拉列表</td>
 </tr>
 <tr>
-<td>DateTime</td>
-<td>datetime.datetime</td>
-<td>日期和时间</td>
+<td>SelectMultipleField</td>
+<td>下拉列表可选多个值</td>
 </tr>
 <tr>
-<td>Interval</td>
-<td>datetime.timedelta</td>
-<td>时间间隔</td>
+<td>FileField</td>
+<td>文件上传字段</td>
 </tr>
 <tr>
-<td>Enum</td>
-<td>str</td>
-<td>一组字符串</td>
+<td>SubmitField</td>
+<td>表单提交按钮</td>
 </tr>
 <tr>
-<td>PickleType</td>
-<td>任何python对象</td>
-<td>石洞使用Pickle序列化</td>
+<td>FormField</td>
+<td>把表单作为一个字段嵌入另一个表单</td>
 </tr>
 <tr>
-<td>LargeBinary</td>
-<td>str</td>
-<td>二进制文件</td>
+<td>FieldList</td>
+<td>一组指定类型的字段</td>
 </tr>
 </tbody>
 </table>
-<h2 id="3-SQLAlchemy常用的列选项"><a href="#3-SQLAlchemy常用的列选项" class="headerlink" title="3. SQLAlchemy常用的列选项"></a>3. SQLAlchemy常用的列选项</h2><table>
+<h1 id="5-wtfforms验证函数"><a href="#5-wtfforms验证函数" class="headerlink" title="5. wtfforms验证函数"></a>5. wtfforms验证函数</h1><table>
 <thead>
 <tr>
-<th>选项名</th>
+<th>验证函数</th>
 <th>说明</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>primary_key</td>
-<td>表主键</td>
+<td>Email</td>
+<td>验证mail地址</td>
 </tr>
 <tr>
-<td>unique</td>
-<td>设为true，表示这列不允许重复</td>
+<td>EqualTo</td>
+<td>比较2个字段的值，常用语密码输入两次对比</td>
 </tr>
 <tr>
-<td>index</td>
-<td>设为True,表示这列建立索引</td>
+<td>IPAddress</td>
+<td>验证ipv4网络地址</td>
 </tr>
 <tr>
-<td>nullalbe</td>
-<td>设为True,表示这列允许位空值NULL，fasle表示不允许为空</td>
+<td>Length</td>
+<td>验证输入字符串的长度</td>
 </tr>
 <tr>
-<td>default</td>
-<td>为这列默认值</td>
+<td>NumberRange</td>
+<td>验证输入的值在数字范围内</td>
+</tr>
+<tr>
+<td>Optional</td>
+<td>无输入值时跳过其他验证函数</td>
+</tr>
+<tr>
+<td>Required</td>
+<td>确保字段有值</td>
+</tr>
+<tr>
+<td>Regexp</td>
+<td>使用正则表达式验证输入值</td>
+</tr>
+<tr>
+<td>URL</td>
+<td>验证url</td>
+</tr>
+<tr>
+<td>AnyOf</td>
+<td>确保输入值在可选列表</td>
+</tr>
+<tr>
+<td>NoneOf</td>
+<td>确保输入值不在可选列表</td>
 </tr>
 </tbody>
 </table>
-<p>最复杂的就是多对多的关系，需要第三张表，使用db.relationship()设置。</p>
-<h2 id="4-数据库操作"><a href="#4-数据库操作" class="headerlink" title="4. 数据库操作"></a>4. 数据库操作</h2><ul>
-<li>python shell中操作</li>
+<h1 id="6-重定向和用户会话"><a href="#6-重定向和用户会话" class="headerlink" title="6. 重定向和用户会话"></a>6. 重定向和用户会话</h1><ul>
+<li>目前hello.py 刷新会出现一警告，这个警告是因为最后一次提交是post请求导致的，所以使用url重定向让最后一次请求变为get请求,那么问题是之前的post参数怎么获取呢，不然网页无法渲染，这就需要session字典形式存储，get请求时从session中获取所需字段。</li>
 </ul>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">python hello.py shell</span><br><span class="line"><span class="keyword">from</span> hello <span class="keyword">import</span> db</span><br><span class="line">db.create_all()</span><br></pre></td></tr></table></figure>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> session,url_for</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route("/")</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">()</span>:</span></span><br><span class="line">    form = NameForm()</span><br><span class="line">    <span class="keyword">if</span> form.validate_on_submit():</span><br><span class="line">        session[<span class="string">"name"</span>] = form.name.data</span><br><span class="line">        <span class="keyword">return</span> redirect(url_for(<span class="string">"index"</span>)) <span class="comment"># 一般endpoint就是视图函数名</span></span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">"index.html"</span>, form=form, name = session.get(<span class="string">'name'</span>))</span><br><span class="line">    <span class="comment">#session.get 函数找不到name字段，返回None，网页有默认提示。</span></span><br></pre></td></tr></table></figure>
+<h1 id="7-flash消息-闪现-闪烁"><a href="#7-flash消息-闪现-闪烁" class="headerlink" title="7. flash消息(闪现,闪烁)"></a>7. flash消息(闪现,闪烁)</h1><ul>
+<li><p>主要用于警告，消息提醒，比如用户输入了错误的用户名和密码，需要一个提醒，就可以使用flash功能。</p>
+</li>
+<li><p>只调用flash函数是显示不出消息的，它主要是把消息push方式存入一个地方，然后程序使用模板渲染时可以pop方式获取到，所以flash消息就像队列，先进先出，只会显示一次。</p>
+</li>
+</ul>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">form flask <span class="keyword">import</span> flash</span><br><span class="line"></span><br><span class="line"><span class="meta">@app route("/", methods=['GET','POST'])</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">()</span>:</span></span><br><span class="line">    form = NameForm()</span><br><span class="line">    <span class="keyword">if</span> form.validate_on_submit():</span><br><span class="line">        old_name = session.get(<span class="string">"name"</span>)</span><br><span class="line">        <span class="keyword">if</span> old_name  <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span> <span class="keyword">and</span> old_name != form.name.data:</span><br><span class="line">            flash(<span class="string">"looks like you have change your name."</span>)</span><br><span class="line">        session[<span class="string">'name'</span>] = form.name.data</span><br><span class="line">        <span class="keyword">return</span> redirect(url_for(<span class="string">"index"</span>))</span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">"index.html"</span>, form = form, name = sesson.get(<span class="string">"name"</span>))</span><br></pre></td></tr></table></figure>
+<ul>
+<li>在base.html 模板中渲染循环取出消息</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&#123;# content 部分添加for循环#&#125;</span><br><span class="line">&#123;% block content %&#125;</span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span></span><br><span class="line">    &#123;# 增加一个 for循环#&#125;</span><br><span class="line">    &#123;% for message in get_flashed_messages() %&#125; </span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"alert alert-warning"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">class</span>=<span class="string">"close"</span> <span class="attr">data-dismiss</span>=<span class="string">"alert"</span>&gt;</span> $times;  <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">            &#123;&#123; message &#125;&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    &#123;% endfor %&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#123;% block page_content %&#125;  &#123;% endblock %&#125;</span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">&#123;% endblock %&#125;</span><br></pre></td></tr></table></figure>
 
         
         
@@ -1732,7 +1764,7 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2019/01/28/flask/1基本结构/" title="flask 第1章(基本结构和概念)" itemprop="url">flask 第1章(基本结构和概念)</a>
+      <a href="/2019/01/28/flask/3_模板的bootstrap扩展/" title="flask 第3章(bootstrap扩展模板)" itemprop="url">flask 第3章(bootstrap扩展模板)</a>
   </h1>
   <p class="article-author">By
        
@@ -1745,87 +1777,31 @@
 </header>
     <div class="article-content">
         
-        <h1 id="开始和程序基本结构"><a href="#开始和程序基本结构" class="headerlink" title="开始和程序基本结构"></a>开始和程序基本结构</h1><h2 id="1-首先安装虚拟环境包和git工具"><a href="#1-首先安装虚拟环境包和git工具" class="headerlink" title="1.首先安装虚拟环境包和git工具"></a>1.首先安装虚拟环境包和git工具</h2><ul>
-<li>sudo apt-get install python-virtualenv</li>
-<li>sudo apt-get install git</li>
+        <h1 id="模板的bootstrap扩展"><a href="#模板的bootstrap扩展" class="headerlink" title="模板的bootstrap扩展"></a>模板的bootstrap扩展</h1><ul>
+<li>安装扩展包</li>
+<li><p>pip install flask-bootstrap</p>
+</li>
+<li><p>如法炮制，从flask.ext中导入Bootstrap 包含app对象生成新的对象实例，即可使用bootstrap的特性。</p>
+</li>
 </ul>
-<h2 id="2-创建一个目录"><a href="#2-创建一个目录" class="headerlink" title="2.创建一个目录"></a>2.创建一个目录</h2><ul>
-<li>mkdir flask_learn</li>
-<li>cd flask_learn</li>
-</ul>
-<h2 id="3-下载实例代码"><a href="#3-下载实例代码" class="headerlink" title="3.下载实例代码"></a>3.下载实例代码</h2><ul>
-<li>git clone <a href="http://github.com/miguelgrinberg/flasky.git" target="_blank" rel="noopener">http://github.com/miguelgrinberg/flasky.git</a></li>
-<li>cd flask</li>
-<li>建立一个虚拟环境</li>
-<li>virtualenv venv</li>
-<li>激活虚拟环境</li>
-<li>source venv/bin/activate</li>
-<li>取消激活分区</li>
-<li>deactivate</li>
-<li>虚拟环境下安装pip</li>
-<li>pip install flask</li>
-<li>切换分支</li>
-<li>git checkout 2a</li>
-</ul>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">'&lt;h1&gt;Hello World!&lt;/h1&gt;'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    app.run(debug=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure>
+<p>如果使用bootstrap那么需要先用bootstrap包含app，在用manager包含app。</p>
 <ul>
-<li>执行 python hello.py</li>
-<li>浏览器输入<a href="http://127.0.0.1:5000/" target="_blank" rel="noopener">http://127.0.0.1:5000/</a> 就可以看到helloword了。</li>
-<li>但是这样会出现一个问题。你在linux虚拟机里面执行的代码。在window上浏览器看就不行，需要设置</li>
-<li>如下改动 app.run(debug=True，host=”0.0.0.0”)或者使用manage模块扩展传参数，后面会提到。</li>
+<li>自定一个base.html(继承自bootstrap的base.html)</li>
 </ul>
-<h2 id="4-flask程序有四个上下文"><a href="#4-flask程序有四个上下文" class="headerlink" title="4. flask程序有四个上下文"></a>4. flask程序有四个上下文</h2><ul>
-<li>curent_app  程序上下文， 当前激活的程序实例</li>
-<li>g 程序上下文 处理请求的临时存储对象，每次请求都会重设这个变量。</li>
-<li>request  请求上下文    请求对象，封装了每次http请求的内容</li>
-<li>sesion  请求上下文    用户会话， 用于存储之间需要记住的值的词典。</li>
-<li>这是个变量每次请求 都是独立属于这一次请求的，或者说是属于同一个线程内全局可见。</li>
-</ul>
-<h2 id="5-请求调度"><a href="#5-请求调度" class="headerlink" title="5. 请求调度"></a>5. 请求调度</h2><ul>
-<li>这个主要是 url和处理函数的映射关系，即视图。</li>
-<li>通过app.url_map 可以看到映射关系。</li>
-<li>生成映射的方法2中，1 app.route修饰器 2，app.add_url_rule()</li>
-</ul>
-<h2 id="6-请求钩子"><a href="#6-请求钩子" class="headerlink" title="6. 请求钩子"></a>6. 请求钩子</h2><ul>
-<li>主要是为了每个请求开始可能都需要认证，数据库连接等重复操作的代码复。</li>
-<li>通过钩子装饰器，注册函数，在到达视图函数前运行这些函数。</li>
-<li>有四种个钩子 brefore_first_request,brefore_request,after_request,teardown_request<blockquote>
-<p>after_request 有没做处理的异常抛出时，是不运行的。<br>teardown_request 即使有没处理的异常抛出，也会运行。</p>
-</blockquote>
-</li>
-</ul>
-<h2 id="7-响应"><a href="#7-响应" class="headerlink" title="7. 响应"></a>7. 响应</h2><ul>
-<li>flask 默认返回200 状态吗</li>
-<li><p>可以返回其他状态吗</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> <span class="string">"hello word!"</span>, <span class="number">400</span></span><br><span class="line">或者</span><br><span class="line"><span class="keyword">return</span> <span class="string">"hello world!"</span>, <span class="number">500</span>, &#123;<span class="string">"ua"</span>:<span class="number">10</span>&#125;</span><br><span class="line">返回的是一个元组，第二个是状态吗，第三个是header，字典形式。</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>还可以使用make_response(“hello world!”, 500, {“ua”:10})生成一个对象，以便调用函数设置cookie等其他值。</p>
-</li>
-<li>320重定向，使用redirect(“<a href="http://www.baidu.com&quot;)函数。" target="_blank" rel="noopener">www.baidu.com&quot;)函数。</a></li>
-<li>特殊响应，比如404 可以使用abort(404)函数，这个直接就吧控制权交给web服务器了，不会再调用其它函数。</li>
-</ul>
-<h2 id="8-flask扩展"><a href="#8-flask扩展" class="headerlink" title="8. flask扩展"></a>8. flask扩展</h2><ul>
-<li><p>pip install flask-script</p>
-</li>
-<li><p>用manager吧app对象包住，这样就可以使用manager扩展了。</p>
-</li>
-</ul>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</span><br><span class="line"><span class="keyword">from</span> flask_script <span class="keyword">import</span> Manager</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line">manager = Manager(app)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">'&lt;h1&gt;Hello World!&lt;/h1&gt;'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/user/&lt;name&gt;')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">user</span><span class="params">(name)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">'&lt;h1&gt;Hello, %s!&lt;/h1&gt;'</span> % name</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    manager.run()</span><br></pre></td></tr></table></figure>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#123;% extends <span class="string">"bootstrap/base.html"</span> %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% block title %&#125;  &#123;% endblock %&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#123;% block navbar %&#125;</span><br><span class="line">    &lt;div class="navbar navbar-inverse" role="navigation"&gt;</span><br><span class="line">        &lt;div class="container"&gt;</span><br><span class="line">            &lt;div class="navbar-header"&gt;</span><br><span class="line">                &lt;button type="button" class="navbar-toggle"</span><br><span class="line">                    data-toogle=<span class="string">"collapse"</span> data-target=<span class="string">".narvar-collapse"</span>&gt;</span><br><span class="line">                    &lt;span class="sr-only"&gt; Toggle navigation    &lt;/span&gt;</span><br><span class="line">                    &lt;span class="icon-bar"&gt; &lt;/span&gt;</span><br><span class="line">                    &lt;span class="icon-bar"&gt; &lt;/span&gt;</span><br><span class="line">                    &lt;span class="icon-bar"&gt; &lt;/span&gt;</span><br><span class="line">                    &lt;span class="icon-bar"&gt; &lt;/span&gt;</span><br><span class="line">                &lt;/button&gt;</span><br><span class="line">                &lt;a class="navbar-brand" href="/"&gt;Home/a&gt;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">            &lt;div class="navbar-collapse collapse"&gt;</span><br><span class="line">                &lt;ul class="nav navbar-nav"&gt;</span><br><span class="line">                    &lt;li&gt; &lt;a hre="/"&gt; Home &lt;/a&gt;&lt;/li&gt;</span><br><span class="line">                &lt;/ul&gt;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&#123;% endblock %&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;% block comment %&gt;</span><br><span class="line">    &lt;div class="container"&gt;</span><br><span class="line">        &#123;% block page_comment %&#125;     &#123;% endblock %&#125;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;% endblock %&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="自定义基类模板"><a href="#自定义基类模板" class="headerlink" title="自定义基类模板"></a>自定义基类模板</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 404.html</span></span><br><span class="line"></span><br><span class="line">&#123;% extends <span class="string">"base.html"</span> %&#125;</span><br><span class="line">&#123;% block title %&#125; flask-pagenot found   &#123;% endblock %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% block page_comment %&#125;</span><br><span class="line">&lt;div class="page-header"&gt;</span><br><span class="line">    &lt;h1&gt; Not Found. &lt;/h1&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&#123;%endblock%&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="整个代码文件"><a href="#整个代码文件" class="headerlink" title="整个代码文件"></a>整个代码文件</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, render_template</span><br><span class="line"><span class="keyword">from</span> flask_script <span class="keyword">import</span> Manager</span><br><span class="line"><span class="keyword">from</span> flask_bootstrap <span class="keyword">import</span> Bootstrap</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line">bootstrap = Bootstrap(app)</span><br><span class="line">manager = Manager(app)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">"index.html"</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/user/&lt;name&gt;')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">user</span><span class="params">(name)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">"user.html"</span>,name=name)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.errorhandler(404)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">page_not_found</span><span class="params">(e)</span>:</span></span><br><span class="line">    <span class="keyword">return</span>  render_template(<span class="string">"404.html"</span>), <span class="number">404</span> </span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    manager.run()</span><br></pre></td></tr></table></figure>
 <ul>
-<li>启动服务：<blockquote>
-<p>python hello.py  runserver –host 0.0.0.0</p>
-</blockquote>
-</li>
+<li>运行命令 ： python hello.py  runserver –host 0.0.0.0 –d</li>
 </ul>
-<h2 id="9-模板的继承"><a href="#9-模板的继承" class="headerlink" title="9 模板的继承"></a>9 模板的继承</h2><ul>
-<li>类似于python中的类的继承</li>
-<li>首先需要一个基类模板base.html 然后把对应的可修改的块用    格式包含即可。</li>
+<h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h2><p>a标签常用的href 可以使用url_for 函数生成<br>url_for(“index”) –&gt; /</p>
+<p>url_for(“index”,_external=True) –&gt; 绝对路径</p>
+<p>url_for(“index”, page=2 ) 返回？/page=2</p>
+<p>静态文件生成链接<br>url_for(‘static’, filename=’css/styles.css’, _external=True)<br>返回 <a href="http://localhost:5000/statics/css/style.css" target="_blank" rel="noopener">http://localhost:5000/statics/css/style.css</a></p>
+<h2 id="flask-moment组件本地化时间和日期"><a href="#flask-moment组件本地化时间和日期" class="headerlink" title="flask-moment组件本地化时间和日期"></a>flask-moment组件本地化时间和日期</h2><ul>
+<li>pip install flask-moment</li>
 </ul>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">  &lt;haed&gt;</span><br><span class="line">  &#123;% block  head%&#125;  &#123;%endblock%&#125;</span><br><span class="line">  &#123;% block title%&#125; &#123;%endblock%&#125;</span><br><span class="line">  &lt;/head&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">    &#123;%block body%&#125;  &#123;%endblock%&#125;</span><br><span class="line">  &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>在子类模板中使用基类模板</li>
-</ul>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;%extends <span class="string">"base.html"</span>% &#125;</span><br><span class="line"></span><br><span class="line">&#123;%block title%&#125; 这是index标题 &#123;%endblock%&#125;</span><br><span class="line"></span><br><span class="line">&#123;%block head%&#125;</span><br><span class="line">  &#123;&#123;super()&#125;&#125;   <span class="comment">#基类head部分原本的内容用supper获取</span></span><br><span class="line">  &lt;style&gt;</span><br><span class="line">  &lt;/style&gt;</span><br><span class="line">&#123;%endblock%&#125;</span><br><span class="line"></span><br><span class="line">&#123;%block body%&#125;</span><br><span class="line">  &lt;h1&gt; hello world &lt;/h1&gt;</span><br><span class="line">&#123;%endblock%&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#123;% extends <span class="string">"base.html"</span> %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% block page_content %&#125;</span><br><span class="line">&lt;h1&gt; hello world!&lt;/h1&gt;</span><br><span class="line">&lt;p&gt; local date and time is &#123;&#123; moment(current_time).format('LLL')&#125;&#125;. &lt;/p&gt;</span><br><span class="line">&lt;p&gt; that was &#123;&#123; moment(current_time).fromNow(refresh=True) &#125;&#125;. &lt;/p&gt;</span><br><span class="line"></span><br><span class="line">&#123;% endblock %&#125;</span><br></pre></td></tr></table></figure>
 
         
         
