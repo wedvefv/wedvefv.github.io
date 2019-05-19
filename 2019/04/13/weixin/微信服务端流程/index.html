@@ -23,7 +23,7 @@
 
   <meta charset="UTF-8">
   
-    <title>微信支付流程 | 依の博客</title>
+    <title>微信支付流程 | 道法自然</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="wedvefv">
@@ -34,16 +34,16 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="微信支付流程">
 <meta property="og:url" content="http://wedvefv.github.io/2019/04/13/weixin/微信服务端流程/index.html">
-<meta property="og:site_name" content="依の博客">
+<meta property="og:site_name" content="道法自然">
 <meta property="og:description" content="三个平台都有什么？ 微信公众平台: 微信官方平台，功能： 群发推送、自动回复、二维码订阅，用途：消息推送、品牌传播、分享 微信开放平台: 为第三方提供接口，比如分享朋友圈，发送给微信好友等 微信商户平台：主要是用于微信支付的，比如APP和公众号需要接入支付功能，就需要申请一个商户号。  前提 在开放平台，注册自己的app，通俗讲就是在微信备案一下。  客户端需要干嘛？ 需要下载微信安卓或者ios版">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-14T08:13:44.238Z">
+<meta property="og:updated_time" content="2019-05-01T23:47:51.061Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="微信支付流程">
 <meta name="twitter:description" content="三个平台都有什么？ 微信公众平台: 微信官方平台，功能： 群发推送、自动回复、二维码订阅，用途：消息推送、品牌传播、分享 微信开放平台: 为第三方提供接口，比如分享朋友圈，发送给微信好友等 微信商户平台：主要是用于微信支付的，比如APP和公众号需要接入支付功能，就需要申请一个商户号。  前提 在开放平台，注册自己的app，通俗讲就是在微信备案一下。  客户端需要干嘛？ 需要下载微信安卓或者ios版">
 
     
-    <link rel="alternative" href="/atom.xml" title="依の博客" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="道法自然" type="application/atom+xml">
     
     
     <link rel="icon" href="/img/favicon.ico">
@@ -61,11 +61,11 @@
 <div>
 		
 			<div id="imglogo">
-				<a href="/"><img src="/img/logo.png" alt="依の博客" title="依の博客"/></a>
+				<a href="/"><img src="/img/logo.png" alt="道法自然" title="道法自然"/></a>
 			</div>
 			
 			<div id="textlogo">
-				<h1 class="site-name"><a href="/" title="依の博客">依の博客</a></h1>
+				<h1 class="site-name"><a href="/" title="道法自然">道法自然</a></h1>
 				<h2 class="blog-motto">记录学习的技能和遇到的问题</h2>
 			</div>
 			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
@@ -153,7 +153,7 @@
 </blockquote>
 </li>
 <li><blockquote>
-<p>5.如果uid对应的点卡信心不存在，就说明用户没买过这种A这类的商品,生成28为的订单号作为out_trade_no参数，其他参数按规定设置，然后调用微信统一下单接口 <a href="https://api.mch.weixin.qq.com/pay/unifiedorder" target="_blank" rel="noopener">https://api.mch.weixin.qq.com/pay/unifiedorder</a></p>
+<p>5.如果uid对应的点卡信心不存在，就说明用户没买过这种A这类的商品,生成28位的订单号作为out_trade_no参数，其他参数按规定设置，然后调用微信统一下单接口 <a href="https://api.mch.weixin.qq.com/pay/unifiedorder" target="_blank" rel="noopener">https://api.mch.weixin.qq.com/pay/unifiedorder</a></p>
 </blockquote>
 </li>
 <li><blockquote>
@@ -177,7 +177,7 @@
 <li><p>2.主动查询订单接口</p>
 </li>
 <li><blockquote>
-<p>1.需要知道我们自己分配的订单orderid，和uid，从mysql获取花村，校验orderid和uid是不是对应同一个人。</p>
+<p>1.需要知道我们自己分配的订单orderid，和uid，从mysql获取缓存，校验orderid和uid是不是对应同一个人。</p>
 </blockquote>
 </li>
 <li><blockquote>
@@ -225,7 +225,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://wedvefv.github.io/2019/04/13/weixin/微信服务端流程/" data-title="微信支付流程 | 依の博客" data-tsina="" class="share clearfix">
+	  <div data-url="http://wedvefv.github.io/2019/04/13/weixin/微信服务端流程/" data-title="微信支付流程 | 道法自然" data-tsina="" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -238,6 +238,14 @@
 	
 <nav class="article-nav clearfix">
  
+ <div class="prev" >
+ <a href="/2019/04/17/aplipay/1/" title="">
+  <strong>上一篇：</strong><br/>
+  <span>
+  (no title)</span>
+</a>
+</div>
+
 
 <div class="next">
 <a href="/2019/04/12/aplipay/支付宝流程及api/"  title="支付宝流程和api">
@@ -326,7 +334,7 @@
 		  
 		
 		  
-			<li><a href="/categories/python/" title="python">python<sup>2</sup></a></li>
+			<li><a href="/categories/python/" title="python">python<sup>3</sup></a></li>
 		  
 		
 		  
