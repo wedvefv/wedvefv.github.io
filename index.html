@@ -73,7 +73,7 @@
 				<ul>
 					<ul>
 					 
-						<li><a href="/">Home</a></li>
+						<li><a href="/archives">Home</a></li>
 					
 						<li><a href="/archives">Archives</a></li>
 					
@@ -565,6 +565,67 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2019/02/22/db/redis/redis文章分组的用途/" title="redis文章分组的用途" itemprop="url">redis文章分组的用途</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
+		
+  <p class="article-time">
+    <time datetime="2019-02-22T07:50:00.000Z" itemprop="datePublished"> Published 2019-02-22</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="文章分组的用途"><a href="#文章分组的用途" class="headerlink" title="文章分组的用途"></a>文章分组的用途</h2><ul>
+<li>文章分组，可以用set结构存储同一个分组的文章id</li>
+<li>set可以和zset使用zinterstore命令求交集，set默认的score是1， zset默认的一般不是1，可以指定参数max，取score大的值。</li>
+<li>比如获取一个分组A中的文章按时间排序，就拿这个分组和发布时间集合zset求交集，交集可以取一个临时名字，设置有效期60s。</li>
+<li>比如获取一个分组B中的文章按照评分大小排序，就拿这个分组和评分集合zset求交集。</li>
+<li>一般接口直接就拿redis获取的数据返回了。</li>
+</ul>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/redis/">redis</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2019/02/22/db/redis/redis文章发布/" title="redis文章发布" itemprop="url">redis文章发布</a>
   </h1>
   <p class="article-author">By
@@ -679,67 +740,6 @@
 <li>考虑到并发，如果以上三个操作应该用事物操作，保证原子性。</li>
 </ol>
 </li>
-</ul>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/redis/">redis</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2019/02/22/db/redis/redis文章分组的用途/" title="redis文章分组的用途" itemprop="url">redis文章分组的用途</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
-		
-  <p class="article-time">
-    <time datetime="2019-02-22T07:50:00.000Z" itemprop="datePublished"> Published 2019-02-22</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="文章分组的用途"><a href="#文章分组的用途" class="headerlink" title="文章分组的用途"></a>文章分组的用途</h2><ul>
-<li>文章分组，可以用set结构存储同一个分组的文章id</li>
-<li>set可以和zset使用zinterstore命令求交集，set默认的score是1， zset默认的一般不是1，可以指定参数max，取score大的值。</li>
-<li>比如获取一个分组A中的文章按时间排序，就拿这个分组和发布时间集合zset求交集，交集可以取一个临时名字，设置有效期60s。</li>
-<li>比如获取一个分组B中的文章按照评分大小排序，就拿这个分组和评分集合zset求交集。</li>
-<li>一般接口直接就拿redis获取的数据返回了。</li>
 </ul>
 
         
@@ -1710,7 +1710,7 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2019/01/28/language/python/2_模板/" title="flask 第2章(模板)" itemprop="url">flask 第2章(模板)</a>
+      <a href="/2019/01/28/language/python/3_模板的bootstrap扩展/" title="flask 第3章(bootstrap扩展模板)" itemprop="url">flask 第3章(bootstrap扩展模板)</a>
   </h1>
   <p class="article-author">By
        
@@ -1723,69 +1723,31 @@
 </header>
     <div class="article-content">
         
-        <h1 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h1><h2 id="1-jinja2模板引擎"><a href="#1-jinja2模板引擎" class="headerlink" title="1. jinja2模板引擎"></a>1. jinja2模板引擎</h2><ul>
-<li>创建模板目录</li>
-<li>mkdir templates</li>
-<li>cd templates</li>
-<li>vim index.html</li>
-<li><p>输入 &lt;h1> hello world! &lt;/h1></p>
+        <h1 id="模板的bootstrap扩展"><a href="#模板的bootstrap扩展" class="headerlink" title="模板的bootstrap扩展"></a>模板的bootstrap扩展</h1><ul>
+<li>安装扩展包</li>
+<li><p>pip install flask-bootstrap</p>
 </li>
-<li><p>vim user.html</p>
-</li>
-<li>输入 &lt;h1> hello  &lt;/h1></li>
-</ul>
-<h2 id="2-变量"><a href="#2-变量" class="headerlink" title="2. 变量"></a>2. 变量</h2><h3 id="普通变量"><a href="#普通变量" class="headerlink" title="普通变量"></a>普通变量</h3><ul>
-<li>占位符变量可以是python中的类型<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123; mydict[<span class="string">'key'</span>] &#125;&#125;</span><br><span class="line">&#123;&#123; mylist[<span class="number">3</span>] &#125;&#125;</span><br><span class="line">&#123;&#123; mylist[value] &#125;&#125;</span><br><span class="line">&#123;&#123; obje.func() &#125;&#125;</span><br></pre></td></tr></table></figure>
+<li><p>如法炮制，从flask.ext中导入Bootstrap 包含app对象生成新的对象实例，即可使用bootstrap的特性。</p>
 </li>
 </ul>
-<h3 id="过滤器"><a href="#过滤器" class="headerlink" title="过滤器"></a>过滤器</h3><ul>
-<li>hello   把name转成搜字符大写。</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>过滤器名字</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>safe</td>
-<td>渲染时不转义</td>
-</tr>
-<tr>
-<td>capitalize</td>
-<td>首字母大写</td>
-</tr>
-<tr>
-<td>lower</td>
-<td>转成小写</td>
-</tr>
-<tr>
-<td>upper</td>
-<td>转成大写</td>
-</tr>
-<tr>
-<td>title</td>
-<td>每个单词首字母转大写</td>
-</tr>
-<tr>
-<td>trim</td>
-<td>去掉首尾空格</td>
-</tr>
-<tr>
-<td>striptags</td>
-<td>渲染前把其中的html标签都删除掉</td>
-</tr>
-</tbody>
-</table>
+<p>如果使用bootstrap那么需要先用bootstrap包含app，在用manager包含app。</p>
 <ul>
-<li>safe 常用在现实html代码本身，不然标签会被引擎默认转义(这样也是为了安全考虑)。</li>
-<li>不要再不可信的值上使用safe过滤器，比如表单输入。</li>
+<li>自定一个base.html(继承自bootstrap的base.html)</li>
 </ul>
-<h2 id="3-控制结构"><a href="#3-控制结构" class="headerlink" title="3. 控制结构"></a>3. 控制结构</h2><h3 id="if结构"><a href="#if结构" class="headerlink" title="if结构"></a>if结构</h3><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123; % <span class="keyword">if</span> user %&#125;</span><br><span class="line">  hello &#123;&#123;user&#125;&#125;</span><br><span class="line">&#123;% <span class="keyword">else</span> %&#125;</span><br><span class="line">  hello stranger</span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="for循环结构"><a href="#for循环结构" class="headerlink" title="for循环结构"></a>for循环结构</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;ul&gt;</span><br><span class="line">&#123; % <span class="keyword">for</span> x <span class="keyword">in</span> list %&#125;</span><br><span class="line">  &lt;li&gt;&#123;&#123; x &#125;&#125;&lt;/li&gt;</span><br><span class="line">&#123; %endfor% &#125;</span><br><span class="line">&lt;/ul&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="宏。-类似python的函数"><a href="#宏。-类似python的函数" class="headerlink" title="宏。 类似python的函数"></a>宏。 类似python的函数</h3><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">* 定义宏</span><br><span class="line"> &#123;% macro render_comment(x) %&#125;</span><br><span class="line">  &lt;li&gt;&#123;&#123; x &#125;&#125;&lt;/li&gt;</span><br><span class="line"> &#123;% endmacro%&#125;</span><br><span class="line"></span><br><span class="line">* 使用</span><br><span class="line"></span><br><span class="line">&lt;ul&gt;</span><br><span class="line"> &#123;% <span class="keyword">for</span> x <span class="keyword">in</span> list %&gt;</span><br><span class="line">    &#123;&#123; render_comment(x) &#125;&#125;</span><br><span class="line"> &#123; %endfor%&#125;</span><br><span class="line"> &lt;/ul&gt;</span><br><span class="line"></span><br><span class="line">* 可以将宏放入单独的文件，一边重复使用，使用时导入即可。</span><br><span class="line">&#123; % <span class="keyword">import</span> <span class="string">'macros.html'</span> <span class="keyword">as</span> macros % &#125;</span><br><span class="line">&lt;ul&gt;</span><br><span class="line">   &#123;% <span class="keyword">for</span> x <span class="keyword">in</span> list %&gt;</span><br><span class="line">      &#123;&#123; macros.render_comment(x) &#125;&#125;</span><br><span class="line">   &#123; %endfor%&#125;</span><br><span class="line">&lt;/ul&gt;</span><br><span class="line"></span><br><span class="line">* 需要重复使用的模板也可单独放一个文件中</span><br><span class="line">用到的地方 &#123;% include <span class="string">'common.html'</span>%&#125; 包含即可。</span><br></pre></td></tr></table></figure>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#123;% extends <span class="string">"bootstrap/base.html"</span> %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% block title %&#125;  &#123;% endblock %&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#123;% block navbar %&#125;</span><br><span class="line">    &lt;div class="navbar navbar-inverse" role="navigation"&gt;</span><br><span class="line">        &lt;div class="container"&gt;</span><br><span class="line">            &lt;div class="navbar-header"&gt;</span><br><span class="line">                &lt;button type="button" class="navbar-toggle"</span><br><span class="line">                    data-toogle=<span class="string">"collapse"</span> data-target=<span class="string">".narvar-collapse"</span>&gt;</span><br><span class="line">                    &lt;span class="sr-only"&gt; Toggle navigation    &lt;/span&gt;</span><br><span class="line">                    &lt;span class="icon-bar"&gt; &lt;/span&gt;</span><br><span class="line">                    &lt;span class="icon-bar"&gt; &lt;/span&gt;</span><br><span class="line">                    &lt;span class="icon-bar"&gt; &lt;/span&gt;</span><br><span class="line">                    &lt;span class="icon-bar"&gt; &lt;/span&gt;</span><br><span class="line">                &lt;/button&gt;</span><br><span class="line">                &lt;a class="navbar-brand" href="/"&gt;Home/a&gt;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">            &lt;div class="navbar-collapse collapse"&gt;</span><br><span class="line">                &lt;ul class="nav navbar-nav"&gt;</span><br><span class="line">                    &lt;li&gt; &lt;a hre="/"&gt; Home &lt;/a&gt;&lt;/li&gt;</span><br><span class="line">                &lt;/ul&gt;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&#123;% endblock %&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;% block comment %&gt;</span><br><span class="line">    &lt;div class="container"&gt;</span><br><span class="line">        &#123;% block page_comment %&#125;     &#123;% endblock %&#125;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;% endblock %&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="自定义基类模板"><a href="#自定义基类模板" class="headerlink" title="自定义基类模板"></a>自定义基类模板</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 404.html</span></span><br><span class="line"></span><br><span class="line">&#123;% extends <span class="string">"base.html"</span> %&#125;</span><br><span class="line">&#123;% block title %&#125; flask-pagenot found   &#123;% endblock %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% block page_comment %&#125;</span><br><span class="line">&lt;div class="page-header"&gt;</span><br><span class="line">    &lt;h1&gt; Not Found. &lt;/h1&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&#123;%endblock%&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="整个代码文件"><a href="#整个代码文件" class="headerlink" title="整个代码文件"></a>整个代码文件</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, render_template</span><br><span class="line"><span class="keyword">from</span> flask_script <span class="keyword">import</span> Manager</span><br><span class="line"><span class="keyword">from</span> flask_bootstrap <span class="keyword">import</span> Bootstrap</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line">bootstrap = Bootstrap(app)</span><br><span class="line">manager = Manager(app)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">"index.html"</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/user/&lt;name&gt;')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">user</span><span class="params">(name)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">"user.html"</span>,name=name)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.errorhandler(404)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">page_not_found</span><span class="params">(e)</span>:</span></span><br><span class="line">    <span class="keyword">return</span>  render_template(<span class="string">"404.html"</span>), <span class="number">404</span> </span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    manager.run()</span><br></pre></td></tr></table></figure>
+<ul>
+<li>运行命令 ： python hello.py  runserver –host 0.0.0.0 –d</li>
+</ul>
+<h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h2><p>a标签常用的href 可以使用url_for 函数生成<br>url_for(“index”) –&gt; /</p>
+<p>url_for(“index”,_external=True) –&gt; 绝对路径</p>
+<p>url_for(“index”, page=2 ) 返回？/page=2</p>
+<p>静态文件生成链接<br>url_for(‘static’, filename=’css/styles.css’, _external=True)<br>返回 <a href="http://localhost:5000/statics/css/style.css" target="_blank" rel="noopener">http://localhost:5000/statics/css/style.css</a></p>
+<h2 id="flask-moment组件本地化时间和日期"><a href="#flask-moment组件本地化时间和日期" class="headerlink" title="flask-moment组件本地化时间和日期"></a>flask-moment组件本地化时间和日期</h2><ul>
+<li>pip install flask-moment</li>
+</ul>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#123;% extends <span class="string">"base.html"</span> %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% block page_content %&#125;</span><br><span class="line">&lt;h1&gt; hello world!&lt;/h1&gt;</span><br><span class="line">&lt;p&gt; local date and time is &#123;&#123; moment(current_time).format('LLL')&#125;&#125;. &lt;/p&gt;</span><br><span class="line">&lt;p&gt; that was &#123;&#123; moment(current_time).fromNow(refresh=True) &#125;&#125;. &lt;/p&gt;</span><br><span class="line"></span><br><span class="line">&#123;% endblock %&#125;</span><br></pre></td></tr></table></figure>
 
         
         
