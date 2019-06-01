@@ -23,7 +23,7 @@
 
   <meta charset="UTF-8">
   
-    <title>yiyi</title>
+    <title>时光</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="wedvefv">
@@ -32,17 +32,17 @@
     
     <meta name="description" content="做自己爱做的事，爱自己在做的事！">
 <meta property="og:type" content="website">
-<meta property="og:title" content="yiyi">
+<meta property="og:title" content="时光">
 <meta property="og:url" content="http://wedvefv.github.io/index.html">
-<meta property="og:site_name" content="yiyi">
+<meta property="og:site_name" content="时光">
 <meta property="og:description" content="做自己爱做的事，爱自己在做的事！">
 <meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="yiyi">
+<meta name="twitter:title" content="时光">
 <meta name="twitter:description" content="做自己爱做的事，爱自己在做的事！">
 
     
-    <link rel="alternative" href="/atom.xml" title="yiyi" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="时光" type="application/atom+xml">
     
     
     <link rel="icon" href="/img/favicon.ico">
@@ -60,11 +60,11 @@
 <div>
 		
 			<div id="imglogo">
-				<a href="/"><img src="/img/logo.png" alt="yiyi" title="yiyi"/></a>
+				<a href="/"><img src="/img/logo.png" alt="时光" title="时光"/></a>
 			</div>
 			
 			<div id="textlogo">
-				<h1 class="site-name"><a href="/" title="yiyi">yiyi</a></h1>
+				<h1 class="site-name"><a href="/" title="时光">时光</a></h1>
 				<h2 class="blog-motto">记录学习的技能和遇到的问题</h2>
 			</div>
 			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
@@ -396,6 +396,79 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2019/03/02/linux/git_linux搭建服务器/" title="git_linux搭建服务器" itemprop="url">git_linux搭建服务器</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
+		
+  <p class="article-time">
+    <time datetime="2019-03-02T04:00:00.000Z" itemprop="datePublished"> Published 2019-03-02</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="为什么本地搭建一个git服务器"><a href="#为什么本地搭建一个git服务器" class="headerlink" title="为什么本地搭建一个git服务器"></a>为什么本地搭建一个git服务器</h2><ul>
+<li>对于自己学习使用的代码，在没有网络的情况下不能用github，gitlab,所以本地建立一个git服务器。</li>
+</ul>
+<h2 id="git服务器环境准备centos7"><a href="#git服务器环境准备centos7" class="headerlink" title="git服务器环境准备centos7"></a>git服务器环境准备centos7</h2><h2 id="服务端创建git用户"><a href="#服务端创建git用户" class="headerlink" title="服务端创建git用户"></a>服务端创建git用户</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">id git # 查看是否存在git用户，存在就不创建了。</span><br><span class="line">useradd git</span><br><span class="line">passwd git</span><br><span class="line">输入密码，我设置的是xxx@123</span><br></pre></td></tr></table></figure>
+<h2 id="客户端开启公钥认证认证，免密push-pull"><a href="#客户端开启公钥认证认证，免密push-pull" class="headerlink" title="客户端开启公钥认证认证，免密push/pull"></a>客户端开启公钥认证认证，免密push/pull</h2><ul>
+<li><p>首先服务端需要开启ssh服务</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/ssh/sshd_config</span><br><span class="line">RSAAuthentication yes </span><br><span class="line">PubkeyAuthentication yes</span><br><span class="line">AuthorizedKeysFile .ssh/authorized_keys</span><br><span class="line">如果是centos7.4以上（含7.4），ssh1已经不支持了，只支持ssh2代协议。所以RSAAuthentication项是没有的</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>客户端执行 执行ssh-keygen -t rsa 生成公钥和私钥</p>
+</li>
+<li>复制客户端公钥到服务器端ssh-copy-id -i ~/.ssh/id_rsa.pub <a href="mailto:git@192.168.61.128" target="_blank" rel="noopener">git@192.168.61.128</a> </li>
+</ul>
+<h2 id="服务端创建git仓库"><a href="#服务端创建git仓库" class="headerlink" title="服务端创建git仓库"></a>服务端创建git仓库</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /data/git/gittest.git</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 初始化这个仓库</span><br><span class="line">cd /data/git/gittest.git</span><br><span class="line">git init --bare .</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 目录所属用户设置</span><br><span class="line">chown -R git:git /data/git</span><br></pre></td></tr></table></figure>
+<h2 id="客户端clone远程仓库"><a href="#客户端clone远程仓库" class="headerlink" title="客户端clone远程仓库"></a>客户端clone远程仓库</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mkdir localgit</span><br><span class="line">cd localgit</span><br><span class="line">git clone git@192.168.61.128:/data/git/gittest.git .</span><br><span class="line"><span class="meta">#</span> 提示输入服务端git账户的密码。</span><br><span class="line"><span class="meta">#</span>修改完就可以提交了</span><br><span class="line"></span><br><span class="line">touch abc.txt</span><br><span class="line">git add .</span><br><span class="line">git commit -m 'aaa'</span><br><span class="line">git push</span><br></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/git/">git</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/git/">git</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2019/03/02/linux/git_tag用法/" title="git_tag用法" itemprop="url">git_tag用法</a>
   </h1>
   <p class="article-author">By
@@ -492,33 +565,26 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2019/03/02/linux/git_linux搭建服务器/" title="git_linux搭建服务器" itemprop="url">git_linux搭建服务器</a>
+      <a href="/2019/02/22/db/redis/redis文章分组的用途/" title="redis文章分组的用途" itemprop="url">redis文章分组的用途</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
 		
   <p class="article-time">
-    <time datetime="2019-03-02T04:00:00.000Z" itemprop="datePublished"> Published 2019-03-02</time>
+    <time datetime="2019-02-22T07:50:00.000Z" itemprop="datePublished"> Published 2019-02-22</time>
     
   </p>
 </header>
     <div class="article-content">
         
-        <h2 id="为什么本地搭建一个git服务器"><a href="#为什么本地搭建一个git服务器" class="headerlink" title="为什么本地搭建一个git服务器"></a>为什么本地搭建一个git服务器</h2><ul>
-<li>对于自己学习使用的代码，在没有网络的情况下不能用github，gitlab,所以本地建立一个git服务器。</li>
+        <h2 id="文章分组的用途"><a href="#文章分组的用途" class="headerlink" title="文章分组的用途"></a>文章分组的用途</h2><ul>
+<li>文章分组，可以用set结构存储同一个分组的文章id</li>
+<li>set可以和zset使用zinterstore命令求交集，set默认的score是1， zset默认的一般不是1，可以指定参数max，取score大的值。</li>
+<li>比如获取一个分组A中的文章按时间排序，就拿这个分组和发布时间集合zset求交集，交集可以取一个临时名字，设置有效期60s。</li>
+<li>比如获取一个分组B中的文章按照评分大小排序，就拿这个分组和评分集合zset求交集。</li>
+<li>一般接口直接就拿redis获取的数据返回了。</li>
 </ul>
-<h2 id="git服务器环境准备centos7"><a href="#git服务器环境准备centos7" class="headerlink" title="git服务器环境准备centos7"></a>git服务器环境准备centos7</h2><h2 id="服务端创建git用户"><a href="#服务端创建git用户" class="headerlink" title="服务端创建git用户"></a>服务端创建git用户</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">id git # 查看是否存在git用户，存在就不创建了。</span><br><span class="line">useradd git</span><br><span class="line">passwd git</span><br><span class="line">输入密码，我设置的是xxx@123</span><br></pre></td></tr></table></figure>
-<h2 id="客户端开启公钥认证认证，免密push-pull"><a href="#客户端开启公钥认证认证，免密push-pull" class="headerlink" title="客户端开启公钥认证认证，免密push/pull"></a>客户端开启公钥认证认证，免密push/pull</h2><ul>
-<li><p>首先服务端需要开启ssh服务</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/ssh/sshd_config</span><br><span class="line">RSAAuthentication yes </span><br><span class="line">PubkeyAuthentication yes</span><br><span class="line">AuthorizedKeysFile .ssh/authorized_keys</span><br><span class="line">如果是centos7.4以上（含7.4），ssh1已经不支持了，只支持ssh2代协议。所以RSAAuthentication项是没有的</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>客户端执行 执行ssh-keygen -t rsa 生成公钥和私钥</p>
-</li>
-<li>复制客户端公钥到服务器端ssh-copy-id -i ~/.ssh/id_rsa.pub <a href="mailto:git@192.168.61.128" target="_blank" rel="noopener">git@192.168.61.128</a> </li>
-</ul>
-<h2 id="服务端创建git仓库"><a href="#服务端创建git仓库" class="headerlink" title="服务端创建git仓库"></a>服务端创建git仓库</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /data/git/gittest.git</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 初始化这个仓库</span><br><span class="line">cd /data/git/gittest.git</span><br><span class="line">git init --bare .</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 目录所属用户设置</span><br><span class="line">chown -R git:git /data/git</span><br></pre></td></tr></table></figure>
-<h2 id="客户端clone远程仓库"><a href="#客户端clone远程仓库" class="headerlink" title="客户端clone远程仓库"></a>客户端clone远程仓库</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mkdir localgit</span><br><span class="line">cd localgit</span><br><span class="line">git clone git@192.168.61.128:/data/git/gittest.git .</span><br><span class="line"><span class="meta">#</span> 提示输入服务端git账户的密码。</span><br><span class="line"><span class="meta">#</span>修改完就可以提交了</span><br><span class="line"></span><br><span class="line">touch abc.txt</span><br><span class="line">git add .</span><br><span class="line">git commit -m 'aaa'</span><br><span class="line">git push</span><br></pre></td></tr></table></figure>
 
         
         
@@ -531,14 +597,9 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/git/">git</a>
+  <a class="article-category-link" href="/categories/redis/">redis</a>
 </div>
 
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/git/">git</a>
-  </div>
 
 </div>
 
@@ -612,67 +673,6 @@
 <li>考虑到并发，如果以上三个操作应该用事物操作，保证原子性。</li>
 </ol>
 </li>
-</ul>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/redis/">redis</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2019/02/22/db/redis/redis文章分组的用途/" title="redis文章分组的用途" itemprop="url">redis文章分组的用途</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
-		
-  <p class="article-time">
-    <time datetime="2019-02-22T07:50:00.000Z" itemprop="datePublished"> Published 2019-02-22</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="文章分组的用途"><a href="#文章分组的用途" class="headerlink" title="文章分组的用途"></a>文章分组的用途</h2><ul>
-<li>文章分组，可以用set结构存储同一个分组的文章id</li>
-<li>set可以和zset使用zinterstore命令求交集，set默认的score是1， zset默认的一般不是1，可以指定参数max，取score大的值。</li>
-<li>比如获取一个分组A中的文章按时间排序，就拿这个分组和发布时间集合zset求交集，交集可以取一个临时名字，设置有效期60s。</li>
-<li>比如获取一个分组B中的文章按照评分大小排序，就拿这个分组和评分集合zset求交集。</li>
-<li>一般接口直接就拿redis获取的数据返回了。</li>
 </ul>
 
         
@@ -1067,7 +1067,7 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2019/02/14/language/python/1_三种装饰器/" title="python类的三种装饰器" itemprop="url">python类的三种装饰器</a>
+      <a href="/2019/02/14/linux/ip地址子网掩码的关系/" title="ip地址和子网掩码，广播地址关系" itemprop="url">ip地址和子网掩码，广播地址关系</a>
   </h1>
   <p class="article-author">By
        
@@ -1080,26 +1080,25 @@
 </header>
     <div class="article-content">
         
-        <h2 id="property装饰器作用和原理"><a href="#property装饰器作用和原理" class="headerlink" title="property装饰器作用和原理"></a>property装饰器作用和原理</h2><ul>
-<li><ol>
-<li>我们知道c++中有public,projected,private等修饰类私有属性的作用，这样就限定了某些属性只能读取，不能修改；有些能读也能需改。</li>
-</ol>
-</li>
-<li><ol start="2">
-<li>设置C++类中的一个属性可以自定义方法get和set方法。</li>
-</ol>
-</li>
-<li><ol start="3">
-<li>python中实现这种原理，就需要装饰器property，本身可修饰（变量x同名）的函数，让x拥有可读的属性（相当于get函数</li>
-</ol>
-</li>
-<li><ol start="4">
-<li>@property进而又生成一个@x.setter装饰器，在修饰一下属性x同名的函数就让x拥有可写的属性（相当于set函数）</li>
-</ol>
-</li>
+        <h2 id="什么是ip地址？"><a href="#什么是ip地址？" class="headerlink" title="什么是ip地址？"></a>什么是ip地址？</h2><ul>
+<li>ip是在一个网段中的一台计算机的ip地址（192.168.1.2）</li>
+<li>如果你家的联通宽带给你家的公网ip地址是10.10.123.234(假设的)，那么接到你家路由器，首先路由器需要有一个ip地址，一般是192.168.1.1（也可能是192.168.0.1），这个应该可以登录到路由器中设置。</li>
+<li>其中192.168.1.255 就是广播地址，比如centos中ifconfig命令查看的broadcast</li>
+<li>剩余的ip段192.168.1.2~192.168.1.254 就是可以分配给手机，电脑等客户端使用的ip。一共是253（255-2）个。</li>
 </ul>
-<h2 id="property-装饰器"><a href="#property-装饰器" class="headerlink" title="property 装饰器"></a>property 装饰器</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span><span class="params">(object)</span>:</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">birth</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self._birth</span><br><span class="line"></span><br><span class="line"><span class="meta">    @birth.setter</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">birth</span><span class="params">(self, value)</span>:</span></span><br><span class="line">        self._birth = value</span><br><span class="line"></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">age</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">2014</span> - self._birth</span><br><span class="line">        </span><br><span class="line">    <span class="comment"># birth 是一个可读可写的属性，age是只读属性。</span></span><br><span class="line">    <span class="comment"># property装饰器本身可以把getter方法变成属性，同时生成一个@birth.setter装饰器，可以修饰birth变成一个可设置的属性。</span></span><br><span class="line">    <span class="comment"># 但要注意这些额外函数的名字和 property 下的一样，例如这里的 birth,age。</span></span><br></pre></td></tr></table></figure>
-<h2 id="一种古老的用法，使用内置函数property实现如下，和上面的方法一样。"><a href="#一种古老的用法，使用内置函数property实现如下，和上面的方法一样。" class="headerlink" title="一种古老的用法，使用内置函数property实现如下，和上面的方法一样。"></a>一种古老的用法，使用内置函数property实现如下，和上面的方法一样。</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name, age)</span>:</span></span><br><span class="line">        self._name = name</span><br><span class="line">        self._age = age</span><br><span class="line">        self._color = <span class="string">'Black'</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_name</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self._name</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">set_name</span><span class="params">(self, value)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> isinstance(value, basestring):</span><br><span class="line">            self._name = value</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            self._name = <span class="string">'No name'</span></span><br><span class="line"></span><br><span class="line">    name = property(fget=get_name, fset=set_name, fdel=<span class="keyword">None</span>, doc=<span class="string">'name of an animal'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_age</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self._age</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">set_age</span><span class="params">(self, value)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> value &gt; <span class="number">0</span> <span class="keyword">and</span> value &lt; <span class="number">100</span>:</span><br><span class="line">            self._age = value</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            self._age = <span class="number">0</span></span><br><span class="line">            <span class="comment"># print 'invalid age value.'</span></span><br><span class="line"></span><br><span class="line">    age = property(fget=get_age, fset=set_age, fdel=<span class="keyword">None</span>, doc=<span class="string">'name of an animal'</span>)</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">a = Animal(<span class="string">'black dog'</span>, <span class="number">3</span>)</span><br><span class="line">a.name = <span class="string">'white dog'</span></span><br><span class="line">a.age = <span class="number">3</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">'Name:'</span>, a.name</span><br><span class="line"><span class="keyword">print</span> Animal.name.__doc__</span><br><span class="line"><span class="keyword">print</span> <span class="string">'Age:'</span>, a.age</span><br></pre></td></tr></table></figure>
+<h2 id="ip由什么组成？"><a href="#ip由什么组成？" class="headerlink" title="ip由什么组成？"></a>ip由什么组成？</h2><ul>
+<li>例如一个ip 192.168.1.2，是一个C类网络，一般有254台主机。二进制表示就是 网络号标识|1100 0000 |1000 0000| 0000 0001|  + 主机号标识|0000 0010| </li>
+<li>点号分割每个数字都是8位二进制,网络号部分就是192.168.1,主机号部分就是2。</li>
+<li>网络标识部分越短，那么标识主机部分可用的范围越大，但是需要子网掩码配合决定由多少可用ip</li>
+</ul>
+<h2 id="什么是子网掩码？"><a href="#什么是子网掩码？" class="headerlink" title="什么是子网掩码？"></a>什么是子网掩码？</h2><ul>
+<li>子网掩码，顾名思义，遮掩的意思，子网掩码就是把ip地址分为网络部分和主机部分，主机部分用二进制位用1标识，主机号部分用0标识。C类子网掩码一般是255.255.255.0 </li>
+<li>如果所需的ip比较多，比如学校这种环境，子网掩码可以设置成255.255.0.0 ,那么ip返回就是255的2次方-2，就是65023个。那么ip网络部分就是192.168,后面两部分是主机号。</li>
+</ul>
+<ul>
+<li>网关是什么，比如两个A客户端192.168.1.2 和B客户端192.168.2.2 就是两个网络的设备，前提是他们的子网掩码都是255.255.255.0， 那么他们通信就需要A客户端发送给网关ip，有网关路由转发到B所在的网关，再转发到B客户端。 比如我的路由器ip是192.168.2.1， 我自己的ip是192.168.2.110， 默认网关也是192.168.2.1</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">netstat -rn</span><br><span class="line"></span><br><span class="line">Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface</span><br><span class="line">0.0.0.0         192.168.2.1     0.0.0.0         UG        0 0          0 ens33</span><br><span class="line">0.0.0.0表示发给任何人的包，都发给192.168.2.1这个网关， Genmask写0.0.0.0是默认路由的网络掩码。</span><br></pre></td></tr></table></figure>
 
         
         
@@ -1112,7 +1111,7 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/python/">python</a>
+  <a class="article-category-link" href="/categories/linux/">linux</a>
 </div>
 
 
@@ -1216,7 +1215,7 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2019/02/14/linux/ip地址子网掩码的关系/" title="ip地址和子网掩码，广播地址关系" itemprop="url">ip地址和子网掩码，广播地址关系</a>
+      <a href="/2019/02/14/language/python/1_三种装饰器/" title="python类的三种装饰器" itemprop="url">python类的三种装饰器</a>
   </h1>
   <p class="article-author">By
        
@@ -1229,25 +1228,26 @@
 </header>
     <div class="article-content">
         
-        <h2 id="什么是ip地址？"><a href="#什么是ip地址？" class="headerlink" title="什么是ip地址？"></a>什么是ip地址？</h2><ul>
-<li>ip是在一个网段中的一台计算机的ip地址（192.168.1.2）</li>
-<li>如果你家的联通宽带给你家的公网ip地址是10.10.123.234(假设的)，那么接到你家路由器，首先路由器需要有一个ip地址，一般是192.168.1.1（也可能是192.168.0.1），这个应该可以登录到路由器中设置。</li>
-<li>其中192.168.1.255 就是广播地址，比如centos中ifconfig命令查看的broadcast</li>
-<li>剩余的ip段192.168.1.2~192.168.1.254 就是可以分配给手机，电脑等客户端使用的ip。一共是253（255-2）个。</li>
+        <h2 id="property装饰器作用和原理"><a href="#property装饰器作用和原理" class="headerlink" title="property装饰器作用和原理"></a>property装饰器作用和原理</h2><ul>
+<li><ol>
+<li>我们知道c++中有public,projected,private等修饰类私有属性的作用，这样就限定了某些属性只能读取，不能修改；有些能读也能需改。</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>设置C++类中的一个属性可以自定义方法get和set方法。</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>python中实现这种原理，就需要装饰器property，本身可修饰（变量x同名）的函数，让x拥有可读的属性（相当于get函数</li>
+</ol>
+</li>
+<li><ol start="4">
+<li>@property进而又生成一个@x.setter装饰器，在修饰一下属性x同名的函数就让x拥有可写的属性（相当于set函数）</li>
+</ol>
+</li>
 </ul>
-<h2 id="ip由什么组成？"><a href="#ip由什么组成？" class="headerlink" title="ip由什么组成？"></a>ip由什么组成？</h2><ul>
-<li>例如一个ip 192.168.1.2，是一个C类网络，一般有254台主机。二进制表示就是 网络号标识|1100 0000 |1000 0000| 0000 0001|  + 主机号标识|0000 0010| </li>
-<li>点号分割每个数字都是8位二进制,网络号部分就是192.168.1,主机号部分就是2。</li>
-<li>网络标识部分越短，那么标识主机部分可用的范围越大，但是需要子网掩码配合决定由多少可用ip</li>
-</ul>
-<h2 id="什么是子网掩码？"><a href="#什么是子网掩码？" class="headerlink" title="什么是子网掩码？"></a>什么是子网掩码？</h2><ul>
-<li>子网掩码，顾名思义，遮掩的意思，子网掩码就是把ip地址分为网络部分和主机部分，主机部分用二进制位用1标识，主机号部分用0标识。C类子网掩码一般是255.255.255.0 </li>
-<li>如果所需的ip比较多，比如学校这种环境，子网掩码可以设置成255.255.0.0 ,那么ip返回就是255的2次方-2，就是65023个。那么ip网络部分就是192.168,后面两部分是主机号。</li>
-</ul>
-<ul>
-<li>网关是什么，比如两个A客户端192.168.1.2 和B客户端192.168.2.2 就是两个网络的设备，前提是他们的子网掩码都是255.255.255.0， 那么他们通信就需要A客户端发送给网关ip，有网关路由转发到B所在的网关，再转发到B客户端。 比如我的路由器ip是192.168.2.1， 我自己的ip是192.168.2.110， 默认网关也是192.168.2.1</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">netstat -rn</span><br><span class="line"></span><br><span class="line">Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface</span><br><span class="line">0.0.0.0         192.168.2.1     0.0.0.0         UG        0 0          0 ens33</span><br><span class="line">0.0.0.0表示发给任何人的包，都发给192.168.2.1这个网关， Genmask写0.0.0.0是默认路由的网络掩码。</span><br></pre></td></tr></table></figure>
+<h2 id="property-装饰器"><a href="#property-装饰器" class="headerlink" title="property 装饰器"></a>property 装饰器</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span><span class="params">(object)</span>:</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">birth</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self._birth</span><br><span class="line"></span><br><span class="line"><span class="meta">    @birth.setter</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">birth</span><span class="params">(self, value)</span>:</span></span><br><span class="line">        self._birth = value</span><br><span class="line"></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">age</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">2014</span> - self._birth</span><br><span class="line">        </span><br><span class="line">    <span class="comment"># birth 是一个可读可写的属性，age是只读属性。</span></span><br><span class="line">    <span class="comment"># property装饰器本身可以把getter方法变成属性，同时生成一个@birth.setter装饰器，可以修饰birth变成一个可设置的属性。</span></span><br><span class="line">    <span class="comment"># 但要注意这些额外函数的名字和 property 下的一样，例如这里的 birth,age。</span></span><br></pre></td></tr></table></figure>
+<h2 id="一种古老的用法，使用内置函数property实现如下，和上面的方法一样。"><a href="#一种古老的用法，使用内置函数property实现如下，和上面的方法一样。" class="headerlink" title="一种古老的用法，使用内置函数property实现如下，和上面的方法一样。"></a>一种古老的用法，使用内置函数property实现如下，和上面的方法一样。</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name, age)</span>:</span></span><br><span class="line">        self._name = name</span><br><span class="line">        self._age = age</span><br><span class="line">        self._color = <span class="string">'Black'</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_name</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self._name</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">set_name</span><span class="params">(self, value)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> isinstance(value, basestring):</span><br><span class="line">            self._name = value</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            self._name = <span class="string">'No name'</span></span><br><span class="line"></span><br><span class="line">    name = property(fget=get_name, fset=set_name, fdel=<span class="keyword">None</span>, doc=<span class="string">'name of an animal'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_age</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self._age</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">set_age</span><span class="params">(self, value)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> value &gt; <span class="number">0</span> <span class="keyword">and</span> value &lt; <span class="number">100</span>:</span><br><span class="line">            self._age = value</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            self._age = <span class="number">0</span></span><br><span class="line">            <span class="comment"># print 'invalid age value.'</span></span><br><span class="line"></span><br><span class="line">    age = property(fget=get_age, fset=set_age, fdel=<span class="keyword">None</span>, doc=<span class="string">'name of an animal'</span>)</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">a = Animal(<span class="string">'black dog'</span>, <span class="number">3</span>)</span><br><span class="line">a.name = <span class="string">'white dog'</span></span><br><span class="line">a.age = <span class="number">3</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">'Name:'</span>, a.name</span><br><span class="line"><span class="keyword">print</span> Animal.name.__doc__</span><br><span class="line"><span class="keyword">print</span> <span class="string">'Age:'</span>, a.age</span><br></pre></td></tr></table></figure>
 
         
         
@@ -1260,7 +1260,7 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/linux/">linux</a>
+  <a class="article-category-link" href="/categories/python/">python</a>
 </div>
 
 
@@ -1575,7 +1575,7 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2019/01/28/language/python/6_数据库2/" title="flask 第6章(数据库操作2)" itemprop="url">flask 第6章(数据库操作2)</a>
+      <a href="/2019/01/28/language/python/3_模板的bootstrap扩展/" title="flask 第3章(bootstrap扩展模板)" itemprop="url">flask 第3章(bootstrap扩展模板)</a>
   </h1>
   <p class="article-author">By
        
@@ -1588,49 +1588,31 @@
 </header>
     <div class="article-content">
         
-        <h2 id="创建数据写入数据"><a href="#创建数据写入数据" class="headerlink" title="创建数据写入数据"></a>创建数据写入数据</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>db.create_all()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> hello <span class="keyword">import</span> Role,User</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>admin_role=Role(name=<span class="string">"Admin"</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>mod_role = Role(name=<span class="string">"Moderator"</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>user_role=Role(name=<span class="string">"User"</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>user_john=User(username=<span class="string">"john"</span>,role=admin_role)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>user_susan=User(username=<span class="string">"susan"</span>,role=user_role)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>user_david = Ueser(username=<span class="string">"david"</span>,role=user_role)</span><br><span class="line"></span><br><span class="line">这个时候还没有写入数据库，比如打印</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(admin_role.id)</span><br><span class="line"><span class="keyword">None</span></span><br><span class="line"></span><br><span class="line">然后可以这样将之前的对象加入到回话中即可</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>db.session.add(mod_role)   </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>db.session.add(user_role)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>db.session.add(user_john)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>db.session.add(user_david)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>db.session.commit() <span class="comment"># 没有这一句是不行的。</span></span><br><span class="line"></span><br><span class="line">或者可以全部添加</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>db.session.add([admin_role,mod_role,...])</span><br><span class="line"></span><br><span class="line">再次查看admin_role.id就有值了</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">print</span> admin_role.id</span><br><span class="line"><span class="number">1</span></span><br></pre></td></tr></table></figure>
-<h2 id="修改一行"><a href="#修改一行" class="headerlink" title="修改一行"></a>修改一行</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 比如修改admin_role的name为new_admin</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>admin_role.name = <span class="string">"new_admin"</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>db.session.add(admin_role)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>db.session.commit()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">print</span> admin_role.name</span><br><span class="line">new_admin</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="删除一行"><a href="#删除一行" class="headerlink" title="删除一行"></a>删除一行</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">db.session.delete(mod_role)</span><br><span class="line">db.session.commit()</span><br></pre></td></tr></table></figure>
-<h2 id="查询行"><a href="#查询行" class="headerlink" title="查询行"></a>查询行</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">查询<span class="number">2</span>个表所有字段</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>Role.query.all()</span><br><span class="line">[&lt;Role <span class="string">u'Moderator'</span>&gt; , &lt;Role <span class="string">u'new_admin'</span>&gt; , &lt;Role <span class="string">u'User'</span>&gt; ]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>User.query.all()</span><br><span class="line">[&lt;User <span class="string">u'john'</span>&gt; , &lt;User <span class="string">u'susan'</span>&gt; , &lt;User <span class="string">u'david'</span>&gt; ]</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="常用的sql过滤器"><a href="#常用的sql过滤器" class="headerlink" title="常用的sql过滤器"></a>常用的sql过滤器</h2><p>|过滤器|说明|<br>||-|<br>|filter|把过滤器添加到查询上，返回一个新查询|<br>|filter_by|把等值过滤添加到原查询上，返回一个新查询|<br>|limit|指定原查询的数量限制|<br>|offset|便宜原查询的结果，返回一个新查询|<br>|order_by|根据指定条件对原查询进行排序，返回一个新查询|<br>|group_by|执行分组条件|</p>
-<h2 id="过滤器之后可以跟执行函数"><a href="#过滤器之后可以跟执行函数" class="headerlink" title="过滤器之后可以跟执行函数"></a>过滤器之后可以跟执行函数</h2><table>
-<thead>
-<tr>
-<th>方法</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>all</td>
-<td>以列表的形式返回所有结果</td>
-</tr>
-<tr>
-<td>first</td>
-<td>返回查询的第一个结果，没有返回None</td>
-</tr>
-<tr>
-<td>first_or_404</td>
-<td>返回第一个查询结果，否则终止请求，返回404</td>
-</tr>
-<tr>
-<td>get</td>
-<td>返回指定主键对应的列，否则返回None</td>
-</tr>
-<tr>
-<td>get_or_404</td>
-<td>返回指定主键对应的行，否则返回404</td>
-</tr>
-<tr>
-<td>count</td>
-<td>返回结果数量</td>
-</tr>
-<tr>
-<td>paginate</td>
-<td>返回一个paginate对象，包含指定范围的结果</td>
-</tr>
-</tbody>
-</table>
+        <h1 id="模板的bootstrap扩展"><a href="#模板的bootstrap扩展" class="headerlink" title="模板的bootstrap扩展"></a>模板的bootstrap扩展</h1><ul>
+<li>安装扩展包</li>
+<li><p>pip install flask-bootstrap</p>
+</li>
+<li><p>如法炮制，从flask.ext中导入Bootstrap 包含app对象生成新的对象实例，即可使用bootstrap的特性。</p>
+</li>
+</ul>
+<p>如果使用bootstrap那么需要先用bootstrap包含app，在用manager包含app。</p>
+<ul>
+<li>自定一个base.html(继承自bootstrap的base.html)</li>
+</ul>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#123;% extends <span class="string">"bootstrap/base.html"</span> %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% block title %&#125;  &#123;% endblock %&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#123;% block navbar %&#125;</span><br><span class="line">    &lt;div class="navbar navbar-inverse" role="navigation"&gt;</span><br><span class="line">        &lt;div class="container"&gt;</span><br><span class="line">            &lt;div class="navbar-header"&gt;</span><br><span class="line">                &lt;button type="button" class="navbar-toggle"</span><br><span class="line">                    data-toogle=<span class="string">"collapse"</span> data-target=<span class="string">".narvar-collapse"</span>&gt;</span><br><span class="line">                    &lt;span class="sr-only"&gt; Toggle navigation    &lt;/span&gt;</span><br><span class="line">                    &lt;span class="icon-bar"&gt; &lt;/span&gt;</span><br><span class="line">                    &lt;span class="icon-bar"&gt; &lt;/span&gt;</span><br><span class="line">                    &lt;span class="icon-bar"&gt; &lt;/span&gt;</span><br><span class="line">                    &lt;span class="icon-bar"&gt; &lt;/span&gt;</span><br><span class="line">                &lt;/button&gt;</span><br><span class="line">                &lt;a class="navbar-brand" href="/"&gt;Home/a&gt;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">            &lt;div class="navbar-collapse collapse"&gt;</span><br><span class="line">                &lt;ul class="nav navbar-nav"&gt;</span><br><span class="line">                    &lt;li&gt; &lt;a hre="/"&gt; Home &lt;/a&gt;&lt;/li&gt;</span><br><span class="line">                &lt;/ul&gt;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&#123;% endblock %&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;% block comment %&gt;</span><br><span class="line">    &lt;div class="container"&gt;</span><br><span class="line">        &#123;% block page_comment %&#125;     &#123;% endblock %&#125;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;% endblock %&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="自定义基类模板"><a href="#自定义基类模板" class="headerlink" title="自定义基类模板"></a>自定义基类模板</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 404.html</span></span><br><span class="line"></span><br><span class="line">&#123;% extends <span class="string">"base.html"</span> %&#125;</span><br><span class="line">&#123;% block title %&#125; flask-pagenot found   &#123;% endblock %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% block page_comment %&#125;</span><br><span class="line">&lt;div class="page-header"&gt;</span><br><span class="line">    &lt;h1&gt; Not Found. &lt;/h1&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&#123;%endblock%&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="整个代码文件"><a href="#整个代码文件" class="headerlink" title="整个代码文件"></a>整个代码文件</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, render_template</span><br><span class="line"><span class="keyword">from</span> flask_script <span class="keyword">import</span> Manager</span><br><span class="line"><span class="keyword">from</span> flask_bootstrap <span class="keyword">import</span> Bootstrap</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line">bootstrap = Bootstrap(app)</span><br><span class="line">manager = Manager(app)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">"index.html"</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/user/&lt;name&gt;')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">user</span><span class="params">(name)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">"user.html"</span>,name=name)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.errorhandler(404)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">page_not_found</span><span class="params">(e)</span>:</span></span><br><span class="line">    <span class="keyword">return</span>  render_template(<span class="string">"404.html"</span>), <span class="number">404</span> </span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    manager.run()</span><br></pre></td></tr></table></figure>
+<ul>
+<li>运行命令 ： python hello.py  runserver –host 0.0.0.0 –d</li>
+</ul>
+<h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h2><p>a标签常用的href 可以使用url_for 函数生成<br>url_for(“index”) –&gt; /</p>
+<p>url_for(“index”,_external=True) –&gt; 绝对路径</p>
+<p>url_for(“index”, page=2 ) 返回？/page=2</p>
+<p>静态文件生成链接<br>url_for(‘static’, filename=’css/styles.css’, _external=True)<br>返回 <a href="http://localhost:5000/statics/css/style.css" target="_blank" rel="noopener">http://localhost:5000/statics/css/style.css</a></p>
+<h2 id="flask-moment组件本地化时间和日期"><a href="#flask-moment组件本地化时间和日期" class="headerlink" title="flask-moment组件本地化时间和日期"></a>flask-moment组件本地化时间和日期</h2><ul>
+<li>pip install flask-moment</li>
+</ul>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#123;% extends <span class="string">"base.html"</span> %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% block page_content %&#125;</span><br><span class="line">&lt;h1&gt; hello world!&lt;/h1&gt;</span><br><span class="line">&lt;p&gt; local date and time is &#123;&#123; moment(current_time).format('LLL')&#125;&#125;. &lt;/p&gt;</span><br><span class="line">&lt;p&gt; that was &#123;&#123; moment(current_time).fromNow(refresh=True) &#125;&#125;. &lt;/p&gt;</span><br><span class="line"></span><br><span class="line">&#123;% endblock %&#125;</span><br></pre></td></tr></table></figure>
 
         
         
@@ -1672,7 +1654,7 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2019/01/28/language/python/1基本结构/" title="flask 第1章(基本结构和概念)" itemprop="url">flask 第1章(基本结构和概念)</a>
+      <a href="/2019/01/28/language/python/2_模板/" title="flask 第2章(模板)" itemprop="url">flask 第2章(模板)</a>
   </h1>
   <p class="article-author">By
        
@@ -1685,87 +1667,69 @@
 </header>
     <div class="article-content">
         
-        <h1 id="开始和程序基本结构"><a href="#开始和程序基本结构" class="headerlink" title="开始和程序基本结构"></a>开始和程序基本结构</h1><h2 id="1-首先安装虚拟环境包和git工具"><a href="#1-首先安装虚拟环境包和git工具" class="headerlink" title="1.首先安装虚拟环境包和git工具"></a>1.首先安装虚拟环境包和git工具</h2><ul>
-<li>sudo apt-get install python-virtualenv</li>
-<li>sudo apt-get install git</li>
+        <h1 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h1><h2 id="1-jinja2模板引擎"><a href="#1-jinja2模板引擎" class="headerlink" title="1. jinja2模板引擎"></a>1. jinja2模板引擎</h2><ul>
+<li>创建模板目录</li>
+<li>mkdir templates</li>
+<li>cd templates</li>
+<li>vim index.html</li>
+<li><p>输入 &lt;h1> hello world! &lt;/h1></p>
+</li>
+<li><p>vim user.html</p>
+</li>
+<li>输入 &lt;h1> hello  &lt;/h1></li>
 </ul>
-<h2 id="2-创建一个目录"><a href="#2-创建一个目录" class="headerlink" title="2.创建一个目录"></a>2.创建一个目录</h2><ul>
-<li>mkdir flask_learn</li>
-<li>cd flask_learn</li>
+<h2 id="2-变量"><a href="#2-变量" class="headerlink" title="2. 变量"></a>2. 变量</h2><h3 id="普通变量"><a href="#普通变量" class="headerlink" title="普通变量"></a>普通变量</h3><ul>
+<li>占位符变量可以是python中的类型<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123; mydict[<span class="string">'key'</span>] &#125;&#125;</span><br><span class="line">&#123;&#123; mylist[<span class="number">3</span>] &#125;&#125;</span><br><span class="line">&#123;&#123; mylist[value] &#125;&#125;</span><br><span class="line">&#123;&#123; obje.func() &#125;&#125;</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
-<h2 id="3-下载实例代码"><a href="#3-下载实例代码" class="headerlink" title="3.下载实例代码"></a>3.下载实例代码</h2><ul>
-<li>git clone <a href="http://github.com/miguelgrinberg/flasky.git" target="_blank" rel="noopener">http://github.com/miguelgrinberg/flasky.git</a></li>
-<li>cd flask</li>
-<li>建立一个虚拟环境</li>
-<li>virtualenv venv</li>
-<li>激活虚拟环境</li>
-<li>source venv/bin/activate</li>
-<li>取消激活分区</li>
-<li>deactivate</li>
-<li>虚拟环境下安装pip</li>
-<li>pip install flask</li>
-<li>切换分支</li>
-<li>git checkout 2a</li>
+<h3 id="过滤器"><a href="#过滤器" class="headerlink" title="过滤器"></a>过滤器</h3><ul>
+<li>hello   把name转成搜字符大写。</li>
 </ul>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">'&lt;h1&gt;Hello World!&lt;/h1&gt;'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    app.run(debug=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>过滤器名字</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>safe</td>
+<td>渲染时不转义</td>
+</tr>
+<tr>
+<td>capitalize</td>
+<td>首字母大写</td>
+</tr>
+<tr>
+<td>lower</td>
+<td>转成小写</td>
+</tr>
+<tr>
+<td>upper</td>
+<td>转成大写</td>
+</tr>
+<tr>
+<td>title</td>
+<td>每个单词首字母转大写</td>
+</tr>
+<tr>
+<td>trim</td>
+<td>去掉首尾空格</td>
+</tr>
+<tr>
+<td>striptags</td>
+<td>渲染前把其中的html标签都删除掉</td>
+</tr>
+</tbody>
+</table>
 <ul>
-<li>执行 python hello.py</li>
-<li>浏览器输入<a href="http://127.0.0.1:5000/" target="_blank" rel="noopener">http://127.0.0.1:5000/</a> 就可以看到helloword了。</li>
-<li>但是这样会出现一个问题。你在linux虚拟机里面执行的代码。在window上浏览器看就不行，需要设置</li>
-<li>如下改动 app.run(debug=True，host=”0.0.0.0”)或者使用manage模块扩展传参数，后面会提到。</li>
+<li>safe 常用在现实html代码本身，不然标签会被引擎默认转义(这样也是为了安全考虑)。</li>
+<li>不要再不可信的值上使用safe过滤器，比如表单输入。</li>
 </ul>
-<h2 id="4-flask程序有四个上下文"><a href="#4-flask程序有四个上下文" class="headerlink" title="4. flask程序有四个上下文"></a>4. flask程序有四个上下文</h2><ul>
-<li>curent_app  程序上下文， 当前激活的程序实例</li>
-<li>g 程序上下文 处理请求的临时存储对象，每次请求都会重设这个变量。</li>
-<li>request  请求上下文    请求对象，封装了每次http请求的内容</li>
-<li>sesion  请求上下文    用户会话， 用于存储之间需要记住的值的词典。</li>
-<li>这是个变量每次请求 都是独立属于这一次请求的，或者说是属于同一个线程内全局可见。</li>
-</ul>
-<h2 id="5-请求调度"><a href="#5-请求调度" class="headerlink" title="5. 请求调度"></a>5. 请求调度</h2><ul>
-<li>这个主要是 url和处理函数的映射关系，即视图。</li>
-<li>通过app.url_map 可以看到映射关系。</li>
-<li>生成映射的方法2中，1 app.route修饰器 2，app.add_url_rule()</li>
-</ul>
-<h2 id="6-请求钩子"><a href="#6-请求钩子" class="headerlink" title="6. 请求钩子"></a>6. 请求钩子</h2><ul>
-<li>主要是为了每个请求开始可能都需要认证，数据库连接等重复操作的代码复。</li>
-<li>通过钩子装饰器，注册函数，在到达视图函数前运行这些函数。</li>
-<li>有四种个钩子 brefore_first_request,brefore_request,after_request,teardown_request<blockquote>
-<p>after_request 有没做处理的异常抛出时，是不运行的。<br>teardown_request 即使有没处理的异常抛出，也会运行。</p>
-</blockquote>
-</li>
-</ul>
-<h2 id="7-响应"><a href="#7-响应" class="headerlink" title="7. 响应"></a>7. 响应</h2><ul>
-<li>flask 默认返回200 状态吗</li>
-<li><p>可以返回其他状态吗</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> <span class="string">"hello word!"</span>, <span class="number">400</span></span><br><span class="line">或者</span><br><span class="line"><span class="keyword">return</span> <span class="string">"hello world!"</span>, <span class="number">500</span>, &#123;<span class="string">"ua"</span>:<span class="number">10</span>&#125;</span><br><span class="line">返回的是一个元组，第二个是状态吗，第三个是header，字典形式。</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>还可以使用make_response(“hello world!”, 500, {“ua”:10})生成一个对象，以便调用函数设置cookie等其他值。</p>
-</li>
-<li>320重定向，使用redirect(“<a href="http://www.baidu.com&quot;)函数。" target="_blank" rel="noopener">www.baidu.com&quot;)函数。</a></li>
-<li>特殊响应，比如404 可以使用abort(404)函数，这个直接就吧控制权交给web服务器了，不会再调用其它函数。</li>
-</ul>
-<h2 id="8-flask扩展"><a href="#8-flask扩展" class="headerlink" title="8. flask扩展"></a>8. flask扩展</h2><ul>
-<li><p>pip install flask-script</p>
-</li>
-<li><p>用manager吧app对象包住，这样就可以使用manager扩展了。</p>
-</li>
-</ul>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</span><br><span class="line"><span class="keyword">from</span> flask_script <span class="keyword">import</span> Manager</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line">manager = Manager(app)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">'&lt;h1&gt;Hello World!&lt;/h1&gt;'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/user/&lt;name&gt;')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">user</span><span class="params">(name)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">'&lt;h1&gt;Hello, %s!&lt;/h1&gt;'</span> % name</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    manager.run()</span><br></pre></td></tr></table></figure>
-<ul>
-<li>启动服务：<blockquote>
-<p>python hello.py  runserver –host 0.0.0.0</p>
-</blockquote>
-</li>
-</ul>
-<h2 id="9-模板的继承"><a href="#9-模板的继承" class="headerlink" title="9 模板的继承"></a>9 模板的继承</h2><ul>
-<li>类似于python中的类的继承</li>
-<li>首先需要一个基类模板base.html 然后把对应的可修改的块用    格式包含即可。</li>
-</ul>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">  &lt;haed&gt;</span><br><span class="line">  &#123;% block  head%&#125;  &#123;%endblock%&#125;</span><br><span class="line">  &#123;% block title%&#125; &#123;%endblock%&#125;</span><br><span class="line">  &lt;/head&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">    &#123;%block body%&#125;  &#123;%endblock%&#125;</span><br><span class="line">  &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>在子类模板中使用基类模板</li>
-</ul>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;%extends <span class="string">"base.html"</span>% &#125;</span><br><span class="line"></span><br><span class="line">&#123;%block title%&#125; 这是index标题 &#123;%endblock%&#125;</span><br><span class="line"></span><br><span class="line">&#123;%block head%&#125;</span><br><span class="line">  &#123;&#123;super()&#125;&#125;   <span class="comment">#基类head部分原本的内容用supper获取</span></span><br><span class="line">  &lt;style&gt;</span><br><span class="line">  &lt;/style&gt;</span><br><span class="line">&#123;%endblock%&#125;</span><br><span class="line"></span><br><span class="line">&#123;%block body%&#125;</span><br><span class="line">  &lt;h1&gt; hello world &lt;/h1&gt;</span><br><span class="line">&#123;%endblock%&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="3-控制结构"><a href="#3-控制结构" class="headerlink" title="3. 控制结构"></a>3. 控制结构</h2><h3 id="if结构"><a href="#if结构" class="headerlink" title="if结构"></a>if结构</h3><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123; % <span class="keyword">if</span> user %&#125;</span><br><span class="line">  hello &#123;&#123;user&#125;&#125;</span><br><span class="line">&#123;% <span class="keyword">else</span> %&#125;</span><br><span class="line">  hello stranger</span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="for循环结构"><a href="#for循环结构" class="headerlink" title="for循环结构"></a>for循环结构</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;ul&gt;</span><br><span class="line">&#123; % <span class="keyword">for</span> x <span class="keyword">in</span> list %&#125;</span><br><span class="line">  &lt;li&gt;&#123;&#123; x &#125;&#125;&lt;/li&gt;</span><br><span class="line">&#123; %endfor% &#125;</span><br><span class="line">&lt;/ul&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="宏。-类似python的函数"><a href="#宏。-类似python的函数" class="headerlink" title="宏。 类似python的函数"></a>宏。 类似python的函数</h3><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">* 定义宏</span><br><span class="line"> &#123;% macro render_comment(x) %&#125;</span><br><span class="line">  &lt;li&gt;&#123;&#123; x &#125;&#125;&lt;/li&gt;</span><br><span class="line"> &#123;% endmacro%&#125;</span><br><span class="line"></span><br><span class="line">* 使用</span><br><span class="line"></span><br><span class="line">&lt;ul&gt;</span><br><span class="line"> &#123;% <span class="keyword">for</span> x <span class="keyword">in</span> list %&gt;</span><br><span class="line">    &#123;&#123; render_comment(x) &#125;&#125;</span><br><span class="line"> &#123; %endfor%&#125;</span><br><span class="line"> &lt;/ul&gt;</span><br><span class="line"></span><br><span class="line">* 可以将宏放入单独的文件，一边重复使用，使用时导入即可。</span><br><span class="line">&#123; % <span class="keyword">import</span> <span class="string">'macros.html'</span> <span class="keyword">as</span> macros % &#125;</span><br><span class="line">&lt;ul&gt;</span><br><span class="line">   &#123;% <span class="keyword">for</span> x <span class="keyword">in</span> list %&gt;</span><br><span class="line">      &#123;&#123; macros.render_comment(x) &#125;&#125;</span><br><span class="line">   &#123; %endfor%&#125;</span><br><span class="line">&lt;/ul&gt;</span><br><span class="line"></span><br><span class="line">* 需要重复使用的模板也可单独放一个文件中</span><br><span class="line">用到的地方 &#123;% include <span class="string">'common.html'</span>%&#125; 包含即可。</span><br></pre></td></tr></table></figure>
 
         
         
