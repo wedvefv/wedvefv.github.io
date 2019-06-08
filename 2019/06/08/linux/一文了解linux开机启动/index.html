@@ -23,25 +23,25 @@
 
   <meta charset="UTF-8">
   
-    <title>syntastic vim  静态分析插件 | 时光</title>
+    <title>如何在centos7中添加开机启动项 | 时光</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="wedvefv">
     
 
     
-    <meta name="description" content="syntastic vim  静态分析插件，里面带有各种语言的分析工具，是为了代码补全提示1234567891011121314配置如下：_vimrc文件加入：Bundle &apos;scrooloose/syntastic&apos;打开vim： BundleInstall 安装插件。配置如下：let g:syntastic_error_symbol=&apos;&amp;gt;&amp;gt;&apos;let g:syntastic_warni">
-<meta name="keywords" content="vim">
+    <meta name="description" content="1. linux的启动等级0 关机模式1 单用户模式2 无网络多用户模式3 有网络多用户模式，如果没网络和2一样。4.系统保留，未使用5.GUI图形界面6.重启模式，默认不能是这个级别，否则就会无限循环重启  正常默认就是3了, 命令行模式，有桌面的，应该默认是5. 关机就可以终端输入init 0，重启就init 6  7.默认级别在centos7之前是/etc/inittab文件设置的，之后就由">
+<meta name="keywords" content="hexo">
 <meta property="og:type" content="article">
-<meta property="og:title" content="syntastic vim  静态分析插件">
-<meta property="og:url" content="http://wedvefv.github.io/2016/10/05/linux/vim_syntastic/index.html">
+<meta property="og:title" content="如何在centos7中添加开机启动项">
+<meta property="og:url" content="http://wedvefv.github.io/2019/06/08/linux/一文了解linux开机启动/index.html">
 <meta property="og:site_name" content="时光">
-<meta property="og:description" content="syntastic vim  静态分析插件，里面带有各种语言的分析工具，是为了代码补全提示1234567891011121314配置如下：_vimrc文件加入：Bundle &apos;scrooloose/syntastic&apos;打开vim： BundleInstall 安装插件。配置如下：let g:syntastic_error_symbol=&apos;&amp;gt;&amp;gt;&apos;let g:syntastic_warni">
+<meta property="og:description" content="1. linux的启动等级0 关机模式1 单用户模式2 无网络多用户模式3 有网络多用户模式，如果没网络和2一样。4.系统保留，未使用5.GUI图形界面6.重启模式，默认不能是这个级别，否则就会无限循环重启  正常默认就是3了, 命令行模式，有桌面的，应该默认是5. 关机就可以终端输入init 0，重启就init 6  7.默认级别在centos7之前是/etc/inittab文件设置的，之后就由">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-19T14:18:38.611Z">
+<meta property="og:updated_time" content="2019-06-08T15:53:52.217Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="syntastic vim  静态分析插件">
-<meta name="twitter:description" content="syntastic vim  静态分析插件，里面带有各种语言的分析工具，是为了代码补全提示1234567891011121314配置如下：_vimrc文件加入：Bundle &apos;scrooloose/syntastic&apos;打开vim： BundleInstall 安装插件。配置如下：let g:syntastic_error_symbol=&apos;&amp;gt;&amp;gt;&apos;let g:syntastic_warni">
+<meta name="twitter:title" content="如何在centos7中添加开机启动项">
+<meta name="twitter:description" content="1. linux的启动等级0 关机模式1 单用户模式2 无网络多用户模式3 有网络多用户模式，如果没网络和2一样。4.系统保留，未使用5.GUI图形界面6.重启模式，默认不能是这个级别，否则就会无限循环重启  正常默认就是3了, 命令行模式，有桌面的，应该默认是5. 关机就可以终端输入init 0，重启就init 6  7.默认级别在centos7之前是/etc/inittab文件设置的，之后就由">
 
     
     <link rel="alternative" href="/atom.xml" title="时光" type="application/atom+xml">
@@ -101,14 +101,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/10/05/linux/vim_syntastic/" title="syntastic vim  静态分析插件" itemprop="url">syntastic vim  静态分析插件</a>
+      <a href="/2019/06/08/linux/一文了解linux开机启动/" title="如何在centos7中添加开机启动项" itemprop="url">如何在centos7中添加开机启动项</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
 		
   <p class="article-time">
-    <time datetime="2016-10-05T12:10:30.000Z" itemprop="datePublished"> Published 2016-10-05</time>
+    <time datetime="2019-06-08T02:34:58.000Z" itemprop="datePublished"> Published 2019-06-08</time>
     
   </p>
 </header>
@@ -117,11 +117,101 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#syntastic-vim-静态分析插件，里面带有各种语言的分析工具，是为了代码补全提示"><span class="toc-number">1.</span> <span class="toc-text">syntastic vim  静态分析插件，里面带有各种语言的分析工具，是为了代码补全提示</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-linux的启动等级"><span class="toc-number">1.</span> <span class="toc-text">1. linux的启动等级</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-每个等级，系统初始化运行了哪些脚本呢"><span class="toc-number">2.</span> <span class="toc-text">2. 每个等级，系统初始化运行了哪些脚本呢</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-添加开机启动项-chkconfig"><span class="toc-number">3.</span> <span class="toc-text">3. 添加开机启动项(chkconfig)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-在rc-local文件中添加启动项"><span class="toc-number">4.</span> <span class="toc-text">4. 在rc.local文件中添加启动项</span></a></li></ol>
 		
 		</div>
 		
-		<h1 id="syntastic-vim-静态分析插件，里面带有各种语言的分析工具，是为了代码补全提示"><a href="#syntastic-vim-静态分析插件，里面带有各种语言的分析工具，是为了代码补全提示" class="headerlink" title="syntastic vim  静态分析插件，里面带有各种语言的分析工具，是为了代码补全提示"></a>syntastic vim  静态分析插件，里面带有各种语言的分析工具，是为了代码补全提示</h1><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">配置如下：</span><br><span class="line">_vimrc文件加入：</span><br><span class="line">Bundle 'scrooloose/syntastic'</span><br><span class="line">打开vim： BundleInstall 安装插件。</span><br><span class="line">配置如下：</span><br><span class="line">let g:syntastic_error_symbol='&gt;&gt;'</span><br><span class="line">let g:syntastic_warning_symbol='&gt;'</span><br><span class="line">let g:syntastic_check_on_open=1</span><br><span class="line">let g:syntastic_check_on_wq=0</span><br><span class="line">let g:syntastic_enable_highlighting=1</span><br><span class="line">#下面一行是指定使用哪种工具分析python语法和javascript语法</span><br><span class="line">let g:syntastic_python_checkers=['pyflakes'] " 使用pyflakes,速度比pylint快</span><br><span class="line">let g:syntastic_javascript_checkers = ['jsl', 'jshint']</span><br><span class="line">let g:syntastic_html_checkers=['tidy', 'jshint']</span><br></pre></td></tr></table></figure>
+		<h4 id="1-linux的启动等级"><a href="#1-linux的启动等级" class="headerlink" title="1. linux的启动等级"></a>1. linux的启动等级</h4><p>0 关机模式<br>1 单用户模式<br>2 无网络多用户模式<br>3 有网络多用户模式，如果没网络和2一样。<br>4.系统保留，未使用<br>5.GUI图形界面<br>6.重启模式，默认不能是这个级别，否则就会无限循环重启</p>
+<ul>
+<li><em>正常默认就是3了, 命令行模式，有桌面的，应该默认是5.</em></li>
+<li><em>关机就可以终端输入init 0，重启就init 6</em></li>
+</ul>
+<p>7.默认级别在centos7之前是/etc/inittab文件设置的，之后就由systemctl接管了</p>
+<ul>
+<li>查看默认运行级别的方式为:<blockquote>
+<p>systemctl get-default</p>
+</blockquote>
+</li>
+<li>设置默认运行级别的方式:<blockquote>
+<p>systemctl set-default TARGET.target</p>
+</blockquote>
+</li>
+</ul>
+<p><em>级别分别对应如下: </em></p>
+<ul>
+<li><blockquote>
+<p>shutdown.target</p>
+</blockquote>
+</li>
+<li><blockquote>
+<p>emergency.target</p>
+</blockquote>
+</li>
+<li><blockquote>
+<p>rescure.target</p>
+</blockquote>
+</li>
+<li><blockquote>
+<p>multi-user.target</p>
+</blockquote>
+</li>
+<li><blockquote>
+<p>无</p>
+</blockquote>
+</li>
+<li><blockquote>
+<p>graphical.target</p>
+</blockquote>
+</li>
+<li><blockquote>
+<p>无</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="2-每个等级，系统初始化运行了哪些脚本呢"><a href="#2-每个等级，系统初始化运行了哪些脚本呢" class="headerlink" title="2. 每个等级，系统初始化运行了哪些脚本呢"></a>2. 每个等级，系统初始化运行了哪些脚本呢</h4><ul>
+<li>/etc/init.d/ 目录是个软连接 实际是/etc/rc.d/init.d</li>
+<li>/etc/rc1.d/</li>
+<li>/etc/rc2.d/</li>
+<li>/etc/rc3.d/</li>
+<li>/etc/rc4.d/</li>
+<li>/etc/rc5.d/</li>
+<li>/etc/rc6.d/ 以上6个目录也都是软连接，实际是/etc/rc.d/目录下的</li>
+</ul>
+<ul>
+<li><em>最终就是/etc/rc.d/init.d/ 和/etc/rc.d/rcX.d/目录了</em></li>
+<li><em>但是rcX.d/目录下的文件实质也是软连接，指向/etc/rc.d/init.d/目录下的脚本</em></li>
+</ul>
+<h4 id="3-添加开机启动项-chkconfig"><a href="#3-添加开机启动项-chkconfig" class="headerlink" title="3. 添加开机启动项(chkconfig)"></a>3. 添加开机启动项(chkconfig)</h4><ul>
+<li>经过之前的分析，实际上就是/etc/rc.d/init.d 目录下的东东，分析发现 都是shell脚本</li>
+<li>脚本 按自己的操作写就ok</li>
+<li>比如你写一个nginx自启动的脚本/etc/rc.d/init.d/nginx</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>! /bin/bash</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span>chkconfig: 2345 80 90</span><br><span class="line"><span class="meta">#</span>description:auto_run</span><br><span class="line">. /etc/init.d/functions</span><br><span class="line">if [ "$1" == "start" ]; then</span><br><span class="line">  /usr/local/openresty/nginx/sbin/nginx</span><br><span class="line">  exit  0</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">if [ "$1" == "stop" ]; then</span><br><span class="line">  /usr/local/openresty/nginx/sbin/nginx -s stop</span><br><span class="line">  exit  0</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if [[ $1 == 'reload' ]]; t</span><br></pre></td></tr></table></figure>
+<ul>
+<li>chmod +x nginx</li>
+<li>chkconfig –add nginx (老写法：chkconfig nginx on)</li>
+<li><strong>这样在对应等级rcX.d/目录下就会生成对应的链接，K开头脚本这个服务关闭，S开头的脚本是这个服务要开启.</strong></li>
+<li>每个添加的自启动脚本必须要有2行注释：</li>
+<li><blockquote>
+<p>#chkconfig: 2345 80 90</p>
+</blockquote>
+</li>
+<li><blockquote>
+<p>#description:nginx_test 可以随便写描述</p>
+</blockquote>
+</li>
+<li><p>centos7 开头这么加也可以</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>## BEGIN INIT INFO</span><br><span class="line"><span class="meta">#</span> Provides:          php-fpm</span><br><span class="line"><span class="meta">#</span> Required-Start:    $remote_fs $network</span><br><span class="line"><span class="meta">#</span> Required-Stop:     $remote_fs $network</span><br><span class="line"><span class="meta">#</span> Default-Start:     2 3 4 5</span><br><span class="line"><span class="meta">#</span> Default-Stop:      0 1 6</span><br><span class="line"><span class="meta">#</span> Short-Description: starts php-fpm</span><br><span class="line"><span class="meta">#</span> Description:       starts the PHP FastCGI Process Manager daemon</span><br><span class="line"><span class="meta">#</span>## END INIT INFO</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>解释下: 2345表示四个启动等级可以需要运行nginx服务; 在rc2|3|4|5.d目录下生成S<strong>80</strong>nginx脚本，rc0|6.d目录下生成K<strong>90</strong>nginx脚本都指向/etc/rc.d/init.d/nginx脚本（80，90为了标识脚本含义是开启还是关闭，虽然脚本内容一样，但是<strong>K开头执行时加参数 stop，S开头的执行时加参数 start</strong>）</p>
+</li>
+</ul>
+<h4 id="4-在rc-local文件中添加启动项"><a href="#4-在rc-local文件中添加启动项" class="headerlink" title="4. 在rc.local文件中添加启动项"></a>4. 在rc.local文件中添加启动项</h4><ul>
+<li><p>/etc/rc.d/init.d/rc.local 这个是init.d–&gt; rc.d 执行或之后执行的脚本，通常是用户自己定义的一些开机启动任务.</p>
+</li>
+<li><p><strong>下次总计一下  Centos6的启动顺序</strong></p>
+</li>
+</ul>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -129,13 +219,13 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/vim/">vim</a>
+  <a class="article-category-link" href="/categories/linux/">linux</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/vim/">vim</a>
+  <span></span> <a href="/tags/hexo/">hexo</a>
   </div>
 
 </div>
@@ -144,7 +234,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://wedvefv.github.io/2016/10/05/linux/vim_syntastic/" data-title="syntastic vim  静态分析插件 | 时光" data-tsina="" class="share clearfix">
+	  <div data-url="http://wedvefv.github.io/2019/06/08/linux/一文了解linux开机启动/" data-title="如何在centos7中添加开机启动项 | 时光" data-tsina="" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -157,19 +247,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2016/10/06/linux/dll_export/" title="DLL导出方法">
-  <strong>上一篇：</strong><br/>
-  <span>
-  DLL导出方法</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2016/10/05/linux/linux_c_help/"  title="linux常用函数手册">
+<a href="/2019/05/02/language/python/3_reload_sys/"  title="python 编码reload(sys)的作用">
  <strong>下一篇：</strong><br/> 
- <span>linux常用函数手册
+ <span>python 编码reload(sys)的作用
 </span>
 </a>
 </div>
@@ -188,7 +270,7 @@
 <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
     var gitment = new Gitment({
-        id: 'Wed Oct 05 2016 20:10:30 GMT+0800',
+        id: 'Sat Jun 08 2019 10:34:58 GMT+0800',
         owner: 'wedvefv',
         repo: 'wedvefv.github.io',
         oauth: {
@@ -206,7 +288,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#syntastic-vim-静态分析插件，里面带有各种语言的分析工具，是为了代码补全提示"><span class="toc-number">1.</span> <span class="toc-text">syntastic vim  静态分析插件，里面带有各种语言的分析工具，是为了代码补全提示</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-linux的启动等级"><span class="toc-number">1.</span> <span class="toc-text">1. linux的启动等级</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-每个等级，系统初始化运行了哪些脚本呢"><span class="toc-number">2.</span> <span class="toc-text">2. 每个等级，系统初始化运行了哪些脚本呢</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-添加开机启动项-chkconfig"><span class="toc-number">3.</span> <span class="toc-text">3. 添加开机启动项(chkconfig)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-在rc-local文件中添加启动项"><span class="toc-number">4.</span> <span class="toc-text">4. 在rc.local文件中添加启动项</span></a></li></ol>
  
   </div>
 
