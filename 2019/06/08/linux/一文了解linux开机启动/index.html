@@ -38,7 +38,7 @@
 <meta property="og:site_name" content="时光">
 <meta property="og:description" content="1. linux的启动等级0 关机模式1 单用户模式2 无网络多用户模式3 有网络多用户模式，如果没网络和2一样。4.系统保留，未使用5.GUI图形界面6.重启模式，默认不能是这个级别，否则就会无限循环重启  正常默认就是3了, 命令行模式，有桌面的，应该默认是5. 关机就可以终端输入init 0，重启就init 6  7.默认级别在centos7之前是/etc/inittab文件设置的，之后就由">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-06-08T15:53:52.217Z">
+<meta property="og:updated_time" content="2019-06-08T16:02:38.347Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何在centos7中添加开机启动项">
 <meta name="twitter:description" content="1. linux的启动等级0 关机模式1 单用户模式2 无网络多用户模式3 有网络多用户模式，如果没网络和2一样。4.系统保留，未使用5.GUI图形界面6.重启模式，默认不能是这个级别，否则就会无限循环重启  正常默认就是3了, 命令行模式，有桌面的，应该默认是5. 关机就可以终端输入init 0，重启就init 6  7.默认级别在centos7之前是/etc/inittab文件设置的，之后就由">
@@ -186,7 +186,7 @@
 <li>脚本 按自己的操作写就ok</li>
 <li>比如你写一个nginx自启动的脚本/etc/rc.d/init.d/nginx</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>! /bin/bash</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span>chkconfig: 2345 80 90</span><br><span class="line"><span class="meta">#</span>description:auto_run</span><br><span class="line">. /etc/init.d/functions</span><br><span class="line">if [ "$1" == "start" ]; then</span><br><span class="line">  /usr/local/openresty/nginx/sbin/nginx</span><br><span class="line">  exit  0</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">if [ "$1" == "stop" ]; then</span><br><span class="line">  /usr/local/openresty/nginx/sbin/nginx -s stop</span><br><span class="line">  exit  0</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if [[ $1 == 'reload' ]]; t</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>! /bin/bash</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span>chkconfig: 2345 80 90</span><br><span class="line"><span class="meta">#</span>description:auto_run</span><br><span class="line">. /etc/init.d/functions</span><br><span class="line">if [ "$1" == "start" ]; then</span><br><span class="line">    /usr/local/openresty/nginx/sbin/nginx</span><br><span class="line">    exit  0</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">if [ "$1" == "stop" ]; then</span><br><span class="line">    /usr/local/openresty/nginx/sbin/nginx -s stop</span><br><span class="line">    exit  0</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if [[ $1 == 'reload' ]]; then</span><br><span class="line">    /usr/local/openresty/nginx/sbin/nginx -s reload</span><br><span class="line">    exit  0</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">echo "sh nginx start|stop|reload"</span><br></pre></td></tr></table></figure>
 <ul>
 <li>chmod +x nginx</li>
 <li>chkconfig –add nginx (老写法：chkconfig nginx on)</li>
@@ -384,11 +384,11 @@
 			
 		
 			
-				<li><a href="/tags/c/" title="c++">c++<sup>1</sup></a></li>
+				<li><a href="/tags/windows/" title="windows">windows<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/windows/" title="windows">windows<sup>1</sup></a></li>
+				<li><a href="/tags/c/" title="c++">c++<sup>1</sup></a></li>
 			
 		
 			
