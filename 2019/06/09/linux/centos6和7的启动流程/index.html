@@ -23,24 +23,27 @@
 
   <meta charset="UTF-8">
   
-    <title>flask 第9章（大型程序目录结构） | 时光</title>
+    <title>一张图看懂centos6和7的启动流程区别 | 时光</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="wedvefv">
     
 
     
-    <meta name="description" content="1. 创建目录结构1234567891011121314151617181920212223242526272829mkdir myflask &amp;amp; cd myflasktouch reuirments.txttouch config.py # 配置touch manger.py mkdir app # 一个应用一个app这样的目录touch app/__init__.py # 说明这是一个">
+    <meta name="description" content="启动流程">
+<meta name="keywords" content="hexo">
 <meta property="og:type" content="article">
-<meta property="og:title" content="flask 第9章（大型程序目录结构）">
-<meta property="og:url" content="http://wedvefv.github.io/2019/02/13/language/python/9_大型程序结构/index.html">
+<meta property="og:title" content="一张图看懂centos6和7的启动流程区别">
+<meta property="og:url" content="http://wedvefv.github.io/2019/06/09/linux/centos6和7的启动流程/index.html">
 <meta property="og:site_name" content="时光">
-<meta property="og:description" content="1. 创建目录结构1234567891011121314151617181920212223242526272829mkdir myflask &amp;amp; cd myflasktouch reuirments.txttouch config.py # 配置touch manger.py mkdir app # 一个应用一个app这样的目录touch app/__init__.py # 说明这是一个">
+<meta property="og:description" content="启动流程">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-19T14:30:17.032Z">
+<meta property="og:image" content="http://wedvefv.github.io/2019/06/09/linux/centos6和7的启动流程/centos6和7的启动流程.png">
+<meta property="og:updated_time" content="2019-06-09T10:08:52.957Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="flask 第9章（大型程序目录结构）">
-<meta name="twitter:description" content="1. 创建目录结构1234567891011121314151617181920212223242526272829mkdir myflask &amp;amp; cd myflasktouch reuirments.txttouch config.py # 配置touch manger.py mkdir app # 一个应用一个app这样的目录touch app/__init__.py # 说明这是一个">
+<meta name="twitter:title" content="一张图看懂centos6和7的启动流程区别">
+<meta name="twitter:description" content="启动流程">
+<meta name="twitter:image" content="http://wedvefv.github.io/2019/06/09/linux/centos6和7的启动流程/centos6和7的启动流程.png">
 
     
     <link rel="alternative" href="/atom.xml" title="时光" type="application/atom+xml">
@@ -100,14 +103,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2019/02/13/language/python/9_大型程序结构/" title="flask 第9章（大型程序目录结构）" itemprop="url">flask 第9章（大型程序目录结构）</a>
+      <a href="/2019/06/09/linux/centos6和7的启动流程/" title="一张图看懂centos6和7的启动流程区别" itemprop="url">一张图看懂centos6和7的启动流程区别</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
 		
   <p class="article-time">
-    <time datetime="2019-02-13T13:18:00.000Z" itemprop="datePublished"> Published 2019-02-13</time>
+    <time datetime="2019-06-09T02:34:58.000Z" itemprop="datePublished"> Published 2019-06-09</time>
     
   </p>
 </header>
@@ -116,15 +119,11 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-创建目录结构"><span class="toc-number">1.</span> <span class="toc-text">1. 创建目录结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-代码下载"><span class="toc-number">2.</span> <span class="toc-text">2. 代码下载</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#启动流程"><span class="toc-number">1.</span> <span class="toc-text">启动流程</span></a></li></ol>
 		
 		</div>
 		
-		<h2 id="1-创建目录结构"><a href="#1-创建目录结构" class="headerlink" title="1. 创建目录结构"></a>1. 创建目录结构</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">mkdir myflask &amp; cd myflask</span><br><span class="line"></span><br><span class="line">touch reuirments.txt</span><br><span class="line">touch config.py # 配置</span><br><span class="line">touch manger.py </span><br><span class="line"></span><br><span class="line">mkdir app # 一个应用一个app这样的目录</span><br><span class="line">touch app/__init__.py # 说明这是一个包</span><br><span class="line">touch app/emails.py</span><br><span class="line">touch app/models.py</span><br><span class="line"></span><br><span class="line">mkdir app/templates</span><br><span class="line">mkdir app/static</span><br><span class="line">mkdir app/main</span><br><span class="line"></span><br><span class="line">touch app/main/__init__.py  #为了保存蓝本，整一个子包</span><br><span class="line">touch app/main/errors.py</span><br><span class="line">touch app/main/forms.py</span><br><span class="line">touch app/main/views.py</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 迁移目录</span><br><span class="line">mkdir migrations</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 单元测试目录</span><br><span class="line">mkdir test</span><br><span class="line">touch test/__init__.py</span><br><span class="line">touch test/test.py</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> venv  这个目录是虚拟环境目录，命令自动创建</span><br></pre></td></tr></table></figure>
-<h2 id="2-代码下载"><a href="#2-代码下载" class="headerlink" title="2. 代码下载"></a>2. 代码下载</h2><ul>
-<li>代码太多就不站粘贴了,下面是下载地址，前面是每个章节是一个详细流程，这个结构中上下文这块还不是很懂，继续学习…<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/wedvefv/my_flask_learn.git</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
+		<h1 id="启动流程"><a href="#启动流程" class="headerlink" title="启动流程"></a>启动流程</h1><p><img src="/2019/06/09/linux/centos6和7的启动流程/centos6和7的启动流程.png" alt=""></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -132,9 +131,14 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/flask/">flask</a>
+  <a class="article-category-link" href="/categories/linux/">linux</a>
 </div>
 
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/hexo/">hexo</a>
+  </div>
 
 </div>
 
@@ -142,7 +146,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://wedvefv.github.io/2019/02/13/language/python/9_大型程序结构/" data-title="flask 第9章（大型程序目录结构） | 时光" data-tsina="" class="share clearfix">
+	  <div data-url="http://wedvefv.github.io/2019/06/09/linux/centos6和7的启动流程/" data-title="一张图看懂centos6和7的启动流程区别 | 时光" data-tsina="" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -155,19 +159,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2019/02/14/linux/ip地址子网掩码的关系/" title="ip地址和子网掩码，广播地址关系">
-  <strong>上一篇：</strong><br/>
-  <span>
-  ip地址和子网掩码，广播地址关系</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2019/02/13/language/python/8_邮件模块/"  title="flask 第8章（邮件模块）">
+<a href="/2019/06/08/linux/一文了解linux开机启动/"  title="如何在centos7中添加开机启动项">
  <strong>下一篇：</strong><br/> 
- <span>flask 第8章（邮件模块）
+ <span>如何在centos7中添加开机启动项
 </span>
 </a>
 </div>
@@ -186,7 +182,7 @@
 <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
     var gitment = new Gitment({
-        id: 'Wed Feb 13 2019 21:18:00 GMT+0800',
+        id: 'Sun Jun 09 2019 10:34:58 GMT+0800',
         owner: 'wedvefv',
         repo: 'wedvefv.github.io',
         oauth: {
@@ -204,7 +200,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-创建目录结构"><span class="toc-number">1.</span> <span class="toc-text">1. 创建目录结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-代码下载"><span class="toc-number">2.</span> <span class="toc-text">2. 代码下载</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#启动流程"><span class="toc-number">1.</span> <span class="toc-text">启动流程</span></a></li></ol>
  
   </div>
 
