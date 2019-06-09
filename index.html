@@ -586,7 +586,7 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2019/03/02/linux/git_linux搭建服务器/" title="git_linux搭建服务器" itemprop="url">git_linux搭建服务器</a>
+      <a href="/2019/03/02/linux/git_tag用法/" title="git_tag用法" itemprop="url">git_tag用法</a>
   </h1>
   <p class="article-author">By
        
@@ -599,20 +599,43 @@
 </header>
     <div class="article-content">
         
-        <h2 id="为什么本地搭建一个git服务器"><a href="#为什么本地搭建一个git服务器" class="headerlink" title="为什么本地搭建一个git服务器"></a>为什么本地搭建一个git服务器</h2><ul>
-<li>对于自己学习使用的代码，在没有网络的情况下不能用github，gitlab,所以本地建立一个git服务器。</li>
+        <h2 id="tag-和branch的区别"><a href="#tag-和branch的区别" class="headerlink" title="tag 和branch的区别"></a>tag 和branch的区别</h2><ul>
+<li>Git tag是一系列commit的中的一个点，只能查看，不能移动。</li>
+<li>branch是一系列串联的commit的线。</li>
 </ul>
-<h2 id="git服务器环境准备centos7"><a href="#git服务器环境准备centos7" class="headerlink" title="git服务器环境准备centos7"></a>git服务器环境准备centos7</h2><h2 id="服务端创建git用户"><a href="#服务端创建git用户" class="headerlink" title="服务端创建git用户"></a>服务端创建git用户</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">id git # 查看是否存在git用户，存在就不创建了。</span><br><span class="line">useradd git</span><br><span class="line">passwd git</span><br><span class="line">输入密码，我设置的是xxx@123</span><br></pre></td></tr></table></figure>
-<h2 id="客户端开启公钥认证认证，免密push-pull"><a href="#客户端开启公钥认证认证，免密push-pull" class="headerlink" title="客户端开启公钥认证认证，免密push/pull"></a>客户端开启公钥认证认证，免密push/pull</h2><ul>
-<li><p>首先服务端需要开启ssh服务</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/ssh/sshd_config</span><br><span class="line">RSAAuthentication yes </span><br><span class="line">PubkeyAuthentication yes</span><br><span class="line">AuthorizedKeysFile .ssh/authorized_keys</span><br><span class="line">如果是centos7.4以上（含7.4），ssh1已经不支持了，只支持ssh2代协议。所以RSAAuthentication项是没有的</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>客户端执行 执行ssh-keygen -t rsa 生成公钥和私钥</p>
-</li>
-<li>复制客户端公钥到服务器端ssh-copy-id -i ~/.ssh/id_rsa.pub <a href="mailto:git@192.168.61.128" target="_blank" rel="noopener">git@192.168.61.128</a> </li>
+<h3 id="git-tag的用法"><a href="#git-tag的用法" class="headerlink" title="git tag的用法"></a>git tag的用法</h3><ul>
+<li>我们常常在代码封板时,使用git 创建一个tag ,这样一个不可修改的历史代码版本就像被我们封存起来一样,不论是运维发布拉取,或者以后的代码版本管理,都是十分方便的</li>
 </ul>
-<h2 id="服务端创建git仓库"><a href="#服务端创建git仓库" class="headerlink" title="服务端创建git仓库"></a>服务端创建git仓库</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /data/git/gittest.git</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 初始化这个仓库</span><br><span class="line">cd /data/git/gittest.git</span><br><span class="line">git init --bare .</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 目录所属用户设置</span><br><span class="line">chown -R git:git /data/git</span><br></pre></td></tr></table></figure>
-<h2 id="客户端clone远程仓库"><a href="#客户端clone远程仓库" class="headerlink" title="客户端clone远程仓库"></a>客户端clone远程仓库</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mkdir localgit</span><br><span class="line">cd localgit</span><br><span class="line">git clone git@192.168.61.128:/data/git/gittest.git .</span><br><span class="line"><span class="meta">#</span> 提示输入服务端git账户的密码。</span><br><span class="line"><span class="meta">#</span>修改完就可以提交了</span><br><span class="line"></span><br><span class="line">touch abc.txt</span><br><span class="line">git add .</span><br><span class="line">git commit -m 'aaa'</span><br><span class="line">git push</span><br></pre></td></tr></table></figure>
+<h3 id="git的tag功能"><a href="#git的tag功能" class="headerlink" title="git的tag功能"></a>git的tag功能</h3><ul>
+<li>git 下打标签其实有2种情况<br>轻量级的：它其实是一个独立的分支,或者说是一个不可变的分支.指向特定提交对象的引用</li>
+<li>带附注的：实际上是存储在仓库中的一个独立对象，它有自身的校验和信息，包含着标签的名字，标签说明，标签本身也允许使用 GNU Privacy Guard (GPG) 来签署或验证,电子邮件地址和日期，一般我们都建议使用含附注型的标签，以便保留相关信息<br>所以我们推荐使用第二种标签形式</li>
+</ul>
+<h3 id="创建tag"><a href="#创建tag" class="headerlink" title="创建tag"></a>创建tag</h3><ul>
+<li>git tag -a V1.2 -m ‘release 1.2’</li>
+<li>上面的命令我们成功创建了本地一个版本 V1.2 ,并且添加了附注信息 ‘release 1.2’</li>
+</ul>
+<h2 id="查看tag"><a href="#查看tag" class="headerlink" title="查看tag"></a>查看tag</h2><ul>
+<li>git tag</li>
+<li>要显示附注信息,我们需要用 show 指令来查看</li>
+<li><p>git show V1.2</p>
+</li>
+<li><p>但是目前这个标签仅仅是提交到了本地git仓库.如何同步到远程代码库</p>
+</li>
+<li><p>git push origin –tags</p>
+</li>
+<li><p>如果刚刚同步上去,你缺发现一个致命bug ,需要重新打版本,现在还为时不晚.</p>
+</li>
+<li><p>git tag -d V1.2</p>
+</li>
+<li><p>到这一步我们只是删除了本地 V1.2的版本,可是线上V1.2的版本还是存在,如何办?这时我们可以推送的空的同名版本到线下,达到删除线上版本的目标:</p>
+</li>
+<li><p>git push origin :refs/tags/V1.2</p>
+</li>
+<li><p>如何获取远程版本?</p>
+</li>
+<li>git fetch origin tag V1.2</li>
+<li>这样我们可以精准拉取指定的某一个版本.适用于运维同学部署指定版本.</li>
+</ul>
 
         
         
@@ -734,7 +757,7 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2019/03/02/linux/git_tag用法/" title="git_tag用法" itemprop="url">git_tag用法</a>
+      <a href="/2019/03/02/linux/git_linux搭建服务器/" title="git_linux搭建服务器" itemprop="url">git_linux搭建服务器</a>
   </h1>
   <p class="article-author">By
        
@@ -747,43 +770,20 @@
 </header>
     <div class="article-content">
         
-        <h2 id="tag-和branch的区别"><a href="#tag-和branch的区别" class="headerlink" title="tag 和branch的区别"></a>tag 和branch的区别</h2><ul>
-<li>Git tag是一系列commit的中的一个点，只能查看，不能移动。</li>
-<li>branch是一系列串联的commit的线。</li>
+        <h2 id="为什么本地搭建一个git服务器"><a href="#为什么本地搭建一个git服务器" class="headerlink" title="为什么本地搭建一个git服务器"></a>为什么本地搭建一个git服务器</h2><ul>
+<li>对于自己学习使用的代码，在没有网络的情况下不能用github，gitlab,所以本地建立一个git服务器。</li>
 </ul>
-<h3 id="git-tag的用法"><a href="#git-tag的用法" class="headerlink" title="git tag的用法"></a>git tag的用法</h3><ul>
-<li>我们常常在代码封板时,使用git 创建一个tag ,这样一个不可修改的历史代码版本就像被我们封存起来一样,不论是运维发布拉取,或者以后的代码版本管理,都是十分方便的</li>
+<h2 id="git服务器环境准备centos7"><a href="#git服务器环境准备centos7" class="headerlink" title="git服务器环境准备centos7"></a>git服务器环境准备centos7</h2><h2 id="服务端创建git用户"><a href="#服务端创建git用户" class="headerlink" title="服务端创建git用户"></a>服务端创建git用户</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">id git # 查看是否存在git用户，存在就不创建了。</span><br><span class="line">useradd git</span><br><span class="line">passwd git</span><br><span class="line">输入密码，我设置的是xxx@123</span><br></pre></td></tr></table></figure>
+<h2 id="客户端开启公钥认证认证，免密push-pull"><a href="#客户端开启公钥认证认证，免密push-pull" class="headerlink" title="客户端开启公钥认证认证，免密push/pull"></a>客户端开启公钥认证认证，免密push/pull</h2><ul>
+<li><p>首先服务端需要开启ssh服务</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/ssh/sshd_config</span><br><span class="line">RSAAuthentication yes </span><br><span class="line">PubkeyAuthentication yes</span><br><span class="line">AuthorizedKeysFile .ssh/authorized_keys</span><br><span class="line">如果是centos7.4以上（含7.4），ssh1已经不支持了，只支持ssh2代协议。所以RSAAuthentication项是没有的</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>客户端执行 执行ssh-keygen -t rsa 生成公钥和私钥</p>
+</li>
+<li>复制客户端公钥到服务器端ssh-copy-id -i ~/.ssh/id_rsa.pub <a href="mailto:git@192.168.61.128" target="_blank" rel="noopener">git@192.168.61.128</a> </li>
 </ul>
-<h3 id="git的tag功能"><a href="#git的tag功能" class="headerlink" title="git的tag功能"></a>git的tag功能</h3><ul>
-<li>git 下打标签其实有2种情况<br>轻量级的：它其实是一个独立的分支,或者说是一个不可变的分支.指向特定提交对象的引用</li>
-<li>带附注的：实际上是存储在仓库中的一个独立对象，它有自身的校验和信息，包含着标签的名字，标签说明，标签本身也允许使用 GNU Privacy Guard (GPG) 来签署或验证,电子邮件地址和日期，一般我们都建议使用含附注型的标签，以便保留相关信息<br>所以我们推荐使用第二种标签形式</li>
-</ul>
-<h3 id="创建tag"><a href="#创建tag" class="headerlink" title="创建tag"></a>创建tag</h3><ul>
-<li>git tag -a V1.2 -m ‘release 1.2’</li>
-<li>上面的命令我们成功创建了本地一个版本 V1.2 ,并且添加了附注信息 ‘release 1.2’</li>
-</ul>
-<h2 id="查看tag"><a href="#查看tag" class="headerlink" title="查看tag"></a>查看tag</h2><ul>
-<li>git tag</li>
-<li>要显示附注信息,我们需要用 show 指令来查看</li>
-<li><p>git show V1.2</p>
-</li>
-<li><p>但是目前这个标签仅仅是提交到了本地git仓库.如何同步到远程代码库</p>
-</li>
-<li><p>git push origin –tags</p>
-</li>
-<li><p>如果刚刚同步上去,你缺发现一个致命bug ,需要重新打版本,现在还为时不晚.</p>
-</li>
-<li><p>git tag -d V1.2</p>
-</li>
-<li><p>到这一步我们只是删除了本地 V1.2的版本,可是线上V1.2的版本还是存在,如何办?这时我们可以推送的空的同名版本到线下,达到删除线上版本的目标:</p>
-</li>
-<li><p>git push origin :refs/tags/V1.2</p>
-</li>
-<li><p>如何获取远程版本?</p>
-</li>
-<li>git fetch origin tag V1.2</li>
-<li>这样我们可以精准拉取指定的某一个版本.适用于运维同学部署指定版本.</li>
-</ul>
+<h2 id="服务端创建git仓库"><a href="#服务端创建git仓库" class="headerlink" title="服务端创建git仓库"></a>服务端创建git仓库</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /data/git/gittest.git</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 初始化这个仓库</span><br><span class="line">cd /data/git/gittest.git</span><br><span class="line">git init --bare .</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 目录所属用户设置</span><br><span class="line">chown -R git:git /data/git</span><br></pre></td></tr></table></figure>
+<h2 id="客户端clone远程仓库"><a href="#客户端clone远程仓库" class="headerlink" title="客户端clone远程仓库"></a>客户端clone远程仓库</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mkdir localgit</span><br><span class="line">cd localgit</span><br><span class="line">git clone git@192.168.61.128:/data/git/gittest.git .</span><br><span class="line"><span class="meta">#</span> 提示输入服务端git账户的密码。</span><br><span class="line"><span class="meta">#</span>修改完就可以提交了</span><br><span class="line"></span><br><span class="line">touch abc.txt</span><br><span class="line">git add .</span><br><span class="line">git commit -m 'aaa'</span><br><span class="line">git push</span><br></pre></td></tr></table></figure>
 
         
         
@@ -804,67 +804,6 @@
   
   <span></span> <a href="/tags/git/">git</a>
   </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2019/02/22/db/redis/redis文章分组的用途/" title="redis文章分组的用途" itemprop="url">redis文章分组的用途</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
-		
-  <p class="article-time">
-    <time datetime="2019-02-22T07:50:00.000Z" itemprop="datePublished"> Published 2019-02-22</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="文章分组的用途"><a href="#文章分组的用途" class="headerlink" title="文章分组的用途"></a>文章分组的用途</h2><ul>
-<li>文章分组，可以用set结构存储同一个分组的文章id</li>
-<li>set可以和zset使用zinterstore命令求交集，set默认的score是1， zset默认的一般不是1，可以指定参数max，取score大的值。</li>
-<li>比如获取一个分组A中的文章按时间排序，就拿这个分组和发布时间集合zset求交集，交集可以取一个临时名字，设置有效期60s。</li>
-<li>比如获取一个分组B中的文章按照评分大小排序，就拿这个分组和评分集合zset求交集。</li>
-<li>一般接口直接就拿redis获取的数据返回了。</li>
-</ul>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/redis/">redis</a>
-</div>
-
 
 </div>
 
@@ -1005,6 +944,67 @@
 <li>考虑到并发，如果以上三个操作应该用事物操作，保证原子性。</li>
 </ol>
 </li>
+</ul>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/redis/">redis</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2019/02/22/db/redis/redis文章分组的用途/" title="redis文章分组的用途" itemprop="url">redis文章分组的用途</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
+		
+  <p class="article-time">
+    <time datetime="2019-02-22T07:50:00.000Z" itemprop="datePublished"> Published 2019-02-22</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="文章分组的用途"><a href="#文章分组的用途" class="headerlink" title="文章分组的用途"></a>文章分组的用途</h2><ul>
+<li>文章分组，可以用set结构存储同一个分组的文章id</li>
+<li>set可以和zset使用zinterstore命令求交集，set默认的score是1， zset默认的一般不是1，可以指定参数max，取score大的值。</li>
+<li>比如获取一个分组A中的文章按时间排序，就拿这个分组和发布时间集合zset求交集，交集可以取一个临时名字，设置有效期60s。</li>
+<li>比如获取一个分组B中的文章按照评分大小排序，就拿这个分组和评分集合zset求交集。</li>
+<li>一般接口直接就拿redis获取的数据返回了。</li>
 </ul>
 
         
@@ -1332,7 +1332,7 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2019/02/14/language/python/2__init__文件的作用/" title="python 导入模块文件以及相对导入和__init__文件作用" itemprop="url">python 导入模块文件以及相对导入和__init__文件作用</a>
+      <a href="/2019/02/14/linux/ip地址子网掩码的关系/" title="ip地址和子网掩码，广播地址关系" itemprop="url">ip地址和子网掩码，广播地址关系</a>
   </h1>
   <p class="article-author">By
        
@@ -1345,28 +1345,26 @@
 </header>
     <div class="article-content">
         
-        <h2 id="python-导入模块文件的2中方式"><a href="#python-导入模块文件的2中方式" class="headerlink" title="python 导入模块文件的2中方式"></a>python 导入模块文件的2中方式</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> lib <span class="keyword">or</span> <span class="keyword">from</span> lib <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 导入子目录中模块</span></span><br><span class="line"><span class="keyword">import</span> tmp.lib3  <span class="keyword">or</span>  <span class="keyword">from</span> tmp.lib3 <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 导入上级目录</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">sys.path.append(<span class="string">'home/app/'</span>)</span><br><span class="line"><span class="keyword">import</span> mod</span><br><span class="line"><span class="keyword">import</span> xxxx</span><br></pre></td></tr></table></figure>
-<ul>
-<li><p>与import类似, 被导入的module仍然会执行且仅执行一次</p>
-</li>
-<li><p>from *** import 的实质</p>
-</li>
-<li><p>当以 “from *** import “ 方式导入module时, python会在当前module 的命名空间中新建相应的命名. 即, “from t2 import var1” 相当于:</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> t2</span><br><span class="line">var1= t2.var1</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>from package import item  # 这种方式，item可以是包中的一个子模块或子包，也可以是包中定义的其他命名，像函数、类、变量。</p>
-</li>
-<li>import item.subitem.subsubitem # 这些子项必须是包，最后的子项是包或模块。但不能为函数、类或变量。否则出错：No module named ***</li>
+        <h2 id="什么是ip地址？"><a href="#什么是ip地址？" class="headerlink" title="什么是ip地址？"></a>什么是ip地址？</h2><ul>
+<li>ip是在一个网段中的一台计算机的ip地址（192.168.1.2）</li>
+<li>如果你家的联通宽带给你家的公网ip地址是10.10.123.234(假设的)，那么接到你家路由器，首先路由器需要有一个ip地址，一般是192.168.1.1（也可能是192.168.0.1），这个应该可以登录到路由器中设置。</li>
+<li>其中192.168.1.255 就是广播地址，比如centos中ifconfig命令查看的broadcast</li>
+<li>剩余的ip段192.168.1.2~192.168.1.254 就是可以分配给手机，电脑等客户端使用的ip。一共是253（255-2）个。</li>
 </ul>
-<h2 id="init-py-的作用"><a href="#init-py-的作用" class="headerlink" title="__init__.py 的作用"></a>__init__.py 的作用</h2><p>python import package都是根据每个module的<strong>name</strong>来实现的。<br>比如说，有一个文件夹结构为：</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">package/</span><br><span class="line">    __init__.py</span><br><span class="line">    subpackage1/</span><br><span class="line">        __init__.py</span><br><span class="line">        moduleX.py</span><br><span class="line">    moduleA.py</span><br></pre></td></tr></table></figure>
-<ul>
-<li><p>那么，如果（在这个package文件夹之外，比如package的同级文件夹下建立运行一个run.py）运行一个script，来导入moduleX模块，那么这个moduleX的<strong>name</strong>就是.package.subpackage1.moduleX，由于moduleX获得了前述名称，那么在moduleX.py内部就可以有relative import的语句，比如说：from .. import moduleA</p>
-</li>
-<li><p>而moduleX之所以能够获得的.package.subpackage1.moduleX的<strong>name</strong> attribute属性，前提是package被python解释器识别成了一个package来处理（比如在package的同级文件夹下的运行的run.py有import package.subpackage1.moduleX之类的语句）。可是，如果每一个被我直接run的python script都会被视作是top-level script。top-level script的<strong>name</strong>被自动设置成<strong>main</strong>。因此，如果我从package文件夹内部直接运行moduleA.py这个脚本，那么它的<strong>name</strong>就被置成了<strong>main</strong>，python也不会把它当作一个package，其中的relative import的语句自然就无法起作用了。</p>
-</li>
+<h2 id="ip由什么组成？"><a href="#ip由什么组成？" class="headerlink" title="ip由什么组成？"></a>ip由什么组成？</h2><ul>
+<li>例如一个ip 192.168.1.2，是一个C类网络，一般有254台主机。二进制表示就是 网络号标识|1100 0000 |1000 0000| 0000 0001|  + 主机号标识|0000 0010| </li>
+<li>点号分割每个数字都是8位二进制,网络号部分就是192.168.1,主机号部分就是2。</li>
+<li>网络标识部分越短，那么标识主机部分可用的范围越大，但是需要子网掩码配合决定由多少可用ip</li>
 </ul>
-<h2 id="总之，运行脚本要在包目录的外层，包里面的模块之间才能用-或则-等相对路径做导入操作。换句话，就是存在from-import-xxx-的文件不能直接python-xxx-py操作，即使存在init-py-也不会被认为是一个包。"><a href="#总之，运行脚本要在包目录的外层，包里面的模块之间才能用-或则-等相对路径做导入操作。换句话，就是存在from-import-xxx-的文件不能直接python-xxx-py操作，即使存在init-py-也不会被认为是一个包。" class="headerlink" title="总之，运行脚本要在包目录的外层，包里面的模块之间才能用. 或则 ..等相对路径做导入操作。换句话，就是存在from .. import xxx 的文件不能直接python xxx.py操作，即使存在init.py, .也不会被认为是一个包。"></a>总之，运行脚本要在包目录的外层，包里面的模块之间才能用. 或则 ..等相对路径做导入操作。换句话，就是存在from .. import xxx 的文件不能直接python xxx.py操作，即使存在<strong>init</strong>.py, .也不会被认为是一个包。</h2>
+<h2 id="什么是子网掩码？"><a href="#什么是子网掩码？" class="headerlink" title="什么是子网掩码？"></a>什么是子网掩码？</h2><ul>
+<li>子网掩码，顾名思义，遮掩的意思，子网掩码就是把ip地址分为网络部分和主机部分，主机部分用二进制位用1标识，主机号部分用0标识。C类子网掩码一般是255.255.255.0 </li>
+<li>如果所需的ip比较多，比如学校这种环境，子网掩码可以设置成255.255.0.0 ,那么ip返回就是255的2次方-2，就是65023个。那么ip网络部分就是192.168,后面两部分是主机号。</li>
+</ul>
+<ul>
+<li>网关是什么，比如两个A客户端192.168.1.2 和B客户端192.168.2.2 就是两个网络的设备，前提是他们的子网掩码都是255.255.255.0， 那么他们通信就需要A客户端发送给网关ip，有网关路由转发到B所在的网关，再转发到B客户端。 比如我的路由器ip是192.168.2.1， 我自己的ip是192.168.2.110， 默认网关也是192.168.2.1</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">netstat -rn</span><br><span class="line"></span><br><span class="line">Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface</span><br><span class="line">0.0.0.0         192.168.2.1     0.0.0.0         UG        0 0          0 ens33</span><br><span class="line">0.0.0.0表示发给任何人的包，都发给192.168.2.1这个网关， Genmask写0.0.0.0是默认路由的网络掩码。</span><br></pre></td></tr></table></figure>
+
         
         
         <p class="article-more-link">
@@ -1378,7 +1376,7 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/python/">python</a>
+  <a class="article-category-link" href="/categories/linux/">linux</a>
 </div>
 
 
@@ -1481,7 +1479,7 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2019/02/14/linux/ip地址子网掩码的关系/" title="ip地址和子网掩码，广播地址关系" itemprop="url">ip地址和子网掩码，广播地址关系</a>
+      <a href="/2019/02/14/language/python/2__init__文件的作用/" title="python 导入模块文件以及相对导入和__init__文件作用" itemprop="url">python 导入模块文件以及相对导入和__init__文件作用</a>
   </h1>
   <p class="article-author">By
        
@@ -1494,26 +1492,28 @@
 </header>
     <div class="article-content">
         
-        <h2 id="什么是ip地址？"><a href="#什么是ip地址？" class="headerlink" title="什么是ip地址？"></a>什么是ip地址？</h2><ul>
-<li>ip是在一个网段中的一台计算机的ip地址（192.168.1.2）</li>
-<li>如果你家的联通宽带给你家的公网ip地址是10.10.123.234(假设的)，那么接到你家路由器，首先路由器需要有一个ip地址，一般是192.168.1.1（也可能是192.168.0.1），这个应该可以登录到路由器中设置。</li>
-<li>其中192.168.1.255 就是广播地址，比如centos中ifconfig命令查看的broadcast</li>
-<li>剩余的ip段192.168.1.2~192.168.1.254 就是可以分配给手机，电脑等客户端使用的ip。一共是253（255-2）个。</li>
-</ul>
-<h2 id="ip由什么组成？"><a href="#ip由什么组成？" class="headerlink" title="ip由什么组成？"></a>ip由什么组成？</h2><ul>
-<li>例如一个ip 192.168.1.2，是一个C类网络，一般有254台主机。二进制表示就是 网络号标识|1100 0000 |1000 0000| 0000 0001|  + 主机号标识|0000 0010| </li>
-<li>点号分割每个数字都是8位二进制,网络号部分就是192.168.1,主机号部分就是2。</li>
-<li>网络标识部分越短，那么标识主机部分可用的范围越大，但是需要子网掩码配合决定由多少可用ip</li>
-</ul>
-<h2 id="什么是子网掩码？"><a href="#什么是子网掩码？" class="headerlink" title="什么是子网掩码？"></a>什么是子网掩码？</h2><ul>
-<li>子网掩码，顾名思义，遮掩的意思，子网掩码就是把ip地址分为网络部分和主机部分，主机部分用二进制位用1标识，主机号部分用0标识。C类子网掩码一般是255.255.255.0 </li>
-<li>如果所需的ip比较多，比如学校这种环境，子网掩码可以设置成255.255.0.0 ,那么ip返回就是255的2次方-2，就是65023个。那么ip网络部分就是192.168,后面两部分是主机号。</li>
-</ul>
+        <h2 id="python-导入模块文件的2中方式"><a href="#python-导入模块文件的2中方式" class="headerlink" title="python 导入模块文件的2中方式"></a>python 导入模块文件的2中方式</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> lib <span class="keyword">or</span> <span class="keyword">from</span> lib <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 导入子目录中模块</span></span><br><span class="line"><span class="keyword">import</span> tmp.lib3  <span class="keyword">or</span>  <span class="keyword">from</span> tmp.lib3 <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 导入上级目录</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">sys.path.append(<span class="string">'home/app/'</span>)</span><br><span class="line"><span class="keyword">import</span> mod</span><br><span class="line"><span class="keyword">import</span> xxxx</span><br></pre></td></tr></table></figure>
 <ul>
-<li>网关是什么，比如两个A客户端192.168.1.2 和B客户端192.168.2.2 就是两个网络的设备，前提是他们的子网掩码都是255.255.255.0， 那么他们通信就需要A客户端发送给网关ip，有网关路由转发到B所在的网关，再转发到B客户端。 比如我的路由器ip是192.168.2.1， 我自己的ip是192.168.2.110， 默认网关也是192.168.2.1</li>
+<li><p>与import类似, 被导入的module仍然会执行且仅执行一次</p>
+</li>
+<li><p>from *** import 的实质</p>
+</li>
+<li><p>当以 “from *** import “ 方式导入module时, python会在当前module 的命名空间中新建相应的命名. 即, “from t2 import var1” 相当于:</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> t2</span><br><span class="line">var1= t2.var1</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>from package import item  # 这种方式，item可以是包中的一个子模块或子包，也可以是包中定义的其他命名，像函数、类、变量。</p>
+</li>
+<li>import item.subitem.subsubitem # 这些子项必须是包，最后的子项是包或模块。但不能为函数、类或变量。否则出错：No module named ***</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">netstat -rn</span><br><span class="line"></span><br><span class="line">Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface</span><br><span class="line">0.0.0.0         192.168.2.1     0.0.0.0         UG        0 0          0 ens33</span><br><span class="line">0.0.0.0表示发给任何人的包，都发给192.168.2.1这个网关， Genmask写0.0.0.0是默认路由的网络掩码。</span><br></pre></td></tr></table></figure>
-
+<h2 id="init-py-的作用"><a href="#init-py-的作用" class="headerlink" title="__init__.py 的作用"></a>__init__.py 的作用</h2><p>python import package都是根据每个module的<strong>name</strong>来实现的。<br>比如说，有一个文件夹结构为：</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">package/</span><br><span class="line">    __init__.py</span><br><span class="line">    subpackage1/</span><br><span class="line">        __init__.py</span><br><span class="line">        moduleX.py</span><br><span class="line">    moduleA.py</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>那么，如果（在这个package文件夹之外，比如package的同级文件夹下建立运行一个run.py）运行一个script，来导入moduleX模块，那么这个moduleX的<strong>name</strong>就是.package.subpackage1.moduleX，由于moduleX获得了前述名称，那么在moduleX.py内部就可以有relative import的语句，比如说：from .. import moduleA</p>
+</li>
+<li><p>而moduleX之所以能够获得的.package.subpackage1.moduleX的<strong>name</strong> attribute属性，前提是package被python解释器识别成了一个package来处理（比如在package的同级文件夹下的运行的run.py有import package.subpackage1.moduleX之类的语句）。可是，如果每一个被我直接run的python script都会被视作是top-level script。top-level script的<strong>name</strong>被自动设置成<strong>main</strong>。因此，如果我从package文件夹内部直接运行moduleA.py这个脚本，那么它的<strong>name</strong>就被置成了<strong>main</strong>，python也不会把它当作一个package，其中的relative import的语句自然就无法起作用了。</p>
+</li>
+</ul>
+<h2 id="总之，运行脚本要在包目录的外层，包里面的模块之间才能用-或则-等相对路径做导入操作。换句话，就是存在from-import-xxx-的文件不能直接python-xxx-py操作，即使存在init-py-也不会被认为是一个包。"><a href="#总之，运行脚本要在包目录的外层，包里面的模块之间才能用-或则-等相对路径做导入操作。换句话，就是存在from-import-xxx-的文件不能直接python-xxx-py操作，即使存在init-py-也不会被认为是一个包。" class="headerlink" title="总之，运行脚本要在包目录的外层，包里面的模块之间才能用. 或则 ..等相对路径做导入操作。换句话，就是存在from .. import xxx 的文件不能直接python xxx.py操作，即使存在init.py, .也不会被认为是一个包。"></a>总之，运行脚本要在包目录的外层，包里面的模块之间才能用. 或则 ..等相对路径做导入操作。换句话，就是存在from .. import xxx 的文件不能直接python xxx.py操作，即使存在<strong>init</strong>.py, .也不会被认为是一个包。</h2>
         
         
         <p class="article-more-link">
@@ -1525,7 +1525,7 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/linux/">linux</a>
+  <a class="article-category-link" href="/categories/python/">python</a>
 </div>
 
 
