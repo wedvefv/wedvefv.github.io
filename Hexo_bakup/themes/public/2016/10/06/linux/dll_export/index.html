@@ -1,0 +1,626 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-Hans">
+<head>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-9224870466612638",
+    enable_page_level_ads: true
+  });
+</script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-133291163-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-133291163-1');
+</script>
+
+
+  <meta charset="UTF-8">
+  
+    <title>DLL导出方法 | 时光</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="wedvefv">
+    
+
+    
+    <meta name="description" content="DLL导出方法dll导出方法1 ：模块定义def文件，不支持c++的重载，以c的方式编译，导出的函数名不被修改，这样显示调用dll取得函数地址就没事。提供给vb，python等语言,需要_stdcall约定(函数自己清理堆栈)，这样无论是c文件还是c++文件，导出函数都会被改名字。所以dll做成必须要用def文件，否则找不到名字。除非你记得修饰过的函数名。 dll导出方法2：函数声明头文件声明如下">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DLL导出方法">
+<meta property="og:url" content="http://wedvefv.github.io/2016/10/06/linux/dll_export/index.html">
+<meta property="og:site_name" content="时光">
+<meta property="og:description" content="DLL导出方法dll导出方法1 ：模块定义def文件，不支持c++的重载，以c的方式编译，导出的函数名不被修改，这样显示调用dll取得函数地址就没事。提供给vb，python等语言,需要_stdcall约定(函数自己清理堆栈)，这样无论是c文件还是c++文件，导出函数都会被改名字。所以dll做成必须要用def文件，否则找不到名字。除非你记得修饰过的函数名。 dll导出方法2：函数声明头文件声明如下">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-05-19T14:30:17.032Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="DLL导出方法">
+<meta name="twitter:description" content="DLL导出方法dll导出方法1 ：模块定义def文件，不支持c++的重载，以c的方式编译，导出的函数名不被修改，这样显示调用dll取得函数地址就没事。提供给vb，python等语言,需要_stdcall约定(函数自己清理堆栈)，这样无论是c文件还是c++文件，导出函数都会被改名字。所以dll做成必须要用def文件，否则找不到名字。除非你记得修饰过的函数名。 dll导出方法2：函数声明头文件声明如下">
+
+    
+    <link rel="alternative" href="/atom.xml" title="时光" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="时光" title="时光"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="时光">时光</a></h1>
+				<h2 class="blog-motto">记录时光</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:wedvefv.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/10/06/linux/dll_export/" title="DLL导出方法" itemprop="url">DLL导出方法</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
+		
+  <p class="article-time">
+    <time datetime="2016-10-06T12:04:30.000Z" itemprop="datePublished"> Published 2016-10-06</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#DLL导出方法"><span class="toc-number">1.</span> <span class="toc-text">DLL导出方法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#dll导出方法1-："><span class="toc-number">1.1.</span> <span class="toc-text">dll导出方法1 ：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dll导出方法2："><span class="toc-number">1.2.</span> <span class="toc-text">dll导出方法2：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常见调用约定"><span class="toc-number">1.3.</span> <span class="toc-text">常见调用约定</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#stdcall与-cdecl的区别-函数调用方式"><span class="toc-number">1.4.</span> <span class="toc-text">_stdcall与_cdecl的区别(函数调用方式)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#stdcall-CALLBACK-WINAPI"><span class="toc-number">1.4.1.</span> <span class="toc-text">_stdcall(CALLBACK/WINAPI)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数名修饰"><span class="toc-number">1.4.2.</span> <span class="toc-text">函数名修饰</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数名修饰规则："><span class="toc-number">1.4.3.</span> <span class="toc-text">函数名修饰规则：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查看函数的名字修饰"><span class="toc-number">1.4.4.</span> <span class="toc-text">查看函数的名字修饰</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#beginthread需要-cdecl的线程函数地址，-beginthreadex和-CreateThread需要-stdcall的线程函数地址。"><span class="toc-number">1.4.5.</span> <span class="toc-text">_beginthread需要_cdecl的线程函数地址，_beginthreadex和_CreateThread需要_stdcall的线程函数地址。</span></a></li></ol></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="DLL导出方法"><a href="#DLL导出方法" class="headerlink" title="DLL导出方法"></a>DLL导出方法</h1><h2 id="dll导出方法1-："><a href="#dll导出方法1-：" class="headerlink" title="dll导出方法1 ："></a>dll导出方法1 ：</h2><p>模块定义def文件，不支持c++的重载，以c的方式编译，导出的函数名不被修改，这样<br>显示调用dll取得函数地址就没事。提供给vb，python等语言,需要_stdcall约定(函数自己清理堆栈)，这样无论是c文件还是c++文件，导出函数都会被改名字。所以dll做成必须要用def文件，否则找不到名字。除非你记得<br>修饰过的函数名。</p>
+<h2 id="dll导出方法2："><a href="#dll导出方法2：" class="headerlink" title="dll导出方法2："></a>dll导出方法2：</h2><p>函数声明头文件声明如下：<br>__declspec(dllexport)这种方式，方便c++代码的重载，同名函数不同参数，导出名字会被修饰，所以能区分开。<br>这种方式实现了DLL的隐式调用（只提供dll的导出符号lib文件，就可直接调用函数，（只是导出函数符号，没有具体实现，<br>不同于静态库的lib文件），def文件导出的dll不能用隐式调用，只能取得函数地址getProcAddress方式）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> _EXSOPINF_H_</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _EXSOPINF_H_</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __cplusplus  <span class="comment">//cpp文件时，用c方式编译导出，不会修改导出函数名。但是_stdcall</span></span></span><br><span class="line"><span class="comment">//调用也会修改，_cdecl(默认)调用不会修改</span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">"C"</span> &#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">__declspec(dllexport) <span class="function">DWORD WINAPI <span class="title">function1</span><span class="params">( LPCSTR lpszFolderName, LPSTR lpszCode )</span></span>;</span><br><span class="line">__declspec(dllexport) <span class="function">DWORD WINAPI <span class="title">function2</span><span class="params">( LPCSTR lpszFolderName, LPSTR lpszCode )</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __cplusplus</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">函数定义时，也需要在函数名前：加入修饰</span><br><span class="line">__declspec(dllexport) <span class="function">DWORD WINAPI <span class="title">function1</span><span class="params">(LPCSTR lpszFolderName, LPSTR lpszCode )</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line">其中WINAPI是调用约定。</span><br></pre></td></tr></table></figure>
+<h2 id="常见调用约定"><a href="#常见调用约定" class="headerlink" title="常见调用约定"></a>常见调用约定</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">调用协议常用场合</span><br><span class="line">__stdcall：Windows API默认的函数调用协议。</span><br><span class="line">__cdecl：C/C++默认的函数调用协议。</span><br><span class="line">__fastcall：适用于对性能要求较高的场合。</span><br><span class="line">函数参数入栈方式</span><br><span class="line">__stdcall：函数参数由右向左入栈。</span><br><span class="line">__cdecl：函数参数由右向左入栈。</span><br><span class="line">__fastcall：从左开始不大于<span class="number">4</span>字节的参数放入CPU的ECX和EDX寄存器，其余参数从右向左入栈。</span><br><span class="line">问题一：__fastcall在寄存器中放入不大于<span class="number">4</span>字节的参数，故性能较高，适用于需要高性能的场合。</span><br><span class="line">栈内数据清除方式</span><br><span class="line">__stdcall：函数调用结束后由被调用函数清除栈内数据。</span><br><span class="line">__cdecl：函数调用结束后由函数调用者清除栈内数据。</span><br><span class="line">__fastcall：函数调用结束后由被调用函数清除栈内数据。</span><br><span class="line">问题一：不同编译器设定的栈结构不尽相同，跨开发平台时由函数调用者清除栈内数据不可行。</span><br><span class="line">问题二：某些函数的参数是可变的，如<span class="built_in">printf</span>函数，这样的函数只能由函数调用者清除栈内数据。</span><br><span class="line">问题三：由调用者清除栈内数据时，每次调用都包含清除栈内数据的代码，故可执行文件较大。</span><br><span class="line">C语言编译器函数名称修饰规则</span><br><span class="line">__stdcall：编译后，函数名被修饰为“_functionname@number”。</span><br><span class="line">__cdecl：编译后，函数名被修饰为“_functionname”。</span><br><span class="line">__fastcall：编译后，函数名给修饰为“@functionname@nmuber”。</span><br><span class="line">注：“functionname”为函数名，“number”为参数字节数。</span><br><span class="line">注：函数实现和函数定义时如果使用了不同的函数调用协议，则无法实现函数调用。</span><br><span class="line">C++语言编译器函数名称修饰规则</span><br><span class="line">__stdcall：编译后，函数名被修饰为“?functionname@@YG******@Z”。</span><br><span class="line">__cdecl：编译后，函数名被修饰为“?functionname@@YA******@Z”。</span><br><span class="line">__fastcall：编译后，函数名被修饰为“?functionname@@YI******@Z”。</span><br><span class="line">注：“******”为函数返回值类型和参数类型表。</span><br><span class="line">注：函数实现和函数定义时如果使用了不同的函数调用协议，则无法实现函数调用。</span><br><span class="line">C语言和C++语言间如果不进行特殊处理，也无法实现函数的互相调用。</span><br></pre></td></tr></table></figure>
+<h2 id="stdcall与-cdecl的区别-函数调用方式"><a href="#stdcall与-cdecl的区别-函数调用方式" class="headerlink" title="_stdcall与_cdecl的区别(函数调用方式)"></a>_stdcall与_cdecl的区别(函数调用方式)</h2><p>(1). 是C Declaration的缩写，表示C语言默认的函数调用方法，实际上也是C++的默认的函数调用方法。<br>(2). 所有参数从右到左依次入栈，这些参数由调用者清除，称为手动清栈。具体所示：调用方的函数调用-&gt;被调用函数的执行-&gt;被调用函数的结果返回-&gt;调用方清除调整堆栈。<br>(3). 被调用函数无需要求调用者传递多少参数，调用者传递过多或者过少的参数，甚至完全不同的参数都不会产生编译阶段的错误。总的来说函数的参数个数可变的(就像printf函数一样)，因为只有调用者才知道它传给被调用函数几个参数，才能在调用结束时适当地调整堆栈。<br>(4). 因为每个调用的地方都需要生成一段调整堆栈的代码，所以最后生成的文件较大。</p>
+<h3 id="stdcall-CALLBACK-WINAPI"><a href="#stdcall-CALLBACK-WINAPI" class="headerlink" title="_stdcall(CALLBACK/WINAPI)"></a>_stdcall(CALLBACK/WINAPI)</h3><p>(1). 是Standard Call的缩写，要想函数按照此调用方式必须在函数名加入<em>stdcall，通常</em> win32 api 应该是_stdcall调用规则。通过VC++编写的DLL欲被其他语言编写的程序调用，应将函数的调用方式声明为_stdcall 方式，WINAPI都采用这种方式。<br>(2).  所有参数从右到左依次入栈，如果是调用类成员的话，最后一个入栈的是this指针。具体所示：调用方的函数调用-&gt;被调用函数的执行-&gt; 被调用方清除调整堆栈-&gt;被调用函数的结果返回。<br>(3).  这些堆栈中的参数由被调用的函数在返回后清除，使用的指令是 retn X，X表示参数占用的字节数，CPU在ret之后自动弹出X个字节的堆栈空间。称为自动清栈。<br>(4).  函数在编译的时候就必须确定参数个数，并且调用者必须严格的控制参数的生成，不能多，不能少，否则返回后会出错。总的来说，就是函数的参数个数不能是可变的。是从 _cdecl 修改而来, _stdcall 不支持可变参数,并且清栈由被调用者负责,其他的都一样<br>(5).  因为只需在被调用函数的地方生成一段调整堆栈的代码，所以最后生成的文件较小。</p>
+<p>PASCAL 是Pascal语言的函数调用方式，也可以在C/C++中使用，参数压栈顺序与前两者相反。返回时的清栈方式忘记了。。。</p>
+<p>_fastcall 是编译器指定的快速调用方式。由于大多数的函数参数个数很少，使用堆栈传递比较费时。因此_fastcall通常规定将前两个（或若干个）参数由寄存器传递，其余参数还是通过堆栈传递。不同编译器编译的程序规定的寄存器不同。返回方式和_stdcall相当。</p>
+<p>_thiscall 是为了解决类成员调用中this指针传递而规定的。_thiscall要求把this指针放在特定寄存器中，该寄存器由编译器决定。VC使用ecx，Borland的C++编译器使用eax。返回方式和_stdcall相当。</p>
+<p>_fastcall 和 _thiscall涉及的寄存器由编译器决定，因此不能用作跨编译器的接口。所以Windows上的COM对象接口都定义为_stdcall调用方式。</p>
+<p>C中不加说明默认函数为_cdecl方式（C中也只能用这种方式），C++也一样，但是默认的调用方式可以在IDE环境中设置。</p>
+<p>带有可变参数的函数必须且只能使用_cdecl方式，例如下面的函数:<br>      int printf(char * fmtStr, …);</p>
+<pre><code>int scanf(char * fmtStr, ...);
+</code></pre><h3 id="函数名修饰"><a href="#函数名修饰" class="headerlink" title="函数名修饰"></a>函数名修饰</h3><p>(1). _cdecl ：对于_cdecl而言，如果对于定义在C程序文件(编译器会通过后缀名为.C判断)的输出函数，函数名会保持原样；对于定义在C++程序文件中的输出函数，函数名会被修饰(见10)。为使函数名不被修饰，有两种方法：A.可通过在前面加上extern “c”以去除函数名修饰；B. 可通过.def文件去除函数名修饰。</p>
+<p>(2). _stdcall：无论是C程序文件中的输出函数还是C++程序文件中的输出函数，函数名都会被修饰。对于定义在C++程序文件中的输出函数，好像更复杂，和_cdecl的情况类似。去除函数名修饰方法：只能通过.def文件去除函数名修饰。</p>
+<h3 id="函数名修饰规则："><a href="#函数名修饰规则：" class="headerlink" title="函数名修饰规则："></a>函数名修饰规则：</h3><p>(1). 为什么要函数名修饰：<br>      函数名修饰就是编译器在编译期间创建的一个字符串，用来指明函数的定义和原型。LINK程序或其他工具有时需要指定函数的名字修饰来定位函数的正确位置。多少情况下程序员并不需要知道函数的名字修饰，LINK程序或其他工具会自动区分他们。当然，在某些情况下需要指定函数名修饰，例如在c++程序中，为了让LINK程序或其他工具能够匹配到正确的函数名字，就必须为重载函数后一些特殊函数(如构造函数和析构函数)指定名字修饰。另一种需要指定函数名修饰的情况是在汇编程序中调用C或C++函数。<br>(2). C语言：<br>      对于_stdcall调用约定，编译器和链接器会在输出函数名前加上一个下划线前缀，函数名后面加上一个“@”符号和其参数的字节数，例如_functionname@number。_cdecl调用约定仅在输出函数名前加上一个下划线前缀，例如_functionname。_fastcall调用约定在输出函数名前加上一个 “@“符号，后面也是一个”@“符号和其参数的字节数，例如@functionname@number。<br>(3). C++语言：<br>   C++的函数名修饰规则有些复杂，但是信息更充分，通过分析修饰名不仅能够知道函数的调用方式，返回值类型，参数个数甚至参数类型。不管<strong>cdecl，</strong>fastcall还是<strong>stdcall调用方式，函数修饰都是以一个“?”开始，后面紧跟函数的名字，再后面是参数表的开始标识和按照参数类型代号拼出的参数表。对于</strong>stdcall方式，参数表的开始标识是“@@YG”，对于<strong>cdecl方式则是“@@YA”，对于</strong>fastcall方式则是“@@YI”。参数表的拼写代号如下所示：<br>X–void<br>D–char<br>E–unsigned char<br>F–short<br>H–int<br>I–unsigned int<br>J–long<br>K–unsigned long（DWORD）<br>M–float<br>N–double<br>_N—bool<br>U—struct</p>
+<p>指针的方式有些特别，用PA表示指针，用PB表示const类型的指针。后面的代号表明指针类型，如果相同类型的指针连续出现，以“0”代替，一个“0”代表一次重复。U表示结构类型，通常后跟结构体的类型名，用“@@”表示结构类型名的结束。函数的返回值不作特殊处理，它的描述方式和函数参数一样，紧跟着参数表的开始标志，也就是说，函数参数表的第一项实际上是表示函数的返回值类型。参数表后以“@Z”标识整个名字的结束，如果该函数无参数，则以“Z”标识结束。下面举两个例子，假如有以下函数声明：<br>int Function1(char *var1,unsigned long);<br>其函数修饰名为“?Function1@@YGHPADK@Z”，而对于函数声明：<br>oid Function2();<br>其函数修饰名则为“?Function2@@YGXXZ” 。<br>对于C++的类成员函数（其调用方式是thiscall），函数的名字修饰与非成员的C++函数稍有不同，首先就是在函数名字和参数表之间插入以“@”字符引导的类名；其次是参数表的开始标识不同，公有（public）成员函数的标识是“@@QAE”,保护（protected）成员函数的标识是“@@IAE”,私有（private）成员函数的标识是“@@AAE”，如果函数声明使用了const关键字，则相应的标识应分别为“@@QBE”，“@@IBE”和“@@ABE”。如果参数类型是类实例的引用，则使用“AAV1”，对于const类型的引用，则使用“ABV1”。</p>
+<h3 id="查看函数的名字修饰"><a href="#查看函数的名字修饰" class="headerlink" title="查看函数的名字修饰"></a>查看函数的名字修饰</h3><p> 有两种方式可以检查你的程序中的函数的名字修饰：使用编译输出列表或使用Dumpbin工具。使用/FAc，/FAs或/FAcs命令行参数可以让编译器输出函数或变量名字列表。使用dumpbin.exe /SYMBOLS命令也可以获得obj文件或lib文件中的函数或变量名字列表。此外，还可以使用 undname.exe 将修饰名转换为未修饰形式。</p>
+<h3 id="beginthread需要-cdecl的线程函数地址，-beginthreadex和-CreateThread需要-stdcall的线程函数地址。"><a href="#beginthread需要-cdecl的线程函数地址，-beginthreadex和-CreateThread需要-stdcall的线程函数地址。" class="headerlink" title="_beginthread需要_cdecl的线程函数地址，_beginthreadex和_CreateThread需要_stdcall的线程函数地址。"></a>_beginthread需要_cdecl的线程函数地址，_beginthreadex和_CreateThread需要_stdcall的线程函数地址。</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CALLBACK __stdcall <span class="comment">//这就是传说中的回调函数</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> WINAPI __stdcall <span class="comment">//这就是传说中的WINAPI</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> WINAPIV __cdecl</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> APIENTRY WINAPI <span class="comment">//DllMain的入口就在这里</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> APIPRIVATE __stdcall</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PASCAL __stdcall</span></span><br></pre></td></tr></table></figure>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/windows/">windows</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://wedvefv.github.io/2016/10/06/linux/dll_export/" data-title="DLL导出方法 | 时光" data-tsina="" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/10/06/language/html/ajax/" title="ajax简介">
+  <strong>上一篇：</strong><br/>
+  <span>
+  ajax简介</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/10/05/linux/vim_syntastic/"  title="syntastic vim  静态分析插件">
+ <strong>下一篇：</strong><br/> 
+ <span>syntastic vim  静态分析插件
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+
+
+
+
+
+<div id="gitmentContainer"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+    var gitment = new Gitment({
+        id: 'Thu Oct 06 2016 20:04:30 GMT+0800',
+        owner: 'wedvefv',
+        repo: 'wedvefv.github.io',
+        oauth: {
+            client_id: 'fea174d5ebd3b11bc834',
+            client_secret: 'f4523a51691c27ed25f8bfd8be267ae8959f9fd7',
+        },
+    });
+    gitment.render('gitmentContainer')
+</script>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#DLL导出方法"><span class="toc-number">1.</span> <span class="toc-text">DLL导出方法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#dll导出方法1-："><span class="toc-number">1.1.</span> <span class="toc-text">dll导出方法1 ：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dll导出方法2："><span class="toc-number">1.2.</span> <span class="toc-text">dll导出方法2：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常见调用约定"><span class="toc-number">1.3.</span> <span class="toc-text">常见调用约定</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#stdcall与-cdecl的区别-函数调用方式"><span class="toc-number">1.4.</span> <span class="toc-text">_stdcall与_cdecl的区别(函数调用方式)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#stdcall-CALLBACK-WINAPI"><span class="toc-number">1.4.1.</span> <span class="toc-text">_stdcall(CALLBACK/WINAPI)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数名修饰"><span class="toc-number">1.4.2.</span> <span class="toc-text">函数名修饰</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数名修饰规则："><span class="toc-number">1.4.3.</span> <span class="toc-text">函数名修饰规则：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查看函数的名字修饰"><span class="toc-number">1.4.4.</span> <span class="toc-text">查看函数的名字修饰</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#beginthread需要-cdecl的线程函数地址，-beginthreadex和-CreateThread需要-stdcall的线程函数地址。"><span class="toc-number">1.4.5.</span> <span class="toc-text">_beginthread需要_cdecl的线程函数地址，_beginthreadex和_CreateThread需要_stdcall的线程函数地址。</span></a></li></ol></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github Card</p>
+<div class="github-card" data-github="https://github.com/wedvefv" data-theme="medium"></div>
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">Categories</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/atom/" title="atom">atom<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/c/" title="c">c<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/flask/" title="flask">flask<sup>9</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git/" title="git">git<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/html/" title="html">html<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux/" title="linux">linux<sup>12</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/nginx/" title="nginx">nginx<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/python/" title="python">python<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/redis/" title="redis">redis<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/vim/" title="vim">vim<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/windows/" title="windows">windows<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/加密算法/" title="加密算法">加密算法<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/微信支付/" title="微信支付">微信支付<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">Tags</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/hexo/" title="hexo">hexo<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/vim/" title="vim">vim<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/encrypt/" title="encrypt">encrypt<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/c/" title="c++">c++<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/windows/" title="windows">windows<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/ajax/" title="ajax">ajax<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/html5/" title="html5">html5<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="https://ejs.bootcss.com/" target="_blank" title="ejs教程">ejs教程</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">Weibo</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m xiaoying Page in Google. <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/5803571716" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/https://github.com/wedvefv" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		<a href="http://stackoverflow.com/users/10970080" target="_blank" class="icon-stack-overflow" title="stackoverflow"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2019 
+		
+		<a href="/about" target="_blank" title="wedvefv">wedvefv</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', '', '');  
+ga('send', 'pageview');
+</script>
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
