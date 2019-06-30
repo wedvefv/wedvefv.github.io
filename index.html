@@ -5817,6 +5817,70 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2019/06/30/language/lua/openresty变量范围/" title="openresty 变量" itemprop="url">openresty 变量</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
+		
+  <p class="article-time">
+    <time datetime="2019-06-30T06:00:00.000Z" itemprop="datePublished"> Published 2019-06-30</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="NGX-LUA的三种变量范围"><a href="#NGX-LUA的三种变量范围" class="headerlink" title="NGX_LUA的三种变量范围"></a>NGX_LUA的三种变量范围</h3><ol>
+<li><p>进程间共享， nginx的所有work进程共享，使用lua_shared_dict定义，这样高并发就出触发锁。</p>
+</li>
+<li><p>进程内共享，lua代码中不加local关键字就是全局变量，这样的变量在同一个进程的所有请求之间共享,因为开启了lua缓存，每个work的VM虚拟机都会缓存全局变量.</p>
+</li>
+<li><p>同一个请求，比如local声明的或者ngx.ctx</p>
+</li>
+<li><p>lua_shared_dict 有模块[lua-resty-lrucache(<a href="https://github.com/openresty/lua-resty-lrucache)]可以实现在一个work中共享，由于nginx是单进程的，所以永远不会触发锁" target="_blank" rel="noopener">https://github.com/openresty/lua-resty-lrucache)]可以实现在一个work中共享，由于nginx是单进程的，所以永远不会触发锁</a><br>就是兼顾效率而且没有锁的问题，缺点内存比进程间共享占用比较大。</p>
+</li>
+</ol>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/openresty/">openresty</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2019/06/29/db/es/Elasticsearch_install/" title="Elasticsearch 安装笔记" itemprop="url">Elasticsearch 安装笔记</a>
   </h1>
   <p class="article-author">By
@@ -6012,7 +6076,7 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2019/06/09/ngx_lua/cookie_and_session/" title="一张导图了解cookie和session" itemprop="url">一张导图了解cookie和session</a>
+      <a href="/2019/06/09/language/php/cookie_and_session/" title="一张导图了解cookie和session" itemprop="url">一张导图了解cookie和session</a>
   </h1>
   <p class="article-author">By
        
@@ -6025,7 +6089,7 @@
 </header>
     <div class="article-content">
         
-        <h1 id="cookie和session的区别"><a href="#cookie和session的区别" class="headerlink" title="cookie和session的区别"></a>cookie和session的区别</h1><p><img src="/2019/06/09/ngx_lua/cookie_and_session/cookie_and_session.png" alt=""></p>
+        <h1 id="cookie和session的区别"><a href="#cookie和session的区别" class="headerlink" title="cookie和session的区别"></a>cookie和session的区别</h1><p><img src="/2019/06/09/language/php/cookie_and_session/cookie_and_session.png" alt=""></p>
 
         
         
@@ -6741,7 +6805,7 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2019/02/22/db/redis/redis文章分组的用途/" title="redis文章分组的用途" itemprop="url">redis文章分组的用途</a>
+      <a href="/2019/02/22/db/redis/redis文章发布/" title="redis文章发布" itemprop="url">redis文章发布</a>
   </h1>
   <p class="article-author">By
        
@@ -6754,14 +6818,20 @@
 </header>
     <div class="article-content">
         
-        <h2 id="文章分组的用途"><a href="#文章分组的用途" class="headerlink" title="文章分组的用途"></a>文章分组的用途</h2><ul>
-<li>文章分组，可以用set结构存储同一个分组的文章id</li>
-<li>set可以和zset使用zinterstore命令求交集，set默认的score是1， zset默认的一般不是1，可以指定参数max，取score大的值。</li>
-<li>比如获取一个分组A中的文章按时间排序，就拿这个分组和发布时间集合zset求交集，交集可以取一个临时名字，设置有效期60s。</li>
-<li>比如获取一个分组B中的文章按照评分大小排序，就拿这个分组和评分集合zset求交集。</li>
-<li>一般接口直接就拿redis获取的数据返回了。</li>
+        <h2 id="定时任务发布方式"><a href="#定时任务发布方式" class="headerlink" title="定时任务发布方式"></a>定时任务发布方式</h2><ul>
+<li>如果有后台发布文章，需要有定时任务将mysql中录入的文章同步到redis中</li>
+<li><ol>
+<li>这时候文章id当然是mysql自增产生的，生成一个文章id表示的文章内容 <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">	conn.hmset(<span class="string">"article:100:hash"</span>,&#123;属性字典&#125;）</span><br><span class="line">``` </span><br><span class="line">- <span class="number">2.</span> 作者发布的文章，文章的投票者集合当然有作者，需要设置投票集合。</span><br><span class="line">```py</span><br><span class="line">	conn.sadd(<span class="string">"artile:100:set"</span>,atrticle.uid)</span><br><span class="line">	conn.expire(<span class="string">"artile:100:set"</span>,<span class="number">7</span>*<span class="number">86400</span>) <span class="comment"># 一周有效期</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>文章的评分zset初始化,文章发布时间集合初始化。<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">conn.zincrby(<span class="string">"article:100:score:zset"</span>,<span class="number">432</span>)， <span class="number">432</span> 是一个投票的评分。</span><br><span class="line">conn.zadd(<span class="string">"article:time:zset"</span>,article_id, now)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
 </ul>
-
+<h2 id="如果是没有mysql，完全用redis这时候，文章id就需要一个string类型的key自增产生，其余步骤一致。"><a href="#如果是没有mysql，完全用redis这时候，文章id就需要一个string类型的key自增产生，其余步骤一致。" class="headerlink" title="如果是没有mysql，完全用redis这时候，文章id就需要一个string类型的key自增产生，其余步骤一致。"></a>如果是没有mysql，完全用redis这时候，文章id就需要一个string类型的key自增产生，其余步骤一致。</h2>
         
         
         <p class="article-more-link">
@@ -6891,7 +6961,7 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2019/02/22/db/redis/redis文章发布/" title="redis文章发布" itemprop="url">redis文章发布</a>
+      <a href="/2019/02/22/db/redis/redis文章分组的用途/" title="redis文章分组的用途" itemprop="url">redis文章分组的用途</a>
   </h1>
   <p class="article-author">By
        
@@ -6904,20 +6974,14 @@
 </header>
     <div class="article-content">
         
-        <h2 id="定时任务发布方式"><a href="#定时任务发布方式" class="headerlink" title="定时任务发布方式"></a>定时任务发布方式</h2><ul>
-<li>如果有后台发布文章，需要有定时任务将mysql中录入的文章同步到redis中</li>
-<li><ol>
-<li>这时候文章id当然是mysql自增产生的，生成一个文章id表示的文章内容 <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">	conn.hmset(<span class="string">"article:100:hash"</span>,&#123;属性字典&#125;）</span><br><span class="line">``` </span><br><span class="line">- <span class="number">2.</span> 作者发布的文章，文章的投票者集合当然有作者，需要设置投票集合。</span><br><span class="line">```py</span><br><span class="line">	conn.sadd(<span class="string">"artile:100:set"</span>,atrticle.uid)</span><br><span class="line">	conn.expire(<span class="string">"artile:100:set"</span>,<span class="number">7</span>*<span class="number">86400</span>) <span class="comment"># 一周有效期</span></span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-</li>
-<li><ol start="3">
-<li>文章的评分zset初始化,文章发布时间集合初始化。<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">conn.zincrby(<span class="string">"article:100:score:zset"</span>,<span class="number">432</span>)， <span class="number">432</span> 是一个投票的评分。</span><br><span class="line">conn.zadd(<span class="string">"article:time:zset"</span>,article_id, now)</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-</li>
+        <h2 id="文章分组的用途"><a href="#文章分组的用途" class="headerlink" title="文章分组的用途"></a>文章分组的用途</h2><ul>
+<li>文章分组，可以用set结构存储同一个分组的文章id</li>
+<li>set可以和zset使用zinterstore命令求交集，set默认的score是1， zset默认的一般不是1，可以指定参数max，取score大的值。</li>
+<li>比如获取一个分组A中的文章按时间排序，就拿这个分组和发布时间集合zset求交集，交集可以取一个临时名字，设置有效期60s。</li>
+<li>比如获取一个分组B中的文章按照评分大小排序，就拿这个分组和评分集合zset求交集。</li>
+<li>一般接口直接就拿redis获取的数据返回了。</li>
 </ul>
-<h2 id="如果是没有mysql，完全用redis这时候，文章id就需要一个string类型的key自增产生，其余步骤一致。"><a href="#如果是没有mysql，完全用redis这时候，文章id就需要一个string类型的key自增产生，其余步骤一致。" class="headerlink" title="如果是没有mysql，完全用redis这时候，文章id就需要一个string类型的key自增产生，其余步骤一致。"></a>如果是没有mysql，完全用redis这时候，文章id就需要一个string类型的key自增产生，其余步骤一致。</h2>
+
         
         
         <p class="article-more-link">
@@ -7384,81 +7448,6 @@
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2019/02/14/language/python/2__init__文件的作用/" title="python 导入模块文件以及相对导入和__init__文件作用" itemprop="url">python 导入模块文件以及相对导入和__init__文件作用</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
-		
-  <p class="article-time">
-    <time datetime="2019-02-14T06:00:00.000Z" itemprop="datePublished"> Published 2019-02-14</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="python-导入模块文件的2中方式"><a href="#python-导入模块文件的2中方式" class="headerlink" title="python 导入模块文件的2中方式"></a>python 导入模块文件的2中方式</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> lib <span class="keyword">or</span> <span class="keyword">from</span> lib <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 导入子目录中模块</span></span><br><span class="line"><span class="keyword">import</span> tmp.lib3  <span class="keyword">or</span>  <span class="keyword">from</span> tmp.lib3 <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 导入上级目录</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">sys.path.append(<span class="string">'home/app/'</span>)</span><br><span class="line"><span class="keyword">import</span> mod</span><br><span class="line"><span class="keyword">import</span> xxxx</span><br></pre></td></tr></table></figure>
-<ul>
-<li><p>与import类似, 被导入的module仍然会执行且仅执行一次</p>
-</li>
-<li><p>from *** import 的实质</p>
-</li>
-<li><p>当以 “from *** import “ 方式导入module时, python会在当前module 的命名空间中新建相应的命名. 即, “from t2 import var1” 相当于:</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> t2</span><br><span class="line">var1= t2.var1</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>from package import item  # 这种方式，item可以是包中的一个子模块或子包，也可以是包中定义的其他命名，像函数、类、变量。</p>
-</li>
-<li>import item.subitem.subsubitem # 这些子项必须是包，最后的子项是包或模块。但不能为函数、类或变量。否则出错：No module named ***</li>
-</ul>
-<h2 id="init-py-的作用"><a href="#init-py-的作用" class="headerlink" title="__init__.py 的作用"></a>__init__.py 的作用</h2><p>python import package都是根据每个module的<strong>name</strong>来实现的。<br>比如说，有一个文件夹结构为：</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">package/</span><br><span class="line">    __init__.py</span><br><span class="line">    subpackage1/</span><br><span class="line">        __init__.py</span><br><span class="line">        moduleX.py</span><br><span class="line">    moduleA.py</span><br></pre></td></tr></table></figure>
-<ul>
-<li><p>那么，如果（在这个package文件夹之外，比如package的同级文件夹下建立运行一个run.py）运行一个script，来导入moduleX模块，那么这个moduleX的<strong>name</strong>就是.package.subpackage1.moduleX，由于moduleX获得了前述名称，那么在moduleX.py内部就可以有relative import的语句，比如说：from .. import moduleA</p>
-</li>
-<li><p>而moduleX之所以能够获得的.package.subpackage1.moduleX的<strong>name</strong> attribute属性，前提是package被python解释器识别成了一个package来处理（比如在package的同级文件夹下的运行的run.py有import package.subpackage1.moduleX之类的语句）。可是，如果每一个被我直接run的python script都会被视作是top-level script。top-level script的<strong>name</strong>被自动设置成<strong>main</strong>。因此，如果我从package文件夹内部直接运行moduleA.py这个脚本，那么它的<strong>name</strong>就被置成了<strong>main</strong>，python也不会把它当作一个package，其中的relative import的语句自然就无法起作用了。</p>
-</li>
-</ul>
-<h2 id="总之，运行脚本要在包目录的外层，包里面的模块之间才能用-或则-等相对路径做导入操作。换句话，就是存在from-import-xxx-的文件不能直接python-xxx-py操作，即使存在init-py-也不会被认为是一个包。"><a href="#总之，运行脚本要在包目录的外层，包里面的模块之间才能用-或则-等相对路径做导入操作。换句话，就是存在from-import-xxx-的文件不能直接python-xxx-py操作，即使存在init-py-也不会被认为是一个包。" class="headerlink" title="总之，运行脚本要在包目录的外层，包里面的模块之间才能用. 或则 ..等相对路径做导入操作。换句话，就是存在from .. import xxx 的文件不能直接python xxx.py操作，即使存在init.py, .也不会被认为是一个包。"></a>总之，运行脚本要在包目录的外层，包里面的模块之间才能用. 或则 ..等相对路径做导入操作。换句话，就是存在from .. import xxx 的文件不能直接python xxx.py操作，即使存在<strong>init</strong>.py, .也不会被认为是一个包。</h2>
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/python/">python</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
@@ -7526,6 +7515,10 @@
 		  
 		
 		  
+			<li><a href="/categories/openresty/" title="openresty">openresty<sup>1</sup></a></li>
+		  
+		
+		  
 			<li><a href="/categories/python/" title="python">python<sup>3</sup></a></li>
 		  
 		
@@ -7583,15 +7576,15 @@
 			
 		
 			
-				<li><a href="/tags/ajax/" title="ajax">ajax<sup>1</sup></a></li>
-			
-		
-			
 				<li><a href="/tags/html5/" title="html5">html5<sup>1</sup></a></li>
 			
 		
 			
 				<li><a href="/tags/js/" title="js">js<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/ajax/" title="ajax">ajax<sup>1</sup></a></li>
 			
 		
 		</ul>

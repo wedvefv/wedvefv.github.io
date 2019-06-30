@@ -101,6 +101,81 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2019/02/14/language/python/2__init__文件的作用/" title="python 导入模块文件以及相对导入和__init__文件作用" itemprop="url">python 导入模块文件以及相对导入和__init__文件作用</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
+		
+  <p class="article-time">
+    <time datetime="2019-02-14T06:00:00.000Z" itemprop="datePublished"> Published 2019-02-14</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="python-导入模块文件的2中方式"><a href="#python-导入模块文件的2中方式" class="headerlink" title="python 导入模块文件的2中方式"></a>python 导入模块文件的2中方式</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> lib <span class="keyword">or</span> <span class="keyword">from</span> lib <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 导入子目录中模块</span></span><br><span class="line"><span class="keyword">import</span> tmp.lib3  <span class="keyword">or</span>  <span class="keyword">from</span> tmp.lib3 <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 导入上级目录</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">sys.path.append(<span class="string">'home/app/'</span>)</span><br><span class="line"><span class="keyword">import</span> mod</span><br><span class="line"><span class="keyword">import</span> xxxx</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>与import类似, 被导入的module仍然会执行且仅执行一次</p>
+</li>
+<li><p>from *** import 的实质</p>
+</li>
+<li><p>当以 “from *** import “ 方式导入module时, python会在当前module 的命名空间中新建相应的命名. 即, “from t2 import var1” 相当于:</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> t2</span><br><span class="line">var1= t2.var1</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>from package import item  # 这种方式，item可以是包中的一个子模块或子包，也可以是包中定义的其他命名，像函数、类、变量。</p>
+</li>
+<li>import item.subitem.subsubitem # 这些子项必须是包，最后的子项是包或模块。但不能为函数、类或变量。否则出错：No module named ***</li>
+</ul>
+<h2 id="init-py-的作用"><a href="#init-py-的作用" class="headerlink" title="__init__.py 的作用"></a>__init__.py 的作用</h2><p>python import package都是根据每个module的<strong>name</strong>来实现的。<br>比如说，有一个文件夹结构为：</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">package/</span><br><span class="line">    __init__.py</span><br><span class="line">    subpackage1/</span><br><span class="line">        __init__.py</span><br><span class="line">        moduleX.py</span><br><span class="line">    moduleA.py</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>那么，如果（在这个package文件夹之外，比如package的同级文件夹下建立运行一个run.py）运行一个script，来导入moduleX模块，那么这个moduleX的<strong>name</strong>就是.package.subpackage1.moduleX，由于moduleX获得了前述名称，那么在moduleX.py内部就可以有relative import的语句，比如说：from .. import moduleA</p>
+</li>
+<li><p>而moduleX之所以能够获得的.package.subpackage1.moduleX的<strong>name</strong> attribute属性，前提是package被python解释器识别成了一个package来处理（比如在package的同级文件夹下的运行的run.py有import package.subpackage1.moduleX之类的语句）。可是，如果每一个被我直接run的python script都会被视作是top-level script。top-level script的<strong>name</strong>被自动设置成<strong>main</strong>。因此，如果我从package文件夹内部直接运行moduleA.py这个脚本，那么它的<strong>name</strong>就被置成了<strong>main</strong>，python也不会把它当作一个package，其中的relative import的语句自然就无法起作用了。</p>
+</li>
+</ul>
+<h2 id="总之，运行脚本要在包目录的外层，包里面的模块之间才能用-或则-等相对路径做导入操作。换句话，就是存在from-import-xxx-的文件不能直接python-xxx-py操作，即使存在init-py-也不会被认为是一个包。"><a href="#总之，运行脚本要在包目录的外层，包里面的模块之间才能用-或则-等相对路径做导入操作。换句话，就是存在from-import-xxx-的文件不能直接python-xxx-py操作，即使存在init-py-也不会被认为是一个包。" class="headerlink" title="总之，运行脚本要在包目录的外层，包里面的模块之间才能用. 或则 ..等相对路径做导入操作。换句话，就是存在from .. import xxx 的文件不能直接python xxx.py操作，即使存在init.py, .也不会被认为是一个包。"></a>总之，运行脚本要在包目录的外层，包里面的模块之间才能用. 或则 ..等相对路径做导入操作。换句话，就是存在from .. import xxx 的文件不能直接python xxx.py操作，即使存在<strong>init</strong>.py, .也不会被认为是一个包。</h2>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/python/">python</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2019/02/13/language/python/9_大型程序结构/" title="flask 第9章（大型程序目录结构）" itemprop="url">flask 第9章（大型程序目录结构）</a>
   </h1>
   <p class="article-author">By
@@ -639,6 +714,85 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2019/01/28/language/python/3_模板的bootstrap扩展/" title="flask 第3章(bootstrap扩展模板)" itemprop="url">flask 第3章(bootstrap扩展模板)</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
+		
+  <p class="article-time">
+    <time datetime="2019-01-28T14:22:00.000Z" itemprop="datePublished"> Published 2019-01-28</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h1 id="模板的bootstrap扩展"><a href="#模板的bootstrap扩展" class="headerlink" title="模板的bootstrap扩展"></a>模板的bootstrap扩展</h1><ul>
+<li>安装扩展包</li>
+<li><p>pip install flask-bootstrap</p>
+</li>
+<li><p>如法炮制，从flask.ext中导入Bootstrap 包含app对象生成新的对象实例，即可使用bootstrap的特性。</p>
+</li>
+</ul>
+<p>如果使用bootstrap那么需要先用bootstrap包含app，在用manager包含app。</p>
+<ul>
+<li>自定一个base.html(继承自bootstrap的base.html)</li>
+</ul>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#123;% extends <span class="string">"bootstrap/base.html"</span> %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% block title %&#125;  &#123;% endblock %&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#123;% block navbar %&#125;</span><br><span class="line">    &lt;div class="navbar navbar-inverse" role="navigation"&gt;</span><br><span class="line">        &lt;div class="container"&gt;</span><br><span class="line">            &lt;div class="navbar-header"&gt;</span><br><span class="line">                &lt;button type="button" class="navbar-toggle"</span><br><span class="line">                    data-toogle=<span class="string">"collapse"</span> data-target=<span class="string">".narvar-collapse"</span>&gt;</span><br><span class="line">                    &lt;span class="sr-only"&gt; Toggle navigation    &lt;/span&gt;</span><br><span class="line">                    &lt;span class="icon-bar"&gt; &lt;/span&gt;</span><br><span class="line">                    &lt;span class="icon-bar"&gt; &lt;/span&gt;</span><br><span class="line">                    &lt;span class="icon-bar"&gt; &lt;/span&gt;</span><br><span class="line">                    &lt;span class="icon-bar"&gt; &lt;/span&gt;</span><br><span class="line">                &lt;/button&gt;</span><br><span class="line">                &lt;a class="navbar-brand" href="/"&gt;Home/a&gt;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">            &lt;div class="navbar-collapse collapse"&gt;</span><br><span class="line">                &lt;ul class="nav navbar-nav"&gt;</span><br><span class="line">                    &lt;li&gt; &lt;a hre="/"&gt; Home &lt;/a&gt;&lt;/li&gt;</span><br><span class="line">                &lt;/ul&gt;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&#123;% endblock %&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;% block comment %&gt;</span><br><span class="line">    &lt;div class="container"&gt;</span><br><span class="line">        &#123;% block page_comment %&#125;     &#123;% endblock %&#125;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;% endblock %&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="自定义基类模板"><a href="#自定义基类模板" class="headerlink" title="自定义基类模板"></a>自定义基类模板</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 404.html</span></span><br><span class="line"></span><br><span class="line">&#123;% extends <span class="string">"base.html"</span> %&#125;</span><br><span class="line">&#123;% block title %&#125; flask-pagenot found   &#123;% endblock %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% block page_comment %&#125;</span><br><span class="line">&lt;div class="page-header"&gt;</span><br><span class="line">    &lt;h1&gt; Not Found. &lt;/h1&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&#123;%endblock%&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="整个代码文件"><a href="#整个代码文件" class="headerlink" title="整个代码文件"></a>整个代码文件</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, render_template</span><br><span class="line"><span class="keyword">from</span> flask_script <span class="keyword">import</span> Manager</span><br><span class="line"><span class="keyword">from</span> flask_bootstrap <span class="keyword">import</span> Bootstrap</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line">bootstrap = Bootstrap(app)</span><br><span class="line">manager = Manager(app)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">"index.html"</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/user/&lt;name&gt;')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">user</span><span class="params">(name)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">"user.html"</span>,name=name)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.errorhandler(404)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">page_not_found</span><span class="params">(e)</span>:</span></span><br><span class="line">    <span class="keyword">return</span>  render_template(<span class="string">"404.html"</span>), <span class="number">404</span> </span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    manager.run()</span><br></pre></td></tr></table></figure>
+<ul>
+<li>运行命令 ： python hello.py  runserver –host 0.0.0.0 –d</li>
+</ul>
+<h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h2><p>a标签常用的href 可以使用url_for 函数生成<br>url_for(“index”) –&gt; /</p>
+<p>url_for(“index”,_external=True) –&gt; 绝对路径</p>
+<p>url_for(“index”, page=2 ) 返回？/page=2</p>
+<p>静态文件生成链接<br>url_for(‘static’, filename=’css/styles.css’, _external=True)<br>返回 <a href="http://localhost:5000/statics/css/style.css" target="_blank" rel="noopener">http://localhost:5000/statics/css/style.css</a></p>
+<h2 id="flask-moment组件本地化时间和日期"><a href="#flask-moment组件本地化时间和日期" class="headerlink" title="flask-moment组件本地化时间和日期"></a>flask-moment组件本地化时间和日期</h2><ul>
+<li>pip install flask-moment</li>
+</ul>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#123;% extends <span class="string">"base.html"</span> %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% block page_content %&#125;</span><br><span class="line">&lt;h1&gt; hello world!&lt;/h1&gt;</span><br><span class="line">&lt;p&gt; local date and time is &#123;&#123; moment(current_time).format('LLL')&#125;&#125;. &lt;/p&gt;</span><br><span class="line">&lt;p&gt; that was &#123;&#123; moment(current_time).fromNow(refresh=True) &#125;&#125;. &lt;/p&gt;</span><br><span class="line"></span><br><span class="line">&#123;% endblock %&#125;</span><br></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/flask/">flask</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2019/01/28/language/python/4_web表单/" title="flask 第4章(表单)" itemprop="url">flask 第4章(表单)</a>
   </h1>
   <p class="article-author">By
@@ -811,85 +965,6 @@
 <li>在base.html 模板中渲染循环取出消息</li>
 </ul>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&#123;# content 部分添加for循环#&#125;</span><br><span class="line">&#123;% block content %&#125;</span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span></span><br><span class="line">    &#123;# 增加一个 for循环#&#125;</span><br><span class="line">    &#123;% for message in get_flashed_messages() %&#125; </span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"alert alert-warning"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">class</span>=<span class="string">"close"</span> <span class="attr">data-dismiss</span>=<span class="string">"alert"</span>&gt;</span> $times;  <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">            &#123;&#123; message &#125;&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    &#123;% endfor %&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#123;% block page_content %&#125;  &#123;% endblock %&#125;</span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">&#123;% endblock %&#125;</span><br></pre></td></tr></table></figure>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/flask/">flask</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2019/01/28/language/python/3_模板的bootstrap扩展/" title="flask 第3章(bootstrap扩展模板)" itemprop="url">flask 第3章(bootstrap扩展模板)</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
-		
-  <p class="article-time">
-    <time datetime="2019-01-28T14:22:00.000Z" itemprop="datePublished"> Published 2019-01-28</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h1 id="模板的bootstrap扩展"><a href="#模板的bootstrap扩展" class="headerlink" title="模板的bootstrap扩展"></a>模板的bootstrap扩展</h1><ul>
-<li>安装扩展包</li>
-<li><p>pip install flask-bootstrap</p>
-</li>
-<li><p>如法炮制，从flask.ext中导入Bootstrap 包含app对象生成新的对象实例，即可使用bootstrap的特性。</p>
-</li>
-</ul>
-<p>如果使用bootstrap那么需要先用bootstrap包含app，在用manager包含app。</p>
-<ul>
-<li>自定一个base.html(继承自bootstrap的base.html)</li>
-</ul>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#123;% extends <span class="string">"bootstrap/base.html"</span> %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% block title %&#125;  &#123;% endblock %&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#123;% block navbar %&#125;</span><br><span class="line">    &lt;div class="navbar navbar-inverse" role="navigation"&gt;</span><br><span class="line">        &lt;div class="container"&gt;</span><br><span class="line">            &lt;div class="navbar-header"&gt;</span><br><span class="line">                &lt;button type="button" class="navbar-toggle"</span><br><span class="line">                    data-toogle=<span class="string">"collapse"</span> data-target=<span class="string">".narvar-collapse"</span>&gt;</span><br><span class="line">                    &lt;span class="sr-only"&gt; Toggle navigation    &lt;/span&gt;</span><br><span class="line">                    &lt;span class="icon-bar"&gt; &lt;/span&gt;</span><br><span class="line">                    &lt;span class="icon-bar"&gt; &lt;/span&gt;</span><br><span class="line">                    &lt;span class="icon-bar"&gt; &lt;/span&gt;</span><br><span class="line">                    &lt;span class="icon-bar"&gt; &lt;/span&gt;</span><br><span class="line">                &lt;/button&gt;</span><br><span class="line">                &lt;a class="navbar-brand" href="/"&gt;Home/a&gt;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">            &lt;div class="navbar-collapse collapse"&gt;</span><br><span class="line">                &lt;ul class="nav navbar-nav"&gt;</span><br><span class="line">                    &lt;li&gt; &lt;a hre="/"&gt; Home &lt;/a&gt;&lt;/li&gt;</span><br><span class="line">                &lt;/ul&gt;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&#123;% endblock %&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;% block comment %&gt;</span><br><span class="line">    &lt;div class="container"&gt;</span><br><span class="line">        &#123;% block page_comment %&#125;     &#123;% endblock %&#125;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;% endblock %&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="自定义基类模板"><a href="#自定义基类模板" class="headerlink" title="自定义基类模板"></a>自定义基类模板</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 404.html</span></span><br><span class="line"></span><br><span class="line">&#123;% extends <span class="string">"base.html"</span> %&#125;</span><br><span class="line">&#123;% block title %&#125; flask-pagenot found   &#123;% endblock %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% block page_comment %&#125;</span><br><span class="line">&lt;div class="page-header"&gt;</span><br><span class="line">    &lt;h1&gt; Not Found. &lt;/h1&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&#123;%endblock%&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="整个代码文件"><a href="#整个代码文件" class="headerlink" title="整个代码文件"></a>整个代码文件</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, render_template</span><br><span class="line"><span class="keyword">from</span> flask_script <span class="keyword">import</span> Manager</span><br><span class="line"><span class="keyword">from</span> flask_bootstrap <span class="keyword">import</span> Bootstrap</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line">bootstrap = Bootstrap(app)</span><br><span class="line">manager = Manager(app)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">"index.html"</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/user/&lt;name&gt;')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">user</span><span class="params">(name)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">"user.html"</span>,name=name)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.errorhandler(404)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">page_not_found</span><span class="params">(e)</span>:</span></span><br><span class="line">    <span class="keyword">return</span>  render_template(<span class="string">"404.html"</span>), <span class="number">404</span> </span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    manager.run()</span><br></pre></td></tr></table></figure>
-<ul>
-<li>运行命令 ： python hello.py  runserver –host 0.0.0.0 –d</li>
-</ul>
-<h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h2><p>a标签常用的href 可以使用url_for 函数生成<br>url_for(“index”) –&gt; /</p>
-<p>url_for(“index”,_external=True) –&gt; 绝对路径</p>
-<p>url_for(“index”, page=2 ) 返回？/page=2</p>
-<p>静态文件生成链接<br>url_for(‘static’, filename=’css/styles.css’, _external=True)<br>返回 <a href="http://localhost:5000/statics/css/style.css" target="_blank" rel="noopener">http://localhost:5000/statics/css/style.css</a></p>
-<h2 id="flask-moment组件本地化时间和日期"><a href="#flask-moment组件本地化时间和日期" class="headerlink" title="flask-moment组件本地化时间和日期"></a>flask-moment组件本地化时间和日期</h2><ul>
-<li>pip install flask-moment</li>
-</ul>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#123;% extends <span class="string">"base.html"</span> %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% block page_content %&#125;</span><br><span class="line">&lt;h1&gt; hello world!&lt;/h1&gt;</span><br><span class="line">&lt;p&gt; local date and time is &#123;&#123; moment(current_time).format('LLL')&#125;&#125;. &lt;/p&gt;</span><br><span class="line">&lt;p&gt; that was &#123;&#123; moment(current_time).fromNow(refresh=True) &#125;&#125;. &lt;/p&gt;</span><br><span class="line"></span><br><span class="line">&#123;% endblock %&#125;</span><br></pre></td></tr></table></figure>
 
         
         
@@ -1864,69 +1939,6 @@
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/10/26/linux/vim_luanma/" title="vim 乱码" itemprop="url">vim 乱码</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
-		
-  <p class="article-time">
-    <time datetime="2016-10-26T10:37:00.000Z" itemprop="datePublished"> Published 2016-10-26</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h1 id="首先-中文os下，我们一般的设置是："><a href="#首先-中文os下，我们一般的设置是：" class="headerlink" title="首先 中文os下，我们一般的设置是："></a>首先 中文os下，我们一般的设置是：</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">set encoding=utf-8                                "设置gvim内部编码</span><br><span class="line">set fileencoding=utf-8                               "设置当前文件编码</span><br><span class="line">set fileencodings=gbk,utf-8,shift_jis,ucs-bom,latin1,gb2312,cp936,cp932    设置支持打开的文件的编码</span><br><span class="line"></span><br><span class="line">set termencoding=utf-8</span><br><span class="line">set guifont=DejaVu\\ Sans\\ Mono\\:h13</span><br></pre></td></tr></table></figure>
-<p>上述，set fileencodings设置的文字编码解析顺位，对于中文是可以解析出来的,shift_jis编码的文件，就会出现乱码。除非你把shift_jis设置第一位：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set fileencodings=shift_jis,gbk,utf-8,ucs-bom,latin1,gb2312,cp936,cp932</span><br></pre></td></tr></table></figure>
-<h1 id="对于日文os-，安装gvim后，需要如下设置："><a href="#对于日文os-，安装gvim后，需要如下设置：" class="headerlink" title="对于日文os ，安装gvim后，需要如下设置："></a>对于日文os ，安装gvim后，需要如下设置：</h1><p>由于本地ANSI是cp932 , 所以把cp932 放在第一或者第二的位置，<br>如果放到第三或者后面就会出现shift_jis编码的日文打开后是文本乱码现象。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">set encoding=utf-8                                    "设置gvim内部编码</span><br><span class="line">set fileencoding=utf-8                               "设置当前文件编码</span><br><span class="line">set fileencodings=CP932,utf-8,gbk,,ucs-bom,latin1,gb2312,cp936 #设置支持打开的文件的编码</span><br><span class="line"></span><br><span class="line">set termencoding=utf-8</span><br><span class="line"></span><br><span class="line">set guifont=DejaVu\ Sans\ Mono\:h13 </span><br><span class="line">set guifontwide=NSimsun\:h14  </span><br><span class="line"><span class="meta">#</span>设置新宋体</span><br></pre></td></tr></table></figure>
-<p>由于DejaVu Sans Mono 字体是英文字符字体，无法正确显示宽字体，所以需要特别加入<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">set guifontwide=NSimsun\:h14 </span><br><span class="line"><span class="meta">#</span>设置新宋体 ，显示汉字</span><br></pre></td></tr></table></figure></p>
-<p>所以大家在自己的sublime 或者vim中设置编辑器字体DejaVu Sans Mono就好像可以显示正确的汉字和英文，其实我们设置的只是英文字符显示的样式。汉字其实是系统本地ANSI编码。</p>
-<h2 id="本地ANSI编码"><a href="#本地ANSI编码" class="headerlink" title="本地ANSI编码"></a>本地ANSI编码</h2><p>世界上每种语言对应的windows 系统都有各自的ANSI，互相不兼容。</p>
-<p>比如 中文ANSI == GBK(中文) ，gbk是gb2312(简体中文)的扩展，包含繁体，日文片假名。cp936就是gbk<br>    日文ANSI == Windows-31J  就是cp932.<br>shift_jis也是一种日文字符编码,不过，只实现了cp932的部分，所以cp932编码的东东，shift_jis可能乱码。shift_jis编码的，cp932一定正常显示。</p>
-<p>这是微软早起应对不同国家一种混合的编码：字母+对应的国家文字,这种字符也是多字节字符。比如：中文ANSI,字母数字是1字节 ,汉字是2字节。两种语言文字有可能在一起就显示乱码。不过微软提供了本地ANSI转换为标准unicode字符的方案，通过代码页转换表技术这一过度方案。</p>
-<h2 id="nnicode编码规范"><a href="#nnicode编码规范" class="headerlink" title="nnicode编码规范"></a>nnicode编码规范</h2><p>unicode 是将全世界所有的字符都统一编码的方案(规范))。那么字符a的编码本来是1byte ,现在统一和一个汉字一样长了。那么问题来了，字符串是’\0’字符结尾。世界上的很久以前写的c程序，就没办法用了。所以说unicode应该早点出来。</p>
-<p>有了这种全字符集，解决了乱码，却没法用，蛋疼吧，可是utf8这一实现字符保存，传输的方案出现了。因为utf8是可变长的。不同位段，长度不一致。 </p>
-<h2 id="utf-8编码"><a href="#utf-8编码" class="headerlink" title="utf-8编码"></a>utf-8编码</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">UCS-2编码(16进制)   UTF-8 字节流(二进制)</span><br><span class="line">0000 - 007F         0xxxxxxx</span><br><span class="line">0080 - 07FF         110xxxxx 10xxxxxx</span><br><span class="line">0800 - FFFF         1110xxxx 10xxxxxx 10xxxxxx </span><br><span class="line"> </span><br><span class="line">例如“汉”字的Unicode编码是6C49。6C49在0800-FFFF之间，所以肯定要用3字节模板了：1110xxxx 10xxxxxx 10xxxxxx。将6C49写成二进制是：0110 110001 001001，用这个比特流依次代替模板中的x，得到：11100110 10110001 10001001，即E6 B1 89。</span><br><span class="line"> </span><br><span class="line">可见UTF-8是变长的，将Unicode编码为00000000-0000007F的字符，用单个字节来表示； 00000080-000007FF的字符用两个字节表示；00000800-0000FFFF的字符用3字节表示。因为目前为止Unicode-16规范没有指定FFFF以上的字符，所以UTF-8最多是使用3个字节来表示一个字符。但理论上来说，UTF-8最多需要用6字节表示一个字符。 </span><br><span class="line"> </span><br><span class="line">UTF-8兼容ASCII。</span><br></pre></td></tr></table></figure>
-<p>#utf16编码<br>utf-16 和unicode规范是一致的，所以不兼容ascii。<br>以上信息来源参考： <img src="http://polaris.blog.51cto.com/1146394/377468/" alt="这里的博客"></p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <a class="extend prev" rel="prev" href="/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next<span></span></a>
@@ -1994,6 +2006,10 @@
 		  
 		
 		  
+			<li><a href="/categories/openresty/" title="openresty">openresty<sup>1</sup></a></li>
+		  
+		
+		  
 			<li><a href="/categories/python/" title="python">python<sup>3</sup></a></li>
 		  
 		
@@ -2051,15 +2067,15 @@
 			
 		
 			
-				<li><a href="/tags/ajax/" title="ajax">ajax<sup>1</sup></a></li>
-			
-		
-			
 				<li><a href="/tags/html5/" title="html5">html5<sup>1</sup></a></li>
 			
 		
 			
 				<li><a href="/tags/js/" title="js">js<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/ajax/" title="ajax">ajax<sup>1</sup></a></li>
 			
 		
 		</ul>
