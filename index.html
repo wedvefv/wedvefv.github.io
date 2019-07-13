@@ -101,6 +101,88 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2019/07/13/linux/centos/mac挂载NTFS磁盘/" title="mac挂载NTFS磁盘" itemprop="url">mac挂载NTFS磁盘</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
+		
+  <p class="article-time">
+    <time datetime="2019-07-13T02:15:00.000Z" itemprop="datePublished"> Published 2019-07-13</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="查看移动硬盘的信息"><a href="#查看移动硬盘的信息" class="headerlink" title="查看移动硬盘的信息"></a>查看移动硬盘的信息</h3><p>diskutil list<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">/dev/disk0 (internal):</span><br><span class="line"><span class="meta">   #</span>:                       TYPE NAME                    SIZE       IDENTIFIER</span><br><span class="line">   0:      GUID_partition_scheme                         121.3 GB   disk0</span><br><span class="line">   1:                        EFI EFI                     314.6 MB   disk0s1</span><br><span class="line">   2:                 Apple_APFS Container disk1         121.0 GB   disk0s2</span><br><span class="line"></span><br><span class="line">/dev/disk1 (synthesized):</span><br><span class="line"><span class="meta">   #</span>:                       TYPE NAME                    SIZE       IDENTIFIER</span><br><span class="line">   0:      APFS Container Scheme -                      +121.0 GB   disk1</span><br><span class="line">                                 Physical Store disk0s2</span><br><span class="line">   1:                APFS Volume Macintosh HD            97.9 GB    disk1s1</span><br><span class="line">   2:                APFS Volume Preboot                 44.2 MB    disk1s2</span><br><span class="line">   3:                APFS Volume Recovery                509.7 MB   disk1s3</span><br><span class="line">   4:                APFS Volume VM                      1.1 GB     disk1s4</span><br><span class="line"></span><br><span class="line">/dev/disk2 (external, physical):</span><br><span class="line"><span class="meta">   #</span>:                       TYPE NAME                    SIZE       IDENTIFIER</span><br><span class="line">   0:     FDisk_partition_scheme                        *500.1 GB   disk2</span><br><span class="line">   1:               Windows_NTFS C_224                   224.4 GB   disk2s5</span><br><span class="line">   2:               Windows_NTFS D_138                   138.5 GB   disk2s6</span><br><span class="line">   3:               Windows_NTFS E_137                   137.2 GB   disk2s7</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>磁盘 /dev/disk2 就是移动硬盘</li>
+<li>比如C盘 C_224(我自己起的盘符名字) ，识别码是 disk2s5</li>
+<li>查看disk2s5的UUID</li>
+<li><p>diskutil info /dev/disk2s5 |grep UUID</p>
+</li>
+<li><p>查看disk2s6的UUID</p>
+</li>
+<li><p>diskutil info /dev/disk2s6 |grep UUID</p>
+</li>
+<li><p>查看disk2s7的UUID</p>
+</li>
+<li>diskutil info /dev/disk2s7 |grep UUID</li>
+</ul>
+<h3 id="修改挂在磁盘配置文件"><a href="#修改挂在磁盘配置文件" class="headerlink" title="修改挂在磁盘配置文件"></a>修改挂在磁盘配置文件</h3><ul>
+<li>最新版的macos好像没有这个文件了，不过没关系，直接新建。</li>
+<li>vim /etc/fstab</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">UUID=EC5F1224-7440-43D9-A1F6-9F2D593B5527 none ntfs rw,auto,nobrowse</span><br><span class="line">UUID=48FC5B76-7BF2-4BDA-8790-7B53A880E700 none ntfs rw,auto,nobrowse</span><br><span class="line">UUID=8E745E6C-F4ED-48B6-882C-5F4DA5D3AC92 none ntfs rw,auto,nobrowse</span><br></pre></td></tr></table></figure>
+<ul>
+<li>auto: 系统自动挂载，fstab默认就是这个选项</li>
+<li>ntfs: 磁盘格式</li>
+<li>rw: 按可读可写权限挂载</li>
+<li>user: 任何用户都可以挂载</li>
+<li>nobrowse 表示在finder不显示磁盘，不然会不成功</li>
+</ul>
+<h3 id="重启电脑"><a href="#重启电脑" class="headerlink" title="重启电脑"></a>重启电脑</h3><h3 id="建立快捷方式，显示磁盘"><a href="#建立快捷方式，显示磁盘" class="headerlink" title="建立快捷方式，显示磁盘"></a>建立快捷方式，显示磁盘</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo ln -s /Volumes/C_224 ~/Desktop/C_224</span><br><span class="line">sudo ln -s /Volumes/D_138 ~/Desktop/D_138</span><br><span class="line">sudo ln -s /Volumes/E_137 ~/Desktop/E_137</span><br></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/linux/">linux</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2019/06/30/1_英语/1_英语对话_海上钢琴师/" title="海上钢琴师中英文字幕" itemprop="url">海上钢琴师中英文字幕</a>
   </h1>
   <p class="article-author">By
@@ -6191,7 +6273,7 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2019/06/08/linux/centos/一文了解linux开机启动/" title="如何在centos7中添加开机启动项" itemprop="url">如何在centos7中添加开机启动项</a>
+      <a href="/2019/06/08/linux/centos/了解一下linux开机启动/" title="了解一下linux开机启动" itemprop="url">了解一下linux开机启动</a>
   </h1>
   <p class="article-author">By
        
@@ -6561,80 +6643,7 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2019/03/02/linux/git/git_linux搭建服务器/" title="git_linux搭建服务器" itemprop="url">git_linux搭建服务器</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
-		
-  <p class="article-time">
-    <time datetime="2019-03-02T04:00:00.000Z" itemprop="datePublished"> Published 2019-03-02</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="为什么本地搭建一个git服务器"><a href="#为什么本地搭建一个git服务器" class="headerlink" title="为什么本地搭建一个git服务器"></a>为什么本地搭建一个git服务器</h2><ul>
-<li>对于自己学习使用的代码，在没有网络的情况下不能用github，gitlab,所以本地建立一个git服务器。</li>
-</ul>
-<h2 id="git服务器环境准备centos7"><a href="#git服务器环境准备centos7" class="headerlink" title="git服务器环境准备centos7"></a>git服务器环境准备centos7</h2><h2 id="服务端创建git用户"><a href="#服务端创建git用户" class="headerlink" title="服务端创建git用户"></a>服务端创建git用户</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">id git # 查看是否存在git用户，存在就不创建了。</span><br><span class="line">useradd git</span><br><span class="line">passwd git</span><br><span class="line">输入密码，我设置的是xxx@123</span><br></pre></td></tr></table></figure>
-<h2 id="客户端开启公钥认证认证，免密push-pull"><a href="#客户端开启公钥认证认证，免密push-pull" class="headerlink" title="客户端开启公钥认证认证，免密push/pull"></a>客户端开启公钥认证认证，免密push/pull</h2><ul>
-<li><p>首先服务端需要开启ssh服务</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/ssh/sshd_config</span><br><span class="line">RSAAuthentication yes </span><br><span class="line">PubkeyAuthentication yes</span><br><span class="line">AuthorizedKeysFile .ssh/authorized_keys</span><br><span class="line">如果是centos7.4以上（含7.4），ssh1已经不支持了，只支持ssh2代协议。所以RSAAuthentication项是没有的</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>客户端执行 执行ssh-keygen -t rsa 生成公钥和私钥</p>
-</li>
-<li>复制客户端公钥到服务器端ssh-copy-id -i ~/.ssh/id_rsa.pub <a href="mailto:git@192.168.61.128" target="_blank" rel="noopener">git@192.168.61.128</a> </li>
-</ul>
-<h2 id="服务端创建git仓库"><a href="#服务端创建git仓库" class="headerlink" title="服务端创建git仓库"></a>服务端创建git仓库</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /data/git/gittest.git</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 初始化这个仓库</span><br><span class="line">cd /data/git/gittest.git</span><br><span class="line">git init --bare .</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 目录所属用户设置</span><br><span class="line">chown -R git:git /data/git</span><br></pre></td></tr></table></figure>
-<h2 id="客户端clone远程仓库"><a href="#客户端clone远程仓库" class="headerlink" title="客户端clone远程仓库"></a>客户端clone远程仓库</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mkdir localgit</span><br><span class="line">cd localgit</span><br><span class="line">git clone git@192.168.61.128:/data/git/gittest.git .</span><br><span class="line"><span class="meta">#</span> 提示输入服务端git账户的密码。</span><br><span class="line"><span class="meta">#</span>修改完就可以提交了</span><br><span class="line"></span><br><span class="line">touch abc.txt</span><br><span class="line">git add .</span><br><span class="line">git commit -m 'aaa'</span><br><span class="line">git push</span><br></pre></td></tr></table></figure>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/git/">git</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/git/">git</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2019/03/02/linux/centos/AES_RSA_DSA/" title="简单总结一下加密算法AES-DES-RAS-DSA-ECDSA-ECC" itemprop="url">简单总结一下加密算法AES-DES-RAS-DSA-ECDSA-ECC</a>
+      <a href="/2019/03/02/linux/centos/了解一下加密名词/" title="了解一下加密名词AES-DES-RAS-DSA-ECDSA-ECC" itemprop="url">了解一下加密名词AES-DES-RAS-DSA-ECDSA-ECC</a>
   </h1>
   <p class="article-author">By
        
@@ -6805,6 +6814,79 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2019/03/02/linux/git/git_linux搭建服务器/" title="git_linux搭建服务器" itemprop="url">git_linux搭建服务器</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
+		
+  <p class="article-time">
+    <time datetime="2019-03-02T04:00:00.000Z" itemprop="datePublished"> Published 2019-03-02</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="为什么本地搭建一个git服务器"><a href="#为什么本地搭建一个git服务器" class="headerlink" title="为什么本地搭建一个git服务器"></a>为什么本地搭建一个git服务器</h2><ul>
+<li>对于自己学习使用的代码，在没有网络的情况下不能用github，gitlab,所以本地建立一个git服务器。</li>
+</ul>
+<h2 id="git服务器环境准备centos7"><a href="#git服务器环境准备centos7" class="headerlink" title="git服务器环境准备centos7"></a>git服务器环境准备centos7</h2><h2 id="服务端创建git用户"><a href="#服务端创建git用户" class="headerlink" title="服务端创建git用户"></a>服务端创建git用户</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">id git # 查看是否存在git用户，存在就不创建了。</span><br><span class="line">useradd git</span><br><span class="line">passwd git</span><br><span class="line">输入密码，我设置的是xxx@123</span><br></pre></td></tr></table></figure>
+<h2 id="客户端开启公钥认证认证，免密push-pull"><a href="#客户端开启公钥认证认证，免密push-pull" class="headerlink" title="客户端开启公钥认证认证，免密push/pull"></a>客户端开启公钥认证认证，免密push/pull</h2><ul>
+<li><p>首先服务端需要开启ssh服务</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/ssh/sshd_config</span><br><span class="line">RSAAuthentication yes </span><br><span class="line">PubkeyAuthentication yes</span><br><span class="line">AuthorizedKeysFile .ssh/authorized_keys</span><br><span class="line">如果是centos7.4以上（含7.4），ssh1已经不支持了，只支持ssh2代协议。所以RSAAuthentication项是没有的</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>客户端执行 执行ssh-keygen -t rsa 生成公钥和私钥</p>
+</li>
+<li>复制客户端公钥到服务器端ssh-copy-id -i ~/.ssh/id_rsa.pub <a href="mailto:git@192.168.61.128" target="_blank" rel="noopener">git@192.168.61.128</a> </li>
+</ul>
+<h2 id="服务端创建git仓库"><a href="#服务端创建git仓库" class="headerlink" title="服务端创建git仓库"></a>服务端创建git仓库</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /data/git/gittest.git</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 初始化这个仓库</span><br><span class="line">cd /data/git/gittest.git</span><br><span class="line">git init --bare .</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 目录所属用户设置</span><br><span class="line">chown -R git:git /data/git</span><br></pre></td></tr></table></figure>
+<h2 id="客户端clone远程仓库"><a href="#客户端clone远程仓库" class="headerlink" title="客户端clone远程仓库"></a>客户端clone远程仓库</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mkdir localgit</span><br><span class="line">cd localgit</span><br><span class="line">git clone git@192.168.61.128:/data/git/gittest.git .</span><br><span class="line"><span class="meta">#</span> 提示输入服务端git账户的密码。</span><br><span class="line"><span class="meta">#</span>修改完就可以提交了</span><br><span class="line"></span><br><span class="line">touch abc.txt</span><br><span class="line">git add .</span><br><span class="line">git commit -m 'aaa'</span><br><span class="line">git push</span><br></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/git/">git</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/git/">git</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2019/02/22/db/redis/redis文章分组的用途/" title="redis文章分组的用途" itemprop="url">redis文章分组的用途</a>
   </h1>
   <p class="article-author">By
@@ -6837,74 +6919,7 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/redis/">redis</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2019/02/22/db/redis/redis文章发布/" title="redis文章发布" itemprop="url">redis文章发布</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
-		
-  <p class="article-time">
-    <time datetime="2019-02-22T07:50:00.000Z" itemprop="datePublished"> Published 2019-02-22</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="定时任务发布方式"><a href="#定时任务发布方式" class="headerlink" title="定时任务发布方式"></a>定时任务发布方式</h2><ul>
-<li>如果有后台发布文章，需要有定时任务将mysql中录入的文章同步到redis中</li>
-<li><ol>
-<li>这时候文章id当然是mysql自增产生的，生成一个文章id表示的文章内容 <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">	conn.hmset(<span class="string">"article:100:hash"</span>,&#123;属性字典&#125;）</span><br><span class="line">``` </span><br><span class="line">- <span class="number">2.</span> 作者发布的文章，文章的投票者集合当然有作者，需要设置投票集合。</span><br><span class="line">```py</span><br><span class="line">	conn.sadd(<span class="string">"artile:100:set"</span>,atrticle.uid)</span><br><span class="line">	conn.expire(<span class="string">"artile:100:set"</span>,<span class="number">7</span>*<span class="number">86400</span>) <span class="comment"># 一周有效期</span></span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-</li>
-<li><ol start="3">
-<li>文章的评分zset初始化,文章发布时间集合初始化。<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">conn.zincrby(<span class="string">"article:100:score:zset"</span>,<span class="number">432</span>)， <span class="number">432</span> 是一个投票的评分。</span><br><span class="line">conn.zadd(<span class="string">"article:time:zset"</span>,article_id, now)</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-</li>
-</ul>
-<h2 id="如果是没有mysql，完全用redis这时候，文章id就需要一个string类型的key自增产生，其余步骤一致。"><a href="#如果是没有mysql，完全用redis这时候，文章id就需要一个string类型的key自增产生，其余步骤一致。" class="headerlink" title="如果是没有mysql，完全用redis这时候，文章id就需要一个string类型的key自增产生，其余步骤一致。"></a>如果是没有mysql，完全用redis这时候，文章id就需要一个string类型的key自增产生，其余步骤一致。</h2>
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/数据库/">数据库</a>
+  <a class="article-category-link" href="/categories/db/">db</a>
 </div>
 
 
@@ -6993,7 +7008,7 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/数据库/">数据库</a>
+  <a class="article-category-link" href="/categories/db/">db</a>
 </div>
 
 
@@ -7022,7 +7037,74 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2019/02/21/linux/centos/Vm虚拟机的三种联网模式区别/" title="VM虚拟机三种联网模式区别" itemprop="url">VM虚拟机三种联网模式区别</a>
+      <a href="/2019/02/22/db/redis/redis文章发布/" title="redis文章发布" itemprop="url">redis文章发布</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
+		
+  <p class="article-time">
+    <time datetime="2019-02-22T07:50:00.000Z" itemprop="datePublished"> Published 2019-02-22</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="定时任务发布方式"><a href="#定时任务发布方式" class="headerlink" title="定时任务发布方式"></a>定时任务发布方式</h2><ul>
+<li>如果有后台发布文章，需要有定时任务将mysql中录入的文章同步到redis中</li>
+<li><ol>
+<li>这时候文章id当然是mysql自增产生的，生成一个文章id表示的文章内容 <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">	conn.hmset(<span class="string">"article:100:hash"</span>,&#123;属性字典&#125;）</span><br><span class="line">``` </span><br><span class="line">- <span class="number">2.</span> 作者发布的文章，文章的投票者集合当然有作者，需要设置投票集合。</span><br><span class="line">```py</span><br><span class="line">	conn.sadd(<span class="string">"artile:100:set"</span>,atrticle.uid)</span><br><span class="line">	conn.expire(<span class="string">"artile:100:set"</span>,<span class="number">7</span>*<span class="number">86400</span>) <span class="comment"># 一周有效期</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>文章的评分zset初始化,文章发布时间集合初始化。<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">conn.zincrby(<span class="string">"article:100:score:zset"</span>,<span class="number">432</span>)， <span class="number">432</span> 是一个投票的评分。</span><br><span class="line">conn.zadd(<span class="string">"article:time:zset"</span>,article_id, now)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="如果是没有mysql，完全用redis这时候，文章id就需要一个string类型的key自增产生，其余步骤一致。"><a href="#如果是没有mysql，完全用redis这时候，文章id就需要一个string类型的key自增产生，其余步骤一致。" class="headerlink" title="如果是没有mysql，完全用redis这时候，文章id就需要一个string类型的key自增产生，其余步骤一致。"></a>如果是没有mysql，完全用redis这时候，文章id就需要一个string类型的key自增产生，其余步骤一致。</h2>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/db/">db</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2019/02/21/linux/centos/了解一下VM虚拟机的三种联网模式/" title="了解一下VM虚拟机的三种联网模式" itemprop="url">了解一下VM虚拟机的三种联网模式</a>
   </h1>
   <p class="article-author">By
        
@@ -7035,7 +7117,7 @@
 </header>
     <div class="article-content">
         
-        <h2 id="1-HOST-ONLY"><a href="#1-HOST-ONLY" class="headerlink" title="1.HOST-ONLY"></a>1.HOST-ONLY</h2><p><img src="/2019/02/21/linux/centos/Vm虚拟机的三种联网模式区别/images/vmnet.png" alt=""> </p>
+        <h2 id="1-HOST-ONLY"><a href="#1-HOST-ONLY" class="headerlink" title="1.HOST-ONLY"></a>1.HOST-ONLY</h2><p><img src="/2019/02/21/linux/centos/了解一下VM虚拟机的三种联网模式/images/vmnet.png" alt=""> </p>
 <ul>
 <li>对应图中的private to my Mac 选项</li>
 <li>这种模式不能联网，能通过DHCP分配到ip地址，使用VMnet1网卡作为交换机，默认网关就是VMnet1的地址，能和主机通信，不能连接外网。</li>
@@ -7096,7 +7178,7 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2019/02/15/linux/centos/tcp半连接队列和全连接队列/" title="tcp连接过程，半连接队列和全连接队列" itemprop="url">tcp连接过程，半连接队列和全连接队列</a>
+      <a href="/2019/02/15/linux/centos/了解一下tcp半连接队列和全连接队列/" title="tcp连接过程，半连接队列和全连接队列" itemprop="url">tcp连接过程，半连接队列和全连接队列</a>
   </h1>
   <p class="article-author">By
        
@@ -7395,79 +7477,6 @@
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2019/02/14/linux/centos/ip地址子网掩码的关系/" title="ip地址和子网掩码，广播地址关系" itemprop="url">ip地址和子网掩码，广播地址关系</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
-		
-  <p class="article-time">
-    <time datetime="2019-02-14T06:00:00.000Z" itemprop="datePublished"> Published 2019-02-14</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="什么是ip地址？"><a href="#什么是ip地址？" class="headerlink" title="什么是ip地址？"></a>什么是ip地址？</h2><ul>
-<li>ip是在一个网段中的一台计算机的ip地址（192.168.1.2）</li>
-<li>如果你家的联通宽带给你家的公网ip地址是10.10.123.234(假设的)，那么接到你家路由器，首先路由器需要有一个ip地址，一般是192.168.1.1（也可能是192.168.0.1），这个应该可以登录到路由器中设置。</li>
-<li>其中192.168.1.255 就是广播地址，比如centos中ifconfig命令查看的broadcast</li>
-<li>剩余的ip段192.168.1.2~192.168.1.254 就是可以分配给手机，电脑等客户端使用的ip。一共是253（255-2）个。</li>
-</ul>
-<h2 id="ip由什么组成？"><a href="#ip由什么组成？" class="headerlink" title="ip由什么组成？"></a>ip由什么组成？</h2><ul>
-<li>例如一个ip 192.168.1.2，是一个C类网络，一般有254台主机。二进制表示就是 网络号标识|1100 0000 |1000 0000| 0000 0001|  + 主机号标识|0000 0010| </li>
-<li>点号分割每个数字都是8位二进制,网络号部分就是192.168.1,主机号部分就是2。</li>
-<li>网络标识部分越短，那么标识主机部分可用的范围越大，但是需要子网掩码配合决定由多少可用ip</li>
-</ul>
-<h2 id="什么是子网掩码？"><a href="#什么是子网掩码？" class="headerlink" title="什么是子网掩码？"></a>什么是子网掩码？</h2><ul>
-<li>子网掩码，顾名思义，遮掩的意思，子网掩码就是把ip地址分为网络部分和主机部分，主机部分用二进制位用1标识，主机号部分用0标识。C类子网掩码一般是255.255.255.0 </li>
-<li>如果所需的ip比较多，比如学校这种环境，子网掩码可以设置成255.255.0.0 ,那么ip返回就是255的2次方-2，就是65023个。那么ip网络部分就是192.168,后面两部分是主机号。</li>
-</ul>
-<ul>
-<li>网关是什么，比如两个A客户端192.168.1.2 和B客户端192.168.2.2 就是两个网络的设备，前提是他们的子网掩码都是255.255.255.0， 那么他们通信就需要A客户端发送给网关ip，有网关路由转发到B所在的网关，再转发到B客户端。 比如我的路由器ip是192.168.2.1， 我自己的ip是192.168.2.110， 默认网关也是192.168.2.1</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">netstat -rn</span><br><span class="line"></span><br><span class="line">Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface</span><br><span class="line">0.0.0.0         192.168.2.1     0.0.0.0         UG        0 0          0 ens33</span><br><span class="line">0.0.0.0表示发给任何人的包，都发给192.168.2.1这个网关， Genmask写0.0.0.0是默认路由的网络掩码。</span><br></pre></td></tr></table></figure>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/linux/">linux</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
@@ -7503,6 +7512,10 @@
 		  
 		
 		  
+			<li><a href="/categories/db/" title="db">db<sup>3</sup></a></li>
+		  
+		
+		  
 			<li><a href="/categories/flask/" title="flask">flask<sup>9</sup></a></li>
 		  
 		
@@ -7515,7 +7528,7 @@
 		  
 		
 		  
-			<li><a href="/categories/linux/" title="linux">linux<sup>9</sup></a></li>
+			<li><a href="/categories/linux/" title="linux">linux<sup>10</sup></a></li>
 		  
 		
 		  
@@ -7531,10 +7544,6 @@
 		  
 		
 		  
-			<li><a href="/categories/redis/" title="redis">redis<sup>1</sup></a></li>
-		  
-		
-		  
 			<li><a href="/categories/windows/" title="windows">windows<sup>2</sup></a></li>
 		  
 		
@@ -7544,10 +7553,6 @@
 		
 		  
 			<li><a href="/categories/微信支付/" title="微信支付">微信支付<sup>1</sup></a></li>
-		  
-		
-		  
-			<li><a href="/categories/数据库/" title="数据库">数据库<sup>2</sup></a></li>
 		  
 		
 		</ul>
