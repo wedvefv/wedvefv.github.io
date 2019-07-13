@@ -23,7 +23,7 @@
 
   <meta charset="UTF-8">
   
-    <title>lifetree</title>
+    <title>天地无心</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="wedvefv">
@@ -32,17 +32,17 @@
     
     <meta name="description" content="愿你出走半生，归来仍是少年！">
 <meta property="og:type" content="website">
-<meta property="og:title" content="lifetree">
+<meta property="og:title" content="天地无心">
 <meta property="og:url" content="http://wedvefv.github.io/index.html">
-<meta property="og:site_name" content="lifetree">
+<meta property="og:site_name" content="天地无心">
 <meta property="og:description" content="愿你出走半生，归来仍是少年！">
 <meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="lifetree">
+<meta name="twitter:title" content="天地无心">
 <meta name="twitter:description" content="愿你出走半生，归来仍是少年！">
 
     
-    <link rel="alternative" href="/atom.xml" title="lifetree" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="天地无心" type="application/atom+xml">
     
     
     <link rel="icon" href="/img/favicon.ico">
@@ -60,12 +60,12 @@
 <div>
 		
 			<div id="imglogo">
-				<a href="/"><img src="/img/logo.png" alt="lifetree" title="lifetree"/></a>
+				<a href="/"><img src="/img/logo.png" alt="天地无心" title="天地无心"/></a>
 			</div>
 			
 			<div id="textlogo">
-				<h1 class="site-name"><a href="/" title="lifetree">lifetree</a></h1>
-				<h2 class="blog-motto">再见孙悟空</h2>
+				<h1 class="site-name"><a href="/" title="天地无心">天地无心</a></h1>
+				<h2 class="blog-motto">为天地立心，为生民立命，为往圣继绝学，为万世开太平</h2>
 			</div>
 			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
 			</a></div>
@@ -6948,6 +6948,73 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2019/02/22/db/redis/redis文章发布/" title="redis文章发布" itemprop="url">redis文章发布</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
+		
+  <p class="article-time">
+    <time datetime="2019-02-22T07:50:00.000Z" itemprop="datePublished"> Published 2019-02-22</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="定时任务发布方式"><a href="#定时任务发布方式" class="headerlink" title="定时任务发布方式"></a>定时任务发布方式</h2><ul>
+<li>如果有后台发布文章，需要有定时任务将mysql中录入的文章同步到redis中</li>
+<li><ol>
+<li>这时候文章id当然是mysql自增产生的，生成一个文章id表示的文章内容 <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">	conn.hmset(<span class="string">"article:100:hash"</span>,&#123;属性字典&#125;）</span><br><span class="line">``` </span><br><span class="line">- <span class="number">2.</span> 作者发布的文章，文章的投票者集合当然有作者，需要设置投票集合。</span><br><span class="line">```py</span><br><span class="line">	conn.sadd(<span class="string">"artile:100:set"</span>,atrticle.uid)</span><br><span class="line">	conn.expire(<span class="string">"artile:100:set"</span>,<span class="number">7</span>*<span class="number">86400</span>) <span class="comment"># 一周有效期</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>文章的评分zset初始化,文章发布时间集合初始化。<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">conn.zincrby(<span class="string">"article:100:score:zset"</span>,<span class="number">432</span>)， <span class="number">432</span> 是一个投票的评分。</span><br><span class="line">conn.zadd(<span class="string">"article:time:zset"</span>,article_id, now)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="如果是没有mysql，完全用redis这时候，文章id就需要一个string类型的key自增产生，其余步骤一致。"><a href="#如果是没有mysql，完全用redis这时候，文章id就需要一个string类型的key自增产生，其余步骤一致。" class="headerlink" title="如果是没有mysql，完全用redis这时候，文章id就需要一个string类型的key自增产生，其余步骤一致。"></a>如果是没有mysql，完全用redis这时候，文章id就需要一个string类型的key自增产生，其余步骤一致。</h2>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/db/">db</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2019/02/22/db/redis/redis文章投票/" title="redis文章投票" itemprop="url">redis文章投票</a>
   </h1>
   <p class="article-author">By
@@ -6997,73 +7064,6 @@
 </li>
 </ul>
 
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/db/">db</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2019/02/22/db/redis/redis文章发布/" title="redis文章发布" itemprop="url">redis文章发布</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
-		
-  <p class="article-time">
-    <time datetime="2019-02-22T07:50:00.000Z" itemprop="datePublished"> Published 2019-02-22</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="定时任务发布方式"><a href="#定时任务发布方式" class="headerlink" title="定时任务发布方式"></a>定时任务发布方式</h2><ul>
-<li>如果有后台发布文章，需要有定时任务将mysql中录入的文章同步到redis中</li>
-<li><ol>
-<li>这时候文章id当然是mysql自增产生的，生成一个文章id表示的文章内容 <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">	conn.hmset(<span class="string">"article:100:hash"</span>,&#123;属性字典&#125;）</span><br><span class="line">``` </span><br><span class="line">- <span class="number">2.</span> 作者发布的文章，文章的投票者集合当然有作者，需要设置投票集合。</span><br><span class="line">```py</span><br><span class="line">	conn.sadd(<span class="string">"artile:100:set"</span>,atrticle.uid)</span><br><span class="line">	conn.expire(<span class="string">"artile:100:set"</span>,<span class="number">7</span>*<span class="number">86400</span>) <span class="comment"># 一周有效期</span></span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-</li>
-<li><ol start="3">
-<li>文章的评分zset初始化,文章发布时间集合初始化。<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">conn.zincrby(<span class="string">"article:100:score:zset"</span>,<span class="number">432</span>)， <span class="number">432</span> 是一个投票的评分。</span><br><span class="line">conn.zadd(<span class="string">"article:time:zset"</span>,article_id, now)</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-</li>
-</ul>
-<h2 id="如果是没有mysql，完全用redis这时候，文章id就需要一个string类型的key自增产生，其余步骤一致。"><a href="#如果是没有mysql，完全用redis这时候，文章id就需要一个string类型的key自增产生，其余步骤一致。" class="headerlink" title="如果是没有mysql，完全用redis这时候，文章id就需要一个string类型的key自增产生，其余步骤一致。"></a>如果是没有mysql，完全用redis这时候，文章id就需要一个string类型的key自增产生，其余步骤一致。</h2>
         
         
         <p class="article-more-link">

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>lifetree</title>
+  <title>天地无心</title>
   
-  <subtitle>再见孙悟空</subtitle>
+  <subtitle>为天地立心，为生民立命，为往圣继绝学，为万世开太平</subtitle>
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://wedvefv.github.io/"/>
@@ -362,30 +362,6 @@
   </entry>
   
   <entry>
-    <title>redis文章投票</title>
-    <link href="http://wedvefv.github.io/2019/02/22/db/redis/redis%E6%96%87%E7%AB%A0%E6%8A%95%E7%A5%A8/"/>
-    <id>http://wedvefv.github.io/2019/02/22/db/redis/redis文章投票/</id>
-    <published>2019-02-22T07:50:00.000Z</published>
-    <updated>2019-06-30T12:42:03.144Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="1-文章信息可以用hash表示"><a href="#1-文章信息可以用hash表示" class="headerlink" title="1. 文章信息可以用hash表示"></a>1. 文章信息可以用hash表示</h2><ul><li><p>比如文章id为key，文章属性为filed，属性值为value</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">key : articel:<span class="number">1</span> </span><br><span class="line">title : 这是标题</span><br><span class="line">link： www.baidu.com</span><br><span class="line">updatetime: <span class="number">2019</span><span class="number">-02</span><span class="number">-21</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span></span><br></pre></td></tr></table></figure></li><li><p>也可以用大的hash，每个filed是一个文章id，value是一个json表示文章属性，</p></li></ul><h2 id="2-文章id和发布时间对应关系用zset表示"><a href="#2-文章id和发布时间对应关系用zset表示" class="headerlink" title="2. 文章id和发布时间对应关系用zset表示"></a>2. 文章id和发布时间对应关系用zset表示</h2><ul><li>文章id对应member，发布时间是score</li></ul><h2 id="3-文章id和文章评分对应关系也可用zset表示"><a href="#3-文章id和文章评分对应关系也可用zset表示" class="headerlink" title="3. 文章id和文章评分对应关系也可用zset表示"></a>3. 文章id和文章评分对应关系也可用zset表示</h2><ul><li>文章id对应member， 分数对应score</li></ul><h2 id="4-对一篇文章首次投票之后，发生什么变化？"><a href="#4-对一篇文章首次投票之后，发生什么变化？" class="headerlink" title="4. 对一篇文章首次投票之后，发生什么变化？"></a>4. 对一篇文章首次投票之后，发生什么变化？</h2><ul><li><ol start="0"><li>有时只需要7天之内发布的文章才可以投票，否则直接返回。</li></ol></li><li><ol><li>用户是不支持重复投票的，所有应该有一个文章id对应的set类型的key，将投过票的uid加入到里面，如果加入失败，就说明重复了，就不增加评分。</li></ol></li><li><ol start="2"><li>首先对应文章id的评分增加，具体增加规则： 将文章的已获得的支持票数*一个常量 +发布时间戳；常量可以432（86400/200）200个投票需求，平均一天时间。，这只是我见到的一个方法。</li></ol></li><li><ol start="3"><li>增加文章的投票+1，使用hincrby ，前提是如果用hash记录文章属性的话，投票数就是一个属性。</li></ol></li><li><ol start="4"><li>考虑到并发，如果以上三个操作应该用事物操作，保证原子性。</li></ol></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;1-文章信息可以用hash表示&quot;&gt;&lt;a href=&quot;#1-文章信息可以用hash表示&quot; class=&quot;headerlink&quot; title=&quot;1. 文章信息可以用hash表示&quot;&gt;&lt;/a&gt;1. 文章信息可以用hash表示&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;比如文章id为
-      
-    
-    </summary>
-    
-      <category term="db" scheme="http://wedvefv.github.io/categories/db/"/>
-    
-    
-  </entry>
-  
-  <entry>
     <title>redis文章发布</title>
     <link href="http://wedvefv.github.io/2019/02/22/db/redis/redis%E6%96%87%E7%AB%A0%E5%8F%91%E5%B8%83/"/>
     <id>http://wedvefv.github.io/2019/02/22/db/redis/redis文章发布/</id>
@@ -400,6 +376,30 @@
       
         &lt;h2 id=&quot;定时任务发布方式&quot;&gt;&lt;a href=&quot;#定时任务发布方式&quot; class=&quot;headerlink&quot; title=&quot;定时任务发布方式&quot;&gt;&lt;/a&gt;定时任务发布方式&lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;如果有后台发布文章，需要有定时任务将mysql中录入的文章同步到redis中&lt;/
+      
+    
+    </summary>
+    
+      <category term="db" scheme="http://wedvefv.github.io/categories/db/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>redis文章投票</title>
+    <link href="http://wedvefv.github.io/2019/02/22/db/redis/redis%E6%96%87%E7%AB%A0%E6%8A%95%E7%A5%A8/"/>
+    <id>http://wedvefv.github.io/2019/02/22/db/redis/redis文章投票/</id>
+    <published>2019-02-22T07:50:00.000Z</published>
+    <updated>2019-06-30T12:42:03.144Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="1-文章信息可以用hash表示"><a href="#1-文章信息可以用hash表示" class="headerlink" title="1. 文章信息可以用hash表示"></a>1. 文章信息可以用hash表示</h2><ul><li><p>比如文章id为key，文章属性为filed，属性值为value</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">key : articel:<span class="number">1</span> </span><br><span class="line">title : 这是标题</span><br><span class="line">link： www.baidu.com</span><br><span class="line">updatetime: <span class="number">2019</span><span class="number">-02</span><span class="number">-21</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span></span><br></pre></td></tr></table></figure></li><li><p>也可以用大的hash，每个filed是一个文章id，value是一个json表示文章属性，</p></li></ul><h2 id="2-文章id和发布时间对应关系用zset表示"><a href="#2-文章id和发布时间对应关系用zset表示" class="headerlink" title="2. 文章id和发布时间对应关系用zset表示"></a>2. 文章id和发布时间对应关系用zset表示</h2><ul><li>文章id对应member，发布时间是score</li></ul><h2 id="3-文章id和文章评分对应关系也可用zset表示"><a href="#3-文章id和文章评分对应关系也可用zset表示" class="headerlink" title="3. 文章id和文章评分对应关系也可用zset表示"></a>3. 文章id和文章评分对应关系也可用zset表示</h2><ul><li>文章id对应member， 分数对应score</li></ul><h2 id="4-对一篇文章首次投票之后，发生什么变化？"><a href="#4-对一篇文章首次投票之后，发生什么变化？" class="headerlink" title="4. 对一篇文章首次投票之后，发生什么变化？"></a>4. 对一篇文章首次投票之后，发生什么变化？</h2><ul><li><ol start="0"><li>有时只需要7天之内发布的文章才可以投票，否则直接返回。</li></ol></li><li><ol><li>用户是不支持重复投票的，所有应该有一个文章id对应的set类型的key，将投过票的uid加入到里面，如果加入失败，就说明重复了，就不增加评分。</li></ol></li><li><ol start="2"><li>首先对应文章id的评分增加，具体增加规则： 将文章的已获得的支持票数*一个常量 +发布时间戳；常量可以432（86400/200）200个投票需求，平均一天时间。，这只是我见到的一个方法。</li></ol></li><li><ol start="3"><li>增加文章的投票+1，使用hincrby ，前提是如果用hash记录文章属性的话，投票数就是一个属性。</li></ol></li><li><ol start="4"><li>考虑到并发，如果以上三个操作应该用事物操作，保证原子性。</li></ol></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;1-文章信息可以用hash表示&quot;&gt;&lt;a href=&quot;#1-文章信息可以用hash表示&quot; class=&quot;headerlink&quot; title=&quot;1. 文章信息可以用hash表示&quot;&gt;&lt;/a&gt;1. 文章信息可以用hash表示&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;比如文章id为
       
     
     </summary>
