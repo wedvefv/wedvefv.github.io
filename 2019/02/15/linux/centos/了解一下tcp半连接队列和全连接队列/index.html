@@ -23,7 +23,7 @@
 
   <meta charset="UTF-8">
   
-    <title>tcp连接过程，半连接队列和全连接队列 | 天地无心</title>
+    <title>tcp连接过程，半连接队列和全连接队列 | forever</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="wedvefv">
@@ -34,7 +34,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="tcp连接过程，半连接队列和全连接队列">
 <meta property="og:url" content="http://wedvefv.github.io/2019/02/15/linux/centos/了解一下tcp半连接队列和全连接队列/index.html">
-<meta property="og:site_name" content="天地无心">
+<meta property="og:site_name" content="forever">
 <meta property="og:description" content="tcp三次握手的过程 第一次：客户端发送SYN(Synchronize Sequence Numbers)报文，标志位SYN=1,序列号seq=j。 第二次：服务端收到SYN报文后，回应ACK(Acknowledgement)，标志位ACK=1,确认号ack为j+1， 同时自己也发送一个SYN报文，SYN=1,序列号seq假设为k， 即一个ACK+SYN包 第三次：客户端收到报文后，发送一个ACK">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20190214095421560.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1pXRTc2MTYxNzU=,size_16,color_FFFFFF,t_70">
@@ -46,7 +46,7 @@
 <meta name="twitter:image" content="https://img-blog.csdnimg.cn/20190214095421560.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1pXRTc2MTYxNzU=,size_16,color_FFFFFF,t_70">
 
     
-    <link rel="alternative" href="/atom.xml" title="天地无心" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="forever" type="application/atom+xml">
     
     
     <link rel="icon" href="/img/favicon.ico">
@@ -64,12 +64,12 @@
 <div>
 		
 			<div id="imglogo">
-				<a href="/"><img src="/img/logo.png" alt="天地无心" title="天地无心"/></a>
+				<a href="/"><img src="/img/logo.png" alt="forever" title="forever"/></a>
 			</div>
 			
 			<div id="textlogo">
-				<h1 class="site-name"><a href="/" title="天地无心">天地无心</a></h1>
-				<h2 class="blog-motto">为天地立心，为生民立命，为往圣继绝学，为万世开太平</h2>
+				<h1 class="site-name"><a href="/" title="forever">forever</a></h1>
+				<h2 class="blog-motto">python</h2>
 			</div>
 			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
 			</a></div>
@@ -242,7 +242,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://wedvefv.github.io/2019/02/15/linux/centos/了解一下tcp半连接队列和全连接队列/" data-title="tcp连接过程，半连接队列和全连接队列 | 天地无心" data-tsina="" class="share clearfix">
+	  <div data-url="http://wedvefv.github.io/2019/02/15/linux/centos/了解一下tcp半连接队列和全连接队列/" data-title="tcp连接过程，半连接队列和全连接队列 | forever" data-tsina="" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -352,10 +352,6 @@
 		
 		  
 			<li><a href="/categories/linux/" title="linux">linux<sup>10</sup></a></li>
-		  
-		
-		  
-			<li><a href="/categories/movie/" title="movie">movie<sup>1</sup></a></li>
 		  
 		
 		  
