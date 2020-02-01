@@ -73,7 +73,7 @@
 				<ul>
 					<ul>
 					 
-						<li><a href="/archives">Home</a></li>
+						<li><a href="/">Home</a></li>
 					
 						<li><a href="/archives">Archives</a></li>
 					
@@ -95,147 +95,54 @@
     <div id="container">
       <div id="main">
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/07/21/linux/centos/了解一下加密/" title="了解一下加密" itemprop="url">了解一下加密</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
-		
-  <p class="article-time">
-    <time datetime="2016-07-21T06:35:58.000Z" itemprop="datePublished"> Published 2016-07-21</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p></p><h1><center>公钥加密的工作原理</center></h1><p></p>
-<h2 id="对称加密："><a href="#对称加密：" class="headerlink" title="对称加密："></a>对称加密：</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">* 加密密钥和解密密钥是一样的。</span><br></pre></td></tr></table></figure>
-<p><br></p>
-<h2 id="非对称加密："><a href="#非对称加密：" class="headerlink" title="非对称加密："></a>非对称加密：</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">*	(也叫公钥加密)</span><br><span class="line">* 两个密钥在加密和解密中配合使用，密钥对具有特殊的互补关系，密钥对在数学上存在特殊关系。</span><br></pre></td></tr></table></figure>
-<p><br></p>
-<h2 id="邮件的电子签名过程："><a href="#邮件的电子签名过程：" class="headerlink" title="邮件的电子签名过程："></a>邮件的电子签名过程：</h2><p><img src="http://technet.microsoft.com/zh-cn/library/Aa998077.35451fb8-5e11-4d67-ba6e-e5d4da6febca%28zh-cn,TechNet.10%29.gif" alt=""></p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">* 捕获邮件正文--&gt;计算邮件哈希值--&gt;检索发件人私钥--&gt;用发件人私钥加密哈希值--&gt;附加到邮件底部(明文签名)/与原始邮件组合成二进制附件(不透明签名)--&gt;发送mail</span><br><span class="line">* --私钥只有发件人才唯一拥有，公钥仅仅与一个私钥关联，所以可以用公钥唯一识别一个私钥。</span><br></pre></td></tr></table></figure>
-<p><br></p>
-<h3 id="验证邮件签名的过程："><a href="#验证邮件签名的过程：" class="headerlink" title="验证邮件签名的过程："></a>验证邮件签名的过程：</h3><p><img src="http://technet.microsoft.com/zh-cn/library/Aa998077.d1b14a27-5cfb-4df2-89f7-990219378716%28zh-cn,TechNet.10%29.gif" alt=""><br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">* 接收邮件--&gt;检索加密的哈希值--&gt;检索邮件正文--&gt;用正文计算邮件哈希值--&gt;检索发件人的公钥--&gt;用发件人公钥解密签名(加密的哈希值)--&gt;和计算的哈希值对比--&gt;验证签名邮件</span><br><span class="line">* --文件内容不变，计算的哈希值就不会变。</span><br><span class="line">* --私钥加密的东西，需要对应的公钥解密。</span><br><span class="line">* --如果哈希值一致，说明公钥对应的私钥是对的，私钥只有发件人知道，所以确定发件人属实。</span><br></pre></td></tr></table></figure></p>
-<p><br></p>
-<h2 id="邮件内容的加密"><a href="#邮件内容的加密" class="headerlink" title="邮件内容的加密"></a>邮件内容的加密</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">* 对称密钥加密的话，需要<span class="string">"密钥协商"</span>，必须协商出一个双方都知道的密钥。</span><br><span class="line">* 非对称密钥加密的话，没有协商过程，因为一个公钥，可以很多人拥有，私钥是只有一个人有。</span><br><span class="line">* 由于非对称(公钥加密)密钥加密使用密钥对，加密和解密是一个昂贵的计算过程，速度慢。所以这么做呗......</span><br></pre></td></tr></table></figure>
-<p><br></p>
-<h3 id="send加密mail内容"><a href="#send加密mail内容" class="headerlink" title="send加密mail内容"></a>send加密mail内容</h3><p><img src="http://technet.microsoft.com/zh-cn/library/Aa998077.21058391-2d70-42f9-bf25-8ead79705b27%28zh-cn,TechNet.10%29.gif" alt=""><br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">* -- <span class="number">1.</span>找到邮件正文--&gt;<span class="number">2.</span>检索收件人公钥--&gt;<span class="number">3.</span>生成一次性的会话密钥(这个是对称密钥)--&gt;<span class="number">4.</span>用会话密钥加密正文--&gt;<span class="number">5.</span>用收件人公钥加密会话密钥，并附到邮件--&gt;<span class="number">6.</span>发送邮件</span><br></pre></td></tr></table></figure></p>
-<p><br></p>
-<h3 id="recv解密mail内容"><a href="#recv解密mail内容" class="headerlink" title="recv解密mail内容"></a>recv解密mail内容</h3><p><img src="http://technet.microsoft.com/zh-cn/library/Aa998077.50f0afca-e520-46b5-8e12-6e295dfe86d9%28zh-cn,TechNet.10%29.gif" alt=""><br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">* -- <span class="number">1.</span>接收邮件--&gt;<span class="number">2.</span>检索加密邮件正文和会话密钥-&gt;<span class="number">3.</span>检索收件人私钥解密会话密钥-&gt;<span class="number">4.</span>用解密的会话密钥解密正文-&gt;<span class="number">5.</span>解密邮件返回给收件人</span><br></pre></td></tr></table></figure></p>
-<p><br></p>
-<h3 id="同时使用签名和邮件内容加密"><a href="#同时使用签名和邮件内容加密" class="headerlink" title="同时使用签名和邮件内容加密"></a>同时使用签名和邮件内容加密</h3><p><img src="http://technet.microsoft.com/zh-cn/library/Aa998077.e81cca9b-c780-49d9-a3f9-69cc3c442183%28zh-cn,TechNet.10%29.gif" alt="tu"></p>
-<p><br></p>
-<h3 id="同时使用签名和邮件内容加密后的解密"><a href="#同时使用签名和邮件内容加密后的解密" class="headerlink" title="同时使用签名和邮件内容加密后的解密"></a>同时使用签名和邮件内容加密后的解密</h3><p><img src="http://technet.microsoft.com/zh-cn/library/Aa998077.97705e57-0a94-4197-99c3-40bb58a9eaa0%28zh-cn,TechNet.10%29.gif" alt=""><br><br></p>
-<h3 id="功能和所需的密钥表"><a href="#功能和所需的密钥表" class="headerlink" title="功能和所需的密钥表"></a>功能和所需的密钥表</h3><p><img src="http://technet.microsoft.com/zh-cn/library/Aa998077.ef4e76b6-4799-45a9-90f8-ec7af508152a%28zh-cn,TechNet.10%29.gif" alt=""></p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/windows/">windows</a>
-</div>
-
-
-  <div class="article-tags">
   
-  <span></span> <a href="/tags/encrypt/">encrypt</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/06/28/linux/git/git_1_config/" title="git 配置文件" itemprop="url">git 配置文件</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
-		
-  <p class="article-time">
-    <time datetime="2016-06-28T06:33:58.000Z" itemprop="datePublished"> Published 2016-06-28</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h1 id="基于公司是代理上网的，所以配置windows下的-gitconfig文件如下："><a href="#基于公司是代理上网的，所以配置windows下的-gitconfig文件如下：" class="headerlink" title="基于公司是代理上网的，所以配置windows下的.gitconfig文件如下："></a>基于公司是代理上网的，所以配置windows下的.gitconfig文件如下：</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[http]</span><br><span class="line">	proxy = 代理ip:代理port</span><br><span class="line">[user]</span><br><span class="line">	email = xxxxx@gmail.com</span><br><span class="line">	name =xxxxxhhh </span><br><span class="line">[gui]  </span><br><span class="line">encoding = utf<span class="number">-8</span> #代码库统一使用utf<span class="number">-8</span></span><br></pre></td></tr></table></figure>
-<h3 id="由于本人电脑是日语版OS，所以GIT终端显示中文字体是乱码，所以索性设置全部"><a href="#由于本人电脑是日语版OS，所以GIT终端显示中文字体是乱码，所以索性设置全部" class="headerlink" title="由于本人电脑是日语版OS，所以GIT终端显示中文字体是乱码，所以索性设置全部"></a>由于本人电脑是日语版OS，所以GIT终端显示中文字体是乱码，所以索性设置全部</h3><h3 id="使用utf-8编码。"><a href="#使用utf-8编码。" class="headerlink" title="使用utf-8编码。"></a>使用utf-8编码。</h3>
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/git/">git</a>
-</div>
-
-
-  <div class="article-tags">
+<section class="post" itemscope itemprop="blogitem">
   
-  <span></span> <a href="/tags/git/">git</a>
-  </div>
+    <a href="/2016/07/21/linux/centos/了解一下加密/" title="了解一下加密" itemprop="url">
+  
+    <h1 itemprop="name">了解一下加密</h1>
+    
+     
+           <p itemprop="description" >公钥加密的工作原理
+对称加密：1* 加密密钥和解密密钥是一样的。
 
-</div>
+非对称加密：12*	(也叫公钥加密)* 两个密钥在加密和解密中配合使用，密钥对具有特殊的互补关系，密钥对在数学上存在特殊关系。
 
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
+邮件的电子签名过程：
+12* 捕获邮件正文--&amp;gt;计算邮件哈希值--&amp;gt;检</p>
+        
+    
+    <time datetime="2016-07-21T06:35:58.000Z" itemprop="datePublished">2016-07-21</time>
+  </a>
+</section>
 
 
 
 
-  <nav id="page-nav" class="clearfix">
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/2016/06/28/linux/git/git_1_config/" title="git 配置文件" itemprop="url">
+  
+    <h1 itemprop="name">git 配置文件</h1>
+    
+     
+           <p itemprop="description" >基于公司是代理上网的，所以配置windows下的.gitconfig文件如下：1234567[http]	proxy = 代理ip:代理port[user]	email = xxxxx@gmail.com	name =xxxxxhhh [gui]  encoding = utf-</p>
+        
+    
+    <time datetime="2016-06-28T06:33:58.000Z" itemprop="datePublished">2016-06-28</time>
+  </a>
+</section>
+
+
+
+
+
+
+
+  <nav id="page-nav" class="clearfix unexpand">
     <a class="extend prev" rel="prev" href="/page/2/"><span></span>Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
   </nav>
 
