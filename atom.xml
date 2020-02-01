@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>依宝</title>
+  <title>学而时习之</title>
   
   <subtitle>programmer</subtitle>
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://wedvefv.github.io/"/>
-  <updated>2019-07-13T03:59:27.280Z</updated>
+  <updated>2019-11-21T12:00:09.634Z</updated>
   <id>http://wedvefv.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>openresty ????</title>
+    <link href="http://wedvefv.github.io/2019/11/19/language/lua/openresty%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5_lua%E5%85%A5%E9%97%A8/"/>
+    <id>http://wedvefv.github.io/2019/11/19/language/lua/openresty最佳实践_lua入门/</id>
+    <published>2019-11-19T13:00:00.000Z</published>
+    <updated>2019-11-21T12:00:09.634Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="lua"><a href="#lua" class="headerlink" title="lua ??"></a>lua ??</h2><h3 id="string"><a href="#string" class="headerlink" title="string"></a>string</h3><ul><li>string ??????????????????????????????lua???????????? ???????????hash??</li><li>??????????????????????????hash???????</li><li>??????O(1)??????O(n)</li></ul><h3 id=""><a href="#" class="headerlink" title="???"></a>???</h3><ul><li>???  ~=</li><li>?? ^</li><li>???userdata?table????<em>??</em>???, ???????????????</li><li>?????????????????O(1)????????O(n)??????????</li><li>a and b  ??a?nil???a?????b</li><li>a or b ??a?nil???b?????a</li><li>lua ??????????????? ????bool??</li><li>not?? ?????false??true</li></ul><h3 id="-1"><a href="#-1" class="headerlink" title="????"></a>????</h3><ul><li><p>??continue?????????for???break??</p><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i=<span class="number">1</span>, <span class="number">10</span> <span class="keyword">do</span> </span><br><span class="line">    <span class="keyword">for</span> j=<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span> <span class="keyword">do</span></span><br><span class="line">        <span class="keyword">if</span> i == <span class="number">5</span> <span class="keyword">then</span></span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        <span class="built_in">print</span>(i)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></li><li><p>repeat ??, ??????? do-while???????????false???lua??true???</p></li><li>repeat ??break??<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- ???</span></span><br><span class="line">x = <span class="number">10</span> </span><br><span class="line"><span class="keyword">repeat</span></span><br><span class="line">    <span class="built_in">print</span>(x)</span><br><span class="line"><span class="keyword">until</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure></li></ul><h3 id="for"><a href="#for" class="headerlink" title="for ?????"></a>for ?????</h3><ul><li>???????: io.lines</li><li>??table: pairs</li><li>???: ipairs</li><li>?????: string.gmatch</li><li>paris??????????luajit???ipairs?????</li></ul><h3 id="lua-1"><a href="#lua-1" class="headerlink" title="lua??"></a>lua??</h3><ul><li><p>???????????????????????</p><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">hello</span><span class="params">()</span></span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">???</span><br><span class="line"><span class="keyword">local</span> hello = <span class="function"><span class="keyword">function</span><span class="params">()</span></span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></li><li><p>???????????????????????</p></li><li>?????????????????????(???????), ????????,??local</li><li>???? ????? (…), ???local x = {…} ?????????luajit?????????????</li><li>?????table????????</li><li>?????????????????????????? local x = (hello())??????<em>luajit</em>???</li><li>unpack????????luajit???<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">run</span><span class="params">(x, y)</span></span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">'run'</span>, x, y)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">attack</span><span class="params">(targetId)</span></span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">'targetId'</span>, targetId)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">do_action</span><span class="params">(method, ...)</span></span></span><br><span class="line">    <span class="keyword">local</span> args = &#123;...&#125; <span class="keyword">or</span> &#123;&#125;</span><br><span class="line">    method(<span class="built_in">unpack</span>(args, <span class="number">1</span>, <span class="built_in">table</span>.<span class="built_in">maxn</span>(args)))</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">do_action(run, <span class="number">1</span>, <span class="number">2</span>)         <span class="comment">-- output: run 1 2</span></span><br><span class="line">do_action(attack, <span class="number">1111</span>)      <span class="comment">-- output: targetId    1111</span></span><br></pre></td></tr></table></figure></li></ul><h3 id="-2"><a href="#-2" class="headerlink" title="??"></a>??</h3><ul><li>require??, ????????????????????table??</li><li>require?????????table??????</li><li>?????????????table?lua???</li><li><em>????</em>??????init_by_lua?init_worker_by_lua???????????????????<em>??????</em> ?</li><li>??????????????????local????????_M??????????????<em>????</em>?</li><li>????????work?lua???????????????work?????????????????????????</li><li>?????????????work???????</li></ul><h3 id="string-1"><a href="#string-1" class="headerlink" title="string???"></a>string???</h3><ul><li>string.formta,string.gmatch, string.sub</li></ul><h3 id="table"><a href="#table" class="headerlink" title="table???"></a>table???</h3><ul><li>table.insert()</li><li>table.remove()</li><li>table.getn() ???# , ????????nil???n???????????nil????</li><li>table.concat({}, [??????])? ???????  </li></ul><h3 id="-3"><a href="#-3" class="headerlink" title="????"></a>????</h3><ul><li>ngx.now() ??????????</li><li>ngx.time() ??????????????os.time()????</li><li>ngx.update_time() ??ngx.time???</li><li>os.time()???table???ngx.time()???</li><li>os.date(“%Y%m%d%H%I%S”, ngx.time()) </li></ul><h3 id="-4"><a href="#-4" class="headerlink" title="????"></a>????</h3>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;lua&quot;&gt;&lt;a href=&quot;#lua&quot; class=&quot;headerlink&quot; title=&quot;lua ??&quot;&gt;&lt;/a&gt;lua ??&lt;/h2&gt;&lt;h3 id=&quot;string&quot;&gt;&lt;a href=&quot;#string&quot; class=&quot;headerlink&quot; title=&quot;str
+      
+    
+    </summary>
+    
+      <category term="openresty" scheme="http://wedvefv.github.io/categories/openresty/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>mac挂载NTFS磁盘</title>
@@ -232,6 +255,32 @@
   </entry>
   
   <entry>
+    <title>git_linux搭建服务器</title>
+    <link href="http://wedvefv.github.io/2019/03/02/linux/git/git_linux%E6%90%AD%E5%BB%BA%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
+    <id>http://wedvefv.github.io/2019/03/02/linux/git/git_linux搭建服务器/</id>
+    <published>2019-03-02T04:01:00.000Z</published>
+    <updated>2020-01-29T04:01:38.238Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="为什么本地搭建一个git服务器"><a href="#为什么本地搭建一个git服务器" class="headerlink" title="为什么本地搭建一个git服务器"></a>为什么本地搭建一个git服务器</h2><ul><li>对于自己学习使用的代码，在没有网络的情况下不能用github，gitlab,所以本地建立一个git服务器。</li></ul><h2 id="git服务器环境准备centos7"><a href="#git服务器环境准备centos7" class="headerlink" title="git服务器环境准备centos7"></a>git服务器环境准备centos7</h2><h2 id="服务端创建git用户"><a href="#服务端创建git用户" class="headerlink" title="服务端创建git用户"></a>服务端创建git用户</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">id git # 查看是否存在git用户，存在就不创建了。</span><br><span class="line">useradd git</span><br><span class="line">passwd git</span><br><span class="line">输入密码，我设置的是xxx@123</span><br></pre></td></tr></table></figure><h2 id="客户端开启公钥认证认证，免密push-pull"><a href="#客户端开启公钥认证认证，免密push-pull" class="headerlink" title="客户端开启公钥认证认证，免密push/pull"></a>客户端开启公钥认证认证，免密push/pull</h2><ul><li><p>首先服务端需要开启ssh服务</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/ssh/sshd_config</span><br><span class="line">RSAAuthentication yes </span><br><span class="line">PubkeyAuthentication yes</span><br><span class="line">AuthorizedKeysFile .ssh/authorized_keys</span><br><span class="line">如果是centos7.4以上（含7.4），ssh1已经不支持了，只支持ssh2代协议。所以RSAAuthentication项是没有的</span><br></pre></td></tr></table></figure></li><li><p>客户端执行 执行ssh-keygen -t rsa 生成公钥和私钥</p></li><li>复制客户端公钥到服务器端ssh-copy-id -i ~/.ssh/id_rsa.pub <a href="mailto:git@192.168.61.128" target="_blank" rel="noopener">git@192.168.61.128</a> </li></ul><h2 id="服务端创建git仓库"><a href="#服务端创建git仓库" class="headerlink" title="服务端创建git仓库"></a>服务端创建git仓库</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /data/git/gittest.git</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 初始化这个仓库</span><br><span class="line">cd /data/git/gittest.git</span><br><span class="line">git init --bare .</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 目录所属用户设置</span><br><span class="line">chown -R git:git /data/git</span><br></pre></td></tr></table></figure><h2 id="客户端clone远程仓库"><a href="#客户端clone远程仓库" class="headerlink" title="客户端clone远程仓库"></a>客户端clone远程仓库</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mkdir localgit</span><br><span class="line">cd localgit</span><br><span class="line">git clone git@192.168.61.128:/data/git/gittest.git .</span><br><span class="line"><span class="meta">#</span> 提示输入服务端git账户的密码。</span><br><span class="line"><span class="meta">#</span>修改完就可以提交了</span><br><span class="line"></span><br><span class="line">touch abc.txt</span><br><span class="line">git add .</span><br><span class="line">git commit -m 'aaa'</span><br><span class="line">git push</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;为什么本地搭建一个git服务器&quot;&gt;&lt;a href=&quot;#为什么本地搭建一个git服务器&quot; class=&quot;headerlink&quot; title=&quot;为什么本地搭建一个git服务器&quot;&gt;&lt;/a&gt;为什么本地搭建一个git服务器&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;对于自己学习使用的代码，
+      
+    
+    </summary>
+    
+      <category term="git" scheme="http://wedvefv.github.io/categories/git/"/>
+    
+    
+      <category term="git" scheme="http://wedvefv.github.io/tags/git/"/>
+    
+  </entry>
+  
+  <entry>
     <title>git_tag用法</title>
     <link href="http://wedvefv.github.io/2019/03/02/linux/git/git_tag%E7%94%A8%E6%B3%95/"/>
     <id>http://wedvefv.github.io/2019/03/02/linux/git/git_tag用法/</id>
@@ -246,32 +295,6 @@
       
         &lt;h2 id=&quot;tag-和branch的区别&quot;&gt;&lt;a href=&quot;#tag-和branch的区别&quot; class=&quot;headerlink&quot; title=&quot;tag 和branch的区别&quot;&gt;&lt;/a&gt;tag 和branch的区别&lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;Git tag是一系列commi
-      
-    
-    </summary>
-    
-      <category term="git" scheme="http://wedvefv.github.io/categories/git/"/>
-    
-    
-      <category term="git" scheme="http://wedvefv.github.io/tags/git/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>git_linux搭建服务器</title>
-    <link href="http://wedvefv.github.io/2019/03/02/linux/git/git_linux%E6%90%AD%E5%BB%BA%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
-    <id>http://wedvefv.github.io/2019/03/02/linux/git/git_linux搭建服务器/</id>
-    <published>2019-03-02T04:00:00.000Z</published>
-    <updated>2019-05-19T14:18:38.608Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="为什么本地搭建一个git服务器"><a href="#为什么本地搭建一个git服务器" class="headerlink" title="为什么本地搭建一个git服务器"></a>为什么本地搭建一个git服务器</h2><ul><li>对于自己学习使用的代码，在没有网络的情况下不能用github，gitlab,所以本地建立一个git服务器。</li></ul><h2 id="git服务器环境准备centos7"><a href="#git服务器环境准备centos7" class="headerlink" title="git服务器环境准备centos7"></a>git服务器环境准备centos7</h2><h2 id="服务端创建git用户"><a href="#服务端创建git用户" class="headerlink" title="服务端创建git用户"></a>服务端创建git用户</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">id git # 查看是否存在git用户，存在就不创建了。</span><br><span class="line">useradd git</span><br><span class="line">passwd git</span><br><span class="line">输入密码，我设置的是xxx@123</span><br></pre></td></tr></table></figure><h2 id="客户端开启公钥认证认证，免密push-pull"><a href="#客户端开启公钥认证认证，免密push-pull" class="headerlink" title="客户端开启公钥认证认证，免密push/pull"></a>客户端开启公钥认证认证，免密push/pull</h2><ul><li><p>首先服务端需要开启ssh服务</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/ssh/sshd_config</span><br><span class="line">RSAAuthentication yes </span><br><span class="line">PubkeyAuthentication yes</span><br><span class="line">AuthorizedKeysFile .ssh/authorized_keys</span><br><span class="line">如果是centos7.4以上（含7.4），ssh1已经不支持了，只支持ssh2代协议。所以RSAAuthentication项是没有的</span><br></pre></td></tr></table></figure></li><li><p>客户端执行 执行ssh-keygen -t rsa 生成公钥和私钥</p></li><li>复制客户端公钥到服务器端ssh-copy-id -i ~/.ssh/id_rsa.pub <a href="mailto:git@192.168.61.128" target="_blank" rel="noopener">git@192.168.61.128</a> </li></ul><h2 id="服务端创建git仓库"><a href="#服务端创建git仓库" class="headerlink" title="服务端创建git仓库"></a>服务端创建git仓库</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /data/git/gittest.git</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 初始化这个仓库</span><br><span class="line">cd /data/git/gittest.git</span><br><span class="line">git init --bare .</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 目录所属用户设置</span><br><span class="line">chown -R git:git /data/git</span><br></pre></td></tr></table></figure><h2 id="客户端clone远程仓库"><a href="#客户端clone远程仓库" class="headerlink" title="客户端clone远程仓库"></a>客户端clone远程仓库</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mkdir localgit</span><br><span class="line">cd localgit</span><br><span class="line">git clone git@192.168.61.128:/data/git/gittest.git .</span><br><span class="line"><span class="meta">#</span> 提示输入服务端git账户的密码。</span><br><span class="line"><span class="meta">#</span>修改完就可以提交了</span><br><span class="line"></span><br><span class="line">touch abc.txt</span><br><span class="line">git add .</span><br><span class="line">git commit -m 'aaa'</span><br><span class="line">git push</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;为什么本地搭建一个git服务器&quot;&gt;&lt;a href=&quot;#为什么本地搭建一个git服务器&quot; class=&quot;headerlink&quot; title=&quot;为什么本地搭建一个git服务器&quot;&gt;&lt;/a&gt;为什么本地搭建一个git服务器&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;对于自己学习使用的代码，
       
     
     </summary>
@@ -332,30 +355,6 @@
   </entry>
   
   <entry>
-    <title>redis文章发布</title>
-    <link href="http://wedvefv.github.io/2019/02/22/db/redis/redis%E6%96%87%E7%AB%A0%E5%8F%91%E5%B8%83/"/>
-    <id>http://wedvefv.github.io/2019/02/22/db/redis/redis文章发布/</id>
-    <published>2019-02-22T07:50:00.000Z</published>
-    <updated>2019-06-30T12:41:47.891Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="定时任务发布方式"><a href="#定时任务发布方式" class="headerlink" title="定时任务发布方式"></a>定时任务发布方式</h2><ul><li>如果有后台发布文章，需要有定时任务将mysql中录入的文章同步到redis中</li><li><ol><li>这时候文章id当然是mysql自增产生的，生成一个文章id表示的文章内容 <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">conn.hmset(<span class="string">"article:100:hash"</span>,&#123;属性字典&#125;）</span><br><span class="line">``` </span><br><span class="line">- <span class="number">2.</span> 作者发布的文章，文章的投票者集合当然有作者，需要设置投票集合。</span><br><span class="line">```py</span><br><span class="line">conn.sadd(<span class="string">"artile:100:set"</span>,atrticle.uid)</span><br><span class="line">conn.expire(<span class="string">"artile:100:set"</span>,<span class="number">7</span>*<span class="number">86400</span>) <span class="comment"># 一周有效期</span></span><br></pre></td></tr></table></figure></li></ol></li><li><ol start="3"><li>文章的评分zset初始化,文章发布时间集合初始化。<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">conn.zincrby(<span class="string">"article:100:score:zset"</span>,<span class="number">432</span>)， <span class="number">432</span> 是一个投票的评分。</span><br><span class="line">conn.zadd(<span class="string">"article:time:zset"</span>,article_id, now)</span><br></pre></td></tr></table></figure></li></ol></li></ul><h2 id="如果是没有mysql，完全用redis这时候，文章id就需要一个string类型的key自增产生，其余步骤一致。"><a href="#如果是没有mysql，完全用redis这时候，文章id就需要一个string类型的key自增产生，其余步骤一致。" class="headerlink" title="如果是没有mysql，完全用redis这时候，文章id就需要一个string类型的key自增产生，其余步骤一致。"></a>如果是没有mysql，完全用redis这时候，文章id就需要一个string类型的key自增产生，其余步骤一致。</h2>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;定时任务发布方式&quot;&gt;&lt;a href=&quot;#定时任务发布方式&quot; class=&quot;headerlink&quot; title=&quot;定时任务发布方式&quot;&gt;&lt;/a&gt;定时任务发布方式&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;如果有后台发布文章，需要有定时任务将mysql中录入的文章同步到redis中&lt;/
-      
-    
-    </summary>
-    
-      <category term="db" scheme="http://wedvefv.github.io/categories/db/"/>
-    
-    
-  </entry>
-  
-  <entry>
     <title>redis文章投票</title>
     <link href="http://wedvefv.github.io/2019/02/22/db/redis/redis%E6%96%87%E7%AB%A0%E6%8A%95%E7%A5%A8/"/>
     <id>http://wedvefv.github.io/2019/02/22/db/redis/redis文章投票/</id>
@@ -370,6 +369,30 @@
       
         &lt;h2 id=&quot;1-文章信息可以用hash表示&quot;&gt;&lt;a href=&quot;#1-文章信息可以用hash表示&quot; class=&quot;headerlink&quot; title=&quot;1. 文章信息可以用hash表示&quot;&gt;&lt;/a&gt;1. 文章信息可以用hash表示&lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;&lt;p&gt;比如文章id为
+      
+    
+    </summary>
+    
+      <category term="db" scheme="http://wedvefv.github.io/categories/db/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>redis文章发布</title>
+    <link href="http://wedvefv.github.io/2019/02/22/db/redis/redis%E6%96%87%E7%AB%A0%E5%8F%91%E5%B8%83/"/>
+    <id>http://wedvefv.github.io/2019/02/22/db/redis/redis文章发布/</id>
+    <published>2019-02-22T07:50:00.000Z</published>
+    <updated>2019-06-30T12:41:47.891Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="定时任务发布方式"><a href="#定时任务发布方式" class="headerlink" title="定时任务发布方式"></a>定时任务发布方式</h2><ul><li>如果有后台发布文章，需要有定时任务将mysql中录入的文章同步到redis中</li><li><ol><li>这时候文章id当然是mysql自增产生的，生成一个文章id表示的文章内容 <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">conn.hmset(<span class="string">"article:100:hash"</span>,&#123;属性字典&#125;）</span><br><span class="line">``` </span><br><span class="line">- <span class="number">2.</span> 作者发布的文章，文章的投票者集合当然有作者，需要设置投票集合。</span><br><span class="line">```py</span><br><span class="line">conn.sadd(<span class="string">"artile:100:set"</span>,atrticle.uid)</span><br><span class="line">conn.expire(<span class="string">"artile:100:set"</span>,<span class="number">7</span>*<span class="number">86400</span>) <span class="comment"># 一周有效期</span></span><br></pre></td></tr></table></figure></li></ol></li><li><ol start="3"><li>文章的评分zset初始化,文章发布时间集合初始化。<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">conn.zincrby(<span class="string">"article:100:score:zset"</span>,<span class="number">432</span>)， <span class="number">432</span> 是一个投票的评分。</span><br><span class="line">conn.zadd(<span class="string">"article:time:zset"</span>,article_id, now)</span><br></pre></td></tr></table></figure></li></ol></li></ul><h2 id="如果是没有mysql，完全用redis这时候，文章id就需要一个string类型的key自增产生，其余步骤一致。"><a href="#如果是没有mysql，完全用redis这时候，文章id就需要一个string类型的key自增产生，其余步骤一致。" class="headerlink" title="如果是没有mysql，完全用redis这时候，文章id就需要一个string类型的key自增产生，其余步骤一致。"></a>如果是没有mysql，完全用redis这时候，文章id就需要一个string类型的key自增产生，其余步骤一致。</h2>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;定时任务发布方式&quot;&gt;&lt;a href=&quot;#定时任务发布方式&quot; class=&quot;headerlink&quot; title=&quot;定时任务发布方式&quot;&gt;&lt;/a&gt;定时任务发布方式&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;如果有后台发布文章，需要有定时任务将mysql中录入的文章同步到redis中&lt;/
       
     
     </summary>
@@ -592,29 +615,6 @@
   </entry>
   
   <entry>
-    <title>flask 第1章(基本结构和概念)</title>
-    <link href="http://wedvefv.github.io/2019/01/28/language/python/1%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84/"/>
-    <id>http://wedvefv.github.io/2019/01/28/language/python/1基本结构/</id>
-    <published>2019-01-28T14:22:00.000Z</published>
-    <updated>2019-05-19T14:30:17.031Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="开始和程序基本结构"><a href="#开始和程序基本结构" class="headerlink" title="开始和程序基本结构"></a>开始和程序基本结构</h1><h2 id="1-首先安装虚拟环境包和git工具"><a href="#1-首先安装虚拟环境包和git工具" class="headerlink" title="1.首先安装虚拟环境包和git工具"></a>1.首先安装虚拟环境包和git工具</h2><ul><li>sudo apt-get install python-virtualenv</li><li>sudo apt-get install git</li></ul><h2 id="2-创建一个目录"><a href="#2-创建一个目录" class="headerlink" title="2.创建一个目录"></a>2.创建一个目录</h2><ul><li>mkdir flask_learn</li><li>cd flask_learn</li></ul><h2 id="3-下载实例代码"><a href="#3-下载实例代码" class="headerlink" title="3.下载实例代码"></a>3.下载实例代码</h2><ul><li>git clone <a href="http://github.com/miguelgrinberg/flasky.git" target="_blank" rel="noopener">http://github.com/miguelgrinberg/flasky.git</a></li><li>cd flask</li><li>建立一个虚拟环境</li><li>virtualenv venv</li><li>激活虚拟环境</li><li>source venv/bin/activate</li><li>取消激活分区</li><li>deactivate</li><li>虚拟环境下安装pip</li><li>pip install flask</li><li>切换分支</li><li>git checkout 2a</li></ul><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">'&lt;h1&gt;Hello World!&lt;/h1&gt;'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    app.run(debug=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure><ul><li>执行 python hello.py</li><li>浏览器输入<a href="http://127.0.0.1:5000/" target="_blank" rel="noopener">http://127.0.0.1:5000/</a> 就可以看到helloword了。</li><li>但是这样会出现一个问题。你在linux虚拟机里面执行的代码。在window上浏览器看就不行，需要设置</li><li>如下改动 app.run(debug=True，host=”0.0.0.0”)或者使用manage模块扩展传参数，后面会提到。</li></ul><h2 id="4-flask程序有四个上下文"><a href="#4-flask程序有四个上下文" class="headerlink" title="4. flask程序有四个上下文"></a>4. flask程序有四个上下文</h2><ul><li>curent_app  程序上下文， 当前激活的程序实例</li><li>g 程序上下文 处理请求的临时存储对象，每次请求都会重设这个变量。</li><li>request  请求上下文    请求对象，封装了每次http请求的内容</li><li>sesion  请求上下文    用户会话， 用于存储之间需要记住的值的词典。</li><li>这是个变量每次请求 都是独立属于这一次请求的，或者说是属于同一个线程内全局可见。</li></ul><h2 id="5-请求调度"><a href="#5-请求调度" class="headerlink" title="5. 请求调度"></a>5. 请求调度</h2><ul><li>这个主要是 url和处理函数的映射关系，即视图。</li><li>通过app.url_map 可以看到映射关系。</li><li>生成映射的方法2中，1 app.route修饰器 2，app.add_url_rule()</li></ul><h2 id="6-请求钩子"><a href="#6-请求钩子" class="headerlink" title="6. 请求钩子"></a>6. 请求钩子</h2><ul><li>主要是为了每个请求开始可能都需要认证，数据库连接等重复操作的代码复。</li><li>通过钩子装饰器，注册函数，在到达视图函数前运行这些函数。</li><li>有四种个钩子 brefore_first_request,brefore_request,after_request,teardown_request<blockquote><p>after_request 有没做处理的异常抛出时，是不运行的。<br>teardown_request 即使有没处理的异常抛出，也会运行。</p></blockquote></li></ul><h2 id="7-响应"><a href="#7-响应" class="headerlink" title="7. 响应"></a>7. 响应</h2><ul><li>flask 默认返回200 状态吗</li><li><p>可以返回其他状态吗</p><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> <span class="string">"hello word!"</span>, <span class="number">400</span></span><br><span class="line">或者</span><br><span class="line"><span class="keyword">return</span> <span class="string">"hello world!"</span>, <span class="number">500</span>, &#123;<span class="string">"ua"</span>:<span class="number">10</span>&#125;</span><br><span class="line">返回的是一个元组，第二个是状态吗，第三个是header，字典形式。</span><br></pre></td></tr></table></figure></li><li><p>还可以使用make_response(“hello world!”, 500, {“ua”:10})生成一个对象，以便调用函数设置cookie等其他值。</p></li><li>320重定向，使用redirect(“<a href="http://www.baidu.com&quot;)函数。" target="_blank" rel="noopener">www.baidu.com&quot;)函数。</a></li><li>特殊响应，比如404 可以使用abort(404)函数，这个直接就吧控制权交给web服务器了，不会再调用其它函数。</li></ul><h2 id="8-flask扩展"><a href="#8-flask扩展" class="headerlink" title="8. flask扩展"></a>8. flask扩展</h2><ul><li><p>pip install flask-script</p></li><li><p>用manager吧app对象包住，这样就可以使用manager扩展了。</p></li></ul><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</span><br><span class="line"><span class="keyword">from</span> flask_script <span class="keyword">import</span> Manager</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line">manager = Manager(app)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">'&lt;h1&gt;Hello World!&lt;/h1&gt;'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/user/&lt;name&gt;')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">user</span><span class="params">(name)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">'&lt;h1&gt;Hello, %s!&lt;/h1&gt;'</span> % name</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    manager.run()</span><br></pre></td></tr></table></figure><ul><li>启动服务：<blockquote><p>python hello.py  runserver –host 0.0.0.0</p></blockquote></li></ul><h2 id="9-模板的继承"><a href="#9-模板的继承" class="headerlink" title="9 模板的继承"></a>9 模板的继承</h2><ul><li>类似于python中的类的继承</li><li>首先需要一个基类模板base.html 然后把对应的可修改的块用    格式包含即可。</li></ul><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">  &lt;haed&gt;</span><br><span class="line">  &#123;% block  head%&#125;  &#123;%endblock%&#125;</span><br><span class="line">  &#123;% block title%&#125; &#123;%endblock%&#125;</span><br><span class="line">  &lt;/head&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">    &#123;%block body%&#125;  &#123;%endblock%&#125;</span><br><span class="line">  &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure><ul><li>在子类模板中使用基类模板</li></ul><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;%extends <span class="string">"base.html"</span>% &#125;</span><br><span class="line"></span><br><span class="line">&#123;%block title%&#125; 这是index标题 &#123;%endblock%&#125;</span><br><span class="line"></span><br><span class="line">&#123;%block head%&#125;</span><br><span class="line">  &#123;&#123;super()&#125;&#125;   <span class="comment">#基类head部分原本的内容用supper获取</span></span><br><span class="line">  &lt;style&gt;</span><br><span class="line">  &lt;/style&gt;</span><br><span class="line">&#123;%endblock%&#125;</span><br><span class="line"></span><br><span class="line">&#123;%block body%&#125;</span><br><span class="line">  &lt;h1&gt; hello world &lt;/h1&gt;</span><br><span class="line">&#123;%endblock%&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;开始和程序基本结构&quot;&gt;&lt;a href=&quot;#开始和程序基本结构&quot; class=&quot;headerlink&quot; title=&quot;开始和程序基本结构&quot;&gt;&lt;/a&gt;开始和程序基本结构&lt;/h1&gt;&lt;h2 id=&quot;1-首先安装虚拟环境包和git工具&quot;&gt;&lt;a href=&quot;#1-首先安装虚拟
-      
-    
-    </summary>
-    
-      <category term="flask" scheme="http://wedvefv.github.io/categories/flask/"/>
-    
-    
-  </entry>
-  
-  <entry>
     <title>flask 第2章(模板)</title>
     <link href="http://wedvefv.github.io/2019/01/28/language/python/2_%E6%A8%A1%E6%9D%BF/"/>
     <id>http://wedvefv.github.io/2019/01/28/language/python/2_模板/</id>
@@ -628,6 +628,29 @@
       
       
         &lt;h1 id=&quot;模板&quot;&gt;&lt;a href=&quot;#模板&quot; class=&quot;headerlink&quot; title=&quot;模板&quot;&gt;&lt;/a&gt;模板&lt;/h1&gt;&lt;h2 id=&quot;1-jinja2模板引擎&quot;&gt;&lt;a href=&quot;#1-jinja2模板引擎&quot; class=&quot;headerlink&quot; title=&quot;1
+      
+    
+    </summary>
+    
+      <category term="flask" scheme="http://wedvefv.github.io/categories/flask/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>flask 第1章(基本结构和概念)</title>
+    <link href="http://wedvefv.github.io/2019/01/28/language/python/1%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84/"/>
+    <id>http://wedvefv.github.io/2019/01/28/language/python/1基本结构/</id>
+    <published>2019-01-28T14:22:00.000Z</published>
+    <updated>2019-05-19T14:30:17.031Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="开始和程序基本结构"><a href="#开始和程序基本结构" class="headerlink" title="开始和程序基本结构"></a>开始和程序基本结构</h1><h2 id="1-首先安装虚拟环境包和git工具"><a href="#1-首先安装虚拟环境包和git工具" class="headerlink" title="1.首先安装虚拟环境包和git工具"></a>1.首先安装虚拟环境包和git工具</h2><ul><li>sudo apt-get install python-virtualenv</li><li>sudo apt-get install git</li></ul><h2 id="2-创建一个目录"><a href="#2-创建一个目录" class="headerlink" title="2.创建一个目录"></a>2.创建一个目录</h2><ul><li>mkdir flask_learn</li><li>cd flask_learn</li></ul><h2 id="3-下载实例代码"><a href="#3-下载实例代码" class="headerlink" title="3.下载实例代码"></a>3.下载实例代码</h2><ul><li>git clone <a href="http://github.com/miguelgrinberg/flasky.git" target="_blank" rel="noopener">http://github.com/miguelgrinberg/flasky.git</a></li><li>cd flask</li><li>建立一个虚拟环境</li><li>virtualenv venv</li><li>激活虚拟环境</li><li>source venv/bin/activate</li><li>取消激活分区</li><li>deactivate</li><li>虚拟环境下安装pip</li><li>pip install flask</li><li>切换分支</li><li>git checkout 2a</li></ul><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">'&lt;h1&gt;Hello World!&lt;/h1&gt;'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    app.run(debug=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure><ul><li>执行 python hello.py</li><li>浏览器输入<a href="http://127.0.0.1:5000/" target="_blank" rel="noopener">http://127.0.0.1:5000/</a> 就可以看到helloword了。</li><li>但是这样会出现一个问题。你在linux虚拟机里面执行的代码。在window上浏览器看就不行，需要设置</li><li>如下改动 app.run(debug=True，host=”0.0.0.0”)或者使用manage模块扩展传参数，后面会提到。</li></ul><h2 id="4-flask程序有四个上下文"><a href="#4-flask程序有四个上下文" class="headerlink" title="4. flask程序有四个上下文"></a>4. flask程序有四个上下文</h2><ul><li>curent_app  程序上下文， 当前激活的程序实例</li><li>g 程序上下文 处理请求的临时存储对象，每次请求都会重设这个变量。</li><li>request  请求上下文    请求对象，封装了每次http请求的内容</li><li>sesion  请求上下文    用户会话， 用于存储之间需要记住的值的词典。</li><li>这是个变量每次请求 都是独立属于这一次请求的，或者说是属于同一个线程内全局可见。</li></ul><h2 id="5-请求调度"><a href="#5-请求调度" class="headerlink" title="5. 请求调度"></a>5. 请求调度</h2><ul><li>这个主要是 url和处理函数的映射关系，即视图。</li><li>通过app.url_map 可以看到映射关系。</li><li>生成映射的方法2中，1 app.route修饰器 2，app.add_url_rule()</li></ul><h2 id="6-请求钩子"><a href="#6-请求钩子" class="headerlink" title="6. 请求钩子"></a>6. 请求钩子</h2><ul><li>主要是为了每个请求开始可能都需要认证，数据库连接等重复操作的代码复。</li><li>通过钩子装饰器，注册函数，在到达视图函数前运行这些函数。</li><li>有四种个钩子 brefore_first_request,brefore_request,after_request,teardown_request<blockquote><p>after_request 有没做处理的异常抛出时，是不运行的。<br>teardown_request 即使有没处理的异常抛出，也会运行。</p></blockquote></li></ul><h2 id="7-响应"><a href="#7-响应" class="headerlink" title="7. 响应"></a>7. 响应</h2><ul><li>flask 默认返回200 状态吗</li><li><p>可以返回其他状态吗</p><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> <span class="string">"hello word!"</span>, <span class="number">400</span></span><br><span class="line">或者</span><br><span class="line"><span class="keyword">return</span> <span class="string">"hello world!"</span>, <span class="number">500</span>, &#123;<span class="string">"ua"</span>:<span class="number">10</span>&#125;</span><br><span class="line">返回的是一个元组，第二个是状态吗，第三个是header，字典形式。</span><br></pre></td></tr></table></figure></li><li><p>还可以使用make_response(“hello world!”, 500, {“ua”:10})生成一个对象，以便调用函数设置cookie等其他值。</p></li><li>320重定向，使用redirect(“<a href="http://www.baidu.com&quot;)函数。" target="_blank" rel="noopener">www.baidu.com&quot;)函数。</a></li><li>特殊响应，比如404 可以使用abort(404)函数，这个直接就吧控制权交给web服务器了，不会再调用其它函数。</li></ul><h2 id="8-flask扩展"><a href="#8-flask扩展" class="headerlink" title="8. flask扩展"></a>8. flask扩展</h2><ul><li><p>pip install flask-script</p></li><li><p>用manager吧app对象包住，这样就可以使用manager扩展了。</p></li></ul><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</span><br><span class="line"><span class="keyword">from</span> flask_script <span class="keyword">import</span> Manager</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line">manager = Manager(app)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">'&lt;h1&gt;Hello World!&lt;/h1&gt;'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/user/&lt;name&gt;')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">user</span><span class="params">(name)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">'&lt;h1&gt;Hello, %s!&lt;/h1&gt;'</span> % name</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    manager.run()</span><br></pre></td></tr></table></figure><ul><li>启动服务：<blockquote><p>python hello.py  runserver –host 0.0.0.0</p></blockquote></li></ul><h2 id="9-模板的继承"><a href="#9-模板的继承" class="headerlink" title="9 模板的继承"></a>9 模板的继承</h2><ul><li>类似于python中的类的继承</li><li>首先需要一个基类模板base.html 然后把对应的可修改的块用    格式包含即可。</li></ul><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">  &lt;haed&gt;</span><br><span class="line">  &#123;% block  head%&#125;  &#123;%endblock%&#125;</span><br><span class="line">  &#123;% block title%&#125; &#123;%endblock%&#125;</span><br><span class="line">  &lt;/head&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">    &#123;%block body%&#125;  &#123;%endblock%&#125;</span><br><span class="line">  &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure><ul><li>在子类模板中使用基类模板</li></ul><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;%extends <span class="string">"base.html"</span>% &#125;</span><br><span class="line"></span><br><span class="line">&#123;%block title%&#125; 这是index标题 &#123;%endblock%&#125;</span><br><span class="line"></span><br><span class="line">&#123;%block head%&#125;</span><br><span class="line">  &#123;&#123;super()&#125;&#125;   <span class="comment">#基类head部分原本的内容用supper获取</span></span><br><span class="line">  &lt;style&gt;</span><br><span class="line">  &lt;/style&gt;</span><br><span class="line">&#123;%endblock%&#125;</span><br><span class="line"></span><br><span class="line">&#123;%block body%&#125;</span><br><span class="line">  &lt;h1&gt; hello world &lt;/h1&gt;</span><br><span class="line">&#123;%endblock%&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;开始和程序基本结构&quot;&gt;&lt;a href=&quot;#开始和程序基本结构&quot; class=&quot;headerlink&quot; title=&quot;开始和程序基本结构&quot;&gt;&lt;/a&gt;开始和程序基本结构&lt;/h1&gt;&lt;h2 id=&quot;1-首先安装虚拟环境包和git工具&quot;&gt;&lt;a href=&quot;#1-首先安装虚拟
       
     
     </summary>

@@ -23,26 +23,24 @@
 
   <meta charset="UTF-8">
   
-    <title>了解一下VM虚拟机的三种联网模式 | 学而时习之</title>
+    <title>openresty ???? | 学而时习之</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="wedvefv">
     
 
     
-    <meta name="description" content="1.HOST-ONLY   对应图中的private to my Mac 选项 这种模式不能联网，能通过DHCP分配到ip地址，使用VMnet1网卡作为交换机，默认网关就是VMnet1的地址，能和主机通信，不能连接外网。 VMnet1网卡作为交换机，一个连接主机HOST，一个端口连接DHCP服务器（一个VM组件），剩下的链接虚拟机，没有提供NAT服务，所以没有路由功能。  2.NAT模式，网络地址">
+    <meta name="description" content="lua ??string string ??????????????????????????????lua???????????? ???????????hash?? ??????????????????????????hash??????? ??????O(1)??????O(n)  ??? ???  ~= ?? ^ ???userdata?table?????????, ???????????">
 <meta property="og:type" content="article">
-<meta property="og:title" content="了解一下VM虚拟机的三种联网模式">
-<meta property="og:url" content="http://wedvefv.github.io/2019/02/21/linux/centos/了解一下VM虚拟机的三种联网模式/index.html">
+<meta property="og:title" content="openresty ????">
+<meta property="og:url" content="http://wedvefv.github.io/2019/11/19/language/lua/openresty最佳实践_lua入门/index.html">
 <meta property="og:site_name" content="学而时习之">
-<meta property="og:description" content="1.HOST-ONLY   对应图中的private to my Mac 选项 这种模式不能联网，能通过DHCP分配到ip地址，使用VMnet1网卡作为交换机，默认网关就是VMnet1的地址，能和主机通信，不能连接外网。 VMnet1网卡作为交换机，一个连接主机HOST，一个端口连接DHCP服务器（一个VM组件），剩下的链接虚拟机，没有提供NAT服务，所以没有路由功能。  2.NAT模式，网络地址">
+<meta property="og:description" content="lua ??string string ??????????????????????????????lua???????????? ???????????hash?? ??????????????????????????hash??????? ??????O(1)??????O(n)  ??? ???  ~= ?? ^ ???userdata?table?????????, ???????????">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://wedvefv.github.io/2019/02/21/linux/centos/了解一下VM虚拟机的三种联网模式/images/vmnet.png">
-<meta property="og:updated_time" content="2019-07-13T03:38:41.743Z">
+<meta property="og:updated_time" content="2019-11-21T12:00:09.634Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="了解一下VM虚拟机的三种联网模式">
-<meta name="twitter:description" content="1.HOST-ONLY   对应图中的private to my Mac 选项 这种模式不能联网，能通过DHCP分配到ip地址，使用VMnet1网卡作为交换机，默认网关就是VMnet1的地址，能和主机通信，不能连接外网。 VMnet1网卡作为交换机，一个连接主机HOST，一个端口连接DHCP服务器（一个VM组件），剩下的链接虚拟机，没有提供NAT服务，所以没有路由功能。  2.NAT模式，网络地址">
-<meta name="twitter:image" content="http://wedvefv.github.io/2019/02/21/linux/centos/了解一下VM虚拟机的三种联网模式/images/vmnet.png">
+<meta name="twitter:title" content="openresty ????">
+<meta name="twitter:description" content="lua ??string string ??????????????????????????????lua???????????? ???????????hash?? ??????????????????????????hash??????? ??????O(1)??????O(n)  ??? ???  ~= ?? ^ ???userdata?table?????????, ???????????">
 
     
     <link rel="alternative" href="/atom.xml" title="学而时习之" type="application/atom+xml">
@@ -102,14 +100,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2019/02/21/linux/centos/了解一下VM虚拟机的三种联网模式/" title="了解一下VM虚拟机的三种联网模式" itemprop="url">了解一下VM虚拟机的三种联网模式</a>
+      <a href="/2019/11/19/language/lua/openresty最佳实践_lua入门/" title="openresty ????" itemprop="url">openresty ????</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
 		
   <p class="article-time">
-    <time datetime="2019-02-21T08:00:00.000Z" itemprop="datePublished"> Published 2019-02-21</time>
+    <time datetime="2019-11-19T13:00:00.000Z" itemprop="datePublished"> Published 2019-11-19</time>
     
   </p>
 </header>
@@ -118,38 +116,87 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-HOST-ONLY"><span class="toc-number">1.</span> <span class="toc-text">1.HOST-ONLY</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-NAT模式，网络地址转换"><span class="toc-number">2.</span> <span class="toc-text">2.NAT模式，网络地址转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Bridged模式，（桥接模式）"><span class="toc-number">3.</span> <span class="toc-text">3.Bridged模式，（桥接模式）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#虚拟机vmnet0、vmnet1和vmnet8的区别"><span class="toc-number">4.</span> <span class="toc-text">虚拟机vmnet0、vmnet1和vmnet8的区别</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#lua"><span class="toc-number">1.</span> <span class="toc-text">lua ??</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#string"><span class="toc-number">1.1.</span> <span class="toc-text">string</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#"><span class="toc-number">1.2.</span> <span class="toc-text">???</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#-1"><span class="toc-number">1.3.</span> <span class="toc-text">????</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#for"><span class="toc-number">1.4.</span> <span class="toc-text">for ?????</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#lua-1"><span class="toc-number">1.5.</span> <span class="toc-text">lua??</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#-2"><span class="toc-number">1.6.</span> <span class="toc-text">??</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#string-1"><span class="toc-number">1.7.</span> <span class="toc-text">string???</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#table"><span class="toc-number">1.8.</span> <span class="toc-text">table???</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#-3"><span class="toc-number">1.9.</span> <span class="toc-text">????</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#-4"><span class="toc-number">1.10.</span> <span class="toc-text">????</span></a></li></ol></li></ol>
 		
 		</div>
 		
-		<h2 id="1-HOST-ONLY"><a href="#1-HOST-ONLY" class="headerlink" title="1.HOST-ONLY"></a>1.HOST-ONLY</h2><p><img src="/2019/02/21/linux/centos/了解一下VM虚拟机的三种联网模式/images/vmnet.png" alt=""> </p>
-<ul>
-<li>对应图中的private to my Mac 选项</li>
-<li>这种模式不能联网，能通过DHCP分配到ip地址，使用VMnet1网卡作为交换机，默认网关就是VMnet1的地址，能和主机通信，不能连接外网。</li>
-<li>VMnet1网卡作为交换机，一个连接主机HOST，一个端口连接DHCP服务器（一个VM组件），剩下的链接虚拟机，没有提供NAT服务，所以没有路由功能。</li>
+		<h2 id="lua"><a href="#lua" class="headerlink" title="lua ??"></a>lua ??</h2><h3 id="string"><a href="#string" class="headerlink" title="string"></a>string</h3><ul>
+<li>string ??????????????????????????????lua???????????? ???????????hash??</li>
+<li>??????????????????????????hash???????</li>
+<li>??????O(1)??????O(n)</li>
 </ul>
-<h2 id="2-NAT模式，网络地址转换"><a href="#2-NAT模式，网络地址转换" class="headerlink" title="2.NAT模式，网络地址转换"></a>2.NAT模式，网络地址转换</h2><ul>
-<li><p>对应图中的 share with my Mac 选项 ，这是共享网络模式</p>
+<h3 id=""><a href="#" class="headerlink" title="???"></a>???</h3><ul>
+<li>???  ~=</li>
+<li>?? ^</li>
+<li>???userdata?table????<em>??</em>???, ???????????????</li>
+<li>?????????????????O(1)????????O(n)??????????</li>
+<li>a and b  ??a?nil???a?????b</li>
+<li>a or b ??a?nil???b?????a</li>
+<li>lua ??????????????? ????bool??</li>
+<li>not?? ?????false??true</li>
+</ul>
+<h3 id="-1"><a href="#-1" class="headerlink" title="????"></a>????</h3><ul>
+<li><p>??continue?????????for???break??</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i=<span class="number">1</span>, <span class="number">10</span> <span class="keyword">do</span> </span><br><span class="line">    <span class="keyword">for</span> j=<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span> <span class="keyword">do</span></span><br><span class="line">        <span class="keyword">if</span> i == <span class="number">5</span> <span class="keyword">then</span></span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        <span class="built_in">print</span>(i)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><p>这种模式，使用DHCP分配ip地址，使用VMnet8作为交换机，能与主机通信，能连接外网。</p>
+<li><p>repeat ??, ??????? do-while???????????false???lua??true???</p>
 </li>
-<li><p>VMnet8网卡作为交换机，一个连接主机HOST，一个端口连接DHCP服务器（一个VM组件），一个端口连接NAT服务器（也是一个VM组件）。剩下端口的链接虚拟机。</p>
-</li>
-<li><p>以上模式，主要是NAT服务器的区别，导致一个能链接外网一个不能。</p>
+<li>repeat ??break??<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- ???</span></span><br><span class="line">x = <span class="number">10</span> </span><br><span class="line"><span class="keyword">repeat</span></span><br><span class="line">    <span class="built_in">print</span>(x)</span><br><span class="line"><span class="keyword">until</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h2 id="3-Bridged模式，（桥接模式）"><a href="#3-Bridged模式，（桥接模式）" class="headerlink" title="3.Bridged模式，（桥接模式）"></a>3.Bridged模式，（桥接模式）</h2><ul>
-<li>就是图片中的Bridged NetWorking部分，可以看到有自动模式，WIFI模式，蓝牙模式，因为mac可以用多种方式联网。</li>
-<li>这种模式对VMnet0，它相当于一个网桥，连接主机和虚拟机，这样虚拟机和你的主机就是两个对等的设备了，当然也是可以联网。</li>
+<h3 id="for"><a href="#for" class="headerlink" title="for ?????"></a>for ?????</h3><ul>
+<li>???????: io.lines</li>
+<li>??table: pairs</li>
+<li>???: ipairs</li>
+<li>?????: string.gmatch</li>
+<li>paris??????????luajit???ipairs?????</li>
 </ul>
-<h2 id="虚拟机vmnet0、vmnet1和vmnet8的区别"><a href="#虚拟机vmnet0、vmnet1和vmnet8的区别" class="headerlink" title="虚拟机vmnet0、vmnet1和vmnet8的区别"></a><a href="https://www.cnblogs.com/feifei-cyj/p/7686166.html" target="_blank" rel="noopener">虚拟机vmnet0、vmnet1和vmnet8的区别</a></h2>  
+<h3 id="lua-1"><a href="#lua-1" class="headerlink" title="lua??"></a>lua??</h3><ul>
+<li><p>???????????????????????</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">hello</span><span class="params">()</span></span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">???</span><br><span class="line"><span class="keyword">local</span> hello = <span class="function"><span class="keyword">function</span><span class="params">()</span></span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>???????????????????????</p>
+</li>
+<li>?????????????????????(???????), ????????,??local</li>
+<li>???? ????? (…), ???local x = {…} ?????????luajit?????????????</li>
+<li>?????table????????</li>
+<li>?????????????????????????? local x = (hello())??????<em>luajit</em>???</li>
+<li>unpack????????luajit???<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">run</span><span class="params">(x, y)</span></span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">'run'</span>, x, y)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">attack</span><span class="params">(targetId)</span></span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">'targetId'</span>, targetId)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">do_action</span><span class="params">(method, ...)</span></span></span><br><span class="line">    <span class="keyword">local</span> args = &#123;...&#125; <span class="keyword">or</span> &#123;&#125;</span><br><span class="line">    method(<span class="built_in">unpack</span>(args, <span class="number">1</span>, <span class="built_in">table</span>.<span class="built_in">maxn</span>(args)))</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">do_action(run, <span class="number">1</span>, <span class="number">2</span>)         <span class="comment">-- output: run 1 2</span></span><br><span class="line">do_action(attack, <span class="number">1111</span>)      <span class="comment">-- output: targetId    1111</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="-2"><a href="#-2" class="headerlink" title="??"></a>??</h3><ul>
+<li>require??, ????????????????????table??</li>
+<li>require?????????table??????</li>
+<li>?????????????table?lua???</li>
+<li><em>????</em>??????init_by_lua?init_worker_by_lua???????????????????<em>??????</em> ?</li>
+<li>??????????????????local????????_M??????????????<em>????</em>?</li>
+<li>????????work?lua???????????????work?????????????????????????</li>
+<li>?????????????work???????</li>
+</ul>
+<h3 id="string-1"><a href="#string-1" class="headerlink" title="string???"></a>string???</h3><ul>
+<li>string.formta,string.gmatch, string.sub</li>
+</ul>
+<h3 id="table"><a href="#table" class="headerlink" title="table???"></a>table???</h3><ul>
+<li>table.insert()</li>
+<li>table.remove()</li>
+<li>table.getn() ???# , ????????nil???n???????????nil????</li>
+<li>table.concat({}, [??????])? ???????  </li>
+</ul>
+<h3 id="-3"><a href="#-3" class="headerlink" title="????"></a>????</h3><ul>
+<li>ngx.now() ??????????</li>
+<li>ngx.time() ??????????????os.time()????</li>
+<li>ngx.update_time() ??ngx.time???</li>
+<li>os.time()???table???ngx.time()???</li>
+<li>os.date(“%Y%m%d%H%I%S”, ngx.time()) </li>
+</ul>
+<h3 id="-4"><a href="#-4" class="headerlink" title="????"></a>????</h3>  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/linux/">linux</a>
+  <a class="article-category-link" href="/categories/openresty/">openresty</a>
 </div>
 
 
@@ -159,7 +206,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://wedvefv.github.io/2019/02/21/linux/centos/了解一下VM虚拟机的三种联网模式/" data-title="了解一下VM虚拟机的三种联网模式 | 学而时习之" data-tsina="" class="share clearfix">
+	  <div data-url="http://wedvefv.github.io/2019/11/19/language/lua/openresty最佳实践_lua入门/" data-title="openresty ???? | 学而时习之" data-tsina="" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -172,19 +219,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2019/02/22/db/redis/redis文章发布/" title="redis文章发布">
-  <strong>上一篇：</strong><br/>
-  <span>
-  redis文章发布</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2019/02/15/linux/centos/了解一下tcp半连接队列和全连接队列/"  title="tcp连接过程，半连接队列和全连接队列">
+<a href="/2019/07/13/linux/centos/mac挂载NTFS磁盘/"  title="mac挂载NTFS磁盘">
  <strong>下一篇：</strong><br/> 
- <span>tcp连接过程，半连接队列和全连接队列
+ <span>mac挂载NTFS磁盘
 </span>
 </a>
 </div>
@@ -203,7 +242,7 @@
 <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
     var gitment = new Gitment({
-        id: 'Thu Feb 21 2019 16:00:00 GMT+0800',
+        id: 'Tue Nov 19 2019 21:00:00 GMT+0800',
         owner: 'wedvefv',
         repo: 'wedvefv.github.io',
         oauth: {
@@ -221,7 +260,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-HOST-ONLY"><span class="toc-number">1.</span> <span class="toc-text">1.HOST-ONLY</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-NAT模式，网络地址转换"><span class="toc-number">2.</span> <span class="toc-text">2.NAT模式，网络地址转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Bridged模式，（桥接模式）"><span class="toc-number">3.</span> <span class="toc-text">3.Bridged模式，（桥接模式）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#虚拟机vmnet0、vmnet1和vmnet8的区别"><span class="toc-number">4.</span> <span class="toc-text">虚拟机vmnet0、vmnet1和vmnet8的区别</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#lua"><span class="toc-number">1.</span> <span class="toc-text">lua ??</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#string"><span class="toc-number">1.1.</span> <span class="toc-text">string</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#"><span class="toc-number">1.2.</span> <span class="toc-text">???</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#-1"><span class="toc-number">1.3.</span> <span class="toc-text">????</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#for"><span class="toc-number">1.4.</span> <span class="toc-text">for ?????</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#lua-1"><span class="toc-number">1.5.</span> <span class="toc-text">lua??</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#-2"><span class="toc-number">1.6.</span> <span class="toc-text">??</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#string-1"><span class="toc-number">1.7.</span> <span class="toc-text">string???</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#table"><span class="toc-number">1.8.</span> <span class="toc-text">table???</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#-3"><span class="toc-number">1.9.</span> <span class="toc-text">????</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#-4"><span class="toc-number">1.10.</span> <span class="toc-text">????</span></a></li></ol></li></ol>
  
   </div>
 
