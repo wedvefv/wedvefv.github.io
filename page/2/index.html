@@ -101,79 +101,6 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2019/02/14/linux/centos/ip地址子网掩码的关系/" title="ip地址和子网掩码，广播地址关系" itemprop="url">ip地址和子网掩码，广播地址关系</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
-		
-  <p class="article-time">
-    <time datetime="2019-02-14T06:00:00.000Z" itemprop="datePublished"> Published 2019-02-14</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="什么是ip地址？"><a href="#什么是ip地址？" class="headerlink" title="什么是ip地址？"></a>什么是ip地址？</h2><ul>
-<li>ip是在一个网段中的一台计算机的ip地址（192.168.1.2）</li>
-<li>如果你家的联通宽带给你家的公网ip地址是10.10.123.234(假设的)，那么接到你家路由器，首先路由器需要有一个ip地址，一般是192.168.1.1（也可能是192.168.0.1），这个应该可以登录到路由器中设置。</li>
-<li>其中192.168.1.255 就是广播地址，比如centos中ifconfig命令查看的broadcast</li>
-<li>剩余的ip段192.168.1.2~192.168.1.254 就是可以分配给手机，电脑等客户端使用的ip。一共是253（255-2）个。</li>
-</ul>
-<h2 id="ip由什么组成？"><a href="#ip由什么组成？" class="headerlink" title="ip由什么组成？"></a>ip由什么组成？</h2><ul>
-<li>例如一个ip 192.168.1.2，是一个C类网络，一般有254台主机。二进制表示就是 网络号标识|1100 0000 |1000 0000| 0000 0001|  + 主机号标识|0000 0010| </li>
-<li>点号分割每个数字都是8位二进制,网络号部分就是192.168.1,主机号部分就是2。</li>
-<li>网络标识部分越短，那么标识主机部分可用的范围越大，但是需要子网掩码配合决定由多少可用ip</li>
-</ul>
-<h2 id="什么是子网掩码？"><a href="#什么是子网掩码？" class="headerlink" title="什么是子网掩码？"></a>什么是子网掩码？</h2><ul>
-<li>子网掩码，顾名思义，遮掩的意思，子网掩码就是把ip地址分为网络部分和主机部分，主机部分用二进制位用1标识，主机号部分用0标识。C类子网掩码一般是255.255.255.0 </li>
-<li>如果所需的ip比较多，比如学校这种环境，子网掩码可以设置成255.255.0.0 ,那么ip返回就是255的2次方-2，就是65023个。那么ip网络部分就是192.168,后面两部分是主机号。</li>
-</ul>
-<ul>
-<li>网关是什么，比如两个A客户端192.168.1.2 和B客户端192.168.2.2 就是两个网络的设备，前提是他们的子网掩码都是255.255.255.0， 那么他们通信就需要A客户端发送给网关ip，有网关路由转发到B所在的网关，再转发到B客户端。 比如我的路由器ip是192.168.2.1， 我自己的ip是192.168.2.110， 默认网关也是192.168.2.1</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">netstat -rn</span><br><span class="line"></span><br><span class="line">Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface</span><br><span class="line">0.0.0.0         192.168.2.1     0.0.0.0         UG        0 0          0 ens33</span><br><span class="line">0.0.0.0表示发给任何人的包，都发给192.168.2.1这个网关， Genmask写0.0.0.0是默认路由的网络掩码。</span><br></pre></td></tr></table></figure>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/linux/">linux</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
       <a href="/2019/02/13/language/python/9_大型程序结构/" title="flask 第9章（大型程序目录结构）" itemprop="url">flask 第9章（大型程序目录结构）</a>
   </h1>
   <p class="article-author">By
@@ -1004,103 +931,6 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2019/01/28/language/python/6_数据库2/" title="flask 第6章(数据库操作2)" itemprop="url">flask 第6章(数据库操作2)</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
-		
-  <p class="article-time">
-    <time datetime="2019-01-28T14:22:00.000Z" itemprop="datePublished"> Published 2019-01-28</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="创建数据写入数据"><a href="#创建数据写入数据" class="headerlink" title="创建数据写入数据"></a>创建数据写入数据</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>db.create_all()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> hello <span class="keyword">import</span> Role,User</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>admin_role=Role(name=<span class="string">"Admin"</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>mod_role = Role(name=<span class="string">"Moderator"</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>user_role=Role(name=<span class="string">"User"</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>user_john=User(username=<span class="string">"john"</span>,role=admin_role)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>user_susan=User(username=<span class="string">"susan"</span>,role=user_role)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>user_david = Ueser(username=<span class="string">"david"</span>,role=user_role)</span><br><span class="line"></span><br><span class="line">这个时候还没有写入数据库，比如打印</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(admin_role.id)</span><br><span class="line"><span class="keyword">None</span></span><br><span class="line"></span><br><span class="line">然后可以这样将之前的对象加入到回话中即可</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>db.session.add(mod_role)   </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>db.session.add(user_role)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>db.session.add(user_john)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>db.session.add(user_david)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>db.session.commit() <span class="comment"># 没有这一句是不行的。</span></span><br><span class="line"></span><br><span class="line">或者可以全部添加</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>db.session.add([admin_role,mod_role,...])</span><br><span class="line"></span><br><span class="line">再次查看admin_role.id就有值了</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">print</span> admin_role.id</span><br><span class="line"><span class="number">1</span></span><br></pre></td></tr></table></figure>
-<h2 id="修改一行"><a href="#修改一行" class="headerlink" title="修改一行"></a>修改一行</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 比如修改admin_role的name为new_admin</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>admin_role.name = <span class="string">"new_admin"</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>db.session.add(admin_role)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>db.session.commit()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">print</span> admin_role.name</span><br><span class="line">new_admin</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="删除一行"><a href="#删除一行" class="headerlink" title="删除一行"></a>删除一行</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">db.session.delete(mod_role)</span><br><span class="line">db.session.commit()</span><br></pre></td></tr></table></figure>
-<h2 id="查询行"><a href="#查询行" class="headerlink" title="查询行"></a>查询行</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">查询<span class="number">2</span>个表所有字段</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>Role.query.all()</span><br><span class="line">[&lt;Role <span class="string">u'Moderator'</span>&gt; , &lt;Role <span class="string">u'new_admin'</span>&gt; , &lt;Role <span class="string">u'User'</span>&gt; ]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>User.query.all()</span><br><span class="line">[&lt;User <span class="string">u'john'</span>&gt; , &lt;User <span class="string">u'susan'</span>&gt; , &lt;User <span class="string">u'david'</span>&gt; ]</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="常用的sql过滤器"><a href="#常用的sql过滤器" class="headerlink" title="常用的sql过滤器"></a>常用的sql过滤器</h2><p>|过滤器|说明|<br>||-|<br>|filter|把过滤器添加到查询上，返回一个新查询|<br>|filter_by|把等值过滤添加到原查询上，返回一个新查询|<br>|limit|指定原查询的数量限制|<br>|offset|便宜原查询的结果，返回一个新查询|<br>|order_by|根据指定条件对原查询进行排序，返回一个新查询|<br>|group_by|执行分组条件|</p>
-<h2 id="过滤器之后可以跟执行函数"><a href="#过滤器之后可以跟执行函数" class="headerlink" title="过滤器之后可以跟执行函数"></a>过滤器之后可以跟执行函数</h2><table>
-<thead>
-<tr>
-<th>方法</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>all</td>
-<td>以列表的形式返回所有结果</td>
-</tr>
-<tr>
-<td>first</td>
-<td>返回查询的第一个结果，没有返回None</td>
-</tr>
-<tr>
-<td>first_or_404</td>
-<td>返回第一个查询结果，否则终止请求，返回404</td>
-</tr>
-<tr>
-<td>get</td>
-<td>返回指定主键对应的列，否则返回None</td>
-</tr>
-<tr>
-<td>get_or_404</td>
-<td>返回指定主键对应的行，否则返回404</td>
-</tr>
-<tr>
-<td>count</td>
-<td>返回结果数量</td>
-</tr>
-<tr>
-<td>paginate</td>
-<td>返回一个paginate对象，包含指定范围的结果</td>
-</tr>
-</tbody>
-</table>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/flask/">flask</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
       <a href="/2019/01/28/language/python/5_数据库1/" title="flask 第5章(数据库操作)" itemprop="url">flask 第5章(数据库操作)</a>
   </h1>
   <p class="article-author">By
@@ -1245,6 +1075,103 @@
 <li>python shell中操作</li>
 </ul>
 <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">python hello.py shell</span><br><span class="line"><span class="keyword">from</span> hello <span class="keyword">import</span> db</span><br><span class="line">db.create_all()</span><br></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/flask/">flask</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2019/01/28/language/python/6_数据库2/" title="flask 第6章(数据库操作2)" itemprop="url">flask 第6章(数据库操作2)</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
+		
+  <p class="article-time">
+    <time datetime="2019-01-28T14:22:00.000Z" itemprop="datePublished"> Published 2019-01-28</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="创建数据写入数据"><a href="#创建数据写入数据" class="headerlink" title="创建数据写入数据"></a>创建数据写入数据</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>db.create_all()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> hello <span class="keyword">import</span> Role,User</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>admin_role=Role(name=<span class="string">"Admin"</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>mod_role = Role(name=<span class="string">"Moderator"</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>user_role=Role(name=<span class="string">"User"</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>user_john=User(username=<span class="string">"john"</span>,role=admin_role)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>user_susan=User(username=<span class="string">"susan"</span>,role=user_role)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>user_david = Ueser(username=<span class="string">"david"</span>,role=user_role)</span><br><span class="line"></span><br><span class="line">这个时候还没有写入数据库，比如打印</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(admin_role.id)</span><br><span class="line"><span class="keyword">None</span></span><br><span class="line"></span><br><span class="line">然后可以这样将之前的对象加入到回话中即可</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>db.session.add(mod_role)   </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>db.session.add(user_role)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>db.session.add(user_john)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>db.session.add(user_david)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>db.session.commit() <span class="comment"># 没有这一句是不行的。</span></span><br><span class="line"></span><br><span class="line">或者可以全部添加</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>db.session.add([admin_role,mod_role,...])</span><br><span class="line"></span><br><span class="line">再次查看admin_role.id就有值了</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">print</span> admin_role.id</span><br><span class="line"><span class="number">1</span></span><br></pre></td></tr></table></figure>
+<h2 id="修改一行"><a href="#修改一行" class="headerlink" title="修改一行"></a>修改一行</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 比如修改admin_role的name为new_admin</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>admin_role.name = <span class="string">"new_admin"</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>db.session.add(admin_role)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>db.session.commit()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">print</span> admin_role.name</span><br><span class="line">new_admin</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="删除一行"><a href="#删除一行" class="headerlink" title="删除一行"></a>删除一行</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">db.session.delete(mod_role)</span><br><span class="line">db.session.commit()</span><br></pre></td></tr></table></figure>
+<h2 id="查询行"><a href="#查询行" class="headerlink" title="查询行"></a>查询行</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">查询<span class="number">2</span>个表所有字段</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>Role.query.all()</span><br><span class="line">[&lt;Role <span class="string">u'Moderator'</span>&gt; , &lt;Role <span class="string">u'new_admin'</span>&gt; , &lt;Role <span class="string">u'User'</span>&gt; ]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>User.query.all()</span><br><span class="line">[&lt;User <span class="string">u'john'</span>&gt; , &lt;User <span class="string">u'susan'</span>&gt; , &lt;User <span class="string">u'david'</span>&gt; ]</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="常用的sql过滤器"><a href="#常用的sql过滤器" class="headerlink" title="常用的sql过滤器"></a>常用的sql过滤器</h2><p>|过滤器|说明|<br>||-|<br>|filter|把过滤器添加到查询上，返回一个新查询|<br>|filter_by|把等值过滤添加到原查询上，返回一个新查询|<br>|limit|指定原查询的数量限制|<br>|offset|便宜原查询的结果，返回一个新查询|<br>|order_by|根据指定条件对原查询进行排序，返回一个新查询|<br>|group_by|执行分组条件|</p>
+<h2 id="过滤器之后可以跟执行函数"><a href="#过滤器之后可以跟执行函数" class="headerlink" title="过滤器之后可以跟执行函数"></a>过滤器之后可以跟执行函数</h2><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>all</td>
+<td>以列表的形式返回所有结果</td>
+</tr>
+<tr>
+<td>first</td>
+<td>返回查询的第一个结果，没有返回None</td>
+</tr>
+<tr>
+<td>first_or_404</td>
+<td>返回第一个查询结果，否则终止请求，返回404</td>
+</tr>
+<tr>
+<td>get</td>
+<td>返回指定主键对应的列，否则返回None</td>
+</tr>
+<tr>
+<td>get_or_404</td>
+<td>返回指定主键对应的行，否则返回404</td>
+</tr>
+<tr>
+<td>count</td>
+<td>返回结果数量</td>
+</tr>
+<tr>
+<td>paginate</td>
+<td>返回一个paginate对象，包含指定范围的结果</td>
+</tr>
+</tbody>
+</table>
 
         
         
@@ -1976,6 +1903,64 @@
 
 
 
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/07/31/linux/centos/LinuxFTP/" title="LinuxFTP的建立" itemprop="url">LinuxFTP的建立</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
+		
+  <p class="article-time">
+    <time datetime="2016-07-31T03:30:55.000Z" itemprop="datePublished"> Published 2016-07-31</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h1 id="linux-FTP建立，条件："><a href="#linux-FTP建立，条件：" class="headerlink" title="linux FTP建立，条件："></a>linux FTP建立，条件：</h1><p>安装vsftpd：<br>配置vsftpd的配置文件：<br>vim /etc/vsftpd.conf</p>
+<p>anonymous_enbale =NO  //关闭匿名登录<br>local_enbale=YES  //允许本地用户，就是ftp建立者的用户名和密码<br>write_enbale=YES  //允许写入，就是上传文件到ftp</p>
+<p>反注释掉：<br>ascii_upload_enbale=YES<br>ascii_download_enbale=YES</p>
+<p>默认的ftp目录就是home下的user目录，包含桌面，下载等等文件夹。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/linux/">linux</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
 
   <nav id="page-nav" class="clearfix">
     <a class="extend prev" rel="prev" href="/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next<span></span></a>
@@ -2031,7 +2016,7 @@
 		  
 		
 		  
-			<li><a href="/categories/openresty/" title="openresty">openresty<sup>3</sup></a></li>
+			<li><a href="/categories/openresty/" title="openresty">openresty<sup>2</sup></a></li>
 		  
 		
 		  
