@@ -193,7 +193,7 @@
 <ul>
 <li>怎么查看链接状态呢？</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">netstat -natp | grep 8888</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span>8888是服务端监听的端口，因为tcp链接总是有一端是8888端口的。</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">netstat -natp | grep 8888</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">8888是服务端监听的端口，因为tcp链接总是有一端是8888端口的。</span></span><br></pre></td></tr></table></figure>
 <ul>
 <li><p>查看每个ip和服务器的连接数</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -nat|awk '&#123;print$5&#125;'|awk -F : '&#123;print$1&#125;'|sort|uniq -c|sort -rn</span><br></pre></td></tr></table></figure>
@@ -265,9 +265,9 @@
 
 
 <div class="next">
-<a href="/2019/02/14/language/python/1_三种装饰器/"  title="python类的三种装饰器">
+<a href="/2019/02/14/language/python/2__init__文件的作用/"  title="python 导入模块文件以及相对导入和__init__文件作用">
  <strong>下一篇：</strong><br/> 
- <span>python类的三种装饰器
+ <span>python 导入模块文件以及相对导入和__init__文件作用
 </span>
 </a>
 </div>
@@ -355,6 +355,10 @@
 		  
 		
 		  
+			<li><a href="/categories/nginx/" title="nginx">nginx<sup>1</sup></a></li>
+		  
+		
+		  
 			<li><a href="/categories/openresty/" title="openresty">openresty<sup>2</sup></a></li>
 		  
 		
@@ -393,6 +397,10 @@
 		
 			
 				<li><a href="/tags/hexo/" title="hexo">hexo<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nginx/" title="nginx">nginx<sup>1</sup></a></li>
 			
 		
 			

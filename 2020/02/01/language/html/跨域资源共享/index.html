@@ -23,25 +23,25 @@
 
   <meta charset="UTF-8">
   
-    <title>了解一下linux开机启动 | 学而时习之</title>
+    <title>nginx配置跨域资源共享CORS | 学而时习之</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="wedvefv">
     
 
     
-    <meta name="description" content="1. linux的启动等级0 关机模式1 单用户模式2 无网络多用户模式3 有网络多用户模式，如果没网络和2一样。4.系统保留，未使用5.GUI图形界面6.重启模式，默认不能是这个级别，否则就会无限循环重启  正常默认就是3了, 命令行模式，有桌面的，应该默认是5. 关机就可以终端输入init 0，重启就init 6  7.默认级别在centos7之前是/etc/inittab文件设置的，之后就由">
-<meta name="keywords" content="hexo">
+    <meta name="description" content="跨域 浏览器为了安全，有个策略: 同源策略， 页面中的链接必须域名一致。  为什么跨域 页面请求的接口可能位于独立api服务器， 所以就会有跨域存在。  解决问题 代理，没怎么研究  jsonp，构造javascrit 标签，利用src属性请求这个链接，返回body是可执行的js代码，代码中的函数需要本地定义，巧妙的接收到了数据  配置api服务器支持跨域资源共享， nginx location中">
+<meta name="keywords" content="nginx">
 <meta property="og:type" content="article">
-<meta property="og:title" content="了解一下linux开机启动">
-<meta property="og:url" content="http://wedvefv.github.io/2019/06/08/linux/centos/了解一下linux开机启动/index.html">
+<meta property="og:title" content="nginx配置跨域资源共享CORS">
+<meta property="og:url" content="http://wedvefv.github.io/2020/02/01/language/html/跨域资源共享/index.html">
 <meta property="og:site_name" content="学而时习之">
-<meta property="og:description" content="1. linux的启动等级0 关机模式1 单用户模式2 无网络多用户模式3 有网络多用户模式，如果没网络和2一样。4.系统保留，未使用5.GUI图形界面6.重启模式，默认不能是这个级别，否则就会无限循环重启  正常默认就是3了, 命令行模式，有桌面的，应该默认是5. 关机就可以终端输入init 0，重启就init 6  7.默认级别在centos7之前是/etc/inittab文件设置的，之后就由">
+<meta property="og:description" content="跨域 浏览器为了安全，有个策略: 同源策略， 页面中的链接必须域名一致。  为什么跨域 页面请求的接口可能位于独立api服务器， 所以就会有跨域存在。  解决问题 代理，没怎么研究  jsonp，构造javascrit 标签，利用src属性请求这个链接，返回body是可执行的js代码，代码中的函数需要本地定义，巧妙的接收到了数据  配置api服务器支持跨域资源共享， nginx location中">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-13T03:39:02.764Z">
+<meta property="og:updated_time" content="2020-02-01T16:08:29.948Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="了解一下linux开机启动">
-<meta name="twitter:description" content="1. linux的启动等级0 关机模式1 单用户模式2 无网络多用户模式3 有网络多用户模式，如果没网络和2一样。4.系统保留，未使用5.GUI图形界面6.重启模式，默认不能是这个级别，否则就会无限循环重启  正常默认就是3了, 命令行模式，有桌面的，应该默认是5. 关机就可以终端输入init 0，重启就init 6  7.默认级别在centos7之前是/etc/inittab文件设置的，之后就由">
+<meta name="twitter:title" content="nginx配置跨域资源共享CORS">
+<meta name="twitter:description" content="跨域 浏览器为了安全，有个策略: 同源策略， 页面中的链接必须域名一致。  为什么跨域 页面请求的接口可能位于独立api服务器， 所以就会有跨域存在。  解决问题 代理，没怎么研究  jsonp，构造javascrit 标签，利用src属性请求这个链接，返回body是可执行的js代码，代码中的函数需要本地定义，巧妙的接收到了数据  配置api服务器支持跨域资源共享， nginx location中">
 
     
     <link rel="alternative" href="/atom.xml" title="学而时习之" type="application/atom+xml">
@@ -101,14 +101,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2019/06/08/linux/centos/了解一下linux开机启动/" title="了解一下linux开机启动" itemprop="url">了解一下linux开机启动</a>
+      <a href="/2020/02/01/language/html/跨域资源共享/" title="nginx配置跨域资源共享CORS" itemprop="url">nginx配置跨域资源共享CORS</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="wedvefv" target="_blank" itemprop="author">wedvefv</a>
 		
   <p class="article-time">
-    <time datetime="2019-06-08T02:34:58.000Z" itemprop="datePublished"> Published 2019-06-08</time>
+    <time datetime="2020-02-01T12:04:30.000Z" itemprop="datePublished"> Published 2020-02-01</time>
     
   </p>
 </header>
@@ -117,101 +117,41 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-linux的启动等级"><span class="toc-number">1.</span> <span class="toc-text">1. linux的启动等级</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-每个等级，系统初始化运行了哪些脚本呢"><span class="toc-number">2.</span> <span class="toc-text">2. 每个等级，系统初始化运行了哪些脚本呢</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-添加开机启动项-chkconfig"><span class="toc-number">3.</span> <span class="toc-text">3. 添加开机启动项(chkconfig)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-在rc-local文件中添加启动项"><span class="toc-number">4.</span> <span class="toc-text">4. 在rc.local文件中添加启动项</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#跨域"><span class="toc-number">1.</span> <span class="toc-text">跨域</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么跨域"><span class="toc-number">2.</span> <span class="toc-text">为什么跨域</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决问题"><span class="toc-number">3.</span> <span class="toc-text">解决问题</span></a></li></ol>
 		
 		</div>
 		
-		<h4 id="1-linux的启动等级"><a href="#1-linux的启动等级" class="headerlink" title="1. linux的启动等级"></a>1. linux的启动等级</h4><p>0 关机模式<br>1 单用户模式<br>2 无网络多用户模式<br>3 有网络多用户模式，如果没网络和2一样。<br>4.系统保留，未使用<br>5.GUI图形界面<br>6.重启模式，默认不能是这个级别，否则就会无限循环重启</p>
+		<h2 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h2><ul>
+<li>浏览器为了安全，有个策略: 同源策略， 页面中的链接必须域名一致。</li>
+</ul>
+<h2 id="为什么跨域"><a href="#为什么跨域" class="headerlink" title="为什么跨域"></a>为什么跨域</h2><ul>
+<li>页面请求的接口可能位于独立api服务器， 所以就会有跨域存在。</li>
+</ul>
+<h2 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h2><ol>
+<li><p>代理，没怎么研究</p>
+</li>
+<li><p>jsonp，构造javascrit 标签，利用src属性请求这个链接，返回body是可执行的js代码，代码中的函数需要本地定义，巧妙的接收到了数据</p>
+</li>
+<li><p>配置api服务器支持跨域资源共享， nginx location中添加 “add_header Access-Control-Allow-Origin *“ ,* 表示任意域名过来的都可以请求， 也可以是某个域名 “<a href="http://127.0.0.1:5000&quot;" target="_blank" rel="noopener">http://127.0.0.1:5000&quot;</a></p>
+</li>
+<li><p>preflight request(预检请求 OPTIONS方法)</p>
 <ul>
-<li><em>正常默认就是3了, 命令行模式，有桌面的，应该默认是5.</em></li>
-<li><em>关机就可以终端输入init 0，重启就init 6</em></li>
-</ul>
-<p>7.默认级别在centos7之前是/etc/inittab文件设置的，之后就由systemctl接管了</p>
-<ul>
-<li>查看默认运行级别的方式为:<blockquote>
-<p>systemctl get-default</p>
-</blockquote>
+<li>W3C规定的，有些类型的请求比如post，都需要优先发送一个OPTIONS方法的请求，以获得nginx是否支持这种类型，比如post一个json格式的数据，就需要先发options请求</li>
+<li><p>发送options请求，是为了获取nginx是否支持content-type ，所以nginx配置需要增加： </p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">add_header </span>Access-Control-Allow-Headers <span class="string">"Origin, X-Requested-With, Content-Type, Accept"</span><span class="comment">;</span></span><br></pre></td></tr></table></figure>
 </li>
-<li>设置默认运行级别的方式:<blockquote>
-<p>systemctl set-default TARGET.target</p>
-</blockquote>
+<li><p>这样请求header中有Access-Control-Allow-Headers： content-type, </p>
+</li>
+<li><p>服务器响应header返回的也有Access-Control-Allow-Headers： content-type,就不会报Request header field Content-Type is not allowed by Access-Control-Allow-Headers in preflight response.的错误了。</p>
+</li>
+<li><p>以下几种post格式不用发options请求，直接发post请求</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">application/x-www-<span class="keyword">form</span>-urlencoded</span><br><span class="line">multipart/<span class="keyword">form</span>-<span class="keyword">data</span></span><br><span class="line">text/plain</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<p><em>级别分别对应如下: </em></p>
-<ul>
-<li><blockquote>
-<p>shutdown.target</p>
-</blockquote>
 </li>
-<li><blockquote>
-<p>emergency.target</p>
-</blockquote>
+<li><p>vue的axios.post 方法MIME类型默认content-type发送json格式的，所有就会产生options请求，导致失败。</p>
 </li>
-<li><blockquote>
-<p>rescure.target</p>
-</blockquote>
-</li>
-<li><blockquote>
-<p>multi-user.target</p>
-</blockquote>
-</li>
-<li><blockquote>
-<p>无</p>
-</blockquote>
-</li>
-<li><blockquote>
-<p>graphical.target</p>
-</blockquote>
-</li>
-<li><blockquote>
-<p>无</p>
-</blockquote>
-</li>
-</ul>
-<h4 id="2-每个等级，系统初始化运行了哪些脚本呢"><a href="#2-每个等级，系统初始化运行了哪些脚本呢" class="headerlink" title="2. 每个等级，系统初始化运行了哪些脚本呢"></a>2. 每个等级，系统初始化运行了哪些脚本呢</h4><ul>
-<li>/etc/init.d/ 目录是个软连接 实际是/etc/rc.d/init.d</li>
-<li>/etc/rc1.d/</li>
-<li>/etc/rc2.d/</li>
-<li>/etc/rc3.d/</li>
-<li>/etc/rc4.d/</li>
-<li>/etc/rc5.d/</li>
-<li>/etc/rc6.d/ 以上6个目录也都是软连接，实际是/etc/rc.d/目录下的</li>
-</ul>
-<ul>
-<li><em>最终就是/etc/rc.d/init.d/ 和/etc/rc.d/rcX.d/目录了</em></li>
-<li><em>但是rcX.d/目录下的文件实质也是软连接，指向/etc/rc.d/init.d/目录下的脚本</em></li>
-</ul>
-<h4 id="3-添加开机启动项-chkconfig"><a href="#3-添加开机启动项-chkconfig" class="headerlink" title="3. 添加开机启动项(chkconfig)"></a>3. 添加开机启动项(chkconfig)</h4><ul>
-<li>经过之前的分析，实际上就是/etc/rc.d/init.d 目录下的东东，分析发现 都是shell脚本</li>
-<li>脚本 按自己的操作写就ok</li>
-<li>比如你写一个nginx自启动的脚本/etc/rc.d/init.d/nginx</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">! /bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">chkconfig: 2345 80 90</span></span><br><span class="line"><span class="meta">#</span><span class="bash">description:auto_run</span></span><br><span class="line">. /etc/init.d/functions</span><br><span class="line">if [ "$1" == "start" ]; then</span><br><span class="line">    /usr/local/openresty/nginx/sbin/nginx</span><br><span class="line">    exit  0</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">if [ "$1" == "stop" ]; then</span><br><span class="line">    /usr/local/openresty/nginx/sbin/nginx -s stop</span><br><span class="line">    exit  0</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if [[ $1 == 'reload' ]]; then</span><br><span class="line">    /usr/local/openresty/nginx/sbin/nginx -s reload</span><br><span class="line">    exit  0</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">echo "sh nginx start|stop|reload"</span><br></pre></td></tr></table></figure>
-<ul>
-<li>chmod +x nginx</li>
-<li>chkconfig –add nginx (老写法：chkconfig nginx on)</li>
-<li><strong>这样在对应等级rcX.d/目录下就会生成对应的链接，K开头脚本这个服务关闭，S开头的脚本是这个服务要开启.</strong></li>
-<li>每个添加的自启动脚本必须要有2行注释：</li>
-<li><blockquote>
-<p>#chkconfig: 2345 80 90</p>
-</blockquote>
-</li>
-<li><blockquote>
-<p>#description:nginx_test 可以随便写描述</p>
-</blockquote>
-</li>
-<li><p>centos7 开头这么加也可以</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">## BEGIN INIT INFO</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Provides:          php-fpm</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Required-Start:    <span class="variable">$remote_fs</span> <span class="variable">$network</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Required-Stop:     <span class="variable">$remote_fs</span> <span class="variable">$network</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Default-Start:     2 3 4 5</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Default-Stop:      0 1 6</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Short-Description: starts php-fpm</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Description:       starts the PHP FastCGI Process Manager daemon</span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">## END INIT INFO</span></span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>解释下: 2345表示四个启动等级可以需要运行nginx服务; 在rc2|3|4|5.d目录下生成S<strong>80</strong>nginx脚本，rc0|6.d目录下生成K<strong>90</strong>nginx脚本都指向/etc/rc.d/init.d/nginx脚本（80，90为了标识脚本含义是开启还是关闭，虽然脚本内容一样，但是<strong>K开头执行时加参数 stop，S开头的执行时加参数 start</strong>）</p>
-</li>
-</ul>
-<h4 id="4-在rc-local文件中添加启动项"><a href="#4-在rc-local文件中添加启动项" class="headerlink" title="4. 在rc.local文件中添加启动项"></a>4. 在rc.local文件中添加启动项</h4><ul>
-<li><p>/etc/rc.d/init.d/rc.local 这个是init.d–&gt; rc.d 执行或之后执行的脚本，通常是用户自己定义的一些开机启动任务.</p>
-</li>
-<li><p><strong>下次总结一下Centos6的启动顺序</strong></p>
-</li>
-</ul>
+</ol>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -219,13 +159,13 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/linux/">linux</a>
+  <a class="article-category-link" href="/categories/nginx/">nginx</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/hexo/">hexo</a>
+  <span></span> <a href="/tags/nginx/">nginx</a>
   </div>
 
 </div>
@@ -234,7 +174,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://wedvefv.github.io/2019/06/08/linux/centos/了解一下linux开机启动/" data-title="了解一下linux开机启动 | 学而时习之" data-tsina="" class="share clearfix">
+	  <div data-url="http://wedvefv.github.io/2020/02/01/language/html/跨域资源共享/" data-title="nginx配置跨域资源共享CORS | 学而时习之" data-tsina="" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -247,19 +187,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2019/06/09/linux/centos/centos6和7的启动流程/" title="一张图看懂centos6和7的启动流程区别">
-  <strong>上一篇：</strong><br/>
-  <span>
-  一张图看懂centos6和7的启动流程区别</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2019/05/02/language/python/3_reload_sys/"  title="python 编码reload(sys)的作用">
+<a href="/2019/07/13/linux/centos/mac挂载NTFS磁盘/"  title="mac挂载NTFS磁盘">
  <strong>下一篇：</strong><br/> 
- <span>python 编码reload(sys)的作用
+ <span>mac挂载NTFS磁盘
 </span>
 </a>
 </div>
@@ -278,7 +210,7 @@
 <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
     var gitment = new Gitment({
-        id: 'Sat Jun 08 2019 10:34:58 GMT+0800',
+        id: 'Sat Feb 01 2020 20:04:30 GMT+0800',
         owner: 'wedvefv',
         repo: 'wedvefv.github.io',
         oauth: {
@@ -296,7 +228,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-linux的启动等级"><span class="toc-number">1.</span> <span class="toc-text">1. linux的启动等级</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-每个等级，系统初始化运行了哪些脚本呢"><span class="toc-number">2.</span> <span class="toc-text">2. 每个等级，系统初始化运行了哪些脚本呢</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-添加开机启动项-chkconfig"><span class="toc-number">3.</span> <span class="toc-text">3. 添加开机启动项(chkconfig)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-在rc-local文件中添加启动项"><span class="toc-number">4.</span> <span class="toc-text">4. 在rc.local文件中添加启动项</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#跨域"><span class="toc-number">1.</span> <span class="toc-text">跨域</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么跨域"><span class="toc-number">2.</span> <span class="toc-text">为什么跨域</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决问题"><span class="toc-number">3.</span> <span class="toc-text">解决问题</span></a></li></ol>
  
   </div>
 

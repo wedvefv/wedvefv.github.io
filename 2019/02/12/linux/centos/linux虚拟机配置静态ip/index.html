@@ -131,7 +131,7 @@
 </li>
 </ul>
 <h2 id="修改网卡配置文件"><a href="#修改网卡配置文件" class="headerlink" title="修改网卡配置文件"></a>修改网卡配置文件</h2><p>vim /etc/sysconfig/network-scripts/ifcfg-ens33</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">  1 TYPE=Ethernet</span><br><span class="line">  2 PROXY_METHOD=none</span><br><span class="line">  3 BROWSER_ONLY=no</span><br><span class="line">  4 #BOOTPROTO=dhcp</span><br><span class="line">  5 DEFROUTE=yes</span><br><span class="line">  6 IPV4_FAILURE_FATAL=no</span><br><span class="line">  7 IPV6INIT=yes</span><br><span class="line">  8 IPV6_AUTOCONF=yes</span><br><span class="line">  9 IPV6_DEFROUTE=yes</span><br><span class="line"> 10 IPV6_FAILURE_FATAL=no</span><br><span class="line"> 11 IPV6_ADDR_GEN_MODE=stable-privacy</span><br><span class="line"> 12 NAME=ens33</span><br><span class="line"> 13 UUID=5e4d74e0-4fd2-48b9-8856-a206acc5b6ea</span><br><span class="line"> 14 DEVICE=ens33</span><br><span class="line"> 15 #ONBOOT=yes</span><br><span class="line"> 16 </span><br><span class="line"> 17 # 下面是新增的部分，上面的BOOTPROTO和ONBOOT注释掉。</span><br><span class="line"> 18 # static config</span><br><span class="line"> 19 NM_CONTROLLED=no # use config file not network manager.</span><br><span class="line"> 20 BOOTPROTO=static</span><br><span class="line"> 21 ONBOOT=yes</span><br><span class="line"> 22 IPADDR=192.168.2.132</span><br><span class="line"> 23 NETMASK=255.255.255.0</span><br><span class="line"> 24 GATEWAY=192.168.2.1</span><br><span class="line"> 25 </span><br><span class="line"></span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line"><span class="meta">#</span># 设置DNS</span><br><span class="line"></span><br><span class="line">vim /etc/sysconfig/network</span><br><span class="line">```shell</span><br><span class="line"><span class="meta">	#</span> 这个文件主要是设置HOSTNAME,设置是否启动网络，需要reboot，如果修改网关，重启service就行了</span><br><span class="line">	写入：</span><br><span class="line">	DNS1=8.8.8.8</span><br><span class="line">	DNS2=114.114.114.114</span><br><span class="line">	GATEWAY=192.168.2.1 # 一般是路由器的ip，我家两个路由器，一个是192.168.1.1，一个是192.168.2.1。</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">  1 TYPE=Ethernet</span><br><span class="line">  2 PROXY_METHOD=none</span><br><span class="line">  3 BROWSER_ONLY=no</span><br><span class="line">  4 #BOOTPROTO=dhcp</span><br><span class="line">  5 DEFROUTE=yes</span><br><span class="line">  6 IPV4_FAILURE_FATAL=no</span><br><span class="line">  7 IPV6INIT=yes</span><br><span class="line">  8 IPV6_AUTOCONF=yes</span><br><span class="line">  9 IPV6_DEFROUTE=yes</span><br><span class="line"> 10 IPV6_FAILURE_FATAL=no</span><br><span class="line"> 11 IPV6_ADDR_GEN_MODE=stable-privacy</span><br><span class="line"> 12 NAME=ens33</span><br><span class="line"> 13 UUID=5e4d74e0-4fd2-48b9-8856-a206acc5b6ea</span><br><span class="line"> 14 DEVICE=ens33</span><br><span class="line"> 15 #ONBOOT=yes</span><br><span class="line"> 16 </span><br><span class="line"> 17 # 下面是新增的部分，上面的BOOTPROTO和ONBOOT注释掉。</span><br><span class="line"> 18 # static config</span><br><span class="line"> 19 NM_CONTROLLED=no # use config file not network manager.</span><br><span class="line"> 20 BOOTPROTO=static</span><br><span class="line"> 21 ONBOOT=yes</span><br><span class="line"> 22 IPADDR=192.168.2.132</span><br><span class="line"> 23 NETMASK=255.255.255.0</span><br><span class="line"> 24 GATEWAY=192.168.2.1</span><br><span class="line"> 25 </span><br><span class="line"></span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 设置DNS</span></span></span><br><span class="line"></span><br><span class="line">vim /etc/sysconfig/network</span><br><span class="line">```shell</span><br><span class="line"><span class="meta">	#</span><span class="bash"> 这个文件主要是设置HOSTNAME,设置是否启动网络，需要reboot，如果修改网关，重启service就行了</span></span><br><span class="line">	写入：</span><br><span class="line">	DNS1=8.8.8.8</span><br><span class="line">	DNS2=114.114.114.114</span><br><span class="line">	GATEWAY=192.168.2.1 # 一般是路由器的ip，我家两个路由器，一个是192.168.1.1，一个是192.168.2.1。</span><br></pre></td></tr></table></figure>
 <h2 id="重启服务"><a href="#重启服务" class="headerlink" title="重启服务"></a>重启服务</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service network restart</span><br></pre></td></tr></table></figure>
   
 	</div>
@@ -173,9 +173,9 @@
 
 
 <div class="next">
-<a href="/2019/01/28/language/python/2_模板/"  title="flask 第2章(模板)">
+<a href="/2019/01/28/language/python/1基本结构/"  title="flask 第1章(基本结构和概念)">
  <strong>下一篇：</strong><br/> 
- <span>flask 第2章(模板)
+ <span>flask 第1章(基本结构和概念)
 </span>
 </a>
 </div>
@@ -263,6 +263,10 @@
 		  
 		
 		  
+			<li><a href="/categories/nginx/" title="nginx">nginx<sup>1</sup></a></li>
+		  
+		
+		  
 			<li><a href="/categories/openresty/" title="openresty">openresty<sup>2</sup></a></li>
 		  
 		
@@ -301,6 +305,10 @@
 		
 			
 				<li><a href="/tags/hexo/" title="hexo">hexo<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nginx/" title="nginx">nginx<sup>1</sup></a></li>
 			
 		
 			

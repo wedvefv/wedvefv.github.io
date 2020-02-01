@@ -120,7 +120,7 @@
 		
 		</div>
 		
-		<h2 id="1-创建目录结构"><a href="#1-创建目录结构" class="headerlink" title="1. 创建目录结构"></a>1. 创建目录结构</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">mkdir myflask &amp; cd myflask</span><br><span class="line"></span><br><span class="line">touch reuirments.txt</span><br><span class="line">touch config.py # 配置</span><br><span class="line">touch manger.py </span><br><span class="line"></span><br><span class="line">mkdir app # 一个应用一个app这样的目录</span><br><span class="line">touch app/__init__.py # 说明这是一个包</span><br><span class="line">touch app/emails.py</span><br><span class="line">touch app/models.py</span><br><span class="line"></span><br><span class="line">mkdir app/templates</span><br><span class="line">mkdir app/static</span><br><span class="line">mkdir app/main</span><br><span class="line"></span><br><span class="line">touch app/main/__init__.py  #为了保存蓝本，整一个子包</span><br><span class="line">touch app/main/errors.py</span><br><span class="line">touch app/main/forms.py</span><br><span class="line">touch app/main/views.py</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 迁移目录</span><br><span class="line">mkdir migrations</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 单元测试目录</span><br><span class="line">mkdir test</span><br><span class="line">touch test/__init__.py</span><br><span class="line">touch test/test.py</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> venv  这个目录是虚拟环境目录，命令自动创建</span><br></pre></td></tr></table></figure>
+		<h2 id="1-创建目录结构"><a href="#1-创建目录结构" class="headerlink" title="1. 创建目录结构"></a>1. 创建目录结构</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">mkdir myflask &amp; cd myflask</span><br><span class="line"></span><br><span class="line">touch reuirments.txt</span><br><span class="line">touch config.py # 配置</span><br><span class="line">touch manger.py </span><br><span class="line"></span><br><span class="line">mkdir app # 一个应用一个app这样的目录</span><br><span class="line">touch app/__init__.py # 说明这是一个包</span><br><span class="line">touch app/emails.py</span><br><span class="line">touch app/models.py</span><br><span class="line"></span><br><span class="line">mkdir app/templates</span><br><span class="line">mkdir app/static</span><br><span class="line">mkdir app/main</span><br><span class="line"></span><br><span class="line">touch app/main/__init__.py  #为了保存蓝本，整一个子包</span><br><span class="line">touch app/main/errors.py</span><br><span class="line">touch app/main/forms.py</span><br><span class="line">touch app/main/views.py</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 迁移目录</span></span><br><span class="line">mkdir migrations</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 单元测试目录</span></span><br><span class="line">mkdir test</span><br><span class="line">touch test/__init__.py</span><br><span class="line">touch test/test.py</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> venv  这个目录是虚拟环境目录，命令自动创建</span></span><br></pre></td></tr></table></figure>
 <h2 id="2-代码下载"><a href="#2-代码下载" class="headerlink" title="2. 代码下载"></a>2. 代码下载</h2><ul>
 <li>代码太多就不站粘贴了,下面是下载地址，前面是每个章节是一个详细流程，这个结构中上下文这块还不是很懂，继续学习…<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/wedvefv/my_flask_learn.git</span><br></pre></td></tr></table></figure>
 </li>
@@ -255,6 +255,10 @@
 		  
 		
 		  
+			<li><a href="/categories/nginx/" title="nginx">nginx<sup>1</sup></a></li>
+		  
+		
+		  
 			<li><a href="/categories/openresty/" title="openresty">openresty<sup>2</sup></a></li>
 		  
 		
@@ -293,6 +297,10 @@
 		
 			
 				<li><a href="/tags/hexo/" title="hexo">hexo<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nginx/" title="nginx">nginx<sup>1</sup></a></li>
 			
 		
 			

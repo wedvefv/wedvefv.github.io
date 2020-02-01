@@ -98,6 +98,35 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
+    <a href="/2020/02/01/language/html/跨域资源共享/" title="nginx配置跨域资源共享CORS" itemprop="url">
+  
+    <h1 itemprop="name">nginx配置跨域资源共享CORS</h1>
+    
+     
+           <p itemprop="description" >跨域
+浏览器为了安全，有个策略: 同源策略， 页面中的链接必须域名一致。
+
+为什么跨域
+页面请求的接口可能位于独立api服务器， 所以就会有跨域存在。
+
+解决问题
+代理，没怎么研究
+
+jsonp，构造javascrit 标签，利用src属性请求这个链接，返回body是可执行的js</p>
+        
+    
+    <time datetime="2020-02-01T12:04:30.000Z" itemprop="datePublished">2020-02-01</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
     <a href="/2019/07/13/linux/centos/mac挂载NTFS磁盘/" title="mac挂载NTFS磁盘" itemprop="url">
   
     <h1 itemprop="name">mac挂载NTFS磁盘</h1>
@@ -317,17 +346,13 @@ git服务器环境准备centos7服务端创建git用户1234id git # 查看是否
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2019/03/02/linux/git/git_tag用法/" title="git_tag用法" itemprop="url">
+    <a href="/2019/03/02/linux/centos/了解一下加密名词/" title="了解一下加密名词AES-DES-RAS-DSA-ECDSA-ECC" itemprop="url">
   
-    <h1 itemprop="name">git_tag用法</h1>
+    <h1 itemprop="name">了解一下加密名词AES-DES-RAS-DSA-ECDSA-ECC</h1>
     
      
-           <p itemprop="description" >tag 和branch的区别
-Git tag是一系列commit的中的一个点，只能查看，不能移动。
-branch是一系列串联的commit的线。
-
-git tag的用法
-我们常常在代码封板时,使用git 创建一个tag ,这样一个不可修改的历史代码版本就像被我们封存起来一样,不论</p>
+           <p itemprop="description" >加密体系对称加密算法，加密和机密密钥一样，加密方和解密方都持有.
+DES加密 56位密钥长度，美国数据加密标准，DES算法的入口参数有三个：Key、Data、Mode。其中Key为7个字节共56位，是DES算法的工作密钥；Data为8个字节64位，是要被加密或被解密的数据；Mod</p>
         
     
     <time datetime="2019-03-02T04:00:00.000Z" itemprop="datePublished">2019-03-02</time>
@@ -342,13 +367,17 @@ git tag的用法
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2019/03/02/linux/centos/了解一下加密名词/" title="了解一下加密名词AES-DES-RAS-DSA-ECDSA-ECC" itemprop="url">
+    <a href="/2019/03/02/linux/git/git_tag用法/" title="git_tag用法" itemprop="url">
   
-    <h1 itemprop="name">了解一下加密名词AES-DES-RAS-DSA-ECDSA-ECC</h1>
+    <h1 itemprop="name">git_tag用法</h1>
     
      
-           <p itemprop="description" >加密体系对称加密算法，加密和机密密钥一样，加密方和解密方都持有.
-DES加密 56位密钥长度，美国数据加密标准，DES算法的入口参数有三个：Key、Data、Mode。其中Key为7个字节共56位，是DES算法的工作密钥；Data为8个字节64位，是要被加密或被解密的数据；Mod</p>
+           <p itemprop="description" >tag 和branch的区别
+Git tag是一系列commit的中的一个点，只能查看，不能移动。
+branch是一系列串联的commit的线。
+
+git tag的用法
+我们常常在代码封板时,使用git 创建一个tag ,这样一个不可修改的历史代码版本就像被我们封存起来一样,不论</p>
         
     
     <time datetime="2019-03-02T04:00:00.000Z" itemprop="datePublished">2019-03-02</time>
@@ -479,36 +508,6 @@ VMnet1网卡作为交换机，一个连接主机HOST，一个端口</p>
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2019/02/14/language/python/1_三种装饰器/" title="python类的三种装饰器" itemprop="url">
-  
-    <h1 itemprop="name">python类的三种装饰器</h1>
-    
-     
-           <p itemprop="description" >property装饰器作用和原理
-
-我们知道c++中有public,projected,private等修饰类私有属性的作用，这样就限定了某些属性只能读取，不能修改；有些能读也能需改。
-
-
-
-设置C++类中的一个属性可以自定义方法get和set方法。
-
-
-
-python中实现这种</p>
-        
-    
-    <time datetime="2019-02-14T06:00:00.000Z" itemprop="datePublished">2019-02-14</time>
-  </a>
-</section>
-
-
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
     <a href="/2019/02/14/language/python/2__init__文件的作用/" title="python 导入模块文件以及相对导入和__init__文件作用" itemprop="url">
   
     <h1 itemprop="name">python 导入模块文件以及相对导入和__init__文件作用</h1>
@@ -529,14 +528,22 @@ python中实现这种</p>
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2019/02/14/linux/centos/ip地址子网掩码的关系/" title="ip地址和子网掩码，广播地址关系" itemprop="url">
+    <a href="/2019/02/14/language/python/1_三种装饰器/" title="python类的三种装饰器" itemprop="url">
   
-    <h1 itemprop="name">ip地址和子网掩码，广播地址关系</h1>
+    <h1 itemprop="name">python类的三种装饰器</h1>
     
      
-           <p itemprop="description" >什么是ip地址？
-ip是在一个网段中的一台计算机的ip地址（192.168.1.2）
-如果你家的联通宽带给你家的公网ip地址是10.10.123.234(假设的)，那么接到你家路由器，首先路由器需要有一个ip地址，一般是192.168.1.1（也可能是192.168.0.1），这</p>
+           <p itemprop="description" >property装饰器作用和原理
+
+我们知道c++中有public,projected,private等修饰类私有属性的作用，这样就限定了某些属性只能读取，不能修改；有些能读也能需改。
+
+
+
+设置C++类中的一个属性可以自定义方法get和set方法。
+
+
+
+python中实现这种</p>
         
     
     <time datetime="2019-02-14T06:00:00.000Z" itemprop="datePublished">2019-02-14</time>
@@ -603,6 +610,10 @@ ip是在一个网段中的一台计算机的ip地址（192.168.1.2）
 		  
 		
 		  
+			<li><a href="/categories/nginx/" title="nginx">nginx<sup>1</sup></a></li>
+		  
+		
+		  
 			<li><a href="/categories/openresty/" title="openresty">openresty<sup>2</sup></a></li>
 		  
 		
@@ -641,6 +652,10 @@ ip是在一个网段中的一台计算机的ip地址（192.168.1.2）
 		
 			
 				<li><a href="/tags/hexo/" title="hexo">hexo<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nginx/" title="nginx">nginx<sup>1</sup></a></li>
 			
 		
 			

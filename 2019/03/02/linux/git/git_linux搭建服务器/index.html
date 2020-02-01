@@ -133,8 +133,8 @@
 </li>
 <li>复制客户端公钥到服务器端ssh-copy-id -i ~/.ssh/id_rsa.pub <a href="mailto:git@192.168.61.128" target="_blank" rel="noopener">git@192.168.61.128</a> </li>
 </ul>
-<h2 id="服务端创建git仓库"><a href="#服务端创建git仓库" class="headerlink" title="服务端创建git仓库"></a>服务端创建git仓库</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /data/git/gittest.git</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 初始化这个仓库</span><br><span class="line">cd /data/git/gittest.git</span><br><span class="line">git init --bare .</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 目录所属用户设置</span><br><span class="line">chown -R git:git /data/git</span><br></pre></td></tr></table></figure>
-<h2 id="客户端clone远程仓库"><a href="#客户端clone远程仓库" class="headerlink" title="客户端clone远程仓库"></a>客户端clone远程仓库</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mkdir localgit</span><br><span class="line">cd localgit</span><br><span class="line">git clone git@192.168.61.128:/data/git/gittest.git .</span><br><span class="line"><span class="meta">#</span> 提示输入服务端git账户的密码。</span><br><span class="line"><span class="meta">#</span>修改完就可以提交了</span><br><span class="line"></span><br><span class="line">touch abc.txt</span><br><span class="line">git add .</span><br><span class="line">git commit -m 'aaa'</span><br><span class="line">git push</span><br></pre></td></tr></table></figure>
+<h2 id="服务端创建git仓库"><a href="#服务端创建git仓库" class="headerlink" title="服务端创建git仓库"></a>服务端创建git仓库</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /data/git/gittest.git</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 初始化这个仓库</span></span><br><span class="line">cd /data/git/gittest.git</span><br><span class="line">git init --bare .</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 目录所属用户设置</span></span><br><span class="line">chown -R git:git /data/git</span><br></pre></td></tr></table></figure>
+<h2 id="客户端clone远程仓库"><a href="#客户端clone远程仓库" class="headerlink" title="客户端clone远程仓库"></a>客户端clone远程仓库</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mkdir localgit</span><br><span class="line">cd localgit</span><br><span class="line">git clone git@192.168.61.128:/data/git/gittest.git .</span><br><span class="line"><span class="meta">#</span><span class="bash"> 提示输入服务端git账户的密码。</span></span><br><span class="line"><span class="meta">#</span><span class="bash">修改完就可以提交了</span></span><br><span class="line"></span><br><span class="line">touch abc.txt</span><br><span class="line">git add .</span><br><span class="line">git commit -m 'aaa'</span><br><span class="line">git push</span><br></pre></td></tr></table></figure>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -180,9 +180,9 @@
 
 
 <div class="next">
-<a href="/2019/03/02/linux/git/git_tag用法/"  title="git_tag用法">
+<a href="/2019/03/02/linux/centos/了解一下加密名词/"  title="了解一下加密名词AES-DES-RAS-DSA-ECDSA-ECC">
  <strong>下一篇：</strong><br/> 
- <span>git_tag用法
+ <span>了解一下加密名词AES-DES-RAS-DSA-ECDSA-ECC
 </span>
 </a>
 </div>
@@ -270,6 +270,10 @@
 		  
 		
 		  
+			<li><a href="/categories/nginx/" title="nginx">nginx<sup>1</sup></a></li>
+		  
+		
+		  
 			<li><a href="/categories/openresty/" title="openresty">openresty<sup>2</sup></a></li>
 		  
 		
@@ -308,6 +312,10 @@
 		
 			
 				<li><a href="/tags/hexo/" title="hexo">hexo<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nginx/" title="nginx">nginx<sup>1</sup></a></li>
 			
 		
 			
