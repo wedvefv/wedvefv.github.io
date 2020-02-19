@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>微信支付 on 学而时习之</title>
+    <link>https://wlw-5g.cn/category/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98/</link>
+    <description>Recent content in 微信支付 on 学而时习之</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 13 Apr 2019 09:40:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://wlw-5g.cn/category/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>微信支付流程</title>
+      <link>https://wlw-5g.cn/language/html/weixin/</link>
+      <pubDate>Sat, 13 Apr 2019 09:40:00 +0000</pubDate>
+      
+      <guid>https://wlw-5g.cn/language/html/weixin/</guid>
+      <description>三个平台都有什么？  微信公众平台: 微信官方平台，功能： 群发推送、自动回复、二维码订阅，用途：消息推送、品牌传播、分享 微信开放平台: 为第三方提供接口，比如分享朋友圈，发送给微信好友等 微信商户平台：主要是用于微信支付的，比如APP和公众号需要接入支付功能，就需要申请一个商户号。  前提  在开放平台，注册自己的app，通俗讲就是在微信备案一下。  客户端需要干嘛？  需要下载微信安卓或者ios版SDK,集成到自己的app中，主要是为了调起微信支付模块。 app调起支付模块，需要传参数吧，不然请求微信服务器也不知道具体转给谁钱，转多少钱&amp;hellip; 支付参数哪里来呢？服务器生成啊&amp;hellip;.. 支付完成后微信会返回微信订单号的信心，后期可以用于到微信服务器查询订单状态。  商户服务器需要干嘛，比如一个卖游戏点卡的app？ 给客户端提供接口   1.支付接口，这个接口需要以下业务功能
+   1.去查询用户是否存在，用户信息可以在redis中记录
+    2.如果某类商品，用户只能有一个产品生效的,比如点卡A,产品类别id为A
+    3.使用redis记录uid:goodsid[A]:hash记录这个购买的点卡x的信息,记录createtime，orderid，prepayid
+    4.如果uid对应点卡A的信息存在，且now - createtime &amp;lt; 15分钟，说明微信没回调过来，是支付中&amp;hellip;的状态。直接拿缓存中信息返回给客户端就可以了，供客户端调用支付模块。
+    5.如果uid对应的点卡信心不存在，就说明用户没买过这种A这类的商品,生成28位的订单号作为out_trade_no参数，其他参数按规定设置，然后调用微信统一下单接口 https://api.mch.weixin.qq.com/pay/unifiedorder
+    当前商户服务器统一下单的过程中，需要用mysql记录自己的订单信息、更新用户的余额扣减、记录一些用户订购该类产品的缓存信息等；mysql数据用于支付完成后，微信发起异步回调状态时更新订单状态。      7.下单后生成预支付id：prepayid，因为还没有真正调起支付模块，只是微信那边现生成一个预支付回话id。
+    8.有了prepayid加上其他参数，返回给客户端用于真正调起sdk支付模块。</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>linux on 学而时习之</title>
+    <link>https://wlw-5g.cn/tags/linux/</link>
+    <description>Recent content in linux on 学而时习之</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    
+	<atom:link href="https://wlw-5g.cn/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>shadowsocks 一键搭建vps</title>
+      <link>https://wlw-5g.cn/linux/git/-kexuesahngwang/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://wlw-5g.cn/linux/git/-kexuesahngwang/</guid>
+      <description>申请一个国外的vps服务器。 一键搭建shadowsocks 1. git clone -b master https://github.com/Flyzy2005/ss-fly 2. ss-fly/ss-fly.sh -i xxxxx 1024 // 是shaodowsocks的密码 // 开启BBR加速 3. ss-fly/ss-fly.sh -bbr 第一次可能会更新，重启vps后再执行 4. ss-fly/ss-fly.sh -bbr 5. 本地shadowsocks上添加这个vps把， 默认代理端口1080不用改。 </description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-cn" lang="zh-cn">
+    <head>
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({
+                google_ad_client: "ca-pub-9224870466612638",
+                enable_page_level_ads: true
+            });
+        </script>
+
+        <link href="https://gmpg.org/xfn/11" rel="profile">
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+        <meta name="generator" content="Hugo 0.64.1" />
+
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>redis文章发布 &middot; 学而时习之</title>
+        <meta name="description" content="" />
+
+        
+        <link type="text/css" rel="stylesheet" href="https://wlw-5g.cn/css/print.css" media="print">
+        <link type="text/css" rel="stylesheet" href="https://wlw-5g.cn/css/poole.css">
+        <link type="text/css" rel="stylesheet" href="https://wlw-5g.cn/css/syntax.css">
+        <link type="text/css" rel="stylesheet" href="https://wlw-5g.cn/css/hyde.css">
+          <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+        
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+        <link rel="shortcut icon" href="/favicon.png">
+
+        
+        
+    </head>
+
+  <body class=" ">
+  <aside class="sidebar">
+    <div class="container sidebar-sticky">
+        <div class="sidebar-about">
+            <a href="https://wlw-5g.cn/"><h3>学而时习之</h3></a>
+        </div>
+
+        <nav>
+            <ul class="sidebar-nav">
+                <li><a href="https://wlw-5g.cn/">Home</a> </li>
+                <li><a href="/"> 首页 </a></li><li><a href="/tags/"> 标签 </a></li><li><a href="/category/"> 分类 </a></li>
+            </ul>
+        </nav>
+
+        <p>&copy; 2020. All rights reserved. </p>
+        <a href="http://www.beian.miit.gov.cn" target="_blank">豫ICP备20003135号</a>
+    </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>redis文章发布</h1>
+  <time datetime=2019-02-22T15:50:00Z class="post-date">Fri, Feb 22, 2019</time>
+  <h2 id="定时任务发布方式">定时任务发布方式</h2>
+<ul>
+<li>如果有后台发布文章，需要有定时任务将mysql中录入的文章同步到redis中</li>
+<li>
+<ol>
+<li>这时候文章id当然是mysql自增产生的，生成一个文章id表示的文章内容</li>
+</ol>
+</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">	conn<span style="color:#f92672">.</span>hmset(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">article:100:hash</span><span style="color:#e6db74">&#34;</span>,{<span style="color:#960050;background-color:#1e0010">属</span><span style="color:#960050;background-color:#1e0010">性</span><span style="color:#960050;background-color:#1e0010">字</span><span style="color:#960050;background-color:#1e0010">典</span>}<span style="color:#960050;background-color:#1e0010">）</span>
+</code></pre></div><ul>
+<li>
+<ol start="2">
+<li>作者发布的文章，文章的投票者集合当然有作者，需要设置投票集合。</li>
+</ol>
+</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">	conn<span style="color:#f92672">.</span>sadd(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">artile:100:set</span><span style="color:#e6db74">&#34;</span>,atrticle<span style="color:#f92672">.</span>uid)
+	conn<span style="color:#f92672">.</span>expire(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">artile:100:set</span><span style="color:#e6db74">&#34;</span>,<span style="color:#ae81ff">7</span><span style="color:#f92672">*</span><span style="color:#ae81ff">86400</span>) <span style="color:#75715e"># 一周有效期</span>
+</code></pre></div><ul>
+<li>
+<ol start="3">
+<li>文章的评分zset初始化,文章发布时间集合初始化。</li>
+</ol>
+</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">	conn<span style="color:#f92672">.</span>zincrby(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">article:100:score:zset</span><span style="color:#e6db74">&#34;</span>,<span style="color:#ae81ff">432</span>)<span style="color:#960050;background-color:#1e0010">，</span> <span style="color:#ae81ff">432</span> <span style="color:#960050;background-color:#1e0010">是</span><span style="color:#960050;background-color:#1e0010">一</span><span style="color:#960050;background-color:#1e0010">个</span><span style="color:#960050;background-color:#1e0010">投</span><span style="color:#960050;background-color:#1e0010">票</span><span style="color:#960050;background-color:#1e0010">的</span><span style="color:#960050;background-color:#1e0010">评</span><span style="color:#960050;background-color:#1e0010">分</span><span style="color:#960050;background-color:#1e0010">。</span>
+	conn<span style="color:#f92672">.</span>zadd(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">article:time:zset</span><span style="color:#e6db74">&#34;</span>,article_id, now) 
+</code></pre></div><h2 id="如果是没有mysql完全用redis这时候文章id就需要一个string类型的key自增产生其余步骤一致">如果是没有mysql，完全用redis这时候，文章id就需要一个string类型的key自增产生，其余步骤一致。</h2>
+
+</div>
+
+
+    </main>
+
+    
+  </body>
+</html>

@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linuxes on 学而时习之</title>
+    <link>https://wlw-5g.cn/linux/</link>
+    <description>Recent content in Linuxes on 学而时习之</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 03 Feb 2020 14:33:58 +0000</lastBuildDate>
+    
+	<atom:link href="https://wlw-5g.cn/linux/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>nginx 配置免费的ssl证书</title>
+      <link>https://wlw-5g.cn/linux/nginx/%E9%85%8D%E7%BD%AEssl%E8%AF%81%E4%B9%A6/</link>
+      <pubDate>Mon, 03 Feb 2020 14:33:58 +0000</pubDate>
+      
+      <guid>https://wlw-5g.cn/linux/nginx/%E9%85%8D%E7%BD%AEssl%E8%AF%81%E4%B9%A6/</guid>
+      <description>免费证书申请 wget https://dl.eff.org/certbot-auto chmod a+x ./certbot-auto ./certbot-auto certonly --manual --preferred-challenge dns -d &#39;xxxx.cn&#39; -d &#39;xxxxx.com&#39; 会提示验证你的域名，如果你在腾讯云或者阿里云注册的域名，需要添加一个TXT类型的记录: 主机记录：_acme-challenge 记录类型： TXT 记录值： foRfz_Vr2vLVGw3U8WsFc4ohMWfk4oETX89vCi-0Lx4 （这个随机生成的，看你自己的是多少） 填写完保存，然后回到终端按下 回车键。 修改nginx 的配置文件  listen 80; //. 后面添加下面的内容 listen 443; ssl on; ssl_certificate /etc/letsencrypt/live/xxx.com/fullchain.pem; ssl_certificate_key /etc/letsencrypt/live/xxxx.com/privkey.pem; ssl_session_timeout 5m; #ssl_protocols SSLv2 SSLv3 TLSv1; ssl_protocols TLSv1 TLSv1.1 TLSv1.2; ssl_ciphers ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP; ssl_prefer_server_ciphers on; reload nginx， 就可以用http方式访问域名了。</description>
+    </item>
+    
+    <item>
+      <title>git_linux搭建服务器</title>
+      <link>https://wlw-5g.cn/linux/git/git_linux%E6%90%AD%E5%BB%BA%E6%9C%8D%E5%8A%A1%E5%99%A8/</link>
+      <pubDate>Sat, 02 Mar 2019 12:01:00 +0000</pubDate>
+      
+      <guid>https://wlw-5g.cn/linux/git/git_linux%E6%90%AD%E5%BB%BA%E6%9C%8D%E5%8A%A1%E5%99%A8/</guid>
+      <description>为什么本地搭建一个git服务器  对于自己学习使用的代码，在没有网络的情况下不能用github，gitlab,所以本地建立一个git服务器。  git服务器环境准备centos7 服务端创建git用户 id git # 查看是否存在git用户，存在就不创建了。 useradd git passwd git 输入密码，我设置的是xxx@123 客户端开启公钥认证认证，免密push/pull  首先服务端需要开启ssh服务  vim /etc/ssh/sshd_config RSAAuthentication yes PubkeyAuthentication yes AuthorizedKeysFile .ssh/authorized_keys 如果是centos7.4以上（含7.4），ssh1已经不支持了，只支持ssh2代协议。所以RSAAuthentication项是没有的  客户端执行 执行ssh-keygen -t rsa 生成公钥和私钥 复制客户端公钥到服务器端ssh-copy-id -i ~/.ssh/id_rsa.pub git@192.168.61.128  服务端创建git仓库 mkdir -p /data/git/gittest.git # 初始化这个仓库 cd /data/git/gittest.git git init --bare . # 目录所属用户设置 chown -R git:git /data/git 客户端clone远程仓库 mkdir localgit cd localgit git clone git@192.168.61.128:/data/git/gittest.git . # 提示输入服务端git账户的密码。 #修改完就可以提交了 touch abc.</description>
+    </item>
+    
+    <item>
+      <title>git_tag用法</title>
+      <link>https://wlw-5g.cn/linux/git/git_tag%E7%94%A8%E6%B3%95/</link>
+      <pubDate>Sat, 02 Mar 2019 12:00:00 +0000</pubDate>
+      
+      <guid>https://wlw-5g.cn/linux/git/git_tag%E7%94%A8%E6%B3%95/</guid>
+      <description>tag 和branch的区别  Git tag是一系列commit的中的一个点，只能查看，不能移动。 branch是一系列串联的commit的线。  git tag的用法  我们常常在代码封板时,使用git 创建一个tag ,这样一个不可修改的历史代码版本就像被我们封存起来一样,不论是运维发布拉取,或者以后的代码版本管理,都是十分方便的  git的tag功能  git 下打标签其实有2种情况 轻量级的：它其实是一个独立的分支,或者说是一个不可变的分支.指向特定提交对象的引用 带附注的：实际上是存储在仓库中的一个独立对象，它有自身的校验和信息，包含着标签的名字，标签说明，标签本身也允许使用 GNU Privacy Guard (GPG) 来签署或验证,电子邮件地址和日期，一般我们都建议使用含附注型的标签，以便保留相关信息 所以我们推荐使用第二种标签形式  创建tag  git tag -a V1.2 -m &amp;lsquo;release 1.2&amp;rsquo; 上面的命令我们成功创建了本地一个版本 V1.2 ,并且添加了附注信息 &amp;lsquo;release 1.2&amp;rsquo;  查看tag   git tag
+  要显示附注信息,我们需要用 show 指令来查看
+  git show V1.2
+  但是目前这个标签仅仅是提交到了本地git仓库.如何同步到远程代码库
+  git push origin &amp;ndash;tags
+  如果刚刚同步上去,你缺发现一个致命bug ,需要重新打版本,现在还为时不晚.</description>
+    </item>
+    
+    <item>
+      <title>了解一下加密名词AES-DES-RAS-DSA-ECDSA-ECC</title>
+      <link>https://wlw-5g.cn/linux/centos/%E4%BA%86%E8%A7%A3%E4%B8%80%E4%B8%8B%E5%8A%A0%E5%AF%86%E5%90%8D%E8%AF%8D/</link>
+      <pubDate>Sat, 02 Mar 2019 12:00:00 +0000</pubDate>
+      
+      <guid>https://wlw-5g.cn/linux/centos/%E4%BA%86%E8%A7%A3%E4%B8%80%E4%B8%8B%E5%8A%A0%E5%AF%86%E5%90%8D%E8%AF%8D/</guid>
+      <description>加密体系 对称加密算法，加密和机密密钥一样，加密方和解密方都持有.   DES加密 56位密钥长度，美国数据加密标准，DES算法的入口参数有三个：Key、Data、Mode。其中Key为7个字节共56位，是DES算法的工作密钥；Data为8个字节64位，是要被加密或被解密的数据；Mode为DES的工作方式,有两种:加密或解密。
+  AES加密 高级加密标准，一种区块加密算法,为了取代DES。
+  二者的优点是加密快，资源消耗少，但是AES比DES安全。
+  非对称加密算法   RSA，基于数学原理，一个极大数做质数(也叫素数)分解很困难;简单讲,就是你根据公钥很难计算出私钥，因为解密需要接受者的私钥。rsa 由于密钥长度大，加密慢，所以一般只加密产生的会话密钥，会话秘钥才用于加密来加密数据。
+  DSA(DSS), 签名算法， DSA是基于整数有限域离散对数难题的，其安全性与RSA相比差不多。DSA的一个重要特点是两个素数公开，这样，当使用别人的p和q时，即使不知道私钥，你也能确认它们是否是随机产生的，还是作了手脚。RSA算法却做不到
+  ECC 椭圆加密算法， 其数学基础是利用椭圆曲线上的有理点构成Abel加法群上椭圆离散对数的计算困难性，主要优势是比其他方式如RSA使用更短的密钥长度，达到同等安全级别，优点就是别rsa，dsa快，存储空间小，贷款要求低。
+   演变而来的ECDSA（ECC+DSA）数字签名算法，是ECC对DSA的一种模拟实现，ECC是椭圆的离散对数问题，DSA也是对数问题。只不过使用签名采用ECC算法，输出也是2个值，r和s
+ 其他算法  md5: 消息摘要算法，防止数据被篡改。 sha系列，安全散列算法，也是散列函数，应用于信息安全和数字签名领域，都是不需要解密的，也无法解密。  </description>
+    </item>
+    
+    <item>
+      <title>了解一下VM虚拟机的三种联网模式</title>
+      <link>https://wlw-5g.cn/linux/centos/%E4%BA%86%E8%A7%A3%E4%B8%80%E4%B8%8Bvm%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%9A%84%E4%B8%89%E7%A7%8D%E8%81%94%E7%BD%91%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Thu, 21 Feb 2019 16:00:00 +0000</pubDate>
+      
+      <guid>https://wlw-5g.cn/linux/centos/%E4%BA%86%E8%A7%A3%E4%B8%80%E4%B8%8Bvm%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%9A%84%E4%B8%89%E7%A7%8D%E8%81%94%E7%BD%91%E6%A8%A1%E5%BC%8F/</guid>
+      <description>1.HOST-ONLY  对应图中的private to my Mac 选项 这种模式不能联网，能通过DHCP分配到ip地址，使用VMnet1网卡作为交换机，默认网关就是VMnet1的地址，能和主机通信，不能连接外网。 VMnet1网卡作为交换机，一个连接主机HOST，一个端口连接DHCP服务器（一个VM组件），剩下的链接虚拟机，没有提供NAT服务，所以没有路由功能。  2.NAT模式，网络地址转换   对应图中的 share with my Mac 选项 ，这是共享网络模式
+  这种模式，使用DHCP分配ip地址，使用VMnet8作为交换机，能与主机通信，能连接外网。
+  VMnet8网卡作为交换机，一个连接主机HOST，一个端口连接DHCP服务器（一个VM组件），一个端口连接NAT服务器（也是一个VM组件）。剩下端口的链接虚拟机。
+  以上模式，主要是NAT服务器的区别，导致一个能链接外网一个不能。
+  3.Bridged模式，（桥接模式）  就是图片中的Bridged NetWorking部分，可以看到有自动模式，WIFI模式，蓝牙模式，因为mac可以用多种方式联网。 这种模式对VMnet0，它相当于一个网桥，连接主机和虚拟机，这样虚拟机和你的主机就是两个对等的设备了，当然也是可以联网。  虚拟机vmnet0、vmnet1和vmnet8的区别 </description>
+    </item>
+    
+    <item>
+      <title>tcp连接过程，半连接队列和全连接队列</title>
+      <link>https://wlw-5g.cn/linux/centos/%E4%BA%86%E8%A7%A3%E4%B8%80%E4%B8%8Btcp%E5%8D%8A%E8%BF%9E%E6%8E%A5%E9%98%9F%E5%88%97%E5%92%8C%E5%85%A8%E8%BF%9E%E6%8E%A5%E9%98%9F%E5%88%97/</link>
+      <pubDate>Fri, 15 Feb 2019 12:06:00 +0000</pubDate>
+      
+      <guid>https://wlw-5g.cn/linux/centos/%E4%BA%86%E8%A7%A3%E4%B8%80%E4%B8%8Btcp%E5%8D%8A%E8%BF%9E%E6%8E%A5%E9%98%9F%E5%88%97%E5%92%8C%E5%85%A8%E8%BF%9E%E6%8E%A5%E9%98%9F%E5%88%97/</guid>
+      <description>tcp三次握手的过程  第一次：客户端发送SYN(Synchronize Sequence Numbers)报文，标志位SYN=1,序列号seq=j。 第二次：服务端收到SYN报文后，回应ACK(Acknowledgement)，标志位ACK=1,确认号ack为j+1， 同时自己也发送一个SYN报文，SYN=1,序列号seq假设为k， 即一个ACK+SYN包 第三次：客户端收到报文后，发送一个ACK报文，标志位ACK=1，确认号ack=(k+1) 到服务器，客户端和服务器进入ESTABLISHED状态，TCP链接成功。 SYN是同步报文标志位，建立连接时为1，连接建立后置为0，ACK时确认标志位一般为1  tcp四次挥手过程，为什么是4次呢？  假如客户端主动发起关闭操作 第一次： 客户端发送FIN报文，假设为序列号seq=i给服务器。 第二次： 服务发送ACK报文，ack=(i+1)给客户端，可能数据还没有接收完毕，所以服务端socket状态由ESTABLISHED -&amp;gt; CLOSE_WAIT状态。 第三次： 服务端端处理完毕，发送FIN报文，序列号为j。 第四次： 客户端收到报文后，发送ACK报文，ack=j+1, 并进入TIME_WAIT状态。等待2MSL后自动关闭    为什么客户端不发完ack就释放呢，因为服务器可能没收到ack，服务器会重新发送FIN请求关闭连接，客户端重新发送ack，所以一个来回就是2 个报文周期。当连接处于2MSL等待阶段时任何迟到的报文段都将被丢弃。   借用一张图表示一下 如果已经建立了连接，但是客户端突然出现故障了怎么办？  TCP还设有一个保活计时器，显然，客户端如果出现故障，服务器不能一直等下去，白白浪费资源。服务器每收到一次客户端的请求后都会重新复位这个计时器，时间通常是设置为2小时，若两小时还没有收到客户端的任何数据，服务器就会发送一个探测报文段，以后每隔75分钟发送一次。若一连发送10个探测报文仍然没反应，服务器就认为客户端出了故障，接着就关闭连接。
+ 查看网络链接的命令  查看不同状态的链接数    netstat -an | awk &amp;lsquo;/^tcp/ {++y[$NF]} END {for(w in y) print w, y[w]}&amp;rsquo;   半连接状态队列sync_queue和全连接队列accept_queue  第一种实现：    BSD实现和在linux2.2之前，listen系统调用backlog参数表示半链接+全链接队列数之和 当队列满了以后，服务端再收到SYN时，将不会返回SYN/ACK。比较优雅的处理方法就是不处理这条连接，不返回RST，让客户端重试. accept系统调用只是简单地从完成队列中取出连接.    第二种实现：    linux内核2.</description>
+    </item>
+    
+    <item>
+      <title>ip地址和子网掩码，广播地址关系</title>
+      <link>https://wlw-5g.cn/linux/centos/ip%E5%9C%B0%E5%9D%80%E5%AD%90%E7%BD%91%E6%8E%A9%E7%A0%81%E7%9A%84%E5%85%B3%E7%B3%BB/</link>
+      <pubDate>Thu, 14 Feb 2019 14:00:00 +0000</pubDate>
+      
+      <guid>https://wlw-5g.cn/linux/centos/ip%E5%9C%B0%E5%9D%80%E5%AD%90%E7%BD%91%E6%8E%A9%E7%A0%81%E7%9A%84%E5%85%B3%E7%B3%BB/</guid>
+      <description>什么是ip地址？  ip是在一个网段中的一台计算机的ip地址（192.168.1.2） 如果你家的联通宽带给你家的公网ip地址是10.10.123.234(假设的)，那么接到你家路由器，首先路由器需要有一个ip地址，一般是192.168.1.1（也可能是192.168.0.1），这个应该可以登录到路由器中设置。 其中192.168.1.255 就是广播地址，比如centos中ifconfig命令查看的broadcast 剩余的ip段192.168.1.2~192.168.1.254 就是可以分配给手机，电脑等客户端使用的ip。一共是253（255-2）个。  ip由什么组成？  例如一个ip 192.168.1.2，是一个C类网络，一般有254台主机。二进制表示就是 网络号标识|1100 0000 |1000 0000| 0000 0001| + 主机号标识|0000 0010| 点号分割每个数字都是8位二进制,网络号部分就是192.168.1,主机号部分就是2。 网络标识部分越短，那么标识主机部分可用的范围越大，但是需要子网掩码配合决定由多少可用ip  什么是子网掩码？   子网掩码，顾名思义，遮掩的意思，子网掩码就是把ip地址分为网络部分和主机部分，主机部分用二进制位用1标识，主机号部分用0标识。C类子网掩码一般是255.255.255.0
+  如果所需的ip比较多，比如学校这种环境，子网掩码可以设置成255.255.0.0 ,那么ip返回就是255的2次方-2，就是65023个。那么ip网络部分就是192.168,后面两部分是主机号。
+  网关是什么，比如两个A客户端192.168.1.2 和B客户端192.168.2.2 就是两个网络的设备，前提是他们的子网掩码都是255.255.255.0， 那么他们通信就需要A客户端发送给网关ip，有网关路由转发到B所在的网关，再转发到B客户端。 比如我的路由器ip是192.168.2.1， 我自己的ip是192.168.2.110， 默认网关也是192.168.2.1
+  netstat -rn Destination Gateway Genmask Flags MSS Window irtt Iface 0.0.0.0 192.168.2.1 0.0.0.0 UG 0 0 0 ens33 0.0.0.0表示发给任何人的包，都发给192.168.2.1这个网关， Genmask写0.0.0.0是默认路由的网络掩码。 </description>
+    </item>
+    
+    <item>
+      <title>linux虚拟机配置静态ip</title>
+      <link>https://wlw-5g.cn/linux/centos/linux%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%85%8D%E7%BD%AE%E9%9D%99%E6%80%81ip/</link>
+      <pubDate>Tue, 12 Feb 2019 14:00:00 +0000</pubDate>
+      
+      <guid>https://wlw-5g.cn/linux/centos/linux%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%85%8D%E7%BD%AE%E9%9D%99%E6%80%81ip/</guid>
+      <description>1. mac上的虚拟机使用（自动模式）就是桥接模式。 2. 查看自己的网卡名  ifconfig 命令  [root@localhost ~]# ifconfig ens33: flags=4163&amp;lt;UP,BROADCAST,RUNNING,MULTICAST&amp;gt; mtu 1500 inet 192.168.2.132 netmask 255.255.255.0 broadcast 192.168.2.255 inet6 fe80::315:b3ba:674b:3fdc prefixlen 64 scopeid 0x20&amp;lt;link&amp;gt; ether 00:0c:29:14:d2:38 txqueuelen 1000 (Ethernet) RX packets 56630 bytes 20928797 (19.9 MiB) RX errors 0 dropped 0 overruns 0 frame 0 TX packets 24078 bytes 2636531 (2.5 MiB) TX errors 0 dropped 0 overruns 0 carrier 0 collisions 0 lo: flags=73&amp;lt;UP,LOOPBACK,RUNNING&amp;gt; mtu 65536 inet 127.</description>
+    </item>
+    
+    <item>
+      <title>最小化安装centos7配置问题</title>
+      <link>https://wlw-5g.cn/linux/centos/2018-10-05_linux/</link>
+      <pubDate>Fri, 05 Oct 2018 10:34:58 +0000</pubDate>
+      
+      <guid>https://wlw-5g.cn/linux/centos/2018-10-05_linux/</guid>
+      <description>最小化安装启用网卡 vi /etc/sysconfig/network-scripts/ifcfg-[网卡] 修改 ONBOOT=yes service network restart ip 命令替代了config, 常见用法 ip link show # 显示网络接口信息 ip link set eth0 upi # 开启网卡 ip link set eth0 down # 关闭网卡 ip link set eth0 promisc on # 开启网卡的混合模式 ip link set eth0 promisc offi # 关闭网卡的混个模式 ip link set eth0 txqueuelen 1200 # 设置网卡队列长度 ip link set eth0 mtu 1400 # 设置网卡最大传输单元 ip addr show # 显示网卡IP信息 ip addr add 192.</description>
+    </item>
+    
+    <item>
+      <title>git 常见操作</title>
+      <link>https://wlw-5g.cn/linux/git/git_2_operate/</link>
+      <pubDate>Sat, 26 May 2018 12:00:00 +0000</pubDate>
+      
+      <guid>https://wlw-5g.cn/linux/git/git_2_operate/</guid>
+      <description>创建分支 git branch new_branch 本地删除分支 git branch -D delete_branch 更新到远程删除分支 git checkout master git pull -u -u origin :delete_branch git pull 失败提示fatal: refusing to merge unrelated histories ,处理方法 git pull origin master --allow-unrelated-historiesn 查看提交提记录 git log git log -p -2 #查看最近两次的提交差异 git log --stat #仅仅现实行数的变更 git log --pretty=oneline #每次提交，在一行显示 git log --pretty=format:&amp;#34;%h - %an, %ar : %s&amp;#34; #格式显示    选项 说明     %H 提交对象（提交）的完整哈希字串   %h 提交对象的简短哈希字串   %T 树对象（树）的完整哈希字串   %t 树对象的简短哈希字串   %P 父对象（父）的完整哈希字串   %p 父对象的简短哈希字串   %an 作者（作者）的名字   %ae 作者的电子邮件地址   %ad 作者修订日期（可以用-date =选项定制格式）   %ar 作者修订日期，按多久以前的方式显示   %cn 提交者（提交者）的名字   %ce 提交者的电子邮件地址   %cd 提交日期   %cr 提交日期，按多久以前的方式显示   %s 提交说明    待续&amp;hellip;&amp;hellip; </description>
+    </item>
+    
+    <item>
+      <title>了解一下加密</title>
+      <link>https://wlw-5g.cn/linux/centos/%E4%BA%86%E8%A7%A3%E4%B8%80%E4%B8%8B%E5%8A%A0%E5%AF%86/</link>
+      <pubDate>Thu, 21 Jul 2016 14:35:58 +0000</pubDate>
+      
+      <guid>https://wlw-5g.cn/linux/centos/%E4%BA%86%E8%A7%A3%E4%B8%80%E4%B8%8B%E5%8A%A0%E5%AF%86/</guid>
+      <description>* 加密密钥和解密密钥是一样的。 非对称加密： *	(也叫公钥加密) * 两个密钥在加密和解密中配合使用，密钥对具有特殊的互补关系，密钥对在数学上存在特殊关系。 邮件的电子签名过程： * 捕获邮件正文--&amp;gt;计算邮件哈希值--&amp;gt;检索发件人私钥--&amp;gt;用发件人私钥加密哈希值--&amp;gt;附加到邮件底部(明文签名)/与原始邮件组合成二进制附件(不透明签名)--&amp;gt;发送mail * --私钥只有发件人才唯一拥有，公钥仅仅与一个私钥关联，所以可以用公钥唯一识别一个私钥。 验证邮件签名的过程： * 接收邮件--&amp;gt;检索加密的哈希值--&amp;gt;检索邮件正文--&amp;gt;用正文计算邮件哈希值--&amp;gt;检索发件人的公钥--&amp;gt;用发件人公钥解密签名(加密的哈希值)--&amp;gt;和计算的哈希值对比--&amp;gt;验证签名邮件 * --文件内容不变，计算的哈希值就不会变。 * --私钥加密的东西，需要对应的公钥解密。 * --如果哈希值一致，说明公钥对应的私钥是对的，私钥只有发件人知道，所以确定发件人属实。 邮件内容的加密 * 对称密钥加密的话，需要&amp;#34;密钥协商&amp;#34;，必须协商出一个双方都知道的密钥。 * 非对称密钥加密的话，没有协商过程，因为一个公钥，可以很多人拥有，私钥是只有一个人有。 * 由于非对称(公钥加密)密钥加密使用密钥对，加密和解密是一个昂贵的计算过程，速度慢。所以这么做呗...... send加密mail内容 * -- 1.找到邮件正文--&amp;gt;2.检索收件人公钥--&amp;gt;3.生成一次性的会话密钥(这个是对称密钥)--&amp;gt;4.用会话密钥加密正文--&amp;gt;5.用收件人公钥加密会话密钥，并附到邮件--&amp;gt;6.发送邮件 recv解密mail内容 * -- 1.接收邮件--&amp;gt;2.检索加密邮件正文和会话密钥-&amp;gt;3.检索收件人私钥解密会话密钥-&amp;gt;4.用解密的会话密钥解密正文-&amp;gt;5.解密邮件返回给收件人 同时使用签名和邮件内容加密 同时使用签名和邮件内容加密后的解密 功能和所需的密钥表 </description>
+    </item>
+    
+    <item>
+      <title>git 配置文件</title>
+      <link>https://wlw-5g.cn/linux/git/git_1_config/</link>
+      <pubDate>Tue, 28 Jun 2016 14:33:58 +0000</pubDate>
+      
+      <guid>https://wlw-5g.cn/linux/git/git_1_config/</guid>
+      <description>基于公司是代理上网的，所以配置windows下的.gitconfig文件如下： [http] proxy = 代理ip:代理port [user] email = xxxxx@gmail.com name =xxxxxhhh [gui] encoding = utf-8 #代码库统一使用utf-8 由于本人电脑是日语版OS，所以GIT终端显示中文字体是乱码，所以索性设置全部 使用utf-8编码。 </description>
+    </item>
+    
+    <item>
+      <title>centos6.4 升级python到2.7</title>
+      <link>https://wlw-5g.cn/linux/centos/centos6.4%E5%8D%87%E7%BA%A7python/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://wlw-5g.cn/linux/centos/centos6.4%E5%8D%87%E7%BA%A7python/</guid>
+      <description>1. download source wget https://www.python.org/ftp/python/2.7.12/Python-2.7.12.tgz  2. compire and install tar zxvf Python-2.7.12.tgz cd Python-2.7.12 ./configure --prefix=/usr/local/python27 &amp;amp;&amp;amp; make &amp;amp;&amp;amp; make install &amp;amp;&amp;amp; echo $? 如果以上输出为0，说明没有报错，安装正常 3. add path and backup the python2.6 移除以前的版本 mv /usr/bin/python /usr/bin/python26 创建软连接 ln -s /usr/local/python27/bin/python /usr/bin/python 查看版本是否升级成功 python -V Python 2.7.12 4. modify yum 如果不修改此项，会导致yum无法使用 vim /usr/bin/yum 修改第一行即可，将环境变量指向以前的python版本 #!/usr/bin/python265. reinstall pip 1.安装pip之前首先需要安装setuptools 下载链接 https://pypi.python.org/pypi/setuptools 下载地址 wget https://pypi.python.org/packages/ff/d4/209f4939c49e31f5524fa0027bf1c8ec3107abaf7c61fdaad704a648c281/setuptools-21.0.0.tar.gz#md5=81964fdb89534118707742e6d1a1ddb4 --no-check-certificate 解压 tar zxvf setuptools-21.0.0.tar.gz 安装 cd setuptools-21.</description>
+    </item>
+    
+    <item>
+      <title>centos6.4 安装python mysql扩展</title>
+      <link>https://wlw-5g.cn/linux/centos/centos6.4install-mysql-python/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://wlw-5g.cn/linux/centos/centos6.4install-mysql-python/</guid>
+      <description>要想使python可以操作mysql 就需要MySQL-python驱动，它是python 操作mysql必不可少的模块。
+下载地址：https://pypi.python.org/pypi/MySQL-python/
+下载MySQL-python-1.2.5.zip 文件之后直接解压。进入MySQL-python-1.2.5目录:
+python setup.py install
+报错：
+[root@centos7 MySQL-python-1.2.4]# python setup.py install
+sh: mysql_config: command not found
+Traceback (most recent call last):
+File &amp;ldquo;setup.py&amp;rdquo;, line 18, in metadata, options = get_config()  File &amp;ldquo;/root/MySQL-python-1.2.4/setup_posix.py&amp;rdquo;, line 43, in get_config
+libs = mysql_config(&amp;quot;libs_r&amp;quot;)  File &amp;ldquo;/root/MySQL-python-1.2.4/setup_posix.py&amp;rdquo;, line 25, in mysql_config
+raise EnvironmentError(&amp;quot;%s not found&amp;quot; % (mysql_config.path,))  EnvironmentError: mysql_config not found
+网上查了一下需安装mysql-devel
+#yum -y install mysql-devel
+安装成功后
+python setup.py install 安装成功。</description>
+    </item>
+    
+    <item>
+      <title>DLL导出方法</title>
+      <link>https://wlw-5g.cn/linux/centos/dll_export/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://wlw-5g.cn/linux/centos/dll_export/</guid>
+      <description>DLL导出方法 dll导出方法1 ： 模块定义def文件，不支持c++的重载，以c的方式编译，导出的函数名不被修改，这样 显示调用dll取得函数地址就没事。提供给vb，python等语言,需要_stdcall约定(函数自己清理堆栈)，这样无论是c文件还是c++文件，导出函数都会被改名字。所以dll做成必须要用def文件，否则找不到名字。除非你记得 修饰过的函数名。
+dll导出方法2： 函数声明头文件声明如下： __declspec(dllexport)这种方式，方便c++代码的重载，同名函数不同参数，导出名字会被修饰，所以能区分开。 这种方式实现了DLL的隐式调用（只提供dll的导出符号lib文件，就可直接调用函数，（只是导出函数符号，没有具体实现， 不同于静态库的lib文件），def文件导出的dll不能用隐式调用，只能取得函数地址getProcAddress方式）
+#ifndef _EXSOPINF_H_#define _EXSOPINF_H_#ifdef __cplusplus //cpp文件时，用c方式编译导出，不会修改导出函数名。但是_stdcall//调用也会修改，_cdecl(默认)调用不会修改extern &amp;#34;C&amp;#34; {#endif__declspec(dllexport) DWORD WINAPI function1( LPCSTR lpszFolderName, LPSTR lpszCode );__declspec(dllexport) DWORD WINAPI function2( LPCSTR lpszFolderName, LPSTR lpszCode );#ifdef __cplusplus}#endif#endif函数定义时，也需要在函数名前：加入修饰__declspec(dllexport) DWORD WINAPI function1(LPCSTR lpszFolderName, LPSTR lpszCode ){return 0;}其中WINAPI是调用约定。常见调用约定 调用协议常用场合__stdcall：Windows API默认的函数调用协议。__cdecl：C/C++默认的函数调用协议。__fastcall：适用于对性能要求较高的场合。函数参数入栈方式__stdcall：函数参数由右向左入栈。__cdecl：函数参数由右向左入栈。__fastcall：从左开始不大于4字节的参数放入CPU的ECX和EDX寄存器，其余参数从右向左入栈。问题一：__fastcall在寄存器中放入不大于4字节的参数，故性能较高，适用于需要高性能的场合。栈内数据清除方式__stdcall：函数调用结束后由被调用函数清除栈内数据。__cdecl：函数调用结束后由函数调用者清除栈内数据。__fastcall：函数调用结束后由被调用函数清除栈内数据。问题一：不同编译器设定的栈结构不尽相同，跨开发平台时由函数调用者清除栈内数据不可行。问题二：某些函数的参数是可变的，如printf函数，这样的函数只能由函数调用者清除栈内数据。问题三：由调用者清除栈内数据时，每次调用都包含清除栈内数据的代码，故可执行文件较大。C语言编译器函数名称修饰规则__stdcall：编译后，函数名被修饰为“_functionname@number”。__cdecl：编译后，函数名被修饰为“_functionname”。__fastcall：编译后，函数名给修饰为“@functionname@nmuber”。注：“functionname”为函数名，“number”为参数字节数。注：函数实现和函数定义时如果使用了不同的函数调用协议，则无法实现函数调用。C++语言编译器函数名称修饰规则__stdcall：编译后，函数名被修饰为“?</description>
+    </item>
+    
+    <item>
+      <title>LinuxFTP的建立</title>
+      <link>https://wlw-5g.cn/linux/centos/linuxftp/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://wlw-5g.cn/linux/centos/linuxftp/</guid>
+      <description>linux FTP建立，条件： 安装vsftpd： 配置vsftpd的配置文件： vim /etc/vsftpd.conf
+anonymous_enbale =NO //关闭匿名登录 local_enbale=YES //允许本地用户，就是ftp建立者的用户名和密码 write_enbale=YES //允许写入，就是上传文件到ftp
+反注释掉： ascii_upload_enbale=YES ascii_download_enbale=YES
+默认的ftp目录就是home下的user目录，包含桌面，下载等等文件夹。</description>
+    </item>
+    
+    <item>
+      <title>linux常用函数手册</title>
+      <link>https://wlw-5g.cn/linux/centos/linux_c_help/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://wlw-5g.cn/linux/centos/linux_c_help/</guid>
+      <description>linux linux常用函数手册</description>
+    </item>
+    
+    <item>
+      <title>mac挂载NTFS磁盘</title>
+      <link>https://wlw-5g.cn/linux/centos/mac%E6%8C%82%E8%BD%BDntfs%E7%A3%81%E7%9B%98/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://wlw-5g.cn/linux/centos/mac%E6%8C%82%E8%BD%BDntfs%E7%A3%81%E7%9B%98/</guid>
+      <description>查看移动硬盘的信息 diskutil list
+/dev/disk0 (internal): #: TYPE NAME SIZE IDENTIFIER 0: GUID_partition_scheme 121.3 GB disk0 1: EFI EFI 314.6 MB disk0s1 2: Apple_APFS Container disk1 121.0 GB disk0s2 /dev/disk1 (synthesized): #: TYPE NAME SIZE IDENTIFIER 0: APFS Container Scheme - +121.0 GB disk1 Physical Store disk0s2 1: APFS Volume Macintosh HD 97.9 GB disk1s1 2: APFS Volume Preboot 44.2 MB disk1s2 3: APFS Volume Recovery 509.7 MB disk1s3 4: APFS Volume VM 1.</description>
+    </item>
+    
+    <item>
+      <title>shadowsocks 一键搭建vps</title>
+      <link>https://wlw-5g.cn/linux/git/-kexuesahngwang/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://wlw-5g.cn/linux/git/-kexuesahngwang/</guid>
+      <description>申请一个国外的vps服务器。 一键搭建shadowsocks 1. git clone -b master https://github.com/Flyzy2005/ss-fly 2. ss-fly/ss-fly.sh -i xxxxx 1024 // 是shaodowsocks的密码 // 开启BBR加速 3. ss-fly/ss-fly.sh -bbr 第一次可能会更新，重启vps后再执行 4. ss-fly/ss-fly.sh -bbr 5. 本地shadowsocks上添加这个vps把， 默认代理端口1080不用改。 </description>
+    </item>
+    
+    <item>
+      <title>一张图看懂centos6和7的启动流程区别</title>
+      <link>https://wlw-5g.cn/linux/centos/centos6%E5%92%8C7%E7%9A%84%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://wlw-5g.cn/linux/centos/centos6%E5%92%8C7%E7%9A%84%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/</guid>
+      <description>启动流程 </description>
+    </item>
+    
+    <item>
+      <title>了解一下linux开机启动</title>
+      <link>https://wlw-5g.cn/linux/centos/%E4%BA%86%E8%A7%A3%E4%B8%80%E4%B8%8Blinux%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://wlw-5g.cn/linux/centos/%E4%BA%86%E8%A7%A3%E4%B8%80%E4%B8%8Blinux%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8/</guid>
+      <description>1. linux的启动等级 0 关机模式 1 单用户模式 2 无网络多用户模式 3 有网络多用户模式，如果没网络和2一样。 4.系统保留，未使用 5.GUI图形界面 6.重启模式，默认不能是这个级别，否则就会无限循环重启
+ 正常默认就是3了, 命令行模式，有桌面的，应该默认是5. 关机就可以终端输入init 0，重启就init 6  7.默认级别在centos7之前是/etc/inittab文件设置的，之后就由systemctl接管了
+ 查看默认运行级别的方式为:   systemctl get-default
+  设置默认运行级别的方式:   systemctl set-default TARGET.target
+ *级别分别对应如下: *
+   shutdown.target
+    emergency.target
+    rescure.target
+    multi-user.target
+    无
+    graphical.target
+    无</description>
+    </item>
+    
+  </channel>
+</rss>

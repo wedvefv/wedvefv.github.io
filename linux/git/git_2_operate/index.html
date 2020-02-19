@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-cn" lang="zh-cn">
+    <head>
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({
+                google_ad_client: "ca-pub-9224870466612638",
+                enable_page_level_ads: true
+            });
+        </script>
+
+        <link href="https://gmpg.org/xfn/11" rel="profile">
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+        <meta name="generator" content="Hugo 0.64.1" />
+
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>git 常见操作 &middot; 学而时习之</title>
+        <meta name="description" content="" />
+
+        
+        <link type="text/css" rel="stylesheet" href="https://wlw-5g.cn/css/print.css" media="print">
+        <link type="text/css" rel="stylesheet" href="https://wlw-5g.cn/css/poole.css">
+        <link type="text/css" rel="stylesheet" href="https://wlw-5g.cn/css/syntax.css">
+        <link type="text/css" rel="stylesheet" href="https://wlw-5g.cn/css/hyde.css">
+          <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+        
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+        <link rel="shortcut icon" href="/favicon.png">
+
+        
+        
+    </head>
+
+  <body class=" ">
+  <aside class="sidebar">
+    <div class="container sidebar-sticky">
+        <div class="sidebar-about">
+            <a href="https://wlw-5g.cn/"><h3>学而时习之</h3></a>
+        </div>
+
+        <nav>
+            <ul class="sidebar-nav">
+                <li><a href="https://wlw-5g.cn/">Home</a> </li>
+                <li><a href="/"> 首页 </a></li><li><a href="/tags/"> 标签 </a></li><li><a href="/category/"> 分类 </a></li>
+            </ul>
+        </nav>
+
+        <p>&copy; 2020. All rights reserved. </p>
+        <a href="http://www.beian.miit.gov.cn" target="_blank">豫ICP备20003135号</a>
+    </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>git 常见操作</h1>
+  <time datetime=2018-05-26T12:00:00Z class="post-date">Sat, May 26, 2018</time>
+  <h2 id="创建分支">创建分支</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">	git branch new_branch
+</code></pre></div><h2 id="本地删除分支">本地删除分支</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">	git branch -D delete_branch 
+</code></pre></div><h2 id="更新到远程删除分支">更新到远程删除分支</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">	git checkout master 
+	git pull -u   -u origin :delete_branch
+</code></pre></div><h2 id="git-pull-失败提示fatal-refusing-to-merge-unrelated-histories-处理方法">git pull 失败提示fatal: refusing to merge unrelated histories ,处理方法</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">	git pull origin master --allow-unrelated-historiesn
+
+</code></pre></div><h1 id="查看提交提记录">查看提交提记录</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">	git log
+	git log -p -2  <span style="color:#75715e">#查看最近两次的提交差异</span>
+	git log --stat <span style="color:#75715e">#仅仅现实行数的变更</span>
+	git log --pretty<span style="color:#f92672">=</span>oneline <span style="color:#75715e">#每次提交，在一行显示</span>
+	git log --pretty<span style="color:#f92672">=</span>format:<span style="color:#e6db74">&#34;%h - %an, %ar : %s&#34;</span>   <span style="color:#75715e">#格式显示</span>
+</code></pre></div><table>
+<thead>
+<tr>
+<th>选项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>%H</td>
+<td>提交对象（提交）的完整哈希字串</td>
+</tr>
+<tr>
+<td>%h</td>
+<td>提交对象的简短哈希字串</td>
+</tr>
+<tr>
+<td>%T</td>
+<td>树对象（树）的完整哈希字串</td>
+</tr>
+<tr>
+<td>%t</td>
+<td>树对象的简短哈希字串</td>
+</tr>
+<tr>
+<td>%P</td>
+<td>父对象（父）的完整哈希字串</td>
+</tr>
+<tr>
+<td>%p</td>
+<td>父对象的简短哈希字串</td>
+</tr>
+<tr>
+<td>%an</td>
+<td>作者（作者）的名字</td>
+</tr>
+<tr>
+<td>%ae</td>
+<td>作者的电子邮件地址</td>
+</tr>
+<tr>
+<td>%ad</td>
+<td>作者修订日期（可以用-date =选项定制格式）</td>
+</tr>
+<tr>
+<td>%ar</td>
+<td>作者修订日期，按多久以前的方式显示</td>
+</tr>
+<tr>
+<td>%cn</td>
+<td>提交者（提交者）的名字</td>
+</tr>
+<tr>
+<td>%ce</td>
+<td>提交者的电子邮件地址</td>
+</tr>
+<tr>
+<td>%cd</td>
+<td>提交日期</td>
+</tr>
+<tr>
+<td>%cr</td>
+<td>提交日期，按多久以前的方式显示</td>
+</tr>
+<tr>
+<td>%s</td>
+<td>提交说明</td>
+</tr>
+</tbody>
+</table>
+<h1 id="待续">待续&hellip;&hellip;</h1>
+
+</div>
+
+
+    </main>
+
+    
+  </body>
+</html>
