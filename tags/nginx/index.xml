@@ -23,7 +23,7 @@
     <item>
       <title>nginx配置跨域资源共享CORS</title>
       <link>https://wlw-5g.cn/html/%E8%B7%A8%E5%9F%9F%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 01 Feb 2020 20:04:30 +0000</pubDate>
       
       <guid>https://wlw-5g.cn/html/%E8%B7%A8%E5%9F%9F%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB/</guid>
       <description>跨域  浏览器为了安全，有个策略: 同源策略， 页面中的链接必须域名一致。  为什么跨域  页面请求的接口可能位于独立api服务器， 所以就会有跨域存在。  解决问题   代理，没怎么研究

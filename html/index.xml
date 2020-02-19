@@ -6,10 +6,25 @@
     <description>Recent content in Htmls on 学而时习之</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sat, 22 Jun 2019 20:04:30 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 01 Feb 2020 20:04:30 +0000</lastBuildDate>
     
 	<atom:link href="https://wlw-5g.cn/html/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>nginx配置跨域资源共享CORS</title>
+      <link>https://wlw-5g.cn/html/%E8%B7%A8%E5%9F%9F%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB/</link>
+      <pubDate>Sat, 01 Feb 2020 20:04:30 +0000</pubDate>
+      
+      <guid>https://wlw-5g.cn/html/%E8%B7%A8%E5%9F%9F%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB/</guid>
+      <description>跨域  浏览器为了安全，有个策略: 同源策略， 页面中的链接必须域名一致。  为什么跨域  页面请求的接口可能位于独立api服务器， 所以就会有跨域存在。  解决问题   代理，没怎么研究
+  jsonp，构造javascrit 标签，利用src属性请求这个链接，返回body是可执行的js代码，代码中的函数需要本地定义，巧妙的接收到了数据
+  配置api服务器支持跨域资源共享， nginx location中添加 &amp;ldquo;add_header Access-Control-Allow-Origin *&amp;rdquo; ,* 表示任意域名过来的都可以请求， 也可以是某个域名 &amp;ldquo;http://127.0.0.1:5000&amp;rdquo;
+  preflight request(预检请求 OPTIONS方法)
+   W3C规定的，有些类型的请求比如post，都需要优先发送一个OPTIONS方法的请求，以获得nginx是否支持这种类型，比如post一个json格式的数据，就需要先发options请求 发送options请求，是为了获取nginx是否支持content-type ，所以nginx配置需要增加：  add_header Access-Control-Allow-Headers &amp;quot;Origin, X-Requested-With, Content-Type, Accept&amp;quot;;   这样请求header中有Access-Control-Allow-Headers： content-type,
+  服务器响应header返回的也有Access-Control-Allow-Headers： content-type,就不会报Request header field Content-Type is not allowed by Access-Control-Allow-Headers in preflight response.的错误了。
+  以下几种post格式不用发options请求，直接发post请求</description>
+    </item>
     
     <item>
       <title>js 对象和原型链</title>
@@ -39,7 +54,7 @@
     <item>
       <title>ajax简介</title>
       <link>https://wlw-5g.cn/html/ajax/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <pubDate>Thu, 06 Oct 2016 20:04:30 +0000</pubDate>
       
       <guid>https://wlw-5g.cn/html/ajax/</guid>
       <description>1.ajax 简介 ajax = 异步javascript+XML AAJAX是基于现有的Internet标准，并且联合使用它们： XMLHttpRequest 对象 (异步的与服务器交换数据) JavaScript/DOM (信息显示/交互) CSS (给数据定义样式) XML (作为转换数据的格式) lamp AJAX应用程序与浏览器和平台无关的！ 实现不刷新整个页面，实现页面动态更新的技术。
@@ -60,25 +75,10 @@ xmlhttp.open(&amp;#34;POST&amp;#34;,&amp;#34;ajax_test.html&amp;#34;,true);xmlh
     <item>
       <title>html5标签</title>
       <link>https://wlw-5g.cn/html/html5_tags/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 10 Aug 2016 11:30:55 +0000</pubDate>
       
       <guid>https://wlw-5g.cn/html/html5_tags/</guid>
       <description>html5标签总结 1. &amp;lt;!----&amp;gt; 注释 2. &amp;lt;!DOCTYPE&amp;gt; 定义html文本类型 3. &amp;lt;a&amp;gt; 定义超链接 4. &amp;lt;abbr&amp;gt; 把一段字符串用缩写表示&amp;lt;abbr title =&amp;#34;People world&amp;#34;&amp;gt;PW &amp;lt;/abbr&amp;gt; 5. &amp;lt;address&amp;gt; 在article元素内部，表示该文章的作者身份信息 6. &amp;lt;applet&amp;gt; 定义嵌入的applet ，html5不支持了。请用object代替 7. &amp;lt;acronym&amp;gt; html5不支持了，请用&amp;lt;abbr代替哦 8. &amp;lt;area&amp;gt; 标签定义图像映射内部的区域，图像中部分区域可以点击，就是说有链接的 9. 两栏式架构 |header---------------------------------------------------------------------------------------|顶部 |nav------------------------------------------------------------------------------------------|外链 |article---包含&amp;lt;section&amp;gt;-----------------&amp;lt;aside&amp;gt;--------------------------|文章主体--段落或章节-侧边栏 |footer---------------------------------------------------------------------------------------|底部 以前都是用&amp;lt;div id=&amp;#34;header&amp;#34;&amp;gt; &amp;lt;div id =&amp;#34;nav&amp;#34;&amp;gt;...... 这样来定义页面的结构，html5新定义了这些，避免div太多混乱. 10. &amp;lt;aside&amp;gt; 可用于文章的侧边栏 11. &amp;lt;audio&amp;gt; 定义声音链接 12. &amp;lt;b&amp;gt; 定义粗体字体，强调 13. &amp;lt;base&amp;gt; 放在head里面，用于页面中的链接的基地址。后面的链接就可以写相对地址了。 比如base =www.xxx000.com/img ,链接一个图片就可以不写全路径，直接src=&amp;#34;xxx.jpeg&amp;#34; 14. &amp;lt;basefont&amp;gt; html不支持了。设置文档中所有字体的默认颜色，大小 15. &amp;lt;bdi&amp;gt; 通过脱离父元素的文本设置方向 16. &amp;lt;bdo&amp;gt; 定义文本方向，指定dir属性是rtl还是ltr 17. &amp;lt;big&amp;gt; html不支持了。请用css控制 ，制作更大的文本 18.</description>
-    </item>
-    
-    <item>
-      <title>nginx配置跨域资源共享CORS</title>
-      <link>https://wlw-5g.cn/html/%E8%B7%A8%E5%9F%9F%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://wlw-5g.cn/html/%E8%B7%A8%E5%9F%9F%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB/</guid>
-      <description>跨域  浏览器为了安全，有个策略: 同源策略， 页面中的链接必须域名一致。  为什么跨域  页面请求的接口可能位于独立api服务器， 所以就会有跨域存在。  解决问题   代理，没怎么研究
-  jsonp，构造javascrit 标签，利用src属性请求这个链接，返回body是可执行的js代码，代码中的函数需要本地定义，巧妙的接收到了数据
-  配置api服务器支持跨域资源共享， nginx location中添加 &amp;ldquo;add_header Access-Control-Allow-Origin *&amp;rdquo; ,* 表示任意域名过来的都可以请求， 也可以是某个域名 &amp;ldquo;http://127.0.0.1:5000&amp;rdquo;
-  preflight request(预检请求 OPTIONS方法)
-   W3C规定的，有些类型的请求比如post，都需要优先发送一个OPTIONS方法的请求，以获得nginx是否支持这种类型，比如post一个json格式的数据，就需要先发options请求 发送options请求，是为了获取nginx是否支持content-type ，所以nginx配置需要增加：  add_header Access-Control-Allow-Headers &amp;quot;Origin, X-Requested-With, Content-Type, Accept&amp;quot;;   这样请求header中有Access-Control-Allow-Headers： content-type,
-  服务器响应header返回的也有Access-Control-Allow-Headers： content-type,就不会报Request header field Content-Type is not allowed by Access-Control-Allow-Headers in preflight response.的错误了。
-  以下几种post格式不用发options请求，直接发post请求</description>
     </item>
     
   </channel>

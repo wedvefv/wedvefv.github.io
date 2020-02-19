@@ -6,6 +6,7 @@
     <description>Recent content in c on 学而时习之</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
+    <lastBuildDate>Sat, 30 Jun 2018 10:15:00 +0000</lastBuildDate>
     
 	<atom:link href="https://wlw-5g.cn/category/c/index.xml" rel="self" type="application/rss+xml" />
     
@@ -13,7 +14,7 @@
     <item>
       <title>centos6.4 安装python mysql扩展</title>
       <link>https://wlw-5g.cn/linux/centos6.4install-mysql-python/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 30 Jun 2018 10:15:00 +0000</pubDate>
       
       <guid>https://wlw-5g.cn/linux/centos6.4install-mysql-python/</guid>
       <description>要想使python可以操作mysql 就需要MySQL-python驱动，它是python 操作mysql必不可少的模块。
