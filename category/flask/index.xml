@@ -13,10 +13,10 @@
     
     <item>
       <title>flask 第1章(基本结构和概念)</title>
-      <link>https://wlw-5g.cn/language/python/1%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84/</link>
+      <link>https://wlw-5g.cn/python/1%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84/</link>
       <pubDate>Mon, 28 Jan 2019 22:22:00 +0000</pubDate>
       
-      <guid>https://wlw-5g.cn/language/python/1%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84/</guid>
+      <guid>https://wlw-5g.cn/python/1%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84/</guid>
       <description>开始和程序基本结构 1.首先安装虚拟环境包和git工具  sudo apt-get install python-virtualenv sudo apt-get install git  2.创建一个目录  mkdir flask_learn cd flask_learn  3.下载实例代码  git clone http://github.com/miguelgrinberg/flasky.git cd flask 建立一个虚拟环境 virtualenv venv 激活虚拟环境 source venv/bin/activate 取消激活分区 deactivate 虚拟环境下安装pip pip install flask 切换分支 git checkout 2a  from flask import Flaskapp = Flask(__name__)@app.route(&amp;#39;/&amp;#39;)def index():return &amp;#39;&amp;lt;h1&amp;gt;Hello World!&amp;lt;/h1&amp;gt;&amp;#39;if __name__ == &amp;#34;__main__&amp;#34;:app.run(debug=True) 执行 python hello.py 浏览器输入http://127.0.0.1:5000/ 就可以看到helloword了。 但是这样会出现一个问题。你在linux虚拟机里面执行的代码。在window上浏览器看就不行，需要设置 如下改动 app.run(debug=True，host=&amp;quot;0.0.0.0&amp;rdquo;)或者使用manage模块扩展传参数，后面会提到。  4.</description>
     </item>
     

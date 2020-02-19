@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-cn" lang="zh-cn">
+    <head>
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({
+                google_ad_client: "ca-pub-9224870466612638",
+                enable_page_level_ads: true
+            });
+        </script>
+
+        <link href="https://gmpg.org/xfn/11" rel="profile">
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+        <meta name="generator" content="Hugo 0.64.1" />
+
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>tcp连接过程，半连接队列和全连接队列 &middot; 学而时习之</title>
+        <meta name="description" content="" />
+
+        
+        <link type="text/css" rel="stylesheet" href="https://wlw-5g.cn/css/print.css" media="print">
+        <link type="text/css" rel="stylesheet" href="https://wlw-5g.cn/css/poole.css">
+        <link type="text/css" rel="stylesheet" href="https://wlw-5g.cn/css/syntax.css">
+        <link type="text/css" rel="stylesheet" href="https://wlw-5g.cn/css/hyde.css">
+          <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+        
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+        <link rel="shortcut icon" href="/favicon.png">
+
+        
+        
+    </head>
+
+  <body class=" ">
+  <aside class="sidebar">
+    <div class="container sidebar-sticky">
+        <div class="sidebar-about">
+            <a href="https://wlw-5g.cn/"><h3>学而时习之</h3></a>
+        </div>
+
+        <nav>
+            <ul class="sidebar-nav">
+                <li><a href="https://wlw-5g.cn/">首页</a> </li>
+                <li><a href="/tags"> 标签 </a></li><li><a href="/category"> 分类 </a></li>
+            </ul>
+        </nav>
+
+        <p>&copy; 2020. All rights reserved. </p>
+        <a href="http://www.beian.miit.gov.cn" target="_blank">豫ICP备20003135号</a>
+    </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>tcp连接过程，半连接队列和全连接队列</h1>
+  <time datetime=2019-02-15T12:06:00Z class="post-date">Fri, Feb 15, 2019</time>
+  <h2 id="tcp三次握手的过程">tcp三次握手的过程</h2>
+<ul>
+<li>第一次：客户端发送SYN(Synchronize Sequence Numbers)报文，标志位SYN=1,序列号seq=j。</li>
+<li>第二次：服务端收到SYN报文后，回应ACK(Acknowledgement)，标志位ACK=1,确认号ack为j+1， 同时自己也发送一个SYN报文，SYN=1,序列号seq假设为k， 即一个ACK+SYN包</li>
+<li>第三次：客户端收到报文后，发送一个ACK报文，标志位ACK=1，确认号ack=(k+1) 到服务器，客户端和服务器进入ESTABLISHED状态，TCP链接成功。</li>
+<li>SYN是同步报文标志位，建立连接时为1，连接建立后置为0，ACK时确认标志位一般为1</li>
+</ul>
+<h2 id="tcp四次挥手过程为什么是4次呢">tcp四次挥手过程，为什么是4次呢？</h2>
+<ul>
+<li>假如客户端主动发起关闭操作</li>
+<li>第一次： 客户端发送FIN报文，假设为序列号seq=i给服务器。</li>
+<li>第二次： 服务发送ACK报文，ack=(i+1)给客户端，可能数据还没有接收完毕，所以服务端socket状态由ESTABLISHED -&gt; CLOSE_WAIT状态。</li>
+<li>第三次： 服务端端处理完毕，发送FIN报文，序列号为j。</li>
+<li>第四次： 客户端收到报文后，发送ACK报文，ack=j+1, 并进入TIME_WAIT状态。等待2MSL后自动关闭</li>
+</ul>
+<blockquote>
+<ul>
+<li>为什么客户端不发完ack就释放呢，因为服务器可能没收到ack，服务器会重新发送FIN请求关闭连接，客户端重新发送ack，所以一个来回就是2
+个报文周期。当连接处于2MSL等待阶段时任何迟到的报文段都将被丢弃。</li>
+</ul>
+</blockquote>
+<p>借用一张图表示一下
+<img src="https://img-blog.csdnimg.cn/20190214095421560.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1pXRTc2MTYxNzU=,size_16,color_FFFFFF,t_70" alt="aa"></p>
+<h2 id="如果已经建立了连接但是客户端突然出现故障了怎么办">如果已经建立了连接，但是客户端突然出现故障了怎么办？</h2>
+<blockquote>
+<p>TCP还设有一个保活计时器，显然，客户端如果出现故障，服务器不能一直等下去，白白浪费资源。服务器每收到一次客户端的请求后都会重新复位这个计时器，时间通常是设置为2小时，若两小时还没有收到客户端的任何数据，服务器就会发送一个探测报文段，以后每隔75分钟发送一次。若一连发送10个探测报文仍然没反应，服务器就认为客户端出了故障，接着就关闭连接。</p>
+</blockquote>
+<h2 id="查看网络链接的命令">查看网络链接的命令</h2>
+<ul>
+<li>查看不同状态的链接数</li>
+</ul>
+<blockquote>
+<ul>
+<li>netstat -an | awk &lsquo;/^tcp/ {++y[$NF]} END {for(w in y) print w, y[w]}&rsquo;</li>
+</ul>
+</blockquote>
+<h2 id="半连接状态队列sync_queue和全连接队列accept_queue">半连接状态队列sync_queue和全连接队列accept_queue</h2>
+<ul>
+<li>第一种实现：</li>
+</ul>
+<blockquote>
+<ul>
+<li>BSD实现和在linux2.2之前，listen系统调用backlog参数表示半链接+全链接队列数之和</li>
+<li>当队列满了以后，服务端再收到SYN时，将不会返回SYN/ACK。比较优雅的处理方法就是不处理这条连接，不返回RST，让客户端重试.</li>
+<li>accept系统调用只是简单地从完成队列中取出连接.</li>
+</ul>
+</blockquote>
+<ul>
+<li>第二种实现：</li>
+</ul>
+<blockquote>
+<ul>
+<li>linux内核2.2以上的版本，SYN_RCVD队列的大小由proc/sys/net/ipv4/tcp_max_syn_backlog系统参数指定，ESTABLISHED队列由backlog和/proc/sys/net/core/somaxconn中较小的指定</li>
+</ul>
+</blockquote>
+<ul>
+<li><img src="http://img2.cnxct.com/2015/06/tcp-sync-queue-and-accept-queue-small.jpg" alt=""></li>
+</ul>
+<ul>
+<li>如果全连接队列满了怎么办？</li>
+</ul>
+<blockquote>
+<ul>
+<li>服务器不予处理，这样客户端会任务数据丢失，重新发送ack确认，如果服务器有空间，会重新加入到ESTABLISHED队列。</li>
+</ul>
+</blockquote>
+<ul>
+<li>如果client端没收到服务器发来的FIN，那么client会一直是FIN_WAIT_2吗？</li>
+</ul>
+<blockquote>
+<ul>
+<li>设置系统变量</li>
+<li>sysctl -w net.ipv4.tcp_fin_timeout=5</li>
+<li>直接ctrl+c杀死客户端，发现FIN_WAIT_2的状态的链接，一会就消失了，并不会进入TIMEWAIT状态。</li>
+</ul>
+</blockquote>
+<ul>
+<li>怎么查看链接状态呢？</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">netstat -natp | grep <span style="color:#ae81ff">8888</span>
+
+<span style="color:#75715e">#8888是服务端监听的端口，因为tcp链接总是有一端是8888端口的。</span>
+</code></pre></div><ul>
+<li>查看每个ip和服务器的连接数</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">netstat -nat|awk <span style="color:#e6db74">&#39;{print$5}&#39;</span>|awk -F : <span style="color:#e6db74">&#39;{print$1}&#39;</span>|sort|uniq -c|sort -rn
+</code></pre></div><ul>
+<li>什么是MSL呢？</li>
+</ul>
+<blockquote>
+<ul>
+<li>linux上的定义，就是60s</li>
+</ul>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#</span><span style="color:#75715e">define TCP_TIMEWAIT_LEN (60*HZ) </span><span style="color:#75715e">/* how long to wait to destroy TIME-WAIT
+</span><span style="color:#75715e">                  * state, about 60 seconds */</span><span style="color:#75715e">
+</span></code></pre></div><ul>
+<li>全连接队列满了怎么办呢？</li>
+</ul>
+<blockquote>
+<ul>
+<li>服务器根据 /proc/sys/net/ipv4/tcp_abort_on_overflow的值处理</li>
+<li>0 表示丢弃ack，让客户端重新发ack</li>
+<li>1 表示表示发送一个RST给客户端，直接废弃掉这个握手过程，客户端会出现connection reset by peer的错误</li>
+</ul>
+</blockquote>
+<ul>
+<li><a href="https://tools.ietf.org/html/rfc793">tcp协议RFC文档</a></li>
+<li><a href="https://blog.csdn.net/yangbodong22011/article/details/60399728">参考链接1</a></li>
+<li><a href="https://blog.csdn.net/hhhanpan/article/details/79388945">参考链接2</a></li>
+<li><a href="https://blog.csdn.net/dog250/article/details/81256550">参考链接3</a></li>
+<li><a href="https://blog.csdn.net/jhcsdb/article/details/34921167">socket耗尽，半连接队列限制</a></li>
+<li><a href="https://www.cnblogs.com/jessezeng/p/5617105.html">参考链接4</a></li>
+</ul>
+
+</div>
+
+
+    </main>
+
+    
+  </body>
+</html>

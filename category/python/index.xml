@@ -13,19 +13,19 @@
     
     <item>
       <title>python 编码reload(sys)的作用</title>
-      <link>https://wlw-5g.cn/language/python/3_reload_sys/</link>
+      <link>https://wlw-5g.cn/python/3_reload_sys/</link>
       <pubDate>Thu, 02 May 2019 14:00:00 +0000</pubDate>
       
-      <guid>https://wlw-5g.cn/language/python/3_reload_sys/</guid>
+      <guid>https://wlw-5g.cn/python/3_reload_sys/</guid>
       <description>为什么需要sys.setdefaultencoding(&amp;ldquo;utf-8&amp;rdquo;)  因为python转码是通过unicode作为中间码的。 比如字符串 x = &amp;ldquo;你们&amp;rdquo;，本身是str， 首先我们指定了文件编码uft8，所以x是utf8编码的。 如果要转化gb18030， 默认是x用默认解码方式（ASCII）decode成中间码 unicode -&amp;gt; encode成gb18030 如果x是abc这些ascii字符本身ascii和utf8方式是一样的,不会报错; 但是x是中文，就不能按ascii方式解码了。。怎么办呢？ 1 . 自己指定解码方式，在编码  y = x.decode(&amp;#34;utf-8&amp;#34;).encode(&amp;#34;gb18030&amp;#34;)  2.开头设置默认编解码方式  import sys reload(sys) sys.setdefaultencoding(&amp;#34;utf-8&amp;#34;) 为什么reload(sys)呢  因为模块/lib/site.py删除了sys.setdefaultencoding这个函数。  site.py 有什么作用  是解释器初始化时自动导入的，这个模块的作用是：自动将第三方模块路径加入到sys.path中。  import的实质  import sys导入语句，只是导入了一个对sys的引用，因为别人已经提前导入了sys，后面的模块使用sys都是引用这个对象。 而作为初始化模块site.py,导入了许多内建模块包括sys，而且删除了sys.setdefaultencoding这个方法，后面你写的模块，只要导入sys,都是没有这个方法的。 所以需要reload一把，reload也是有前提的，就是之前已经加载过的模块，如果没有加载过的，就无重谈起重新加载了。  </description>
     </item>
     
     <item>
       <title>python 导入模块文件以及相对导入和__init__文件作用</title>
-      <link>https://wlw-5g.cn/language/python/2__init__%E6%96%87%E4%BB%B6%E7%9A%84%E4%BD%9C%E7%94%A8/</link>
+      <link>https://wlw-5g.cn/python/2__init__%E6%96%87%E4%BB%B6%E7%9A%84%E4%BD%9C%E7%94%A8/</link>
       <pubDate>Thu, 14 Feb 2019 14:00:00 +0000</pubDate>
       
-      <guid>https://wlw-5g.cn/language/python/2__init__%E6%96%87%E4%BB%B6%E7%9A%84%E4%BD%9C%E7%94%A8/</guid>
+      <guid>https://wlw-5g.cn/python/2__init__%E6%96%87%E4%BB%B6%E7%9A%84%E4%BD%9C%E7%94%A8/</guid>
       <description>python 导入模块文件的2中方式 import lib or from lib import * # 导入子目录中模块 import tmp.lib3 or from tmp.lib3 import * # 导入上级目录 import sys sys.path.append(&amp;#39;home/app/&amp;#39;) import mod import xxxx   与import类似, 被导入的module仍然会执行且仅执行一次
   from *** import 的实质
   当以 &amp;ldquo;from *** import &amp;quot; 方式导入module时, python会在当前module 的命名空间中新建相应的命名. 即, &amp;ldquo;from t2 import var1&amp;rdquo; 相当于:
@@ -34,10 +34,10 @@
     
     <item>
       <title>python类的三种装饰器</title>
-      <link>https://wlw-5g.cn/language/python/1_%E4%B8%89%E7%A7%8D%E8%A3%85%E9%A5%B0%E5%99%A8/</link>
+      <link>https://wlw-5g.cn/python/1_%E4%B8%89%E7%A7%8D%E8%A3%85%E9%A5%B0%E5%99%A8/</link>
       <pubDate>Thu, 14 Feb 2019 14:00:00 +0000</pubDate>
       
-      <guid>https://wlw-5g.cn/language/python/1_%E4%B8%89%E7%A7%8D%E8%A3%85%E9%A5%B0%E5%99%A8/</guid>
+      <guid>https://wlw-5g.cn/python/1_%E4%B8%89%E7%A7%8D%E8%A3%85%E9%A5%B0%E5%99%A8/</guid>
       <description>property装饰器作用和原理    我们知道c++中有public,projected,private等修饰类私有属性的作用，这样就限定了某些属性只能读取，不能修改；有些能读也能需改。    设置C++类中的一个属性可以自定义方法get和set方法。    python中实现这种原理，就需要装饰器property，本身可修饰（变量x同名）的函数，让x拥有可读的属性（相当于get函数    @property进而又生成一个@x.setter装饰器，在修饰一下属性x同名的函数就让x拥有可写的属性（相当于set函数）    property 装饰器 class Student(object): @property def birth(self): return self._birth @birth.setter def birth(self, value): self._birth = value @property def age(self): return 2014 - self._birth # birth 是一个可读可写的属性，age是只读属性。 # property装饰器本身可以把getter方法变成属性，同时生成一个@birth.setter装饰器，可以修饰birth变成一个可设置的属性。 # 但要注意这些额外函数的名字和 property 下的一样，例如这里的 birth,age。 一种古老的用法，使用内置函数property实现如下，和上面的方法一样。 class Animal(object): def __init__(self, name, age): self._name = name self._age = age self._color = &amp;#39;Black&amp;#39; def get_name(self): return self.</description>
     </item>
     

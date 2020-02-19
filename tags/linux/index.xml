@@ -12,11 +12,11 @@
     
     <item>
       <title>shadowsocks 一键搭建vps</title>
-      <link>https://wlw-5g.cn/linux/git/-kexuesahngwang/</link>
+      <link>https://wlw-5g.cn/git/-kexuesahngwang/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://wlw-5g.cn/linux/git/-kexuesahngwang/</guid>
-      <description>申请一个国外的vps服务器。 一键搭建shadowsocks 1. git clone -b master https://github.com/Flyzy2005/ss-fly 2. ss-fly/ss-fly.sh -i xxxxx 1024 // 是shaodowsocks的密码 // 开启BBR加速 3. ss-fly/ss-fly.sh -bbr 第一次可能会更新，重启vps后再执行 4. ss-fly/ss-fly.sh -bbr 5. 本地shadowsocks上添加这个vps把， 默认代理端口1080不用改。 </description>
+      <guid>https://wlw-5g.cn/git/-kexuesahngwang/</guid>
+      <description>申请一个国外的vps服务器。 一键搭建shadowsocks 1. git clone -b master https://github.com/Flyzy2005/ss-fly 2. ss-fly/ss-fly.sh -i xxxxx 1024 // 是shaodowsocks的密码 // 开启BBR加速 3. ss-fly/ss-fly.sh -bbr 第一次可能会更新，重启vps后再执行 4. ss-fly/ss-fly.sh -bbr 5. 本地shadowsocks上添加这个vps把， 默认代理端口1080不用改。 然并卵啊，国外的ip ping都很高。 </description>
     </item>
     
   </channel>

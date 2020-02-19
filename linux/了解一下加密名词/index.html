@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-cn" lang="zh-cn">
+    <head>
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({
+                google_ad_client: "ca-pub-9224870466612638",
+                enable_page_level_ads: true
+            });
+        </script>
+
+        <link href="https://gmpg.org/xfn/11" rel="profile">
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+        <meta name="generator" content="Hugo 0.64.1" />
+
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>了解一下加密名词AES-DES-RAS-DSA-ECDSA-ECC &middot; 学而时习之</title>
+        <meta name="description" content="" />
+
+        
+        <link type="text/css" rel="stylesheet" href="https://wlw-5g.cn/css/print.css" media="print">
+        <link type="text/css" rel="stylesheet" href="https://wlw-5g.cn/css/poole.css">
+        <link type="text/css" rel="stylesheet" href="https://wlw-5g.cn/css/syntax.css">
+        <link type="text/css" rel="stylesheet" href="https://wlw-5g.cn/css/hyde.css">
+          <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+        
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+        <link rel="shortcut icon" href="/favicon.png">
+
+        
+        
+    </head>
+
+  <body class=" ">
+  <aside class="sidebar">
+    <div class="container sidebar-sticky">
+        <div class="sidebar-about">
+            <a href="https://wlw-5g.cn/"><h3>学而时习之</h3></a>
+        </div>
+
+        <nav>
+            <ul class="sidebar-nav">
+                <li><a href="https://wlw-5g.cn/">首页</a> </li>
+                <li><a href="/tags"> 标签 </a></li><li><a href="/category"> 分类 </a></li>
+            </ul>
+        </nav>
+
+        <p>&copy; 2020. All rights reserved. </p>
+        <a href="http://www.beian.miit.gov.cn" target="_blank">豫ICP备20003135号</a>
+    </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>了解一下加密名词AES-DES-RAS-DSA-ECDSA-ECC</h1>
+  <time datetime=2019-03-02T12:00:00Z class="post-date">Sat, Mar 2, 2019</time>
+  <h2 id="加密体系">加密体系</h2>
+<h3 id="对称加密算法加密和机密密钥一样加密方和解密方都持有">对称加密算法，加密和机密密钥一样，加密方和解密方都持有.</h3>
+<ul>
+<li>
+<p>DES加密 56位密钥长度，美国数据加密标准，DES算法的入口参数有三个：Key、Data、Mode。其中Key为7个字节共56位，是DES算法的工作密钥；Data为8个字节64位，是要被加密或被解密的数据；Mode为DES的工作方式,有两种:加密或解密。</p>
+</li>
+<li>
+<p>AES加密 高级加密标准，一种区块加密算法,为了取代DES。</p>
+</li>
+<li>
+<p>二者的优点是加密快，资源消耗少，但是AES比DES安全。</p>
+</li>
+</ul>
+<h3 id="非对称加密算法">非对称加密算法</h3>
+<ul>
+<li>
+<p>RSA，基于数学原理，一个极大数做质数(也叫素数)分解很困难;简单讲,就是你根据公钥很难计算出私钥，因为解密需要接受者的私钥。rsa 由于密钥长度大，加密慢，所以一般只加密产生的会话密钥，会话秘钥才用于加密来加密数据。</p>
+</li>
+<li>
+<p>DSA(DSS), 签名算法， DSA是基于整数有限域离散对数难题的，其安全性与RSA相比差不多。DSA的一个重要特点是两个素数公开，这样，当使用别人的p和q时，即使不知道私钥，你也能确认它们是否是随机产生的，还是作了手脚。RSA算法却做不到</p>
+</li>
+<li>
+<p>ECC 椭圆加密算法， 其数学基础是利用椭圆曲线上的有理点构成Abel加法群上椭圆离散对数的计算困难性，主要优势是比其他方式如RSA使用更短的密钥长度，达到同等安全级别，优点就是别rsa，dsa快，存储空间小，贷款要求低。</p>
+</li>
+</ul>
+<blockquote>
+<p>演变而来的ECDSA（ECC+DSA）数字签名算法，是ECC对DSA的一种模拟实现，ECC是椭圆的离散对数问题，DSA也是对数问题。只不过使用签名采用ECC算法，输出也是2个值，r和s</p>
+</blockquote>
+<h2 id="其他算法">其他算法</h2>
+<ul>
+<li>md5: 消息摘要算法，防止数据被篡改。</li>
+<li>sha系列，安全散列算法，也是散列函数，应用于信息安全和数字签名领域，都是不需要解密的，也无法解密。</li>
+</ul>
+
+</div>
+
+
+    </main>
+
+    
+  </body>
+</html>

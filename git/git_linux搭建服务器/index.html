@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-cn" lang="zh-cn">
+    <head>
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({
+                google_ad_client: "ca-pub-9224870466612638",
+                enable_page_level_ads: true
+            });
+        </script>
+
+        <link href="https://gmpg.org/xfn/11" rel="profile">
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+        <meta name="generator" content="Hugo 0.64.1" />
+
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>git_linux搭建服务器 &middot; 学而时习之</title>
+        <meta name="description" content="" />
+
+        
+        <link type="text/css" rel="stylesheet" href="https://wlw-5g.cn/css/print.css" media="print">
+        <link type="text/css" rel="stylesheet" href="https://wlw-5g.cn/css/poole.css">
+        <link type="text/css" rel="stylesheet" href="https://wlw-5g.cn/css/syntax.css">
+        <link type="text/css" rel="stylesheet" href="https://wlw-5g.cn/css/hyde.css">
+          <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+        
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+        <link rel="shortcut icon" href="/favicon.png">
+
+        
+        
+    </head>
+
+  <body class=" ">
+  <aside class="sidebar">
+    <div class="container sidebar-sticky">
+        <div class="sidebar-about">
+            <a href="https://wlw-5g.cn/"><h3>学而时习之</h3></a>
+        </div>
+
+        <nav>
+            <ul class="sidebar-nav">
+                <li><a href="https://wlw-5g.cn/">首页</a> </li>
+                <li><a href="/tags"> 标签 </a></li><li><a href="/category"> 分类 </a></li>
+            </ul>
+        </nav>
+
+        <p>&copy; 2020. All rights reserved. </p>
+        <a href="http://www.beian.miit.gov.cn" target="_blank">豫ICP备20003135号</a>
+    </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>git_linux搭建服务器</h1>
+  <time datetime=2019-03-02T12:01:00Z class="post-date">Sat, Mar 2, 2019</time>
+  <h2 id="为什么本地搭建一个git服务器">为什么本地搭建一个git服务器</h2>
+<ul>
+<li>对于自己学习使用的代码，在没有网络的情况下不能用github，gitlab,所以本地建立一个git服务器。</li>
+</ul>
+<h2 id="git服务器环境准备centos7">git服务器环境准备centos7</h2>
+<h2 id="服务端创建git用户">服务端创建git用户</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">	id git <span style="color:#75715e"># 查看是否存在git用户，存在就不创建了。</span>
+	useradd git
+	passwd git
+	输入密码，我设置的是xxx@123
+	
+</code></pre></div><h2 id="客户端开启公钥认证认证免密pushpull">客户端开启公钥认证认证，免密push/pull</h2>
+<ul>
+<li>首先服务端需要开启ssh服务</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">vim /etc/ssh/sshd_config
+RSAAuthentication yes 
+PubkeyAuthentication yes
+AuthorizedKeysFile .ssh/authorized_keys
+如果是centos7.4以上（含7.4），ssh1已经不支持了，只支持ssh2代协议。所以RSAAuthentication项是没有的
+
+</code></pre></div><ul>
+<li>客户端执行 执行ssh-keygen -t rsa 生成公钥和私钥</li>
+<li>复制客户端公钥到服务器端ssh-copy-id -i ~/.ssh/id_rsa.pub <a href="mailto:git@192.168.61.128">git@192.168.61.128</a></li>
+</ul>
+<h2 id="服务端创建git仓库">服务端创建git仓库</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">	mkdir -p /data/git/gittest.git
+	
+	<span style="color:#75715e"># 初始化这个仓库</span>
+	cd /data/git/gittest.git
+	git init --bare .
+	
+	<span style="color:#75715e"># 目录所属用户设置</span>
+	chown -R git:git /data/git 
+	
+</code></pre></div><h2 id="客户端clone远程仓库">客户端clone远程仓库</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">	mkdir localgit
+	cd localgit
+	git clone git@192.168.61.128:/data/git/gittest.git .
+	<span style="color:#75715e"># 提示输入服务端git账户的密码。</span>
+	<span style="color:#75715e">#修改完就可以提交了</span>
+	
+	touch abc.txt
+	git add .
+	git commit -m <span style="color:#e6db74">&#39;aaa&#39;</span>
+	git push 
+	
+</code></pre></div>
+</div>
+
+
+    </main>
+
+    
+  </body>
+</html>

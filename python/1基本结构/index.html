@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-cn" lang="zh-cn">
+    <head>
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({
+                google_ad_client: "ca-pub-9224870466612638",
+                enable_page_level_ads: true
+            });
+        </script>
+
+        <link href="https://gmpg.org/xfn/11" rel="profile">
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+        <meta name="generator" content="Hugo 0.64.1" />
+
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>flask 第1章(基本结构和概念) &middot; 学而时习之</title>
+        <meta name="description" content="" />
+
+        
+        <link type="text/css" rel="stylesheet" href="https://wlw-5g.cn/css/print.css" media="print">
+        <link type="text/css" rel="stylesheet" href="https://wlw-5g.cn/css/poole.css">
+        <link type="text/css" rel="stylesheet" href="https://wlw-5g.cn/css/syntax.css">
+        <link type="text/css" rel="stylesheet" href="https://wlw-5g.cn/css/hyde.css">
+          <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+        
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+        <link rel="shortcut icon" href="/favicon.png">
+
+        
+        
+    </head>
+
+  <body class=" ">
+  <aside class="sidebar">
+    <div class="container sidebar-sticky">
+        <div class="sidebar-about">
+            <a href="https://wlw-5g.cn/"><h3>学而时习之</h3></a>
+        </div>
+
+        <nav>
+            <ul class="sidebar-nav">
+                <li><a href="https://wlw-5g.cn/">首页</a> </li>
+                <li><a href="/tags"> 标签 </a></li><li><a href="/category"> 分类 </a></li>
+            </ul>
+        </nav>
+
+        <p>&copy; 2020. All rights reserved. </p>
+        <a href="http://www.beian.miit.gov.cn" target="_blank">豫ICP备20003135号</a>
+    </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>flask 第1章(基本结构和概念)</h1>
+  <time datetime=2019-01-28T22:22:00Z class="post-date">Mon, Jan 28, 2019</time>
+  <h1 id="开始和程序基本结构">开始和程序基本结构</h1>
+<h2 id="1首先安装虚拟环境包和git工具">1.首先安装虚拟环境包和git工具</h2>
+<ul>
+<li>sudo apt-get install python-virtualenv</li>
+<li>sudo apt-get install git</li>
+</ul>
+<h2 id="2创建一个目录">2.创建一个目录</h2>
+<ul>
+<li>mkdir flask_learn</li>
+<li>cd flask_learn</li>
+</ul>
+<h2 id="3下载实例代码">3.下载实例代码</h2>
+<ul>
+<li>git clone <a href="http://github.com/miguelgrinberg/flasky.git">http://github.com/miguelgrinberg/flasky.git</a></li>
+<li>cd flask</li>
+<li>建立一个虚拟环境</li>
+<li>virtualenv venv</li>
+<li>激活虚拟环境</li>
+<li>source venv/bin/activate</li>
+<li>取消激活分区</li>
+<li>deactivate</li>
+<li>虚拟环境下安装pip</li>
+<li>pip install flask</li>
+<li>切换分支</li>
+<li>git checkout 2a</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#f92672">from</span> flask <span style="color:#f92672">import</span> Flask
+app <span style="color:#f92672">=</span> Flask(__name__)
+
+
+<span style="color:#a6e22e">@app.route</span>(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">/</span><span style="color:#e6db74">&#39;</span>)
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">index</span>():
+    <span style="color:#66d9ef">return</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">&lt;h1&gt;Hello World!&lt;/h1&gt;</span><span style="color:#e6db74">&#39;</span>
+
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">__main__</span><span style="color:#e6db74">&#34;</span>:
+    app<span style="color:#f92672">.</span>run(debug<span style="color:#f92672">=</span>True)
+
+</code></pre></div><ul>
+<li>执行 python hello.py</li>
+<li>浏览器输入http://127.0.0.1:5000/ 就可以看到helloword了。</li>
+<li>但是这样会出现一个问题。你在linux虚拟机里面执行的代码。在window上浏览器看就不行，需要设置</li>
+<li>如下改动 app.run(debug=True，host=&quot;0.0.0.0&rdquo;)或者使用manage模块扩展传参数，后面会提到。</li>
+</ul>
+<h2 id="4-flask程序有四个上下文">4. flask程序有四个上下文</h2>
+<ul>
+<li>curent_app  程序上下文， 当前激活的程序实例</li>
+<li>g 程序上下文 处理请求的临时存储对象，每次请求都会重设这个变量。</li>
+<li>request  请求上下文    请求对象，封装了每次http请求的内容</li>
+<li>sesion  请求上下文    用户会话， 用于存储之间需要记住的值的词典。</li>
+<li>这是个变量每次请求 都是独立属于这一次请求的，或者说是属于同一个线程内全局可见。</li>
+</ul>
+<h2 id="5-请求调度">5. 请求调度</h2>
+<ul>
+<li>这个主要是 url和处理函数的映射关系，即视图。</li>
+<li>通过app.url_map 可以看到映射关系。</li>
+<li>生成映射的方法2中，1 app.route修饰器 2，app.add_url_rule()</li>
+</ul>
+<h2 id="6-请求钩子">6. 请求钩子</h2>
+<ul>
+<li>主要是为了每个请求开始可能都需要认证，数据库连接等重复操作的代码复。</li>
+<li>通过钩子装饰器，注册函数，在到达视图函数前运行这些函数。</li>
+<li>有四种个钩子 brefore_first_request,brefore_request,after_request,teardown_request</li>
+</ul>
+<blockquote>
+<p>after_request 有没做处理的异常抛出时，是不运行的。
+teardown_request 即使有没处理的异常抛出，也会运行。</p>
+</blockquote>
+<h2 id="7-响应">7. 响应</h2>
+<ul>
+<li>flask 默认返回200 状态吗</li>
+<li>可以返回其他状态吗</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#66d9ef">return</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">hello word!</span><span style="color:#e6db74">&#34;</span>, <span style="color:#ae81ff">400</span>
+<span style="color:#960050;background-color:#1e0010">或</span><span style="color:#960050;background-color:#1e0010">者</span>
+<span style="color:#66d9ef">return</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">hello world!</span><span style="color:#e6db74">&#34;</span>, <span style="color:#ae81ff">500</span>, {<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">ua</span><span style="color:#e6db74">&#34;</span>:<span style="color:#ae81ff">10</span>}
+<span style="color:#960050;background-color:#1e0010">返</span><span style="color:#960050;background-color:#1e0010">回</span><span style="color:#960050;background-color:#1e0010">的</span><span style="color:#960050;background-color:#1e0010">是</span><span style="color:#960050;background-color:#1e0010">一</span><span style="color:#960050;background-color:#1e0010">个</span><span style="color:#960050;background-color:#1e0010">元</span><span style="color:#960050;background-color:#1e0010">组</span><span style="color:#960050;background-color:#1e0010">，</span><span style="color:#960050;background-color:#1e0010">第</span><span style="color:#960050;background-color:#1e0010">二</span><span style="color:#960050;background-color:#1e0010">个</span><span style="color:#960050;background-color:#1e0010">是</span><span style="color:#960050;background-color:#1e0010">状</span><span style="color:#960050;background-color:#1e0010">态</span><span style="color:#960050;background-color:#1e0010">吗</span><span style="color:#960050;background-color:#1e0010">，</span><span style="color:#960050;background-color:#1e0010">第</span><span style="color:#960050;background-color:#1e0010">三</span><span style="color:#960050;background-color:#1e0010">个</span><span style="color:#960050;background-color:#1e0010">是</span>header<span style="color:#960050;background-color:#1e0010">，</span><span style="color:#960050;background-color:#1e0010">字</span><span style="color:#960050;background-color:#1e0010">典</span><span style="color:#960050;background-color:#1e0010">形</span><span style="color:#960050;background-color:#1e0010">式</span><span style="color:#960050;background-color:#1e0010">。</span>
+</code></pre></div><ul>
+<li>还可以使用make_response(&ldquo;hello world!&quot;, 500, {&ldquo;ua&rdquo;:10})生成一个对象，以便调用函数设置cookie等其他值。</li>
+<li>320重定向，使用redirect(&ldquo;<a href="http://www.baidu.com">www.baidu.com</a>&rdquo;)函数。</li>
+<li>特殊响应，比如404 可以使用abort(404)函数，这个直接就吧控制权交给web服务器了，不会再调用其它函数。</li>
+</ul>
+<h2 id="8-flask扩展">8. flask扩展</h2>
+<ul>
+<li>
+<p>pip install flask-script</p>
+</li>
+<li>
+<p>用manager吧app对象包住，这样就可以使用manager扩展了。</p>
+</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#f92672">from</span> flask <span style="color:#f92672">import</span> Flask
+<span style="color:#f92672">from</span> flask_script <span style="color:#f92672">import</span> Manager
+
+app <span style="color:#f92672">=</span> Flask(__name__)
+
+manager <span style="color:#f92672">=</span> Manager(app)
+
+
+<span style="color:#a6e22e">@app.route</span>(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">/</span><span style="color:#e6db74">&#39;</span>)
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">index</span>():
+    <span style="color:#66d9ef">return</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">&lt;h1&gt;Hello World!&lt;/h1&gt;</span><span style="color:#e6db74">&#39;</span>
+
+
+<span style="color:#a6e22e">@app.route</span>(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">/user/&lt;name&gt;</span><span style="color:#e6db74">&#39;</span>)
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">user</span>(name):
+    <span style="color:#66d9ef">return</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">&lt;h1&gt;Hello, </span><span style="color:#e6db74">%s</span><span style="color:#e6db74">!&lt;/h1&gt;</span><span style="color:#e6db74">&#39;</span> <span style="color:#f92672">%</span> name
+
+
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">__main__</span><span style="color:#e6db74">&#39;</span>:
+    manager<span style="color:#f92672">.</span>run()
+
+</code></pre></div><ul>
+<li>启动服务：</li>
+</ul>
+<blockquote>
+<p>python hello.py  runserver &ndash;host 0.0.0.0</p>
+</blockquote>
+<h2 id="9-模板的继承">9 模板的继承</h2>
+<ul>
+<li>类似于python中的类的继承</li>
+<li>首先需要一个基类模板base.html 然后把对应的可修改的块用  {%block X %} {%endblock%} 格式包含即可。</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#f92672">&lt;</span>html<span style="color:#f92672">&gt;</span>
+  <span style="color:#f92672">&lt;</span>haed<span style="color:#f92672">&gt;</span>
+  {<span style="color:#f92672">%</span> block  head<span style="color:#f92672">%</span>}  {<span style="color:#f92672">%</span>endblock<span style="color:#f92672">%</span>}
+  {<span style="color:#f92672">%</span> block title<span style="color:#f92672">%</span>} {<span style="color:#f92672">%</span>endblock<span style="color:#f92672">%</span>}
+  <span style="color:#f92672">&lt;</span><span style="color:#f92672">/</span>head<span style="color:#f92672">&gt;</span>
+  <span style="color:#f92672">&lt;</span>body<span style="color:#f92672">&gt;</span>
+    {<span style="color:#f92672">%</span>block body<span style="color:#f92672">%</span>}  {<span style="color:#f92672">%</span>endblock<span style="color:#f92672">%</span>}
+  <span style="color:#f92672">&lt;</span><span style="color:#f92672">/</span>body<span style="color:#f92672">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#f92672">/</span>html<span style="color:#f92672">&gt;</span>
+</code></pre></div><ul>
+<li>在子类模板中使用基类模板</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">{<span style="color:#f92672">%</span>extends <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">base.html</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">%</span> }
+
+{<span style="color:#f92672">%</span>block title<span style="color:#f92672">%</span>} <span style="color:#960050;background-color:#1e0010">这</span><span style="color:#960050;background-color:#1e0010">是</span>index标题 {<span style="color:#f92672">%</span>endblock<span style="color:#f92672">%</span>}
+
+{<span style="color:#f92672">%</span>block head<span style="color:#f92672">%</span>}
+  {{super()}}   <span style="color:#75715e">#基类head部分原本的内容用supper获取</span>
+  <span style="color:#f92672">&lt;</span>style<span style="color:#f92672">&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#f92672">/</span>style<span style="color:#f92672">&gt;</span>
+{<span style="color:#f92672">%</span>endblock<span style="color:#f92672">%</span>}
+
+{<span style="color:#f92672">%</span>block body<span style="color:#f92672">%</span>}
+  <span style="color:#f92672">&lt;</span>h1<span style="color:#f92672">&gt;</span> hello world <span style="color:#f92672">&lt;</span><span style="color:#f92672">/</span>h1<span style="color:#f92672">&gt;</span>
+{<span style="color:#f92672">%</span>endblock<span style="color:#f92672">%</span>}
+</code></pre></div>
+</div>
+
+
+    </main>
+
+    
+  </body>
+</html>

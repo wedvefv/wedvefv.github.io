@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-cn" lang="zh-cn">
+    <head>
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({
+                google_ad_client: "ca-pub-9224870466612638",
+                enable_page_level_ads: true
+            });
+        </script>
+
+        <link href="https://gmpg.org/xfn/11" rel="profile">
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+        <meta name="generator" content="Hugo 0.64.1" />
+
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>git_tag用法 &middot; 学而时习之</title>
+        <meta name="description" content="" />
+
+        
+        <link type="text/css" rel="stylesheet" href="https://wlw-5g.cn/css/print.css" media="print">
+        <link type="text/css" rel="stylesheet" href="https://wlw-5g.cn/css/poole.css">
+        <link type="text/css" rel="stylesheet" href="https://wlw-5g.cn/css/syntax.css">
+        <link type="text/css" rel="stylesheet" href="https://wlw-5g.cn/css/hyde.css">
+          <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+        
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+        <link rel="shortcut icon" href="/favicon.png">
+
+        
+        
+    </head>
+
+  <body class=" ">
+  <aside class="sidebar">
+    <div class="container sidebar-sticky">
+        <div class="sidebar-about">
+            <a href="https://wlw-5g.cn/"><h3>学而时习之</h3></a>
+        </div>
+
+        <nav>
+            <ul class="sidebar-nav">
+                <li><a href="https://wlw-5g.cn/">首页</a> </li>
+                <li><a href="/tags"> 标签 </a></li><li><a href="/category"> 分类 </a></li>
+            </ul>
+        </nav>
+
+        <p>&copy; 2020. All rights reserved. </p>
+        <a href="http://www.beian.miit.gov.cn" target="_blank">豫ICP备20003135号</a>
+    </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>git_tag用法</h1>
+  <time datetime=2019-03-02T12:00:00Z class="post-date">Sat, Mar 2, 2019</time>
+  <h2 id="tag-和branch的区别">tag 和branch的区别</h2>
+<ul>
+<li>Git tag是一系列commit的中的一个点，只能查看，不能移动。</li>
+<li>branch是一系列串联的commit的线。</li>
+</ul>
+<h3 id="git-tag的用法">git tag的用法</h3>
+<ul>
+<li>我们常常在代码封板时,使用git 创建一个tag ,这样一个不可修改的历史代码版本就像被我们封存起来一样,不论是运维发布拉取,或者以后的代码版本管理,都是十分方便的</li>
+</ul>
+<h3 id="git的tag功能">git的tag功能</h3>
+<ul>
+<li>git 下打标签其实有2种情况
+轻量级的：它其实是一个独立的分支,或者说是一个不可变的分支.指向特定提交对象的引用</li>
+<li>带附注的：实际上是存储在仓库中的一个独立对象，它有自身的校验和信息，包含着标签的名字，标签说明，标签本身也允许使用 GNU Privacy Guard (GPG) 来签署或验证,电子邮件地址和日期，一般我们都建议使用含附注型的标签，以便保留相关信息
+所以我们推荐使用第二种标签形式</li>
+</ul>
+<h3 id="创建tag">创建tag</h3>
+<ul>
+<li>git tag -a V1.2 -m &lsquo;release 1.2&rsquo;</li>
+<li>上面的命令我们成功创建了本地一个版本 V1.2 ,并且添加了附注信息 &lsquo;release 1.2&rsquo;</li>
+</ul>
+<h2 id="查看tag">查看tag</h2>
+<ul>
+<li>
+<p>git tag</p>
+</li>
+<li>
+<p>要显示附注信息,我们需要用 show 指令来查看</p>
+</li>
+<li>
+<p>git show V1.2</p>
+</li>
+<li>
+<p>但是目前这个标签仅仅是提交到了本地git仓库.如何同步到远程代码库</p>
+</li>
+<li>
+<p>git push origin &ndash;tags</p>
+</li>
+<li>
+<p>如果刚刚同步上去,你缺发现一个致命bug ,需要重新打版本,现在还为时不晚.</p>
+</li>
+<li>
+<p>git tag -d V1.2</p>
+</li>
+<li>
+<p>到这一步我们只是删除了本地 V1.2的版本,可是线上V1.2的版本还是存在,如何办?这时我们可以推送的空的同名版本到线下,达到删除线上版本的目标:</p>
+</li>
+<li>
+<p>git push origin :refs/tags/V1.2</p>
+</li>
+<li>
+<p>如何获取远程版本?</p>
+</li>
+<li>
+<p>git fetch origin tag V1.2</p>
+</li>
+<li>
+<p>这样我们可以精准拉取指定的某一个版本.适用于运维同学部署指定版本.</p>
+</li>
+</ul>
+
+</div>
+
+
+    </main>
+
+    
+  </body>
+</html>
