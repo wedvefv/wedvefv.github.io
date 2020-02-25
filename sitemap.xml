@@ -4,7 +4,27 @@
   
   <url>
     <loc>https://wlw-5g.cn/category/</loc>
-    <lastmod>2020-02-03T14:33:58+00:00</lastmod>
+    <lastmod>2020-02-21T11:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://wlw-5g.cn/category/postgresql/</loc>
+    <lastmod>2020-02-21T11:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://wlw-5g.cn/psql/</loc>
+    <lastmod>2020-02-21T11:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://wlw-5g.cn/psql/psql_tool/</loc>
+    <lastmod>2020-02-21T11:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://wlw-5g.cn/</loc>
+    <lastmod>2020-02-21T11:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -29,11 +49,6 @@
   
   <url>
     <loc>https://wlw-5g.cn/tags/</loc>
-    <lastmod>2020-02-03T14:33:58+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://wlw-5g.cn/</loc>
     <lastmod>2020-02-03T14:33:58+00:00</lastmod>
   </url>
   
@@ -93,12 +108,12 @@
   </url>
   
   <url>
-    <loc>https://wlw-5g.cn/tags/js/</loc>
+    <loc>https://wlw-5g.cn/category/js/</loc>
     <lastmod>2019-06-22T20:04:30+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://wlw-5g.cn/category/js/</loc>
+    <loc>https://wlw-5g.cn/tags/js/</loc>
     <lastmod>2019-06-22T20:04:30+00:00</lastmod>
   </url>
   
@@ -308,15 +323,7 @@
   </url>
   
   <url>
-    <loc>https://wlw-5g.cn/tags/linux/</loc>
-  </url>
-  
-  <url>
     <loc>https://wlw-5g.cn/series/</loc>
-  </url>
-  
-  <url>
-    <loc>https://wlw-5g.cn/git/-kexuesahngwang/</loc>
   </url>
   
 </urlset>

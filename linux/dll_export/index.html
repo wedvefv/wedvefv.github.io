@@ -56,9 +56,9 @@
 
     <main class="content container">
     <div class="post">
-  <h1>DLL导出方法</h1>
-  <time datetime=2016-10-06T20:04:30Z class="post-date">Thu, Oct 6, 2016</time>
-  <h1 id="dll导出方法">DLL导出方法</h1>
+    <h1>DLL导出方法</h1>
+    <time datetime=2016-10-06T20:04:30Z class="post-date">Thu, Oct 6, 2016</time>
+    <h1 id="dll导出方法">DLL导出方法</h1>
 <h2 id="dll导出方法1-">dll导出方法1 ：</h2>
 <p>模块定义def文件，不支持c++的重载，以c的方式编译，导出的函数名不被修改，这样
 显示调用dll取得函数地址就没事。提供给vb，python等语言,需要_stdcall约定(函数自己清理堆栈)，这样无论是c文件还是c++文件，导出函数都会被改名字。所以dll做成必须要用def文件，否则找不到名字。除非你记得
@@ -182,6 +182,15 @@ oid Function2();
 </span><span style="color:#75715e"></span><span style="color:#75715e">#</span><span style="color:#75715e">define APIPRIVATE __stdcall</span><span style="color:#75715e">
 </span><span style="color:#75715e"></span><span style="color:#75715e">#</span><span style="color:#75715e">define PASCAL __stdcall</span><span style="color:#75715e">
 </span></code></pre></div>
+</div>
+<div style="display:inline">
+    
+        <a href="https://wlw-5g.cn/linux/linux_c_help/" style="float: left">前一页</a> 
+    
+
+    
+        <a href="https://wlw-5g.cn/html/ajax/" style="float: right">后一页</a>
+    
 </div>
 
 
