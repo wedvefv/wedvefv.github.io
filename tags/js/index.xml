@@ -6,10 +6,19 @@
     <description>Recent content in js on 学而时习之</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sat, 22 Jun 2019 20:04:30 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 07 Mar 2020 14:47:30 +0000</lastBuildDate>
     
 	<atom:link href="https://wlw-5g.cn/tags/js/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>如何解释js闭包</title>
+      <link>https://wlw-5g.cn/html/bibao/</link>
+      <pubDate>Sat, 07 Mar 2020 14:47:30 +0000</pubDate>
+      
+      <guid>https://wlw-5g.cn/html/bibao/</guid>
+      <description>看个例子 function assert (condition, msg) {if (condition) {console.log(msg, &amp;#39;&amp;#39;)} else {console.log(error, &amp;#39;&amp;#39;)}}var outerValue = &amp;#34;samurai&amp;#34;;var later;function outerFunc() {var innerValue = &amp;#34;ninja&amp;#34;;function innerFunc(){var a = 90;assert(outerValue === &amp;#34;samurai&amp;#34;, &amp;#34;i can see your&amp;#34;);assert(innerValue === &amp;#34;ninja&amp;#34;, &amp;#34;i can see the ninja&amp;#34;);}later = innerFunc;}function animate() {var timer = setInterval(function () {console.log(&amp;#39;time-----&amp;#39;, &amp;#39;&amp;#39;)},5)}outerFunc();later();  x和outerFunc函数都属于全局作用域</description>
+    </item>
     
     <item>
       <title>js 对象和原型链</title>

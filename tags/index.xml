@@ -6,10 +6,19 @@
     <description>Recent content in Tags on 学而时习之</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 03 Feb 2020 14:33:58 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 07 Mar 2020 14:47:30 +0000</lastBuildDate>
     
 	<atom:link href="https://wlw-5g.cn/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>js</title>
+      <link>https://wlw-5g.cn/tags/js/</link>
+      <pubDate>Sat, 07 Mar 2020 14:47:30 +0000</pubDate>
+      
+      <guid>https://wlw-5g.cn/tags/js/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>nginx</title>
@@ -17,15 +26,6 @@
       <pubDate>Mon, 03 Feb 2020 14:33:58 +0000</pubDate>
       
       <guid>https://wlw-5g.cn/tags/nginx/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>js</title>
-      <link>https://wlw-5g.cn/tags/js/</link>
-      <pubDate>Sat, 22 Jun 2019 20:04:30 +0000</pubDate>
-      
-      <guid>https://wlw-5g.cn/tags/js/</guid>
       <description></description>
     </item>
     

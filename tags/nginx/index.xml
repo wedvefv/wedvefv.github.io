@@ -22,10 +22,10 @@
     
     <item>
       <title>nginx配置跨域资源共享CORS</title>
-      <link>https://wlw-5g.cn/html/%E8%B7%A8%E5%9F%9F%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB/</link>
+      <link>https://wlw-5g.cn/nginx/%E8%B7%A8%E5%9F%9F%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB/</link>
       <pubDate>Sat, 01 Feb 2020 20:04:30 +0000</pubDate>
       
-      <guid>https://wlw-5g.cn/html/%E8%B7%A8%E5%9F%9F%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB/</guid>
+      <guid>https://wlw-5g.cn/nginx/%E8%B7%A8%E5%9F%9F%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB/</guid>
       <description>跨域  浏览器为了安全，有个策略: 同源策略， 页面中的链接必须域名一致。  为什么跨域  页面请求的接口可能位于独立api服务器， 所以就会有跨域存在。  解决问题   代理，没怎么研究
   jsonp，构造javascrit 标签，利用src属性请求这个链接，返回body是可执行的js代码，代码中的函数需要本地定义，巧妙的接收到了数据
   配置api服务器支持跨域资源共享， nginx location中添加 &amp;ldquo;add_header Access-Control-Allow-Origin *&amp;rdquo; ,* 表示任意域名过来的都可以请求， 也可以是某个域名 &amp;ldquo;http://127.0.0.1:5000&amp;rdquo;
