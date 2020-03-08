@@ -5,7 +5,7 @@
     <link>https://wlw-5g.cn/es/</link>
     <description>Recent content in Es on 学而时习之</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language>
+    <language>zh-CN</language>
     <lastBuildDate>Sat, 29 Jun 2019 23:10:00 +0000</lastBuildDate>
     
 	<atom:link href="https://wlw-5g.cn/es/index.xml" rel="self" type="application/rss+xml" />
@@ -13,12 +13,11 @@
     
     <item>
       <title>Elasticsearch 安装笔记</title>
-      <link>https://wlw-5g.cn/es/elasticsearch_install/</link>
+      <link>https://wlw-5g.cn/es/Elasticsearch_install/</link>
       <pubDate>Sat, 29 Jun 2019 23:10:00 +0000</pubDate>
       
-      <guid>https://wlw-5g.cn/es/elasticsearch_install/</guid>
-      <description>1. 看一下elasticsearch-head插件查看集群健康状态的图 概况  这是一台虚拟机，创建了index为megacorp, ES默认是5个分片，然后每个分片一个副本，也就是10个分片;三个节点，就会出现如图的样子。 同一个分片必然不在一个节点，不然副本就没意义了。 绿色表示状态健康，黄色表示主分片能工作写入，副本分片可能不正常；比如只有一个节点的情况  数据预览 第二张图可能会感觉 employee是表，但是这个type字段7.x版本就去除了。 有人说索引类似MySQL的数据库，其实我觉得不太合适，索引应该是表，ES并没有数据库这一层。
-每一行数据的格式：  可以看出我们设置的数据是_source字段, id 是插入数据时随机生成的。  6.3以上的版本就有了elasticsearch-sql-cli工具，俨然快成数据库了&amp;hellip;.,可以看出index其实是表而不是库。 如何启动安装启动ES  下载安装包，都是编译好的  cd /usr/local/src wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.3.0.zip unzip elasticsearch-6.3.0.zip cd elasticsearch-6.3.0 ./bin/elasticsearch -d (-d表示放到后台运行了) 如何单机启动三个节点，端口不一致就ok了   复制三分刚才的解压的文件夹  mkdir /usr/local/server1 mkdir /usr/local/server2 mkdir /usr/local/server3 cp -rf /usr/local/src/elasticsearch-6.3.0/* /usr/local/server1 cp -rf /usr/local/src/elasticsearch-6.3.0/* /usr/local/server2 cp -rf /usr/local/src/elasticsearch-6.3.0/* /usr/local/server3  修改/usr/local/server1/config/elasticsearch.yml 修改或者添加部分如下  cluster.name: my-application node.name: master http.cors.enabled: true http.cors.allow-origin: &amp;#34;*&amp;#34; network.</description>
+      <guid>https://wlw-5g.cn/es/Elasticsearch_install/</guid>
+      <description>1. 看一下elasticsearch-head插件查看集群健康状态的图 概况 这是一台虚拟机，创建了index为megacorp, ES默认是5个分片，然后每个分片一个副本，也就是10个分片;三个节点，就会出现如图的样子。 同一个分片必然不在一个节点，不然副本就没意义了。 绿色表示状态健康，</description>
     </item>
     
   </channel>

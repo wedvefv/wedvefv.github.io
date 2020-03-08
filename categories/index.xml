@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on 学而时习之</title>
+    <link>https://wlw-5g.cn/categories/</link>
+    <description>Recent content in Categories on 学而时习之</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 06 Mar 2020 14:47:30 +0000</lastBuildDate>
+    
+	<atom:link href="https://wlw-5g.cn/categories/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>js</title>
+      <link>https://wlw-5g.cn/categories/js/</link>
+      <pubDate>Fri, 06 Mar 2020 14:47:30 +0000</pubDate>
+      
+      <guid>https://wlw-5g.cn/categories/js/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>nginx</title>
+      <link>https://wlw-5g.cn/categories/nginx/</link>
+      <pubDate>Mon, 03 Feb 2020 14:33:58 +0000</pubDate>
+      
+      <guid>https://wlw-5g.cn/categories/nginx/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>linux</title>
+      <link>https://wlw-5g.cn/categories/linux/</link>
+      <pubDate>Sat, 13 Jul 2019 10:15:00 +0000</pubDate>
+      
+      <guid>https://wlw-5g.cn/categories/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>openresty</title>
+      <link>https://wlw-5g.cn/categories/openresty/</link>
+      <pubDate>Sun, 30 Jun 2019 14:00:00 +0000</pubDate>
+      
+      <guid>https://wlw-5g.cn/categories/openresty/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ES</title>
+      <link>https://wlw-5g.cn/categories/ES/</link>
+      <pubDate>Sat, 29 Jun 2019 23:10:00 +0000</pubDate>
+      
+      <guid>https://wlw-5g.cn/categories/ES/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>python</title>
+      <link>https://wlw-5g.cn/categories/python/</link>
+      <pubDate>Thu, 02 May 2019 14:00:00 +0000</pubDate>
+      
+      <guid>https://wlw-5g.cn/categories/python/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>weixin</title>
+      <link>https://wlw-5g.cn/categories/weixin/</link>
+      <pubDate>Sat, 13 Apr 2019 09:40:00 +0000</pubDate>
+      
+      <guid>https://wlw-5g.cn/categories/weixin/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>git</title>
+      <link>https://wlw-5g.cn/categories/git/</link>
+      <pubDate>Sat, 02 Mar 2019 12:01:00 +0000</pubDate>
+      
+      <guid>https://wlw-5g.cn/categories/git/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>加密</title>
+      <link>https://wlw-5g.cn/categories/%E5%8A%A0%E5%AF%86/</link>
+      <pubDate>Sat, 02 Mar 2019 12:00:00 +0000</pubDate>
+      
+      <guid>https://wlw-5g.cn/categories/%E5%8A%A0%E5%AF%86/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>dll</title>
+      <link>https://wlw-5g.cn/categories/dll/</link>
+      <pubDate>Thu, 06 Oct 2016 20:04:30 +0000</pubDate>
+      
+      <guid>https://wlw-5g.cn/categories/dll/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

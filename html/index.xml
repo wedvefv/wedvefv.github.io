@@ -5,8 +5,8 @@
     <link>https://wlw-5g.cn/html/</link>
     <description>Recent content in Htmls on 学而时习之</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language>
-    <lastBuildDate>Sat, 07 Mar 2020 14:47:30 +0000</lastBuildDate>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 06 Mar 2020 14:47:30 +0000</lastBuildDate>
     
 	<atom:link href="https://wlw-5g.cn/html/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,10 +14,10 @@
     <item>
       <title>如何解释js闭包</title>
       <link>https://wlw-5g.cn/html/bibao/</link>
-      <pubDate>Sat, 07 Mar 2020 14:47:30 +0000</pubDate>
+      <pubDate>Fri, 06 Mar 2020 14:47:30 +0000</pubDate>
       
       <guid>https://wlw-5g.cn/html/bibao/</guid>
-      <description>看个例子 function assert (condition, msg) {if (condition) {console.log(msg, &amp;#39;&amp;#39;)} else {console.log(error, &amp;#39;&amp;#39;)}}var outerValue = &amp;#34;samurai&amp;#34;;var later;function outerFunc() {var innerValue = &amp;#34;ninja&amp;#34;;function innerFunc(){var a = 90;assert(outerValue === &amp;#34;samurai&amp;#34;, &amp;#34;i can see your&amp;#34;);assert(innerValue === &amp;#34;ninja&amp;#34;, &amp;#34;i can see the ninja&amp;#34;);}later = innerFunc;}function animate() {var timer = setInterval(function () {console.log(&amp;#39;time-----&amp;#39;, &amp;#39;&amp;#39;)},5)}outerFunc();later();  x和outerFunc函数都属于全局作用域</description>
+      <description>看个例子 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 function assert (condition, msg) { if (condition) { console.log(msg, &amp;#39;&amp;#39;) } else { console.log(error, &amp;#39;&amp;#39;) } } var outerValue = &amp;#34;samurai&amp;#34;; var later; function outerFunc() { var innerValue = &amp;#34;ninja&amp;#34;; function innerFunc(){ var a = 90; assert(outerValue === &amp;#34;samurai&amp;#34;, &amp;#34;i can see your&amp;#34;); assert(innerValue === &amp;#34;ninja&amp;#34;, &amp;#34;i can see the ninja&amp;#34;); } later = innerFunc; } function animate() { var timer = setInterval(function () { console.log(&amp;#39;time-----&amp;#39;, &amp;#39;&amp;#39;) },5) } outerFunc(); later(); x和outerFunc函数都属于全局作用域 y和innerFunc是属于</description>
     </item>
     
     <item>
@@ -26,7 +26,7 @@
       <pubDate>Sat, 22 Jun 2019 20:04:30 +0000</pubDate>
       
       <guid>https://wlw-5g.cn/html/js_obj/</guid>
-      <description>js 对象和原型链 </description>
+      <description>js 对象和原型链</description>
     </item>
     
     <item>
@@ -35,14 +35,7 @@
       <pubDate>Sat, 13 Apr 2019 09:40:00 +0000</pubDate>
       
       <guid>https://wlw-5g.cn/html/weixin/</guid>
-      <description>三个平台都有什么？  微信公众平台: 微信官方平台，功能： 群发推送、自动回复、二维码订阅，用途：消息推送、品牌传播、分享 微信开放平台: 为第三方提供接口，比如分享朋友圈，发送给微信好友等 微信商户平台：主要是用于微信支付的，比如APP和公众号需要接入支付功能，就需要申请一个商户号。  前提  在开放平台，注册自己的app，通俗讲就是在微信备案一下。  客户端需要干嘛？  需要下载微信安卓或者ios版SDK,集成到自己的app中，主要是为了调起微信支付模块。 app调起支付模块，需要传参数吧，不然请求微信服务器也不知道具体转给谁钱，转多少钱&amp;hellip; 支付参数哪里来呢？服务器生成啊&amp;hellip;.. 支付完成后微信会返回微信订单号的信心，后期可以用于到微信服务器查询订单状态。  商户服务器需要干嘛，比如一个卖游戏点卡的app？ 给客户端提供接口   1.支付接口，这个接口需要以下业务功能
-   1.去查询用户是否存在，用户信息可以在redis中记录
-    2.如果某类商品，用户只能有一个产品生效的,比如点卡A,产品类别id为A
-    3.使用redis记录uid:goodsid[A]:hash记录这个购买的点卡x的信息,记录createtime，orderid，prepayid
-    4.如果uid对应点卡A的信息存在，且now - createtime &amp;lt; 15分钟，说明微信没回调过来，是支付中&amp;hellip;的状态。直接拿缓存中信息返回给客户端就可以了，供客户端调用支付模块。
-    5.如果uid对应的点卡信心不存在，就说明用户没买过这种A这类的商品,生成28位的订单号作为out_trade_no参数，其他参数按规定设置，然后调用微信统一下单接口 https://api.mch.weixin.qq.com/pay/unifiedorder
-    当前商户服务器统一下单的过程中，需要用mysql记录自己的订单信息、更新用户的余额扣减、记录一些用户订购该类产品的缓存信息等；mysql数据用于支付完成后，微信发起异步回调状态时更新订单状态。      7.下单后生成预支付id：prepayid，因为还没有真正调起支付模块，只是微信那边现生成一个预支付回话id。
-    8.有了prepayid加上其他参数，返回给客户端用于真正调起sdk支付模块。</description>
+      <description>三个平台都有什么？ 微信公众平台: 微信官方平台，功能： 群发推送、自动回复、二维码订阅，用途：消息推送、品牌传播、分享 微信开放平台: 为第三方提供接口，比如分享朋友圈，发送给微信好友等 微信商户平台：主要是用于微信支付的，比如APP和公众号需要接入支付功能，就需要申请一个商户号。 前提 在开</description>
     </item>
     
     <item>
@@ -51,19 +44,7 @@
       <pubDate>Thu, 06 Oct 2016 20:04:30 +0000</pubDate>
       
       <guid>https://wlw-5g.cn/html/ajax/</guid>
-      <description>1.ajax 简介 ajax = 异步javascript+XML AAJAX是基于现有的Internet标准，并且联合使用它们： XMLHttpRequest 对象 (异步的与服务器交换数据) JavaScript/DOM (信息显示/交互) CSS (给数据定义样式) XML (作为转换数据的格式) lamp AJAX应用程序与浏览器和平台无关的！ 实现不刷新整个页面，实现页面动态更新的技术。
-ajax工作原理：
-2.ajax实例 1.首先建立XMLHttpRequest对象，区分不同的浏览器版本，IE5,IE6不支持直接建立XMLHttpRequest对象，所以：
-var xmlhttp;if(window.XMLHttpRequest){ //如果为真，则支持XMLHttpRequest对象 xmlhttp = new XMLHttpRequest();}else{//code for IE5,6 xmlhttp = new ActiveXObject(&amp;#34;Microsoft.XMLHTTP&amp;#34;;)}2.XMLHttpRequest对象用于和服务器交换数据
-open方法用于发送请求，参数1：方法，参数2：url，参数3:异步/同步
- xmlhttp.open(&amp;ldquo;GET&amp;rdquo;,&amp;ldquo;ajax_info.txt&amp;rdquo;,true)
- send方法也用于请求，不过只支持post请求，参数：string
- xmlhttp.send(string);
- GET和POST的区别：
- GET更简单，更快，大部分情况都能用。以下情况使用POST： 无法使用缓存文件更新服务器上的文件或数据库。 发送大量数据到服务器。 发送用户输入的未知字符到服务器时。  例子 get请求：
-xmlhttp.open(&amp;#34;GET&amp;#34;,&amp;#34;demo_get2.html?fname=Henry&amp;amp;lname=Ford&amp;#34;,true);xmlhttp.send();post请求：
-如果post表单那样的提交数据，需要添加http头
-xmlhttp.open(&amp;#34;POST&amp;#34;,&amp;#34;ajax_test.html&amp;#34;,true);xmlhttp.setRequestHeader(&amp;#34;Content-type&amp;#34;,&amp;#34;application/x-www-form-urlencoded&amp;#34;);xmlhttp.send(&amp;#34;fname=Henry&amp;amp;lname=Ford&amp;#34;);setRequestHeader方法：setRequestHeader(header,value) 向请求添加 HTTP 头。header: 规定头的名称value: 规定头的值Async=true  使用XMLRequest.</description>
+      <description>1.ajax 简介 ajax = 异步javascript+XML AAJAX是基于现有的Internet标准，并且联合使用它们： XMLHttpRequest 对象 (异步的与服务器交换数据) JavaScript/DOM (信息显示/交互) CSS (给数据定义样式) XML (作为转换数据的格式) lamp AJAX应用程序与浏览器和平台无关的！ 实现不刷新整个页面，实现页面动态更新的技</description>
     </item>
     
     <item>
@@ -72,7 +53,7 @@ xmlhttp.open(&amp;#34;POST&amp;#34;,&amp;#34;ajax_test.html&amp;#34;,true);xmlh
       <pubDate>Wed, 10 Aug 2016 11:30:55 +0000</pubDate>
       
       <guid>https://wlw-5g.cn/html/html5_tags/</guid>
-      <description>html5标签总结 1. &amp;lt;!----&amp;gt; 注释 2. &amp;lt;!DOCTYPE&amp;gt; 定义html文本类型 3. &amp;lt;a&amp;gt; 定义超链接 4. &amp;lt;abbr&amp;gt; 把一段字符串用缩写表示&amp;lt;abbr title =&amp;#34;People world&amp;#34;&amp;gt;PW &amp;lt;/abbr&amp;gt; 5. &amp;lt;address&amp;gt; 在article元素内部，表示该文章的作者身份信息 6. &amp;lt;applet&amp;gt; 定义嵌入的applet ，html5不支持了。请用object代替 7. &amp;lt;acronym&amp;gt; html5不支持了，请用&amp;lt;abbr代替哦 8. &amp;lt;area&amp;gt; 标签定义图像映射内部的区域，图像中部分区域可以点击，就是说有链接的 9. 两栏式架构 |header---------------------------------------------------------------------------------------|顶部 |nav------------------------------------------------------------------------------------------|外链 |article---包含&amp;lt;section&amp;gt;-----------------&amp;lt;aside&amp;gt;--------------------------|文章主体--段落或章节-侧边栏 |footer---------------------------------------------------------------------------------------|底部 以前都是用&amp;lt;div id=&amp;#34;header&amp;#34;&amp;gt; &amp;lt;div id =&amp;#34;nav&amp;#34;&amp;gt;...... 这样来定义页面的结构，html5新定义了这些，避免div太多混乱. 10. &amp;lt;aside&amp;gt; 可用于文章的侧边栏 11. &amp;lt;audio&amp;gt; 定义声音链接 12. &amp;lt;b&amp;gt; 定义粗体字体，强调 13. &amp;lt;base&amp;gt; 放在head里面，用于页面中的链接的基地址。后面的链接就可以写相对地址了。 比如base =www.xxx000.com/img ,链接一个图片就可以不写全路径，直接src=&amp;#34;xxx.jpeg&amp;#34; 14. &amp;lt;basefont&amp;gt; html不支持了。设置文档中所有字体的默认颜色，大小 15. &amp;lt;bdi&amp;gt; 通过脱离父元素的文本设置方向 16. &amp;lt;bdo&amp;gt; 定义文本方向，指定dir属性是rtl还是ltr 17. &amp;lt;big&amp;gt; html不支持了。请用css控制 ，制作更大的文本 18.</description>
+      <description>html5标签总结 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104 105 106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125 126 127 128 129 130 131</description>
     </item>
     
   </channel>

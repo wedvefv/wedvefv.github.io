@@ -1,64 +1,223 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-cn" lang="zh-cn">
-    <head>
-        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-        <script>
-            (adsbygoogle = window.adsbygoogle || []).push({
-                google_ad_client: "ca-pub-9224870466612638",
-                enable_page_level_ads: true
-            });
-        </script>
+<!doctype html>
+<html lang="zh-CN">
+<head>
 
-        <link href="https://gmpg.org/xfn/11" rel="profile">
-        <meta http-equiv="content-type" content="text/html; charset=utf-8">
-        <meta name="generator" content="Hugo 0.64.1" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <title>DLL导出方法 | 学而时习之</title>
+    <meta property="og:title" content="DLL导出方法 - 学而时习之">
+    <meta property="og:type" content="article">
         
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-        <title>DLL导出方法 &middot; 学而时习之</title>
-        <meta name="description" content="" />
-
-        
-        <link type="text/css" rel="stylesheet" href="https://wlw-5g.cn/css/print.css" media="print">
-        <link type="text/css" rel="stylesheet" href="https://wlw-5g.cn/css/poole.css">
-        <link type="text/css" rel="stylesheet" href="https://wlw-5g.cn/css/syntax.css">
-        <link type="text/css" rel="stylesheet" href="https://wlw-5g.cn/css/hyde.css">
-          <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
-
-
-        
-        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
-        <link rel="shortcut icon" href="/favicon.png">
-
+    <meta property="article:published_time" content='2016-10-06T20:04:30&#43;08:00'>
         
         
-    </head>
+    <meta property="article:modified_time" content='2016-10-06T20:04:30&#43;08:00'>
+        
+    <meta name="Keywords" content="golang,go语言,go语言笔记,lua,redis,openresty">
+    <meta name="description" content="DLL导出方法">
+        
+    <meta name="author" content="明明">
+    <meta property="og:url" content="https://wlw-5g.cn/linux/dll_export/">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
-  <body class=" ">
-  <aside class="sidebar">
-    <div class="container sidebar-sticky">
-        <div class="sidebar-about">
-            <a href="https://wlw-5g.cn/"><h3>学而时习之</h3></a>
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+    (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-9224870466612638",
+        enable_page_level_ads: true
+    });
+    </script>
+    
+
+
+    
+    
+        <link rel="stylesheet" href='/css/douban.css'>
+    
+        <link rel="stylesheet" href='/css/other.css'>
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://wlw-5g.cn/">
+                        学而时习之
+                    </a>
+                
+                <p class="description">专注于服务端开发</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="https://wlw-5g.cn/">首页</a>
+                    
+                    <a  href="https://wlw-5g.cn/tags" title="标签">标签</a>
+                    
+                    <a  href="https://wlw-5g.cn/categories" title="分类">分类</a>
+                    
+                </nav>
+            </div>
         </div>
-
-        <nav>
-            <ul class="sidebar-nav">
-                <li><a href="https://wlw-5g.cn/">首页</a> </li>
-                <li><a href="/tags"> 标签 </a></li><li><a href="/category"> 分类 </a></li>
-            </ul>
-        </nav>
-
-        <p>&copy; 2020. All rights reserved. </p>
-        <a href="http://www.beian.miit.gov.cn" target="_blank">豫ICP备20003135号</a>
     </div>
-</aside>
+</header>
 
-    <main class="content container">
-    <div class="post">
-    <h1>DLL导出方法</h1>
-    <time datetime=2016-10-06T20:04:30Z class="post-date">Thu, Oct 6, 2016</time>
-    <h1 id="dll导出方法">DLL导出方法</h1>
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#dll导出方法1-">dll导出方法1 ：</a></li>
+    <li><a href="#dll导出方法2">dll导出方法2：</a></li>
+    <li><a href="#常见调用约定">常见调用约定</a></li>
+    <li><a href="#_stdcall与_cdecl的区别函数调用方式">_stdcall与_cdecl的区别(函数调用方式)</a>
+      <ul>
+        <li><a href="#_stdcallcallbackwinapi">_stdcall(CALLBACK/WINAPI)</a></li>
+        <li><a href="#函数名修饰">函数名修饰</a></li>
+        <li><a href="#函数名修饰规则">函数名修饰规则：</a></li>
+        <li><a href="#查看函数的名字修饰">查看函数的名字修饰</a></li>
+        <li><a href="#_beginthread需要_cdecl的线程函数地址_beginthreadex和_createthread需要_stdcall的线程函数地址">_beginthread需要_cdecl的线程函数地址，_beginthreadex和_CreateThread需要_stdcall的线程函数地址。</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if(leftPos<220){
+                postToc.css({"width":leftPos-10,"margin-left":(0-leftPos)})
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">DLL导出方法</h1>
+        </header>
+        <date class="post-meta meta-date">
+            2016年10月6日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='https://wlw-5g.cn/categories/dll'>dll</a></span>
+            
+        </div>
+        
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                    阅读</span></span>
+        </div>
+        
+        
+        <div class="clear" style="display: none">
+            <div class="toc-article">
+                <div class="toc-title">文章目录</div>
+            </div>
+        </div>
+        
+        <div class="post-content">
+            <h1 id="dll导出方法">DLL导出方法</h1>
 <h2 id="dll导出方法1-">dll导出方法1 ：</h2>
 <p>模块定义def文件，不支持c++的重载，以c的方式编译，导出的函数名不被修改，这样
 显示调用dll取得函数地址就没事。提供给vb，python等语言,需要_stdcall约定(函数自己清理堆栈)，这样无论是c文件还是c++文件，导出函数都会被改名字。所以dll做成必须要用def文件，否则找不到名字。除非你记得
@@ -68,62 +227,128 @@
 __declspec(dllexport)这种方式，方便c++代码的重载，同名函数不同参数，导出名字会被修饰，所以能区分开。
 这种方式实现了DLL的隐式调用（只提供dll的导出符号lib文件，就可直接调用函数，（只是导出函数符号，没有具体实现，
 不同于静态库的lib文件），def文件导出的dll不能用隐式调用，只能取得函数地址getProcAddress方式）</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">
-<span style="color:#75715e">#</span><span style="color:#75715e">ifndef _EXSOPINF_H_</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span><span style="color:#75715e">#</span><span style="color:#75715e">define _EXSOPINF_H_</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span>
-<span style="color:#75715e">#</span><span style="color:#75715e">ifdef __cplusplus  </span><span style="color:#75715e">//cpp文件时，用c方式编译导出，不会修改导出函数名。但是_stdcall
-</span><span style="color:#75715e"></span><span style="color:#75715e">//调用也会修改，_cdecl(默认)调用不会修改
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">extern</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">C</span><span style="color:#e6db74">&#34;</span> {
-<span style="color:#75715e">#</span><span style="color:#75715e">endif</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">__declspec</span>(dllexport) DWORD WINAPI function1( LPCSTR lpszFolderName, LPSTR lpszCode );
-<span style="color:#66d9ef">__declspec</span>(dllexport) DWORD WINAPI function2( LPCSTR lpszFolderName, LPSTR lpszCode );
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">
+<span style="color:#999;font-weight:bold;font-style:italic">#</span><span style="color:#999;font-weight:bold;font-style:italic">ifndef _EXSOPINF_H_</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic"></span><span style="color:#999;font-weight:bold;font-style:italic">#</span><span style="color:#999;font-weight:bold;font-style:italic">define _EXSOPINF_H_</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic"></span>
+<span style="color:#999;font-weight:bold;font-style:italic">#</span><span style="color:#999;font-weight:bold;font-style:italic">ifdef __cplusplus  </span><span style="color:#998;font-style:italic">//cpp文件时，用c方式编译导出，不会修改导出函数名。但是_stdcall
+</span><span style="color:#998;font-style:italic"></span><span style="color:#998;font-style:italic">//调用也会修改，_cdecl(默认)调用不会修改
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">extern</span> <span style="color:#d14"></span><span style="color:#d14">&#34;</span><span style="color:#d14">C</span><span style="color:#d14">&#34;</span> {
+<span style="color:#999;font-weight:bold;font-style:italic">#</span><span style="color:#999;font-weight:bold;font-style:italic">endif</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic"></span><span style="color:#000;font-weight:bold">__declspec</span>(dllexport) DWORD WINAPI function1( LPCSTR lpszFolderName, LPSTR lpszCode );
+<span style="color:#000;font-weight:bold">__declspec</span>(dllexport) DWORD WINAPI function2( LPCSTR lpszFolderName, LPSTR lpszCode );
 
-<span style="color:#75715e">#</span><span style="color:#75715e">ifdef __cplusplus</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span>}
-<span style="color:#75715e">#</span><span style="color:#75715e">endif</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span>
-<span style="color:#75715e">#</span><span style="color:#75715e">endif</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span>
-<span style="color:#960050;background-color:#1e0010">函</span><span style="color:#960050;background-color:#1e0010">数</span><span style="color:#960050;background-color:#1e0010">定</span><span style="color:#960050;background-color:#1e0010">义</span><span style="color:#960050;background-color:#1e0010">时</span><span style="color:#960050;background-color:#1e0010">，</span><span style="color:#960050;background-color:#1e0010">也</span><span style="color:#960050;background-color:#1e0010">需</span><span style="color:#960050;background-color:#1e0010">要</span><span style="color:#960050;background-color:#1e0010">在</span><span style="color:#960050;background-color:#1e0010">函</span><span style="color:#960050;background-color:#1e0010">数</span><span style="color:#960050;background-color:#1e0010">名</span><span style="color:#960050;background-color:#1e0010">前</span><span style="color:#960050;background-color:#1e0010">：</span><span style="color:#960050;background-color:#1e0010">加</span><span style="color:#960050;background-color:#1e0010">入</span><span style="color:#960050;background-color:#1e0010">修</span><span style="color:#960050;background-color:#1e0010">饰</span>
-<span style="color:#66d9ef">__declspec</span>(dllexport) DWORD WINAPI function1(LPCSTR lpszFolderName, LPSTR lpszCode ){
+<span style="color:#999;font-weight:bold;font-style:italic">#</span><span style="color:#999;font-weight:bold;font-style:italic">ifdef __cplusplus</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic"></span>}
+<span style="color:#999;font-weight:bold;font-style:italic">#</span><span style="color:#999;font-weight:bold;font-style:italic">endif</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic"></span>
+<span style="color:#999;font-weight:bold;font-style:italic">#</span><span style="color:#999;font-weight:bold;font-style:italic">endif</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic"></span>
+<span style="color:#a61717;background-color:#e3d2d2">函</span><span style="color:#a61717;background-color:#e3d2d2">数</span><span style="color:#a61717;background-color:#e3d2d2">定</span><span style="color:#a61717;background-color:#e3d2d2">义</span><span style="color:#a61717;background-color:#e3d2d2">时</span><span style="color:#a61717;background-color:#e3d2d2">，</span><span style="color:#a61717;background-color:#e3d2d2">也</span><span style="color:#a61717;background-color:#e3d2d2">需</span><span style="color:#a61717;background-color:#e3d2d2">要</span><span style="color:#a61717;background-color:#e3d2d2">在</span><span style="color:#a61717;background-color:#e3d2d2">函</span><span style="color:#a61717;background-color:#e3d2d2">数</span><span style="color:#a61717;background-color:#e3d2d2">名</span><span style="color:#a61717;background-color:#e3d2d2">前</span><span style="color:#a61717;background-color:#e3d2d2">：</span><span style="color:#a61717;background-color:#e3d2d2">加</span><span style="color:#a61717;background-color:#e3d2d2">入</span><span style="color:#a61717;background-color:#e3d2d2">修</span><span style="color:#a61717;background-color:#e3d2d2">饰</span>
+<span style="color:#000;font-weight:bold">__declspec</span>(dllexport) DWORD WINAPI function1(LPCSTR lpszFolderName, LPSTR lpszCode ){
 
-    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+    <span style="color:#000;font-weight:bold">return</span> <span style="color:#099">0</span>;
 }
-<span style="color:#960050;background-color:#1e0010">其</span><span style="color:#960050;background-color:#1e0010">中</span>WINAPI是调用约定<span style="color:#960050;background-color:#1e0010">。</span>
-</code></pre></div><h2 id="常见调用约定">常见调用约定</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">
-<span style="color:#960050;background-color:#1e0010">调</span><span style="color:#960050;background-color:#1e0010">用</span><span style="color:#960050;background-color:#1e0010">协</span><span style="color:#960050;background-color:#1e0010">议</span><span style="color:#960050;background-color:#1e0010">常</span><span style="color:#960050;background-color:#1e0010">用</span><span style="color:#960050;background-color:#1e0010">场</span><span style="color:#960050;background-color:#1e0010">合</span>
-<span style="color:#66d9ef">__stdcall</span><span style="color:#960050;background-color:#1e0010">：</span>Windows API默认的函数调用协议<span style="color:#960050;background-color:#1e0010">。</span>
-<span style="color:#66d9ef">__cdecl</span><span style="color:#960050;background-color:#1e0010">：</span>C<span style="color:#f92672">/</span>C<span style="color:#f92672">+</span><span style="color:#f92672">+</span><span style="color:#960050;background-color:#1e0010">默</span><span style="color:#960050;background-color:#1e0010">认</span><span style="color:#960050;background-color:#1e0010">的</span><span style="color:#960050;background-color:#1e0010">函</span><span style="color:#960050;background-color:#1e0010">数</span><span style="color:#960050;background-color:#1e0010">调</span><span style="color:#960050;background-color:#1e0010">用</span><span style="color:#960050;background-color:#1e0010">协</span><span style="color:#960050;background-color:#1e0010">议</span><span style="color:#960050;background-color:#1e0010">。</span>
-<span style="color:#66d9ef">__fastcall</span><span style="color:#960050;background-color:#1e0010">：</span><span style="color:#960050;background-color:#1e0010">适</span><span style="color:#960050;background-color:#1e0010">用</span><span style="color:#960050;background-color:#1e0010">于</span><span style="color:#960050;background-color:#1e0010">对</span><span style="color:#960050;background-color:#1e0010">性</span><span style="color:#960050;background-color:#1e0010">能</span><span style="color:#960050;background-color:#1e0010">要</span><span style="color:#960050;background-color:#1e0010">求</span><span style="color:#960050;background-color:#1e0010">较</span><span style="color:#960050;background-color:#1e0010">高</span><span style="color:#960050;background-color:#1e0010">的</span><span style="color:#960050;background-color:#1e0010">场</span><span style="color:#960050;background-color:#1e0010">合</span><span style="color:#960050;background-color:#1e0010">。</span>
-<span style="color:#960050;background-color:#1e0010">函</span><span style="color:#960050;background-color:#1e0010">数</span><span style="color:#960050;background-color:#1e0010">参</span><span style="color:#960050;background-color:#1e0010">数</span><span style="color:#960050;background-color:#1e0010">入</span><span style="color:#960050;background-color:#1e0010">栈</span><span style="color:#960050;background-color:#1e0010">方</span><span style="color:#960050;background-color:#1e0010">式</span>
-<span style="color:#66d9ef">__stdcall</span><span style="color:#960050;background-color:#1e0010">：</span><span style="color:#960050;background-color:#1e0010">函</span><span style="color:#960050;background-color:#1e0010">数</span><span style="color:#960050;background-color:#1e0010">参</span><span style="color:#960050;background-color:#1e0010">数</span><span style="color:#960050;background-color:#1e0010">由</span><span style="color:#960050;background-color:#1e0010">右</span><span style="color:#960050;background-color:#1e0010">向</span><span style="color:#960050;background-color:#1e0010">左</span><span style="color:#960050;background-color:#1e0010">入</span><span style="color:#960050;background-color:#1e0010">栈</span><span style="color:#960050;background-color:#1e0010">。</span>
-<span style="color:#66d9ef">__cdecl</span><span style="color:#960050;background-color:#1e0010">：</span><span style="color:#960050;background-color:#1e0010">函</span><span style="color:#960050;background-color:#1e0010">数</span><span style="color:#960050;background-color:#1e0010">参</span><span style="color:#960050;background-color:#1e0010">数</span><span style="color:#960050;background-color:#1e0010">由</span><span style="color:#960050;background-color:#1e0010">右</span><span style="color:#960050;background-color:#1e0010">向</span><span style="color:#960050;background-color:#1e0010">左</span><span style="color:#960050;background-color:#1e0010">入</span><span style="color:#960050;background-color:#1e0010">栈</span><span style="color:#960050;background-color:#1e0010">。</span>
-<span style="color:#66d9ef">__fastcall</span><span style="color:#960050;background-color:#1e0010">：</span><span style="color:#960050;background-color:#1e0010">从</span><span style="color:#960050;background-color:#1e0010">左</span><span style="color:#960050;background-color:#1e0010">开</span><span style="color:#960050;background-color:#1e0010">始</span><span style="color:#960050;background-color:#1e0010">不</span><span style="color:#960050;background-color:#1e0010">大</span><span style="color:#960050;background-color:#1e0010">于</span><span style="color:#ae81ff">4</span><span style="color:#960050;background-color:#1e0010">字</span><span style="color:#960050;background-color:#1e0010">节</span><span style="color:#960050;background-color:#1e0010">的</span><span style="color:#960050;background-color:#1e0010">参</span><span style="color:#960050;background-color:#1e0010">数</span><span style="color:#960050;background-color:#1e0010">放</span><span style="color:#960050;background-color:#1e0010">入</span>CPU的ECX和EDX寄存器<span style="color:#960050;background-color:#1e0010">，</span><span style="color:#960050;background-color:#1e0010">其</span><span style="color:#960050;background-color:#1e0010">余</span><span style="color:#960050;background-color:#1e0010">参</span><span style="color:#960050;background-color:#1e0010">数</span><span style="color:#960050;background-color:#1e0010">从</span><span style="color:#960050;background-color:#1e0010">右</span><span style="color:#960050;background-color:#1e0010">向</span><span style="color:#960050;background-color:#1e0010">左</span><span style="color:#960050;background-color:#1e0010">入</span><span style="color:#960050;background-color:#1e0010">栈</span><span style="color:#960050;background-color:#1e0010">。</span>
-<span style="color:#960050;background-color:#1e0010">问</span><span style="color:#960050;background-color:#1e0010">题</span><span style="color:#960050;background-color:#1e0010">一</span><span style="color:#960050;background-color:#1e0010">：</span>__fastcall在寄存器中放入不大于4字节的参数<span style="color:#960050;background-color:#1e0010">，</span><span style="color:#960050;background-color:#1e0010">故</span><span style="color:#960050;background-color:#1e0010">性</span><span style="color:#960050;background-color:#1e0010">能</span><span style="color:#960050;background-color:#1e0010">较</span><span style="color:#960050;background-color:#1e0010">高</span><span style="color:#960050;background-color:#1e0010">，</span><span style="color:#960050;background-color:#1e0010">适</span><span style="color:#960050;background-color:#1e0010">用</span><span style="color:#960050;background-color:#1e0010">于</span><span style="color:#960050;background-color:#1e0010">需</span><span style="color:#960050;background-color:#1e0010">要</span><span style="color:#960050;background-color:#1e0010">高</span><span style="color:#960050;background-color:#1e0010">性</span><span style="color:#960050;background-color:#1e0010">能</span><span style="color:#960050;background-color:#1e0010">的</span><span style="color:#960050;background-color:#1e0010">场</span><span style="color:#960050;background-color:#1e0010">合</span><span style="color:#960050;background-color:#1e0010">。</span>
-<span style="color:#960050;background-color:#1e0010">栈</span><span style="color:#960050;background-color:#1e0010">内</span><span style="color:#960050;background-color:#1e0010">数</span><span style="color:#960050;background-color:#1e0010">据</span><span style="color:#960050;background-color:#1e0010">清</span><span style="color:#960050;background-color:#1e0010">除</span><span style="color:#960050;background-color:#1e0010">方</span><span style="color:#960050;background-color:#1e0010">式</span>
-<span style="color:#66d9ef">__stdcall</span><span style="color:#960050;background-color:#1e0010">：</span><span style="color:#960050;background-color:#1e0010">函</span><span style="color:#960050;background-color:#1e0010">数</span><span style="color:#960050;background-color:#1e0010">调</span><span style="color:#960050;background-color:#1e0010">用</span><span style="color:#960050;background-color:#1e0010">结</span><span style="color:#960050;background-color:#1e0010">束</span><span style="color:#960050;background-color:#1e0010">后</span><span style="color:#960050;background-color:#1e0010">由</span><span style="color:#960050;background-color:#1e0010">被</span><span style="color:#960050;background-color:#1e0010">调</span><span style="color:#960050;background-color:#1e0010">用</span><span style="color:#960050;background-color:#1e0010">函</span><span style="color:#960050;background-color:#1e0010">数</span><span style="color:#960050;background-color:#1e0010">清</span><span style="color:#960050;background-color:#1e0010">除</span><span style="color:#960050;background-color:#1e0010">栈</span><span style="color:#960050;background-color:#1e0010">内</span><span style="color:#960050;background-color:#1e0010">数</span><span style="color:#960050;background-color:#1e0010">据</span><span style="color:#960050;background-color:#1e0010">。</span>
-<span style="color:#66d9ef">__cdecl</span><span style="color:#960050;background-color:#1e0010">：</span><span style="color:#960050;background-color:#1e0010">函</span><span style="color:#960050;background-color:#1e0010">数</span><span style="color:#960050;background-color:#1e0010">调</span><span style="color:#960050;background-color:#1e0010">用</span><span style="color:#960050;background-color:#1e0010">结</span><span style="color:#960050;background-color:#1e0010">束</span><span style="color:#960050;background-color:#1e0010">后</span><span style="color:#960050;background-color:#1e0010">由</span><span style="color:#960050;background-color:#1e0010">函</span><span style="color:#960050;background-color:#1e0010">数</span><span style="color:#960050;background-color:#1e0010">调</span><span style="color:#960050;background-color:#1e0010">用</span><span style="color:#960050;background-color:#1e0010">者</span><span style="color:#960050;background-color:#1e0010">清</span><span style="color:#960050;background-color:#1e0010">除</span><span style="color:#960050;background-color:#1e0010">栈</span><span style="color:#960050;background-color:#1e0010">内</span><span style="color:#960050;background-color:#1e0010">数</span><span style="color:#960050;background-color:#1e0010">据</span><span style="color:#960050;background-color:#1e0010">。</span>
-<span style="color:#66d9ef">__fastcall</span><span style="color:#960050;background-color:#1e0010">：</span><span style="color:#960050;background-color:#1e0010">函</span><span style="color:#960050;background-color:#1e0010">数</span><span style="color:#960050;background-color:#1e0010">调</span><span style="color:#960050;background-color:#1e0010">用</span><span style="color:#960050;background-color:#1e0010">结</span><span style="color:#960050;background-color:#1e0010">束</span><span style="color:#960050;background-color:#1e0010">后</span><span style="color:#960050;background-color:#1e0010">由</span><span style="color:#960050;background-color:#1e0010">被</span><span style="color:#960050;background-color:#1e0010">调</span><span style="color:#960050;background-color:#1e0010">用</span><span style="color:#960050;background-color:#1e0010">函</span><span style="color:#960050;background-color:#1e0010">数</span><span style="color:#960050;background-color:#1e0010">清</span><span style="color:#960050;background-color:#1e0010">除</span><span style="color:#960050;background-color:#1e0010">栈</span><span style="color:#960050;background-color:#1e0010">内</span><span style="color:#960050;background-color:#1e0010">数</span><span style="color:#960050;background-color:#1e0010">据</span><span style="color:#960050;background-color:#1e0010">。</span>
-<span style="color:#960050;background-color:#1e0010">问</span><span style="color:#960050;background-color:#1e0010">题</span><span style="color:#960050;background-color:#1e0010">一</span><span style="color:#960050;background-color:#1e0010">：</span><span style="color:#960050;background-color:#1e0010">不</span><span style="color:#960050;background-color:#1e0010">同</span><span style="color:#960050;background-color:#1e0010">编</span><span style="color:#960050;background-color:#1e0010">译</span><span style="color:#960050;background-color:#1e0010">器</span><span style="color:#960050;background-color:#1e0010">设</span><span style="color:#960050;background-color:#1e0010">定</span><span style="color:#960050;background-color:#1e0010">的</span><span style="color:#960050;background-color:#1e0010">栈</span><span style="color:#960050;background-color:#1e0010">结</span><span style="color:#960050;background-color:#1e0010">构</span><span style="color:#960050;background-color:#1e0010">不</span><span style="color:#960050;background-color:#1e0010">尽</span><span style="color:#960050;background-color:#1e0010">相</span><span style="color:#960050;background-color:#1e0010">同</span><span style="color:#960050;background-color:#1e0010">，</span><span style="color:#960050;background-color:#1e0010">跨</span><span style="color:#960050;background-color:#1e0010">开</span><span style="color:#960050;background-color:#1e0010">发</span><span style="color:#960050;background-color:#1e0010">平</span><span style="color:#960050;background-color:#1e0010">台</span><span style="color:#960050;background-color:#1e0010">时</span><span style="color:#960050;background-color:#1e0010">由</span><span style="color:#960050;background-color:#1e0010">函</span><span style="color:#960050;background-color:#1e0010">数</span><span style="color:#960050;background-color:#1e0010">调</span><span style="color:#960050;background-color:#1e0010">用</span><span style="color:#960050;background-color:#1e0010">者</span><span style="color:#960050;background-color:#1e0010">清</span><span style="color:#960050;background-color:#1e0010">除</span><span style="color:#960050;background-color:#1e0010">栈</span><span style="color:#960050;background-color:#1e0010">内</span><span style="color:#960050;background-color:#1e0010">数</span><span style="color:#960050;background-color:#1e0010">据</span><span style="color:#960050;background-color:#1e0010">不</span><span style="color:#960050;background-color:#1e0010">可</span><span style="color:#960050;background-color:#1e0010">行</span><span style="color:#960050;background-color:#1e0010">。</span>
-<span style="color:#960050;background-color:#1e0010">问</span><span style="color:#960050;background-color:#1e0010">题</span><span style="color:#960050;background-color:#1e0010">二</span><span style="color:#960050;background-color:#1e0010">：</span><span style="color:#960050;background-color:#1e0010">某</span><span style="color:#960050;background-color:#1e0010">些</span><span style="color:#960050;background-color:#1e0010">函</span><span style="color:#960050;background-color:#1e0010">数</span><span style="color:#960050;background-color:#1e0010">的</span><span style="color:#960050;background-color:#1e0010">参</span><span style="color:#960050;background-color:#1e0010">数</span><span style="color:#960050;background-color:#1e0010">是</span><span style="color:#960050;background-color:#1e0010">可</span><span style="color:#960050;background-color:#1e0010">变</span><span style="color:#960050;background-color:#1e0010">的</span><span style="color:#960050;background-color:#1e0010">，</span><span style="color:#960050;background-color:#1e0010">如</span>printf函数<span style="color:#960050;background-color:#1e0010">，</span><span style="color:#960050;background-color:#1e0010">这</span><span style="color:#960050;background-color:#1e0010">样</span><span style="color:#960050;background-color:#1e0010">的</span><span style="color:#960050;background-color:#1e0010">函</span><span style="color:#960050;background-color:#1e0010">数</span><span style="color:#960050;background-color:#1e0010">只</span><span style="color:#960050;background-color:#1e0010">能</span><span style="color:#960050;background-color:#1e0010">由</span><span style="color:#960050;background-color:#1e0010">函</span><span style="color:#960050;background-color:#1e0010">数</span><span style="color:#960050;background-color:#1e0010">调</span><span style="color:#960050;background-color:#1e0010">用</span><span style="color:#960050;background-color:#1e0010">者</span><span style="color:#960050;background-color:#1e0010">清</span><span style="color:#960050;background-color:#1e0010">除</span><span style="color:#960050;background-color:#1e0010">栈</span><span style="color:#960050;background-color:#1e0010">内</span><span style="color:#960050;background-color:#1e0010">数</span><span style="color:#960050;background-color:#1e0010">据</span><span style="color:#960050;background-color:#1e0010">。</span>
-<span style="color:#960050;background-color:#1e0010">问</span><span style="color:#960050;background-color:#1e0010">题</span><span style="color:#960050;background-color:#1e0010">三</span><span style="color:#960050;background-color:#1e0010">：</span><span style="color:#960050;background-color:#1e0010">由</span><span style="color:#960050;background-color:#1e0010">调</span><span style="color:#960050;background-color:#1e0010">用</span><span style="color:#960050;background-color:#1e0010">者</span><span style="color:#960050;background-color:#1e0010">清</span><span style="color:#960050;background-color:#1e0010">除</span><span style="color:#960050;background-color:#1e0010">栈</span><span style="color:#960050;background-color:#1e0010">内</span><span style="color:#960050;background-color:#1e0010">数</span><span style="color:#960050;background-color:#1e0010">据</span><span style="color:#960050;background-color:#1e0010">时</span><span style="color:#960050;background-color:#1e0010">，</span><span style="color:#960050;background-color:#1e0010">每</span><span style="color:#960050;background-color:#1e0010">次</span><span style="color:#960050;background-color:#1e0010">调</span><span style="color:#960050;background-color:#1e0010">用</span><span style="color:#960050;background-color:#1e0010">都</span><span style="color:#960050;background-color:#1e0010">包</span><span style="color:#960050;background-color:#1e0010">含</span><span style="color:#960050;background-color:#1e0010">清</span><span style="color:#960050;background-color:#1e0010">除</span><span style="color:#960050;background-color:#1e0010">栈</span><span style="color:#960050;background-color:#1e0010">内</span><span style="color:#960050;background-color:#1e0010">数</span><span style="color:#960050;background-color:#1e0010">据</span><span style="color:#960050;background-color:#1e0010">的</span><span style="color:#960050;background-color:#1e0010">代</span><span style="color:#960050;background-color:#1e0010">码</span><span style="color:#960050;background-color:#1e0010">，</span><span style="color:#960050;background-color:#1e0010">故</span><span style="color:#960050;background-color:#1e0010">可</span><span style="color:#960050;background-color:#1e0010">执</span><span style="color:#960050;background-color:#1e0010">行</span><span style="color:#960050;background-color:#1e0010">文</span><span style="color:#960050;background-color:#1e0010">件</span><span style="color:#960050;background-color:#1e0010">较</span><span style="color:#960050;background-color:#1e0010">大</span><span style="color:#960050;background-color:#1e0010">。</span>
+<span style="color:#a61717;background-color:#e3d2d2">其</span><span style="color:#a61717;background-color:#e3d2d2">中</span>WINAPI是调用约定<span style="color:#a61717;background-color:#e3d2d2">。</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="常见调用约定">常见调用约定</h2>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">
+<span style="color:#a61717;background-color:#e3d2d2">调</span><span style="color:#a61717;background-color:#e3d2d2">用</span><span style="color:#a61717;background-color:#e3d2d2">协</span><span style="color:#a61717;background-color:#e3d2d2">议</span><span style="color:#a61717;background-color:#e3d2d2">常</span><span style="color:#a61717;background-color:#e3d2d2">用</span><span style="color:#a61717;background-color:#e3d2d2">场</span><span style="color:#a61717;background-color:#e3d2d2">合</span>
+<span style="color:#000;font-weight:bold">__stdcall</span><span style="color:#a61717;background-color:#e3d2d2">：</span>Windows API默认的函数调用协议<span style="color:#a61717;background-color:#e3d2d2">。</span>
+<span style="color:#000;font-weight:bold">__cdecl</span><span style="color:#a61717;background-color:#e3d2d2">：</span>C<span style="color:#000;font-weight:bold">/</span>C<span style="color:#000;font-weight:bold">+</span><span style="color:#000;font-weight:bold">+</span><span style="color:#a61717;background-color:#e3d2d2">默</span><span style="color:#a61717;background-color:#e3d2d2">认</span><span style="color:#a61717;background-color:#e3d2d2">的</span><span style="color:#a61717;background-color:#e3d2d2">函</span><span style="color:#a61717;background-color:#e3d2d2">数</span><span style="color:#a61717;background-color:#e3d2d2">调</span><span style="color:#a61717;background-color:#e3d2d2">用</span><span style="color:#a61717;background-color:#e3d2d2">协</span><span style="color:#a61717;background-color:#e3d2d2">议</span><span style="color:#a61717;background-color:#e3d2d2">。</span>
+<span style="color:#000;font-weight:bold">__fastcall</span><span style="color:#a61717;background-color:#e3d2d2">：</span><span style="color:#a61717;background-color:#e3d2d2">适</span><span style="color:#a61717;background-color:#e3d2d2">用</span><span style="color:#a61717;background-color:#e3d2d2">于</span><span style="color:#a61717;background-color:#e3d2d2">对</span><span style="color:#a61717;background-color:#e3d2d2">性</span><span style="color:#a61717;background-color:#e3d2d2">能</span><span style="color:#a61717;background-color:#e3d2d2">要</span><span style="color:#a61717;background-color:#e3d2d2">求</span><span style="color:#a61717;background-color:#e3d2d2">较</span><span style="color:#a61717;background-color:#e3d2d2">高</span><span style="color:#a61717;background-color:#e3d2d2">的</span><span style="color:#a61717;background-color:#e3d2d2">场</span><span style="color:#a61717;background-color:#e3d2d2">合</span><span style="color:#a61717;background-color:#e3d2d2">。</span>
+<span style="color:#a61717;background-color:#e3d2d2">函</span><span style="color:#a61717;background-color:#e3d2d2">数</span><span style="color:#a61717;background-color:#e3d2d2">参</span><span style="color:#a61717;background-color:#e3d2d2">数</span><span style="color:#a61717;background-color:#e3d2d2">入</span><span style="color:#a61717;background-color:#e3d2d2">栈</span><span style="color:#a61717;background-color:#e3d2d2">方</span><span style="color:#a61717;background-color:#e3d2d2">式</span>
+<span style="color:#000;font-weight:bold">__stdcall</span><span style="color:#a61717;background-color:#e3d2d2">：</span><span style="color:#a61717;background-color:#e3d2d2">函</span><span style="color:#a61717;background-color:#e3d2d2">数</span><span style="color:#a61717;background-color:#e3d2d2">参</span><span style="color:#a61717;background-color:#e3d2d2">数</span><span style="color:#a61717;background-color:#e3d2d2">由</span><span style="color:#a61717;background-color:#e3d2d2">右</span><span style="color:#a61717;background-color:#e3d2d2">向</span><span style="color:#a61717;background-color:#e3d2d2">左</span><span style="color:#a61717;background-color:#e3d2d2">入</span><span style="color:#a61717;background-color:#e3d2d2">栈</span><span style="color:#a61717;background-color:#e3d2d2">。</span>
+<span style="color:#000;font-weight:bold">__cdecl</span><span style="color:#a61717;background-color:#e3d2d2">：</span><span style="color:#a61717;background-color:#e3d2d2">函</span><span style="color:#a61717;background-color:#e3d2d2">数</span><span style="color:#a61717;background-color:#e3d2d2">参</span><span style="color:#a61717;background-color:#e3d2d2">数</span><span style="color:#a61717;background-color:#e3d2d2">由</span><span style="color:#a61717;background-color:#e3d2d2">右</span><span style="color:#a61717;background-color:#e3d2d2">向</span><span style="color:#a61717;background-color:#e3d2d2">左</span><span style="color:#a61717;background-color:#e3d2d2">入</span><span style="color:#a61717;background-color:#e3d2d2">栈</span><span style="color:#a61717;background-color:#e3d2d2">。</span>
+<span style="color:#000;font-weight:bold">__fastcall</span><span style="color:#a61717;background-color:#e3d2d2">：</span><span style="color:#a61717;background-color:#e3d2d2">从</span><span style="color:#a61717;background-color:#e3d2d2">左</span><span style="color:#a61717;background-color:#e3d2d2">开</span><span style="color:#a61717;background-color:#e3d2d2">始</span><span style="color:#a61717;background-color:#e3d2d2">不</span><span style="color:#a61717;background-color:#e3d2d2">大</span><span style="color:#a61717;background-color:#e3d2d2">于</span><span style="color:#099">4</span><span style="color:#a61717;background-color:#e3d2d2">字</span><span style="color:#a61717;background-color:#e3d2d2">节</span><span style="color:#a61717;background-color:#e3d2d2">的</span><span style="color:#a61717;background-color:#e3d2d2">参</span><span style="color:#a61717;background-color:#e3d2d2">数</span><span style="color:#a61717;background-color:#e3d2d2">放</span><span style="color:#a61717;background-color:#e3d2d2">入</span>CPU的ECX和EDX寄存器<span style="color:#a61717;background-color:#e3d2d2">，</span><span style="color:#a61717;background-color:#e3d2d2">其</span><span style="color:#a61717;background-color:#e3d2d2">余</span><span style="color:#a61717;background-color:#e3d2d2">参</span><span style="color:#a61717;background-color:#e3d2d2">数</span><span style="color:#a61717;background-color:#e3d2d2">从</span><span style="color:#a61717;background-color:#e3d2d2">右</span><span style="color:#a61717;background-color:#e3d2d2">向</span><span style="color:#a61717;background-color:#e3d2d2">左</span><span style="color:#a61717;background-color:#e3d2d2">入</span><span style="color:#a61717;background-color:#e3d2d2">栈</span><span style="color:#a61717;background-color:#e3d2d2">。</span>
+<span style="color:#a61717;background-color:#e3d2d2">问</span><span style="color:#a61717;background-color:#e3d2d2">题</span><span style="color:#a61717;background-color:#e3d2d2">一</span><span style="color:#a61717;background-color:#e3d2d2">：</span>__fastcall在寄存器中放入不大于4字节的参数<span style="color:#a61717;background-color:#e3d2d2">，</span><span style="color:#a61717;background-color:#e3d2d2">故</span><span style="color:#a61717;background-color:#e3d2d2">性</span><span style="color:#a61717;background-color:#e3d2d2">能</span><span style="color:#a61717;background-color:#e3d2d2">较</span><span style="color:#a61717;background-color:#e3d2d2">高</span><span style="color:#a61717;background-color:#e3d2d2">，</span><span style="color:#a61717;background-color:#e3d2d2">适</span><span style="color:#a61717;background-color:#e3d2d2">用</span><span style="color:#a61717;background-color:#e3d2d2">于</span><span style="color:#a61717;background-color:#e3d2d2">需</span><span style="color:#a61717;background-color:#e3d2d2">要</span><span style="color:#a61717;background-color:#e3d2d2">高</span><span style="color:#a61717;background-color:#e3d2d2">性</span><span style="color:#a61717;background-color:#e3d2d2">能</span><span style="color:#a61717;background-color:#e3d2d2">的</span><span style="color:#a61717;background-color:#e3d2d2">场</span><span style="color:#a61717;background-color:#e3d2d2">合</span><span style="color:#a61717;background-color:#e3d2d2">。</span>
+<span style="color:#a61717;background-color:#e3d2d2">栈</span><span style="color:#a61717;background-color:#e3d2d2">内</span><span style="color:#a61717;background-color:#e3d2d2">数</span><span style="color:#a61717;background-color:#e3d2d2">据</span><span style="color:#a61717;background-color:#e3d2d2">清</span><span style="color:#a61717;background-color:#e3d2d2">除</span><span style="color:#a61717;background-color:#e3d2d2">方</span><span style="color:#a61717;background-color:#e3d2d2">式</span>
+<span style="color:#000;font-weight:bold">__stdcall</span><span style="color:#a61717;background-color:#e3d2d2">：</span><span style="color:#a61717;background-color:#e3d2d2">函</span><span style="color:#a61717;background-color:#e3d2d2">数</span><span style="color:#a61717;background-color:#e3d2d2">调</span><span style="color:#a61717;background-color:#e3d2d2">用</span><span style="color:#a61717;background-color:#e3d2d2">结</span><span style="color:#a61717;background-color:#e3d2d2">束</span><span style="color:#a61717;background-color:#e3d2d2">后</span><span style="color:#a61717;background-color:#e3d2d2">由</span><span style="color:#a61717;background-color:#e3d2d2">被</span><span style="color:#a61717;background-color:#e3d2d2">调</span><span style="color:#a61717;background-color:#e3d2d2">用</span><span style="color:#a61717;background-color:#e3d2d2">函</span><span style="color:#a61717;background-color:#e3d2d2">数</span><span style="color:#a61717;background-color:#e3d2d2">清</span><span style="color:#a61717;background-color:#e3d2d2">除</span><span style="color:#a61717;background-color:#e3d2d2">栈</span><span style="color:#a61717;background-color:#e3d2d2">内</span><span style="color:#a61717;background-color:#e3d2d2">数</span><span style="color:#a61717;background-color:#e3d2d2">据</span><span style="color:#a61717;background-color:#e3d2d2">。</span>
+<span style="color:#000;font-weight:bold">__cdecl</span><span style="color:#a61717;background-color:#e3d2d2">：</span><span style="color:#a61717;background-color:#e3d2d2">函</span><span style="color:#a61717;background-color:#e3d2d2">数</span><span style="color:#a61717;background-color:#e3d2d2">调</span><span style="color:#a61717;background-color:#e3d2d2">用</span><span style="color:#a61717;background-color:#e3d2d2">结</span><span style="color:#a61717;background-color:#e3d2d2">束</span><span style="color:#a61717;background-color:#e3d2d2">后</span><span style="color:#a61717;background-color:#e3d2d2">由</span><span style="color:#a61717;background-color:#e3d2d2">函</span><span style="color:#a61717;background-color:#e3d2d2">数</span><span style="color:#a61717;background-color:#e3d2d2">调</span><span style="color:#a61717;background-color:#e3d2d2">用</span><span style="color:#a61717;background-color:#e3d2d2">者</span><span style="color:#a61717;background-color:#e3d2d2">清</span><span style="color:#a61717;background-color:#e3d2d2">除</span><span style="color:#a61717;background-color:#e3d2d2">栈</span><span style="color:#a61717;background-color:#e3d2d2">内</span><span style="color:#a61717;background-color:#e3d2d2">数</span><span style="color:#a61717;background-color:#e3d2d2">据</span><span style="color:#a61717;background-color:#e3d2d2">。</span>
+<span style="color:#000;font-weight:bold">__fastcall</span><span style="color:#a61717;background-color:#e3d2d2">：</span><span style="color:#a61717;background-color:#e3d2d2">函</span><span style="color:#a61717;background-color:#e3d2d2">数</span><span style="color:#a61717;background-color:#e3d2d2">调</span><span style="color:#a61717;background-color:#e3d2d2">用</span><span style="color:#a61717;background-color:#e3d2d2">结</span><span style="color:#a61717;background-color:#e3d2d2">束</span><span style="color:#a61717;background-color:#e3d2d2">后</span><span style="color:#a61717;background-color:#e3d2d2">由</span><span style="color:#a61717;background-color:#e3d2d2">被</span><span style="color:#a61717;background-color:#e3d2d2">调</span><span style="color:#a61717;background-color:#e3d2d2">用</span><span style="color:#a61717;background-color:#e3d2d2">函</span><span style="color:#a61717;background-color:#e3d2d2">数</span><span style="color:#a61717;background-color:#e3d2d2">清</span><span style="color:#a61717;background-color:#e3d2d2">除</span><span style="color:#a61717;background-color:#e3d2d2">栈</span><span style="color:#a61717;background-color:#e3d2d2">内</span><span style="color:#a61717;background-color:#e3d2d2">数</span><span style="color:#a61717;background-color:#e3d2d2">据</span><span style="color:#a61717;background-color:#e3d2d2">。</span>
+<span style="color:#a61717;background-color:#e3d2d2">问</span><span style="color:#a61717;background-color:#e3d2d2">题</span><span style="color:#a61717;background-color:#e3d2d2">一</span><span style="color:#a61717;background-color:#e3d2d2">：</span><span style="color:#a61717;background-color:#e3d2d2">不</span><span style="color:#a61717;background-color:#e3d2d2">同</span><span style="color:#a61717;background-color:#e3d2d2">编</span><span style="color:#a61717;background-color:#e3d2d2">译</span><span style="color:#a61717;background-color:#e3d2d2">器</span><span style="color:#a61717;background-color:#e3d2d2">设</span><span style="color:#a61717;background-color:#e3d2d2">定</span><span style="color:#a61717;background-color:#e3d2d2">的</span><span style="color:#a61717;background-color:#e3d2d2">栈</span><span style="color:#a61717;background-color:#e3d2d2">结</span><span style="color:#a61717;background-color:#e3d2d2">构</span><span style="color:#a61717;background-color:#e3d2d2">不</span><span style="color:#a61717;background-color:#e3d2d2">尽</span><span style="color:#a61717;background-color:#e3d2d2">相</span><span style="color:#a61717;background-color:#e3d2d2">同</span><span style="color:#a61717;background-color:#e3d2d2">，</span><span style="color:#a61717;background-color:#e3d2d2">跨</span><span style="color:#a61717;background-color:#e3d2d2">开</span><span style="color:#a61717;background-color:#e3d2d2">发</span><span style="color:#a61717;background-color:#e3d2d2">平</span><span style="color:#a61717;background-color:#e3d2d2">台</span><span style="color:#a61717;background-color:#e3d2d2">时</span><span style="color:#a61717;background-color:#e3d2d2">由</span><span style="color:#a61717;background-color:#e3d2d2">函</span><span style="color:#a61717;background-color:#e3d2d2">数</span><span style="color:#a61717;background-color:#e3d2d2">调</span><span style="color:#a61717;background-color:#e3d2d2">用</span><span style="color:#a61717;background-color:#e3d2d2">者</span><span style="color:#a61717;background-color:#e3d2d2">清</span><span style="color:#a61717;background-color:#e3d2d2">除</span><span style="color:#a61717;background-color:#e3d2d2">栈</span><span style="color:#a61717;background-color:#e3d2d2">内</span><span style="color:#a61717;background-color:#e3d2d2">数</span><span style="color:#a61717;background-color:#e3d2d2">据</span><span style="color:#a61717;background-color:#e3d2d2">不</span><span style="color:#a61717;background-color:#e3d2d2">可</span><span style="color:#a61717;background-color:#e3d2d2">行</span><span style="color:#a61717;background-color:#e3d2d2">。</span>
+<span style="color:#a61717;background-color:#e3d2d2">问</span><span style="color:#a61717;background-color:#e3d2d2">题</span><span style="color:#a61717;background-color:#e3d2d2">二</span><span style="color:#a61717;background-color:#e3d2d2">：</span><span style="color:#a61717;background-color:#e3d2d2">某</span><span style="color:#a61717;background-color:#e3d2d2">些</span><span style="color:#a61717;background-color:#e3d2d2">函</span><span style="color:#a61717;background-color:#e3d2d2">数</span><span style="color:#a61717;background-color:#e3d2d2">的</span><span style="color:#a61717;background-color:#e3d2d2">参</span><span style="color:#a61717;background-color:#e3d2d2">数</span><span style="color:#a61717;background-color:#e3d2d2">是</span><span style="color:#a61717;background-color:#e3d2d2">可</span><span style="color:#a61717;background-color:#e3d2d2">变</span><span style="color:#a61717;background-color:#e3d2d2">的</span><span style="color:#a61717;background-color:#e3d2d2">，</span><span style="color:#a61717;background-color:#e3d2d2">如</span>printf函数<span style="color:#a61717;background-color:#e3d2d2">，</span><span style="color:#a61717;background-color:#e3d2d2">这</span><span style="color:#a61717;background-color:#e3d2d2">样</span><span style="color:#a61717;background-color:#e3d2d2">的</span><span style="color:#a61717;background-color:#e3d2d2">函</span><span style="color:#a61717;background-color:#e3d2d2">数</span><span style="color:#a61717;background-color:#e3d2d2">只</span><span style="color:#a61717;background-color:#e3d2d2">能</span><span style="color:#a61717;background-color:#e3d2d2">由</span><span style="color:#a61717;background-color:#e3d2d2">函</span><span style="color:#a61717;background-color:#e3d2d2">数</span><span style="color:#a61717;background-color:#e3d2d2">调</span><span style="color:#a61717;background-color:#e3d2d2">用</span><span style="color:#a61717;background-color:#e3d2d2">者</span><span style="color:#a61717;background-color:#e3d2d2">清</span><span style="color:#a61717;background-color:#e3d2d2">除</span><span style="color:#a61717;background-color:#e3d2d2">栈</span><span style="color:#a61717;background-color:#e3d2d2">内</span><span style="color:#a61717;background-color:#e3d2d2">数</span><span style="color:#a61717;background-color:#e3d2d2">据</span><span style="color:#a61717;background-color:#e3d2d2">。</span>
+<span style="color:#a61717;background-color:#e3d2d2">问</span><span style="color:#a61717;background-color:#e3d2d2">题</span><span style="color:#a61717;background-color:#e3d2d2">三</span><span style="color:#a61717;background-color:#e3d2d2">：</span><span style="color:#a61717;background-color:#e3d2d2">由</span><span style="color:#a61717;background-color:#e3d2d2">调</span><span style="color:#a61717;background-color:#e3d2d2">用</span><span style="color:#a61717;background-color:#e3d2d2">者</span><span style="color:#a61717;background-color:#e3d2d2">清</span><span style="color:#a61717;background-color:#e3d2d2">除</span><span style="color:#a61717;background-color:#e3d2d2">栈</span><span style="color:#a61717;background-color:#e3d2d2">内</span><span style="color:#a61717;background-color:#e3d2d2">数</span><span style="color:#a61717;background-color:#e3d2d2">据</span><span style="color:#a61717;background-color:#e3d2d2">时</span><span style="color:#a61717;background-color:#e3d2d2">，</span><span style="color:#a61717;background-color:#e3d2d2">每</span><span style="color:#a61717;background-color:#e3d2d2">次</span><span style="color:#a61717;background-color:#e3d2d2">调</span><span style="color:#a61717;background-color:#e3d2d2">用</span><span style="color:#a61717;background-color:#e3d2d2">都</span><span style="color:#a61717;background-color:#e3d2d2">包</span><span style="color:#a61717;background-color:#e3d2d2">含</span><span style="color:#a61717;background-color:#e3d2d2">清</span><span style="color:#a61717;background-color:#e3d2d2">除</span><span style="color:#a61717;background-color:#e3d2d2">栈</span><span style="color:#a61717;background-color:#e3d2d2">内</span><span style="color:#a61717;background-color:#e3d2d2">数</span><span style="color:#a61717;background-color:#e3d2d2">据</span><span style="color:#a61717;background-color:#e3d2d2">的</span><span style="color:#a61717;background-color:#e3d2d2">代</span><span style="color:#a61717;background-color:#e3d2d2">码</span><span style="color:#a61717;background-color:#e3d2d2">，</span><span style="color:#a61717;background-color:#e3d2d2">故</span><span style="color:#a61717;background-color:#e3d2d2">可</span><span style="color:#a61717;background-color:#e3d2d2">执</span><span style="color:#a61717;background-color:#e3d2d2">行</span><span style="color:#a61717;background-color:#e3d2d2">文</span><span style="color:#a61717;background-color:#e3d2d2">件</span><span style="color:#a61717;background-color:#e3d2d2">较</span><span style="color:#a61717;background-color:#e3d2d2">大</span><span style="color:#a61717;background-color:#e3d2d2">。</span>
 C语言编译器函数名称修饰规则
-<span style="color:#66d9ef">__stdcall</span><span style="color:#960050;background-color:#1e0010">：</span><span style="color:#960050;background-color:#1e0010">编</span><span style="color:#960050;background-color:#1e0010">译</span><span style="color:#960050;background-color:#1e0010">后</span><span style="color:#960050;background-color:#1e0010">，</span><span style="color:#960050;background-color:#1e0010">函</span><span style="color:#960050;background-color:#1e0010">数</span><span style="color:#960050;background-color:#1e0010">名</span><span style="color:#960050;background-color:#1e0010">被</span><span style="color:#960050;background-color:#1e0010">修</span><span style="color:#960050;background-color:#1e0010">饰</span><span style="color:#960050;background-color:#1e0010">为</span><span style="color:#960050;background-color:#1e0010">“</span>_functionname<span style="color:#960050;background-color:#1e0010">@</span>number<span style="color:#960050;background-color:#1e0010">”</span><span style="color:#960050;background-color:#1e0010">。</span>
-<span style="color:#66d9ef">__cdecl</span><span style="color:#960050;background-color:#1e0010">：</span><span style="color:#960050;background-color:#1e0010">编</span><span style="color:#960050;background-color:#1e0010">译</span><span style="color:#960050;background-color:#1e0010">后</span><span style="color:#960050;background-color:#1e0010">，</span><span style="color:#960050;background-color:#1e0010">函</span><span style="color:#960050;background-color:#1e0010">数</span><span style="color:#960050;background-color:#1e0010">名</span><span style="color:#960050;background-color:#1e0010">被</span><span style="color:#960050;background-color:#1e0010">修</span><span style="color:#960050;background-color:#1e0010">饰</span><span style="color:#960050;background-color:#1e0010">为</span><span style="color:#960050;background-color:#1e0010">“</span>_functionname<span style="color:#960050;background-color:#1e0010">”</span><span style="color:#960050;background-color:#1e0010">。</span>
-<span style="color:#66d9ef">__fastcall</span><span style="color:#960050;background-color:#1e0010">：</span><span style="color:#960050;background-color:#1e0010">编</span><span style="color:#960050;background-color:#1e0010">译</span><span style="color:#960050;background-color:#1e0010">后</span><span style="color:#960050;background-color:#1e0010">，</span><span style="color:#960050;background-color:#1e0010">函</span><span style="color:#960050;background-color:#1e0010">数</span><span style="color:#960050;background-color:#1e0010">名</span><span style="color:#960050;background-color:#1e0010">给</span><span style="color:#960050;background-color:#1e0010">修</span><span style="color:#960050;background-color:#1e0010">饰</span><span style="color:#960050;background-color:#1e0010">为</span><span style="color:#960050;background-color:#1e0010">“</span><span style="color:#960050;background-color:#1e0010">@</span>functionname<span style="color:#960050;background-color:#1e0010">@</span>nmuber<span style="color:#960050;background-color:#1e0010">”</span><span style="color:#960050;background-color:#1e0010">。</span>
-<span style="color:#960050;background-color:#1e0010">注</span><span style="color:#960050;background-color:#1e0010">：</span><span style="color:#960050;background-color:#1e0010">“</span>functionname<span style="color:#960050;background-color:#1e0010">”</span><span style="color:#960050;background-color:#1e0010">为</span><span style="color:#960050;background-color:#1e0010">函</span><span style="color:#960050;background-color:#1e0010">数</span><span style="color:#960050;background-color:#1e0010">名</span><span style="color:#960050;background-color:#1e0010">，</span><span style="color:#960050;background-color:#1e0010">“</span>number<span style="color:#960050;background-color:#1e0010">”</span><span style="color:#960050;background-color:#1e0010">为</span><span style="color:#960050;background-color:#1e0010">参</span><span style="color:#960050;background-color:#1e0010">数</span><span style="color:#960050;background-color:#1e0010">字</span><span style="color:#960050;background-color:#1e0010">节</span><span style="color:#960050;background-color:#1e0010">数</span><span style="color:#960050;background-color:#1e0010">。</span>
-<span style="color:#960050;background-color:#1e0010">注</span><span style="color:#960050;background-color:#1e0010">：</span><span style="color:#960050;background-color:#1e0010">函</span><span style="color:#960050;background-color:#1e0010">数</span><span style="color:#960050;background-color:#1e0010">实</span><span style="color:#960050;background-color:#1e0010">现</span><span style="color:#960050;background-color:#1e0010">和</span><span style="color:#960050;background-color:#1e0010">函</span><span style="color:#960050;background-color:#1e0010">数</span><span style="color:#960050;background-color:#1e0010">定</span><span style="color:#960050;background-color:#1e0010">义</span><span style="color:#960050;background-color:#1e0010">时</span><span style="color:#960050;background-color:#1e0010">如</span><span style="color:#960050;background-color:#1e0010">果</span><span style="color:#960050;background-color:#1e0010">使</span><span style="color:#960050;background-color:#1e0010">用</span><span style="color:#960050;background-color:#1e0010">了</span><span style="color:#960050;background-color:#1e0010">不</span><span style="color:#960050;background-color:#1e0010">同</span><span style="color:#960050;background-color:#1e0010">的</span><span style="color:#960050;background-color:#1e0010">函</span><span style="color:#960050;background-color:#1e0010">数</span><span style="color:#960050;background-color:#1e0010">调</span><span style="color:#960050;background-color:#1e0010">用</span><span style="color:#960050;background-color:#1e0010">协</span><span style="color:#960050;background-color:#1e0010">议</span><span style="color:#960050;background-color:#1e0010">，</span><span style="color:#960050;background-color:#1e0010">则</span><span style="color:#960050;background-color:#1e0010">无</span><span style="color:#960050;background-color:#1e0010">法</span><span style="color:#960050;background-color:#1e0010">实</span><span style="color:#960050;background-color:#1e0010">现</span><span style="color:#960050;background-color:#1e0010">函</span><span style="color:#960050;background-color:#1e0010">数</span><span style="color:#960050;background-color:#1e0010">调</span><span style="color:#960050;background-color:#1e0010">用</span><span style="color:#960050;background-color:#1e0010">。</span>
-C<span style="color:#f92672">+</span><span style="color:#f92672">+</span><span style="color:#960050;background-color:#1e0010">语</span><span style="color:#960050;background-color:#1e0010">言</span><span style="color:#960050;background-color:#1e0010">编</span><span style="color:#960050;background-color:#1e0010">译</span><span style="color:#960050;background-color:#1e0010">器</span><span style="color:#960050;background-color:#1e0010">函</span><span style="color:#960050;background-color:#1e0010">数</span><span style="color:#960050;background-color:#1e0010">名</span><span style="color:#960050;background-color:#1e0010">称</span><span style="color:#960050;background-color:#1e0010">修</span><span style="color:#960050;background-color:#1e0010">饰</span><span style="color:#960050;background-color:#1e0010">规</span><span style="color:#960050;background-color:#1e0010">则</span>
-<span style="color:#66d9ef">__stdcall</span><span style="color:#960050;background-color:#1e0010">：</span><span style="color:#960050;background-color:#1e0010">编</span><span style="color:#960050;background-color:#1e0010">译</span><span style="color:#960050;background-color:#1e0010">后</span><span style="color:#960050;background-color:#1e0010">，</span><span style="color:#960050;background-color:#1e0010">函</span><span style="color:#960050;background-color:#1e0010">数</span><span style="color:#960050;background-color:#1e0010">名</span><span style="color:#960050;background-color:#1e0010">被</span><span style="color:#960050;background-color:#1e0010">修</span><span style="color:#960050;background-color:#1e0010">饰</span><span style="color:#960050;background-color:#1e0010">为</span><span style="color:#960050;background-color:#1e0010">“</span><span style="color:#f92672">?</span>functionname<span style="color:#960050;background-color:#1e0010">@</span><span style="color:#960050;background-color:#1e0010">@</span>YG<span style="color:#f92672">*</span><span style="color:#f92672">*</span><span style="color:#f92672">*</span><span style="color:#f92672">*</span><span style="color:#f92672">*</span><span style="color:#f92672">*</span><span style="color:#960050;background-color:#1e0010">@</span>Z<span style="color:#960050;background-color:#1e0010">”</span><span style="color:#960050;background-color:#1e0010">。</span>
-<span style="color:#66d9ef">__cdecl</span><span style="color:#960050;background-color:#1e0010">：</span><span style="color:#960050;background-color:#1e0010">编</span><span style="color:#960050;background-color:#1e0010">译</span><span style="color:#960050;background-color:#1e0010">后</span><span style="color:#960050;background-color:#1e0010">，</span><span style="color:#960050;background-color:#1e0010">函</span><span style="color:#960050;background-color:#1e0010">数</span><span style="color:#960050;background-color:#1e0010">名</span><span style="color:#960050;background-color:#1e0010">被</span><span style="color:#960050;background-color:#1e0010">修</span><span style="color:#960050;background-color:#1e0010">饰</span><span style="color:#960050;background-color:#1e0010">为</span><span style="color:#960050;background-color:#1e0010">“</span><span style="color:#f92672">?</span>functionname<span style="color:#960050;background-color:#1e0010">@</span><span style="color:#960050;background-color:#1e0010">@</span>YA<span style="color:#f92672">*</span><span style="color:#f92672">*</span><span style="color:#f92672">*</span><span style="color:#f92672">*</span><span style="color:#f92672">*</span><span style="color:#f92672">*</span><span style="color:#960050;background-color:#1e0010">@</span>Z<span style="color:#960050;background-color:#1e0010">”</span><span style="color:#960050;background-color:#1e0010">。</span>
-<span style="color:#66d9ef">__fastcall</span><span style="color:#960050;background-color:#1e0010">：</span><span style="color:#960050;background-color:#1e0010">编</span><span style="color:#960050;background-color:#1e0010">译</span><span style="color:#960050;background-color:#1e0010">后</span><span style="color:#960050;background-color:#1e0010">，</span><span style="color:#960050;background-color:#1e0010">函</span><span style="color:#960050;background-color:#1e0010">数</span><span style="color:#960050;background-color:#1e0010">名</span><span style="color:#960050;background-color:#1e0010">被</span><span style="color:#960050;background-color:#1e0010">修</span><span style="color:#960050;background-color:#1e0010">饰</span><span style="color:#960050;background-color:#1e0010">为</span><span style="color:#960050;background-color:#1e0010">“</span><span style="color:#f92672">?</span>functionname<span style="color:#960050;background-color:#1e0010">@</span><span style="color:#960050;background-color:#1e0010">@</span>YI<span style="color:#f92672">*</span><span style="color:#f92672">*</span><span style="color:#f92672">*</span><span style="color:#f92672">*</span><span style="color:#f92672">*</span><span style="color:#f92672">*</span><span style="color:#960050;background-color:#1e0010">@</span>Z<span style="color:#960050;background-color:#1e0010">”</span><span style="color:#960050;background-color:#1e0010">。</span>
-<span style="color:#960050;background-color:#1e0010">注</span><span style="color:#960050;background-color:#1e0010">：</span><span style="color:#960050;background-color:#1e0010">“</span><span style="color:#f92672">*</span><span style="color:#f92672">*</span><span style="color:#f92672">*</span><span style="color:#f92672">*</span><span style="color:#f92672">*</span><span style="color:#f92672">*</span><span style="color:#960050;background-color:#1e0010">”</span><span style="color:#960050;background-color:#1e0010">为</span><span style="color:#960050;background-color:#1e0010">函</span><span style="color:#960050;background-color:#1e0010">数</span><span style="color:#960050;background-color:#1e0010">返</span><span style="color:#960050;background-color:#1e0010">回</span><span style="color:#960050;background-color:#1e0010">值</span><span style="color:#960050;background-color:#1e0010">类</span><span style="color:#960050;background-color:#1e0010">型</span><span style="color:#960050;background-color:#1e0010">和</span><span style="color:#960050;background-color:#1e0010">参</span><span style="color:#960050;background-color:#1e0010">数</span><span style="color:#960050;background-color:#1e0010">类</span><span style="color:#960050;background-color:#1e0010">型</span><span style="color:#960050;background-color:#1e0010">表</span><span style="color:#960050;background-color:#1e0010">。</span>
-<span style="color:#960050;background-color:#1e0010">注</span><span style="color:#960050;background-color:#1e0010">：</span><span style="color:#960050;background-color:#1e0010">函</span><span style="color:#960050;background-color:#1e0010">数</span><span style="color:#960050;background-color:#1e0010">实</span><span style="color:#960050;background-color:#1e0010">现</span><span style="color:#960050;background-color:#1e0010">和</span><span style="color:#960050;background-color:#1e0010">函</span><span style="color:#960050;background-color:#1e0010">数</span><span style="color:#960050;background-color:#1e0010">定</span><span style="color:#960050;background-color:#1e0010">义</span><span style="color:#960050;background-color:#1e0010">时</span><span style="color:#960050;background-color:#1e0010">如</span><span style="color:#960050;background-color:#1e0010">果</span><span style="color:#960050;background-color:#1e0010">使</span><span style="color:#960050;background-color:#1e0010">用</span><span style="color:#960050;background-color:#1e0010">了</span><span style="color:#960050;background-color:#1e0010">不</span><span style="color:#960050;background-color:#1e0010">同</span><span style="color:#960050;background-color:#1e0010">的</span><span style="color:#960050;background-color:#1e0010">函</span><span style="color:#960050;background-color:#1e0010">数</span><span style="color:#960050;background-color:#1e0010">调</span><span style="color:#960050;background-color:#1e0010">用</span><span style="color:#960050;background-color:#1e0010">协</span><span style="color:#960050;background-color:#1e0010">议</span><span style="color:#960050;background-color:#1e0010">，</span><span style="color:#960050;background-color:#1e0010">则</span><span style="color:#960050;background-color:#1e0010">无</span><span style="color:#960050;background-color:#1e0010">法</span><span style="color:#960050;background-color:#1e0010">实</span><span style="color:#960050;background-color:#1e0010">现</span><span style="color:#960050;background-color:#1e0010">函</span><span style="color:#960050;background-color:#1e0010">数</span><span style="color:#960050;background-color:#1e0010">调</span><span style="color:#960050;background-color:#1e0010">用</span><span style="color:#960050;background-color:#1e0010">。</span>
-C语言和C<span style="color:#f92672">+</span><span style="color:#f92672">+</span><span style="color:#960050;background-color:#1e0010">语</span><span style="color:#960050;background-color:#1e0010">言</span><span style="color:#960050;background-color:#1e0010">间</span><span style="color:#960050;background-color:#1e0010">如</span><span style="color:#960050;background-color:#1e0010">果</span><span style="color:#960050;background-color:#1e0010">不</span><span style="color:#960050;background-color:#1e0010">进</span><span style="color:#960050;background-color:#1e0010">行</span><span style="color:#960050;background-color:#1e0010">特</span><span style="color:#960050;background-color:#1e0010">殊</span><span style="color:#960050;background-color:#1e0010">处</span><span style="color:#960050;background-color:#1e0010">理</span><span style="color:#960050;background-color:#1e0010">，</span><span style="color:#960050;background-color:#1e0010">也</span><span style="color:#960050;background-color:#1e0010">无</span><span style="color:#960050;background-color:#1e0010">法</span><span style="color:#960050;background-color:#1e0010">实</span><span style="color:#960050;background-color:#1e0010">现</span><span style="color:#960050;background-color:#1e0010">函</span><span style="color:#960050;background-color:#1e0010">数</span><span style="color:#960050;background-color:#1e0010">的</span><span style="color:#960050;background-color:#1e0010">互</span><span style="color:#960050;background-color:#1e0010">相</span><span style="color:#960050;background-color:#1e0010">调</span><span style="color:#960050;background-color:#1e0010">用</span><span style="color:#960050;background-color:#1e0010">。</span>
+<span style="color:#000;font-weight:bold">__stdcall</span><span style="color:#a61717;background-color:#e3d2d2">：</span><span style="color:#a61717;background-color:#e3d2d2">编</span><span style="color:#a61717;background-color:#e3d2d2">译</span><span style="color:#a61717;background-color:#e3d2d2">后</span><span style="color:#a61717;background-color:#e3d2d2">，</span><span style="color:#a61717;background-color:#e3d2d2">函</span><span style="color:#a61717;background-color:#e3d2d2">数</span><span style="color:#a61717;background-color:#e3d2d2">名</span><span style="color:#a61717;background-color:#e3d2d2">被</span><span style="color:#a61717;background-color:#e3d2d2">修</span><span style="color:#a61717;background-color:#e3d2d2">饰</span><span style="color:#a61717;background-color:#e3d2d2">为</span><span style="color:#a61717;background-color:#e3d2d2">“</span>_functionname<span style="color:#a61717;background-color:#e3d2d2">@</span>number<span style="color:#a61717;background-color:#e3d2d2">”</span><span style="color:#a61717;background-color:#e3d2d2">。</span>
+<span style="color:#000;font-weight:bold">__cdecl</span><span style="color:#a61717;background-color:#e3d2d2">：</span><span style="color:#a61717;background-color:#e3d2d2">编</span><span style="color:#a61717;background-color:#e3d2d2">译</span><span style="color:#a61717;background-color:#e3d2d2">后</span><span style="color:#a61717;background-color:#e3d2d2">，</span><span style="color:#a61717;background-color:#e3d2d2">函</span><span style="color:#a61717;background-color:#e3d2d2">数</span><span style="color:#a61717;background-color:#e3d2d2">名</span><span style="color:#a61717;background-color:#e3d2d2">被</span><span style="color:#a61717;background-color:#e3d2d2">修</span><span style="color:#a61717;background-color:#e3d2d2">饰</span><span style="color:#a61717;background-color:#e3d2d2">为</span><span style="color:#a61717;background-color:#e3d2d2">“</span>_functionname<span style="color:#a61717;background-color:#e3d2d2">”</span><span style="color:#a61717;background-color:#e3d2d2">。</span>
+<span style="color:#000;font-weight:bold">__fastcall</span><span style="color:#a61717;background-color:#e3d2d2">：</span><span style="color:#a61717;background-color:#e3d2d2">编</span><span style="color:#a61717;background-color:#e3d2d2">译</span><span style="color:#a61717;background-color:#e3d2d2">后</span><span style="color:#a61717;background-color:#e3d2d2">，</span><span style="color:#a61717;background-color:#e3d2d2">函</span><span style="color:#a61717;background-color:#e3d2d2">数</span><span style="color:#a61717;background-color:#e3d2d2">名</span><span style="color:#a61717;background-color:#e3d2d2">给</span><span style="color:#a61717;background-color:#e3d2d2">修</span><span style="color:#a61717;background-color:#e3d2d2">饰</span><span style="color:#a61717;background-color:#e3d2d2">为</span><span style="color:#a61717;background-color:#e3d2d2">“</span><span style="color:#a61717;background-color:#e3d2d2">@</span>functionname<span style="color:#a61717;background-color:#e3d2d2">@</span>nmuber<span style="color:#a61717;background-color:#e3d2d2">”</span><span style="color:#a61717;background-color:#e3d2d2">。</span>
+<span style="color:#a61717;background-color:#e3d2d2">注</span><span style="color:#a61717;background-color:#e3d2d2">：</span><span style="color:#a61717;background-color:#e3d2d2">“</span>functionname<span style="color:#a61717;background-color:#e3d2d2">”</span><span style="color:#a61717;background-color:#e3d2d2">为</span><span style="color:#a61717;background-color:#e3d2d2">函</span><span style="color:#a61717;background-color:#e3d2d2">数</span><span style="color:#a61717;background-color:#e3d2d2">名</span><span style="color:#a61717;background-color:#e3d2d2">，</span><span style="color:#a61717;background-color:#e3d2d2">“</span>number<span style="color:#a61717;background-color:#e3d2d2">”</span><span style="color:#a61717;background-color:#e3d2d2">为</span><span style="color:#a61717;background-color:#e3d2d2">参</span><span style="color:#a61717;background-color:#e3d2d2">数</span><span style="color:#a61717;background-color:#e3d2d2">字</span><span style="color:#a61717;background-color:#e3d2d2">节</span><span style="color:#a61717;background-color:#e3d2d2">数</span><span style="color:#a61717;background-color:#e3d2d2">。</span>
+<span style="color:#a61717;background-color:#e3d2d2">注</span><span style="color:#a61717;background-color:#e3d2d2">：</span><span style="color:#a61717;background-color:#e3d2d2">函</span><span style="color:#a61717;background-color:#e3d2d2">数</span><span style="color:#a61717;background-color:#e3d2d2">实</span><span style="color:#a61717;background-color:#e3d2d2">现</span><span style="color:#a61717;background-color:#e3d2d2">和</span><span style="color:#a61717;background-color:#e3d2d2">函</span><span style="color:#a61717;background-color:#e3d2d2">数</span><span style="color:#a61717;background-color:#e3d2d2">定</span><span style="color:#a61717;background-color:#e3d2d2">义</span><span style="color:#a61717;background-color:#e3d2d2">时</span><span style="color:#a61717;background-color:#e3d2d2">如</span><span style="color:#a61717;background-color:#e3d2d2">果</span><span style="color:#a61717;background-color:#e3d2d2">使</span><span style="color:#a61717;background-color:#e3d2d2">用</span><span style="color:#a61717;background-color:#e3d2d2">了</span><span style="color:#a61717;background-color:#e3d2d2">不</span><span style="color:#a61717;background-color:#e3d2d2">同</span><span style="color:#a61717;background-color:#e3d2d2">的</span><span style="color:#a61717;background-color:#e3d2d2">函</span><span style="color:#a61717;background-color:#e3d2d2">数</span><span style="color:#a61717;background-color:#e3d2d2">调</span><span style="color:#a61717;background-color:#e3d2d2">用</span><span style="color:#a61717;background-color:#e3d2d2">协</span><span style="color:#a61717;background-color:#e3d2d2">议</span><span style="color:#a61717;background-color:#e3d2d2">，</span><span style="color:#a61717;background-color:#e3d2d2">则</span><span style="color:#a61717;background-color:#e3d2d2">无</span><span style="color:#a61717;background-color:#e3d2d2">法</span><span style="color:#a61717;background-color:#e3d2d2">实</span><span style="color:#a61717;background-color:#e3d2d2">现</span><span style="color:#a61717;background-color:#e3d2d2">函</span><span style="color:#a61717;background-color:#e3d2d2">数</span><span style="color:#a61717;background-color:#e3d2d2">调</span><span style="color:#a61717;background-color:#e3d2d2">用</span><span style="color:#a61717;background-color:#e3d2d2">。</span>
+C<span style="color:#000;font-weight:bold">+</span><span style="color:#000;font-weight:bold">+</span><span style="color:#a61717;background-color:#e3d2d2">语</span><span style="color:#a61717;background-color:#e3d2d2">言</span><span style="color:#a61717;background-color:#e3d2d2">编</span><span style="color:#a61717;background-color:#e3d2d2">译</span><span style="color:#a61717;background-color:#e3d2d2">器</span><span style="color:#a61717;background-color:#e3d2d2">函</span><span style="color:#a61717;background-color:#e3d2d2">数</span><span style="color:#a61717;background-color:#e3d2d2">名</span><span style="color:#a61717;background-color:#e3d2d2">称</span><span style="color:#a61717;background-color:#e3d2d2">修</span><span style="color:#a61717;background-color:#e3d2d2">饰</span><span style="color:#a61717;background-color:#e3d2d2">规</span><span style="color:#a61717;background-color:#e3d2d2">则</span>
+<span style="color:#000;font-weight:bold">__stdcall</span><span style="color:#a61717;background-color:#e3d2d2">：</span><span style="color:#a61717;background-color:#e3d2d2">编</span><span style="color:#a61717;background-color:#e3d2d2">译</span><span style="color:#a61717;background-color:#e3d2d2">后</span><span style="color:#a61717;background-color:#e3d2d2">，</span><span style="color:#a61717;background-color:#e3d2d2">函</span><span style="color:#a61717;background-color:#e3d2d2">数</span><span style="color:#a61717;background-color:#e3d2d2">名</span><span style="color:#a61717;background-color:#e3d2d2">被</span><span style="color:#a61717;background-color:#e3d2d2">修</span><span style="color:#a61717;background-color:#e3d2d2">饰</span><span style="color:#a61717;background-color:#e3d2d2">为</span><span style="color:#a61717;background-color:#e3d2d2">“</span><span style="color:#000;font-weight:bold">?</span>functionname<span style="color:#a61717;background-color:#e3d2d2">@</span><span style="color:#a61717;background-color:#e3d2d2">@</span>YG<span style="color:#000;font-weight:bold">*</span><span style="color:#000;font-weight:bold">*</span><span style="color:#000;font-weight:bold">*</span><span style="color:#000;font-weight:bold">*</span><span style="color:#000;font-weight:bold">*</span><span style="color:#000;font-weight:bold">*</span><span style="color:#a61717;background-color:#e3d2d2">@</span>Z<span style="color:#a61717;background-color:#e3d2d2">”</span><span style="color:#a61717;background-color:#e3d2d2">。</span>
+<span style="color:#000;font-weight:bold">__cdecl</span><span style="color:#a61717;background-color:#e3d2d2">：</span><span style="color:#a61717;background-color:#e3d2d2">编</span><span style="color:#a61717;background-color:#e3d2d2">译</span><span style="color:#a61717;background-color:#e3d2d2">后</span><span style="color:#a61717;background-color:#e3d2d2">，</span><span style="color:#a61717;background-color:#e3d2d2">函</span><span style="color:#a61717;background-color:#e3d2d2">数</span><span style="color:#a61717;background-color:#e3d2d2">名</span><span style="color:#a61717;background-color:#e3d2d2">被</span><span style="color:#a61717;background-color:#e3d2d2">修</span><span style="color:#a61717;background-color:#e3d2d2">饰</span><span style="color:#a61717;background-color:#e3d2d2">为</span><span style="color:#a61717;background-color:#e3d2d2">“</span><span style="color:#000;font-weight:bold">?</span>functionname<span style="color:#a61717;background-color:#e3d2d2">@</span><span style="color:#a61717;background-color:#e3d2d2">@</span>YA<span style="color:#000;font-weight:bold">*</span><span style="color:#000;font-weight:bold">*</span><span style="color:#000;font-weight:bold">*</span><span style="color:#000;font-weight:bold">*</span><span style="color:#000;font-weight:bold">*</span><span style="color:#000;font-weight:bold">*</span><span style="color:#a61717;background-color:#e3d2d2">@</span>Z<span style="color:#a61717;background-color:#e3d2d2">”</span><span style="color:#a61717;background-color:#e3d2d2">。</span>
+<span style="color:#000;font-weight:bold">__fastcall</span><span style="color:#a61717;background-color:#e3d2d2">：</span><span style="color:#a61717;background-color:#e3d2d2">编</span><span style="color:#a61717;background-color:#e3d2d2">译</span><span style="color:#a61717;background-color:#e3d2d2">后</span><span style="color:#a61717;background-color:#e3d2d2">，</span><span style="color:#a61717;background-color:#e3d2d2">函</span><span style="color:#a61717;background-color:#e3d2d2">数</span><span style="color:#a61717;background-color:#e3d2d2">名</span><span style="color:#a61717;background-color:#e3d2d2">被</span><span style="color:#a61717;background-color:#e3d2d2">修</span><span style="color:#a61717;background-color:#e3d2d2">饰</span><span style="color:#a61717;background-color:#e3d2d2">为</span><span style="color:#a61717;background-color:#e3d2d2">“</span><span style="color:#000;font-weight:bold">?</span>functionname<span style="color:#a61717;background-color:#e3d2d2">@</span><span style="color:#a61717;background-color:#e3d2d2">@</span>YI<span style="color:#000;font-weight:bold">*</span><span style="color:#000;font-weight:bold">*</span><span style="color:#000;font-weight:bold">*</span><span style="color:#000;font-weight:bold">*</span><span style="color:#000;font-weight:bold">*</span><span style="color:#000;font-weight:bold">*</span><span style="color:#a61717;background-color:#e3d2d2">@</span>Z<span style="color:#a61717;background-color:#e3d2d2">”</span><span style="color:#a61717;background-color:#e3d2d2">。</span>
+<span style="color:#a61717;background-color:#e3d2d2">注</span><span style="color:#a61717;background-color:#e3d2d2">：</span><span style="color:#a61717;background-color:#e3d2d2">“</span><span style="color:#000;font-weight:bold">*</span><span style="color:#000;font-weight:bold">*</span><span style="color:#000;font-weight:bold">*</span><span style="color:#000;font-weight:bold">*</span><span style="color:#000;font-weight:bold">*</span><span style="color:#000;font-weight:bold">*</span><span style="color:#a61717;background-color:#e3d2d2">”</span><span style="color:#a61717;background-color:#e3d2d2">为</span><span style="color:#a61717;background-color:#e3d2d2">函</span><span style="color:#a61717;background-color:#e3d2d2">数</span><span style="color:#a61717;background-color:#e3d2d2">返</span><span style="color:#a61717;background-color:#e3d2d2">回</span><span style="color:#a61717;background-color:#e3d2d2">值</span><span style="color:#a61717;background-color:#e3d2d2">类</span><span style="color:#a61717;background-color:#e3d2d2">型</span><span style="color:#a61717;background-color:#e3d2d2">和</span><span style="color:#a61717;background-color:#e3d2d2">参</span><span style="color:#a61717;background-color:#e3d2d2">数</span><span style="color:#a61717;background-color:#e3d2d2">类</span><span style="color:#a61717;background-color:#e3d2d2">型</span><span style="color:#a61717;background-color:#e3d2d2">表</span><span style="color:#a61717;background-color:#e3d2d2">。</span>
+<span style="color:#a61717;background-color:#e3d2d2">注</span><span style="color:#a61717;background-color:#e3d2d2">：</span><span style="color:#a61717;background-color:#e3d2d2">函</span><span style="color:#a61717;background-color:#e3d2d2">数</span><span style="color:#a61717;background-color:#e3d2d2">实</span><span style="color:#a61717;background-color:#e3d2d2">现</span><span style="color:#a61717;background-color:#e3d2d2">和</span><span style="color:#a61717;background-color:#e3d2d2">函</span><span style="color:#a61717;background-color:#e3d2d2">数</span><span style="color:#a61717;background-color:#e3d2d2">定</span><span style="color:#a61717;background-color:#e3d2d2">义</span><span style="color:#a61717;background-color:#e3d2d2">时</span><span style="color:#a61717;background-color:#e3d2d2">如</span><span style="color:#a61717;background-color:#e3d2d2">果</span><span style="color:#a61717;background-color:#e3d2d2">使</span><span style="color:#a61717;background-color:#e3d2d2">用</span><span style="color:#a61717;background-color:#e3d2d2">了</span><span style="color:#a61717;background-color:#e3d2d2">不</span><span style="color:#a61717;background-color:#e3d2d2">同</span><span style="color:#a61717;background-color:#e3d2d2">的</span><span style="color:#a61717;background-color:#e3d2d2">函</span><span style="color:#a61717;background-color:#e3d2d2">数</span><span style="color:#a61717;background-color:#e3d2d2">调</span><span style="color:#a61717;background-color:#e3d2d2">用</span><span style="color:#a61717;background-color:#e3d2d2">协</span><span style="color:#a61717;background-color:#e3d2d2">议</span><span style="color:#a61717;background-color:#e3d2d2">，</span><span style="color:#a61717;background-color:#e3d2d2">则</span><span style="color:#a61717;background-color:#e3d2d2">无</span><span style="color:#a61717;background-color:#e3d2d2">法</span><span style="color:#a61717;background-color:#e3d2d2">实</span><span style="color:#a61717;background-color:#e3d2d2">现</span><span style="color:#a61717;background-color:#e3d2d2">函</span><span style="color:#a61717;background-color:#e3d2d2">数</span><span style="color:#a61717;background-color:#e3d2d2">调</span><span style="color:#a61717;background-color:#e3d2d2">用</span><span style="color:#a61717;background-color:#e3d2d2">。</span>
+C语言和C<span style="color:#000;font-weight:bold">+</span><span style="color:#000;font-weight:bold">+</span><span style="color:#a61717;background-color:#e3d2d2">语</span><span style="color:#a61717;background-color:#e3d2d2">言</span><span style="color:#a61717;background-color:#e3d2d2">间</span><span style="color:#a61717;background-color:#e3d2d2">如</span><span style="color:#a61717;background-color:#e3d2d2">果</span><span style="color:#a61717;background-color:#e3d2d2">不</span><span style="color:#a61717;background-color:#e3d2d2">进</span><span style="color:#a61717;background-color:#e3d2d2">行</span><span style="color:#a61717;background-color:#e3d2d2">特</span><span style="color:#a61717;background-color:#e3d2d2">殊</span><span style="color:#a61717;background-color:#e3d2d2">处</span><span style="color:#a61717;background-color:#e3d2d2">理</span><span style="color:#a61717;background-color:#e3d2d2">，</span><span style="color:#a61717;background-color:#e3d2d2">也</span><span style="color:#a61717;background-color:#e3d2d2">无</span><span style="color:#a61717;background-color:#e3d2d2">法</span><span style="color:#a61717;background-color:#e3d2d2">实</span><span style="color:#a61717;background-color:#e3d2d2">现</span><span style="color:#a61717;background-color:#e3d2d2">函</span><span style="color:#a61717;background-color:#e3d2d2">数</span><span style="color:#a61717;background-color:#e3d2d2">的</span><span style="color:#a61717;background-color:#e3d2d2">互</span><span style="color:#a61717;background-color:#e3d2d2">相</span><span style="color:#a61717;background-color:#e3d2d2">调</span><span style="color:#a61717;background-color:#e3d2d2">用</span><span style="color:#a61717;background-color:#e3d2d2">。</span>
 
-</code></pre></div><h2 id="_stdcall与_cdecl的区别函数调用方式">_stdcall与_cdecl的区别(函数调用方式)</h2>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="_stdcall与_cdecl的区别函数调用方式">_stdcall与_cdecl的区别(函数调用方式)</h2>
 <p>(1). 是C Declaration的缩写，表示C语言默认的函数调用方法，实际上也是C++的默认的函数调用方法。
 (2). 所有参数从右到左依次入栈，这些参数由调用者清除，称为手动清栈。具体所示：调用方的函数调用-&gt;被调用函数的执行-&gt;被调用函数的结果返回-&gt;调用方清除调整堆栈。
 (3). 被调用函数无需要求调用者传递多少参数，调用者传递过多或者过少的参数，甚至完全不同的参数都不会产生编译阶段的错误。总的来说函数的参数个数可变的(就像printf函数一样)，因为只有调用者才知道它传给被调用函数几个参数，才能在调用结束时适当地调整堆栈。
@@ -174,28 +399,232 @@ oid Function2();
 <h3 id="查看函数的名字修饰">查看函数的名字修饰</h3>
 <p>有两种方式可以检查你的程序中的函数的名字修饰：使用编译输出列表或使用Dumpbin工具。使用/FAc，/FAs或/FAcs命令行参数可以让编译器输出函数或变量名字列表。使用dumpbin.exe /SYMBOLS命令也可以获得obj文件或lib文件中的函数或变量名字列表。此外，还可以使用 undname.exe 将修饰名转换为未修饰形式。</p>
 <h3 id="_beginthread需要_cdecl的线程函数地址_beginthreadex和_createthread需要_stdcall的线程函数地址">_beginthread需要_cdecl的线程函数地址，_beginthreadex和_CreateThread需要_stdcall的线程函数地址。</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">
-<span style="color:#75715e">#</span><span style="color:#75715e">define CALLBACK __stdcall </span><span style="color:#75715e">//这就是传说中的回调函数
-</span><span style="color:#75715e"></span><span style="color:#75715e">#</span><span style="color:#75715e">define WINAPI __stdcall </span><span style="color:#75715e">//这就是传说中的WINAPI
-</span><span style="color:#75715e"></span><span style="color:#75715e">#</span><span style="color:#75715e">define WINAPIV __cdecl</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span><span style="color:#75715e">#</span><span style="color:#75715e">define APIENTRY WINAPI </span><span style="color:#75715e">//DllMain的入口就在这里
-</span><span style="color:#75715e"></span><span style="color:#75715e">#</span><span style="color:#75715e">define APIPRIVATE __stdcall</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span><span style="color:#75715e">#</span><span style="color:#75715e">define PASCAL __stdcall</span><span style="color:#75715e">
-</span></code></pre></div>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">
+<span style="color:#999;font-weight:bold;font-style:italic">#</span><span style="color:#999;font-weight:bold;font-style:italic">define CALLBACK __stdcall </span><span style="color:#998;font-style:italic">//这就是传说中的回调函数
+</span><span style="color:#998;font-style:italic"></span><span style="color:#999;font-weight:bold;font-style:italic">#</span><span style="color:#999;font-weight:bold;font-style:italic">define WINAPI __stdcall </span><span style="color:#998;font-style:italic">//这就是传说中的WINAPI
+</span><span style="color:#998;font-style:italic"></span><span style="color:#999;font-weight:bold;font-style:italic">#</span><span style="color:#999;font-weight:bold;font-style:italic">define WINAPIV __cdecl</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic"></span><span style="color:#999;font-weight:bold;font-style:italic">#</span><span style="color:#999;font-weight:bold;font-style:italic">define APIENTRY WINAPI </span><span style="color:#998;font-style:italic">//DllMain的入口就在这里
+</span><span style="color:#998;font-style:italic"></span><span style="color:#999;font-weight:bold;font-style:italic">#</span><span style="color:#999;font-weight:bold;font-style:italic">define APIPRIVATE __stdcall</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic"></span><span style="color:#999;font-weight:bold;font-style:italic">#</span><span style="color:#999;font-weight:bold;font-style:italic">define PASCAL __stdcall</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span></code></pre></td></tr></table>
 </div>
-<div style="display:inline">
-    
-        <a href="https://wlw-5g.cn/linux/linux_c_help/" style="float: left">前一页</a> 
-    
+</div>
+        </div>
 
-    
-        <a href="https://wlw-5g.cn/html/ajax/" style="float: right">后一页</a>
-    
+        
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/html/ajax/">ajax简介</a></li>
+        
+        <li><a href="/linux/linux_c_help/">linux常用函数手册</a></li>
+        
+        <li><a href="/html/html5_tags/">html5标签</a></li>
+        
+        <li><a href="/linux/LinuxFTP/">LinuxFTP的建立</a></li>
+        
+        <li><a href="/linux/%E4%BA%86%E8%A7%A3%E4%B8%80%E4%B8%8B%E5%8A%A0%E5%AF%86/">常见加密方式</a></li>
+        
+    </ul>
 </div>
 
 
-    </main>
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='https://wlw-5g.cn/tags/dll'>dll</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
     
-  </body>
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "your github repo"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+</div>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='https://wlw-5g.cn/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://wlw-5g.cn/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li><a href="https://wlw-5g.cn/categories/ES/">ES (1)</a></li>
+    
+    <li><a href="https://wlw-5g.cn/categories/dll/">dll (1)</a></li>
+    
+    <li><a href="https://wlw-5g.cn/categories/git/">git (4)</a></li>
+    
+    <li><a href="https://wlw-5g.cn/categories/js/">js (4)</a></li>
+    
+    <li><a href="https://wlw-5g.cn/categories/linux/">linux (12)</a></li>
+    
+    <li><a href="https://wlw-5g.cn/categories/nginx/">nginx (4)</a></li>
+    
+    <li><a href="https://wlw-5g.cn/categories/openresty/">openresty (1)</a></li>
+    
+    <li><a href="https://wlw-5g.cn/categories/python/">python (3)</a></li>
+    
+    <li><a href="https://wlw-5g.cn/categories/weixin/">weixin (1)</a></li>
+    
+    <li><a href="https://wlw-5g.cn/categories/%E5%8A%A0%E5%AF%86/">加密 (2)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="https://wlw-5g.cn/tags/ES/">ES</a>
+    
+    <a href="https://wlw-5g.cn/tags/dll/">dll</a>
+    
+    <a href="https://wlw-5g.cn/tags/git/">git</a>
+    
+    <a href="https://wlw-5g.cn/tags/js/">js</a>
+    
+    <a href="https://wlw-5g.cn/tags/linux/">linux</a>
+    
+    <a href="https://wlw-5g.cn/tags/nginx/">nginx</a>
+    
+    <a href="https://wlw-5g.cn/tags/openresty/">openresty</a>
+    
+    <a href="https://wlw-5g.cn/tags/python/">python</a>
+    
+    <a href="https://wlw-5g.cn/tags/weixin/">weixin</a>
+    
+    <a href="https://wlw-5g.cn/tags/%E5%8A%A0%E5%AF%86/">加密</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="http://openresty.org/download/agentzh-nginx-tutorials-zhcn.html" title="">春哥的nginx教程</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="https://wlw-5g.cn/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+    <footer id="footer">
+    <div class="container">
+        &copy; 2020 <a href="https://wlw-5g.cn/">学而时习之 By 明明</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
+        
+        <a href="http://www.beian.miit.gov.cn" target="_blank">豫ICP备20003135号</a>
+    </div>
+</footer>
+
+
+
+<script type="text/javascript">
+    window.MathJax = {
+        tex2jax: {
+            inlineMath: [['$', '$']],
+            processEscapes: true
+        }
+    };
+</script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+
+
+<script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+<script src='/js/douban.js'></script>
+
+
+</body>
+
 </html>

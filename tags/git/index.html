@@ -1,74 +1,314 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-cn" lang="zh-cn">
-    <head>
-        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-        <script>
-            (adsbygoogle = window.adsbygoogle || []).push({
-                google_ad_client: "ca-pub-9224870466612638",
-                enable_page_level_ads: true
-            });
-        </script>
+<!doctype html>
+<html lang="zh-CN">
+<head>
 
-        <link href="https://gmpg.org/xfn/11" rel="profile">
-        <meta http-equiv="content-type" content="text/html; charset=utf-8">
-        <meta name="generator" content="Hugo 0.64.1" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <title>git | 学而时习之</title>
+    <meta property="og:title" content="git - 学而时习之">
+    <meta property="og:type" content="article">
         
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-        <title>git &middot; 学而时习之</title>
-        <meta name="description" content="" />
-
         
-        <link type="text/css" rel="stylesheet" href="https://wlw-5g.cn/css/print.css" media="print">
-        <link type="text/css" rel="stylesheet" href="https://wlw-5g.cn/css/poole.css">
-        <link type="text/css" rel="stylesheet" href="https://wlw-5g.cn/css/syntax.css">
-        <link type="text/css" rel="stylesheet" href="https://wlw-5g.cn/css/hyde.css">
-          <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
-
-
+    <meta name="Keywords" content="golang,go语言,go语言笔记,lua,redis,openresty">
+    <meta name="description" content="git">
         
-        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
-        <link rel="shortcut icon" href="/favicon.png">
+    <meta name="author" content="明明">
+    <meta property="og:url" content="https://wlw-5g.cn/tags/git/">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
-        
-        <link href="https://wlw-5g.cn/tags/git/index.xml" rel="alternate" type="application/rss+xml" title="学而时习之" />
-        
-    </head>
-
-  <body class=" ">
-  <aside class="sidebar">
-    <div class="container sidebar-sticky">
-        <div class="sidebar-about">
-            <a href="https://wlw-5g.cn/"><h3>学而时习之</h3></a>
-        </div>
-
-        <nav>
-            <ul class="sidebar-nav">
-                <li><a href="https://wlw-5g.cn/">首页</a> </li>
-                <li><a href="/tags"> 标签 </a></li><li><a href="/category"> 分类 </a></li>
-            </ul>
-        </nav>
-
-        <p>&copy; 2020. All rights reserved. </p>
-        <a href="http://www.beian.miit.gov.cn" target="_blank">豫ICP备20003135号</a>
-    </div>
-</aside>
-
-    <main class="content container">
-    <ul class="posts">
-<li>
-    <span><a href="https://wlw-5g.cn/git/git_linux%E6%90%AD%E5%BB%BA%E6%9C%8D%E5%8A%A1%E5%99%A8/">git_linux搭建服务器</a> <time class="pull-right post-list" datetime="2019-03-02T12:01:00Z">Sat, Mar 2, 2019</time></span>
-  </li><li>
-    <span><a href="https://wlw-5g.cn/git/git_tag%E7%94%A8%E6%B3%95/">git_tag用法</a> <time class="pull-right post-list" datetime="2019-03-02T12:00:00Z">Sat, Mar 2, 2019</time></span>
-  </li><li>
-    <span><a href="https://wlw-5g.cn/git/git_2_operate/">git 常见操作</a> <time class="pull-right post-list" datetime="2018-05-26T12:00:00Z">Sat, May 26, 2018</time></span>
-  </li><li>
-    <span><a href="https://wlw-5g.cn/git/git_1_config/">git 配置文件</a> <time class="pull-right post-list" datetime="2016-06-28T14:33:58Z">Tue, Jun 28, 2016</time></span>
-  </li>
-</ul>
-    </main>
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <link rel="alternate" type="application/rss+xml+xml" href="https://wlw-5g.cn/tags/git/index.xml" title="学而时习之" />
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     
-  </body>
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+    (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-9224870466612638",
+        enable_page_level_ads: true
+    });
+    </script>
+    
+
+
+    
+    
+        <link rel="stylesheet" href='/css/douban.css'>
+    
+        <link rel="stylesheet" href='/css/other.css'>
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://wlw-5g.cn/">
+                        学而时习之
+                    </a>
+                
+                <p class="description">专注于服务端开发</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="https://wlw-5g.cn/">首页</a>
+                    
+                    <a  href="https://wlw-5g.cn/tags" title="标签">标签</a>
+                    
+                    <a  href="https://wlw-5g.cn/categories" title="分类">分类</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    
+    <h3 class="archive-title">
+        包含标签
+        <span class="keyword">git</span>
+        的文章
+    </h3>
+    
+
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="https://wlw-5g.cn/git/git_linux%E6%90%AD%E5%BB%BA%E6%9C%8D%E5%8A%A1%E5%99%A8/">git_linux搭建服务器</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+        2019年3月2日
+        </date>
+        
+        <div class="post-meta meta-category">
+            |
+            
+            <a href='https://wlw-5g.cn/categories/git'>git</a>
+            
+        </div>
+        
+        <div class="post-content">
+            为什么本地搭建一个git服务器 对于自己学习使用的代码，在没有网络的情况下不能用github，gitlab,所以本地建立一个git服务器。 git服务器环境准备centos7 服务端创建git用户 1 2 3 4 5 id git # 查看是否存在git用户，存在就不创建了。 useradd git passwd git 输入密码，我设置的是xxx……
+            <p class="readmore"><a href="https://wlw-5g.cn/git/git_linux%E6%90%AD%E5%BB%BA%E6%9C%8D%E5%8A%A1%E5%99%A8/">阅读全文</a></p>
+        </div>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="https://wlw-5g.cn/git/git_tag%E7%94%A8%E6%B3%95/">git_tag用法</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+        2019年3月2日
+        </date>
+        
+        <div class="post-meta meta-category">
+            |
+            
+            <a href='https://wlw-5g.cn/categories/git'>git</a>
+            
+        </div>
+        
+        <div class="post-content">
+            tag 和branch的区别 Git tag是一系列commit的中的一个点，只能查看，不能移动。 branch是一系列串联的commit的线。 git tag的用法 我们常常在代码封板时,使用git 创建一个tag ,这样一个不可修改的历史代码版本就像被我们封存起来一样,不论是运维发布拉取,或者以后的代码版……
+            <p class="readmore"><a href="https://wlw-5g.cn/git/git_tag%E7%94%A8%E6%B3%95/">阅读全文</a></p>
+        </div>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="https://wlw-5g.cn/git/git_2_operate/">git 常见操作</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+        2018年5月26日
+        </date>
+        
+        <div class="post-meta meta-category">
+            |
+            
+            <a href='https://wlw-5g.cn/categories/git'>git</a>
+            
+        </div>
+        
+        <div class="post-content">
+            创建分支 1 git branch new_branch 本地删除分支 1 git branch -D delete_branch 更新到远程删除分支 1 2 git checkout master git pull -u -u origin :delete_branch git pull 失败提示fatal: refusing to merge unrelated histories ,处理方法 1 2 git pull origin master --allow-unrelated-historiesn 查看提交提记录 1 2 3 4 5 git log git log -p -2 #查看最近两次的提交差异 git log --stat #仅仅现实行数的变更 git log --pretty=oneline #每次提交，在一行显示 git log --pretty=format:&#34;%h - %an, %ar : %s&#34; #格式显示 选项……
+            <p class="readmore"><a href="https://wlw-5g.cn/git/git_2_operate/">阅读全文</a></p>
+        </div>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="https://wlw-5g.cn/git/git_1_config/">git 配置文件</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+        2016年6月28日
+        </date>
+        
+        <div class="post-meta meta-category">
+            |
+            
+            <a href='https://wlw-5g.cn/categories/git'>git</a>
+            
+        </div>
+        
+        <div class="post-content">
+            基于公司是代理上网的，所以配置windows下的.gitconfig文件如下： 1 2 3 4 5 6 7 [http] proxy = 代理ip:代理port [user] email = xxxxx@gmail.com name =xxxxxhhh [gui] encoding = utf-8 #代码库统一使用utf-8 由于本人电脑是日语版OS，所以GIT终端显示中文字体是乱码，所以索性设置全部 使用utf-8编码。……
+            <p class="readmore"><a href="https://wlw-5g.cn/git/git_1_config/">阅读全文</a></p>
+        </div>
+    </article>
+    
+
+    
+
+
+
+
+
+</div>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='https://wlw-5g.cn/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://wlw-5g.cn/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li><a href="https://wlw-5g.cn/categories/ES/">ES (1)</a></li>
+    
+    <li><a href="https://wlw-5g.cn/categories/dll/">dll (1)</a></li>
+    
+    <li><a href="https://wlw-5g.cn/categories/git/">git (4)</a></li>
+    
+    <li><a href="https://wlw-5g.cn/categories/js/">js (4)</a></li>
+    
+    <li><a href="https://wlw-5g.cn/categories/linux/">linux (12)</a></li>
+    
+    <li><a href="https://wlw-5g.cn/categories/nginx/">nginx (4)</a></li>
+    
+    <li><a href="https://wlw-5g.cn/categories/openresty/">openresty (1)</a></li>
+    
+    <li><a href="https://wlw-5g.cn/categories/python/">python (3)</a></li>
+    
+    <li><a href="https://wlw-5g.cn/categories/weixin/">weixin (1)</a></li>
+    
+    <li><a href="https://wlw-5g.cn/categories/%E5%8A%A0%E5%AF%86/">加密 (2)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="https://wlw-5g.cn/tags/ES/">ES</a>
+    
+    <a href="https://wlw-5g.cn/tags/dll/">dll</a>
+    
+    <a href="https://wlw-5g.cn/tags/git/">git</a>
+    
+    <a href="https://wlw-5g.cn/tags/js/">js</a>
+    
+    <a href="https://wlw-5g.cn/tags/linux/">linux</a>
+    
+    <a href="https://wlw-5g.cn/tags/nginx/">nginx</a>
+    
+    <a href="https://wlw-5g.cn/tags/openresty/">openresty</a>
+    
+    <a href="https://wlw-5g.cn/tags/python/">python</a>
+    
+    <a href="https://wlw-5g.cn/tags/weixin/">weixin</a>
+    
+    <a href="https://wlw-5g.cn/tags/%E5%8A%A0%E5%AF%86/">加密</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="http://openresty.org/download/agentzh-nginx-tutorials-zhcn.html" title="">春哥的nginx教程</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="https://wlw-5g.cn/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+    <footer id="footer">
+    <div class="container">
+        &copy; 2020 <a href="https://wlw-5g.cn/">学而时习之 By 明明</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
+        
+        <a href="http://www.beian.miit.gov.cn" target="_blank">豫ICP备20003135号</a>
+    </div>
+</footer>
+
+
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+
+
+<script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+<script src='/js/douban.js'></script>
+
+
+</body>
+
 </html>

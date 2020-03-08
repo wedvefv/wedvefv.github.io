@@ -5,7 +5,7 @@
     <link>https://wlw-5g.cn/php/</link>
     <description>Recent content in Phps on 学而时习之</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language>
+    <language>zh-CN</language>
     <lastBuildDate>Sun, 09 Jun 2019 21:50:00 +0000</lastBuildDate>
     
 	<atom:link href="https://wlw-5g.cn/php/index.xml" rel="self" type="application/rss+xml" />
@@ -17,7 +17,7 @@
       <pubDate>Sun, 09 Jun 2019 21:50:00 +0000</pubDate>
       
       <guid>https://wlw-5g.cn/php/cookie_and_session/</guid>
-      <description>cookie和session的区别 </description>
+      <description>cookie和session的区别</description>
     </item>
     
   </channel>

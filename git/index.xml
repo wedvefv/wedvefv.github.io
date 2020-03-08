@@ -5,7 +5,7 @@
     <link>https://wlw-5g.cn/git/</link>
     <description>Recent content in Gits on 学而时习之</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language>
+    <language>zh-CN</language>
     <lastBuildDate>Sat, 02 Mar 2019 12:01:00 +0000</lastBuildDate>
     
 	<atom:link href="https://wlw-5g.cn/git/index.xml" rel="self" type="application/rss+xml" />
@@ -17,7 +17,7 @@
       <pubDate>Sat, 02 Mar 2019 12:01:00 +0000</pubDate>
       
       <guid>https://wlw-5g.cn/git/git_linux%E6%90%AD%E5%BB%BA%E6%9C%8D%E5%8A%A1%E5%99%A8/</guid>
-      <description>为什么本地搭建一个git服务器  对于自己学习使用的代码，在没有网络的情况下不能用github，gitlab,所以本地建立一个git服务器。  git服务器环境准备centos7 服务端创建git用户 id git # 查看是否存在git用户，存在就不创建了。 useradd git passwd git 输入密码，我设置的是xxx@123 客户端开启公钥认证认证，免密push/pull  首先服务端需要开启ssh服务  vim /etc/ssh/sshd_config RSAAuthentication yes PubkeyAuthentication yes AuthorizedKeysFile .ssh/authorized_keys 如果是centos7.4以上（含7.4），ssh1已经不支持了，只支持ssh2代协议。所以RSAAuthentication项是没有的  客户端执行 执行ssh-keygen -t rsa 生成公钥和私钥 复制客户端公钥到服务器端ssh-copy-id -i ~/.ssh/id_rsa.pub git@192.168.61.128  服务端创建git仓库 mkdir -p /data/git/gittest.git # 初始化这个仓库 cd /data/git/gittest.git git init --bare . # 目录所属用户设置 chown -R git:git /data/git 客户端clone远程仓库 mkdir localgit cd localgit git clone git@192.168.61.128:/data/git/gittest.git . # 提示输入服务端git账户的密码。 #修改完就可以提交了 touch abc.</description>
+      <description>为什么本地搭建一个git服务器 对于自己学习使用的代码，在没有网络的情况下不能用github，gitlab,所以本地建立一个git服务器。 git服务器环境准备centos7 服务端创建git用户 1 2 3 4 5 id git # 查看是否存在git用户，存在就不创建了。 useradd git passwd git 输入密码，我设置的是xxx</description>
     </item>
     
     <item>
@@ -26,12 +26,7 @@
       <pubDate>Sat, 02 Mar 2019 12:00:00 +0000</pubDate>
       
       <guid>https://wlw-5g.cn/git/git_tag%E7%94%A8%E6%B3%95/</guid>
-      <description>tag 和branch的区别  Git tag是一系列commit的中的一个点，只能查看，不能移动。 branch是一系列串联的commit的线。  git tag的用法  我们常常在代码封板时,使用git 创建一个tag ,这样一个不可修改的历史代码版本就像被我们封存起来一样,不论是运维发布拉取,或者以后的代码版本管理,都是十分方便的  git的tag功能  git 下打标签其实有2种情况 轻量级的：它其实是一个独立的分支,或者说是一个不可变的分支.指向特定提交对象的引用 带附注的：实际上是存储在仓库中的一个独立对象，它有自身的校验和信息，包含着标签的名字，标签说明，标签本身也允许使用 GNU Privacy Guard (GPG) 来签署或验证,电子邮件地址和日期，一般我们都建议使用含附注型的标签，以便保留相关信息 所以我们推荐使用第二种标签形式  创建tag  git tag -a V1.2 -m &amp;lsquo;release 1.2&amp;rsquo; 上面的命令我们成功创建了本地一个版本 V1.2 ,并且添加了附注信息 &amp;lsquo;release 1.2&amp;rsquo;  查看tag   git tag
-  要显示附注信息,我们需要用 show 指令来查看
-  git show V1.2
-  但是目前这个标签仅仅是提交到了本地git仓库.如何同步到远程代码库
-  git push origin &amp;ndash;tags
-  如果刚刚同步上去,你缺发现一个致命bug ,需要重新打版本,现在还为时不晚.</description>
+      <description>tag 和branch的区别 Git tag是一系列commit的中的一个点，只能查看，不能移动。 branch是一系列串联的commit的线。 git tag的用法 我们常常在代码封板时,使用git 创建一个tag ,这样一个不可修改的历史代码版本就像被我们封存起来一样,不论是运维发布拉取,或者以后的代码版</description>
     </item>
     
     <item>
@@ -40,7 +35,7 @@
       <pubDate>Sat, 26 May 2018 12:00:00 +0000</pubDate>
       
       <guid>https://wlw-5g.cn/git/git_2_operate/</guid>
-      <description>创建分支 git branch new_branch 本地删除分支 git branch -D delete_branch 更新到远程删除分支 git checkout master git pull -u -u origin :delete_branch git pull 失败提示fatal: refusing to merge unrelated histories ,处理方法 git pull origin master --allow-unrelated-historiesn 查看提交提记录 git log git log -p -2 #查看最近两次的提交差异 git log --stat #仅仅现实行数的变更 git log --pretty=oneline #每次提交，在一行显示 git log --pretty=format:&amp;#34;%h - %an, %ar : %s&amp;#34; #格式显示    选项 说明     %H 提交对象（提交）的完整哈希字串   %h 提交对象的简短哈希字串   %T 树对象（树）的完整哈希字串   %t 树对象的简短哈希字串   %P 父对象（父）的完整哈希字串   %p 父对象的简短哈希字串   %an 作者（作者）的名字   %ae 作者的电子邮件地址   %ad 作者修订日期（可以用-date =选项定制格式）   %ar 作者修订日期，按多久以前的方式显示   %cn 提交者（提交者）的名字   %ce 提交者的电子邮件地址   %cd 提交日期   %cr 提交日期，按多久以前的方式显示   %s 提交说明    待续&amp;hellip;&amp;hellip; </description>
+      <description>创建分支 1 git branch new_branch 本地删除分支 1 git branch -D delete_branch 更新到远程删除分支 1 2 git checkout master git pull -u -u origin :delete_branch git pull 失败提示fatal: refusing to merge unrelated histories ,处理方法 1 2 git pull origin master --allow-unrelated-historiesn 查看提交提记录 1 2 3 4 5 git log git log -p -2 #查看最近两次的提交差异 git log --stat #仅仅现实行数的变更 git log --pretty=oneline #每次提交，在一行显示 git log --pretty=format:&amp;#34;%h - %an, %ar : %s&amp;#34; #格式显示 选项</description>
     </item>
     
     <item>
@@ -49,7 +44,7 @@
       <pubDate>Tue, 28 Jun 2016 14:33:58 +0000</pubDate>
       
       <guid>https://wlw-5g.cn/git/git_1_config/</guid>
-      <description>基于公司是代理上网的，所以配置windows下的.gitconfig文件如下： [http] proxy = 代理ip:代理port [user] email = xxxxx@gmail.com name =xxxxxhhh [gui] encoding = utf-8 #代码库统一使用utf-8 由于本人电脑是日语版OS，所以GIT终端显示中文字体是乱码，所以索性设置全部 使用utf-8编码。 </description>
+      <description>基于公司是代理上网的，所以配置windows下的.gitconfig文件如下： 1 2 3 4 5 6 7 [http] proxy = 代理ip:代理port [user] email = xxxxx@gmail.com name =xxxxxhhh [gui] encoding = utf-8 #代码库统一使用utf-8 由于本人电脑是日语版OS，所以GIT终端显示中文字体是乱码，所以索性设置全部 使用utf-8编码。</description>
     </item>
     
   </channel>
