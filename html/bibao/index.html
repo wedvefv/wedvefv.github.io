@@ -58,7 +58,7 @@
     <div class="post">
     <h1>如何解释js闭包</h1>
     <time datetime=2020-03-07T14:47:30Z class="post-date">Sat, Mar 7, 2020</time>
-    <h1 id="看个例子">看个例子</h1>
+    <h2 id="看个例子">看个例子</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">assert</span> (<span style="color:#a6e22e">condition</span>, <span style="color:#a6e22e">msg</span>) {
 	<span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">condition</span>) {
 		<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">msg</span>, <span style="color:#e6db74">&#39;&#39;</span>)
@@ -171,7 +171,7 @@
 <ul>
 <li>闭包实际就是你调用一个嵌套的内部函数时</li>
 <li>内部函数实际上包含对上层函数所在环境的引用； 所以能访问上层函数的一些变量，从而达到保护这个变量，只能通过函数访问的目的。</li>
-<li>可能是javascript本身设计太草率，据说是10天写出来的，导致后续需要c++,java 这些语言的类的一些特性，才有了这些特性，目的其实是一样的。</li>
+<li>可能是javascript本身设计的问题，导致后续需要c++,java 这些语言的一些特性，才有了闭包这样的特性，最终目的其实是一样的。</li>
 </ul>
 
 </div>
