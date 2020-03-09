@@ -6,10 +6,19 @@
     <description>Recent content in Phps on 学而时习之</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 09 Jun 2019 21:50:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 09 Mar 2020 22:56:27 +0800</lastBuildDate>
     
 	<atom:link href="https://wlw-5g.cn/php/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>php Scan的用法</title>
+      <link>https://wlw-5g.cn/php/scan/</link>
+      <pubDate>Mon, 09 Mar 2020 22:56:27 +0800</pubDate>
+      
+      <guid>https://wlw-5g.cn/php/scan/</guid>
+      <description>php scan遍历key redis是单进程，keys会阻塞redis，scan以游标的方式，不会阻塞redis。 需要安装phpredis扩展，redis-server版本需要&amp;gt;=2.8.0 代码例子 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 &amp;lt;?php //SCAN cursor [MATCH</description>
+    </item>
     
     <item>
       <title>一张导图了解cookie和session</title>

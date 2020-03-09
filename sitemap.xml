@@ -4,16 +4,46 @@
   
   <url>
     <loc>https://wlw-5g.cn/categories/</loc>
-    <lastmod>2020-03-06T14:47:30+00:00</lastmod>
+    <lastmod>2020-03-09T22:56:27+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://wlw-5g.cn/categories/php/</loc>
+    <lastmod>2020-03-09T22:56:27+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://wlw-5g.cn/tags/php/</loc>
+    <lastmod>2020-03-09T22:56:27+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://wlw-5g.cn/php/scan/</loc>
+    <lastmod>2020-03-09T22:56:27+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://wlw-5g.cn/php/</loc>
+    <lastmod>2020-03-09T22:56:27+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://wlw-5g.cn/tags/redis/</loc>
+    <lastmod>2020-03-09T22:56:27+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://wlw-5g.cn/tags/</loc>
+    <lastmod>2020-03-09T22:56:27+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://wlw-5g.cn/</loc>
+    <lastmod>2020-03-09T22:56:27+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://wlw-5g.cn/html/</loc>
-    <lastmod>2020-03-06T14:47:30+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://wlw-5g.cn/categories/js/</loc>
     <lastmod>2020-03-06T14:47:30+00:00</lastmod>
   </url>
   
@@ -23,7 +53,7 @@
   </url>
   
   <url>
-    <loc>https://wlw-5g.cn/tags/</loc>
+    <loc>https://wlw-5g.cn/categories/js/</loc>
     <lastmod>2020-03-06T14:47:30+00:00</lastmod>
   </url>
   
@@ -33,17 +63,12 @@
   </url>
   
   <url>
-    <loc>https://wlw-5g.cn/</loc>
-    <lastmod>2020-03-06T14:47:30+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://wlw-5g.cn/categories/nginx/</loc>
+    <loc>https://wlw-5g.cn/tags/nginx/</loc>
     <lastmod>2020-02-03T14:33:58+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://wlw-5g.cn/tags/nginx/</loc>
+    <loc>https://wlw-5g.cn/categories/nginx/</loc>
     <lastmod>2020-02-03T14:33:58+00:00</lastmod>
   </url>
   
@@ -63,12 +88,12 @@
   </url>
   
   <url>
-    <loc>https://wlw-5g.cn/categories/linux/</loc>
+    <loc>https://wlw-5g.cn/tags/linux/</loc>
     <lastmod>2019-07-13T10:15:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://wlw-5g.cn/tags/linux/</loc>
+    <loc>https://wlw-5g.cn/categories/linux/</loc>
     <lastmod>2019-07-13T10:15:00+00:00</lastmod>
   </url>
   
@@ -128,11 +153,6 @@
   </url>
   
   <url>
-    <loc>https://wlw-5g.cn/php/</loc>
-    <lastmod>2019-06-09T21:50:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://wlw-5g.cn/php/cookie_and_session/</loc>
     <lastmod>2019-06-09T21:50:00+00:00</lastmod>
   </url>
@@ -148,12 +168,12 @@
   </url>
   
   <url>
-    <loc>https://wlw-5g.cn/categories/python/</loc>
+    <loc>https://wlw-5g.cn/tags/python/</loc>
     <lastmod>2019-05-02T14:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://wlw-5g.cn/tags/python/</loc>
+    <loc>https://wlw-5g.cn/categories/python/</loc>
     <lastmod>2019-05-02T14:00:00+00:00</lastmod>
   </url>
   
@@ -213,12 +233,12 @@
   </url>
   
   <url>
-    <loc>https://wlw-5g.cn/categories/%E5%8A%A0%E5%AF%86/</loc>
+    <loc>https://wlw-5g.cn/tags/%E5%8A%A0%E5%AF%86/</loc>
     <lastmod>2019-03-02T12:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://wlw-5g.cn/tags/%E5%8A%A0%E5%AF%86/</loc>
+    <loc>https://wlw-5g.cn/categories/%E5%8A%A0%E5%AF%86/</loc>
     <lastmod>2019-03-02T12:00:00+00:00</lastmod>
   </url>
   
@@ -283,12 +303,12 @@
   </url>
   
   <url>
-    <loc>https://wlw-5g.cn/categories/dll/</loc>
+    <loc>https://wlw-5g.cn/tags/dll/</loc>
     <lastmod>2016-10-06T20:04:30+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://wlw-5g.cn/tags/dll/</loc>
+    <loc>https://wlw-5g.cn/categories/dll/</loc>
     <lastmod>2016-10-06T20:04:30+00:00</lastmod>
   </url>
   
