@@ -6,10 +6,19 @@
     <description>Recent content in redis on 学而时习之</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 09 Mar 2020 22:56:27 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 10 Mar 2020 21:22:44 +0800</lastBuildDate>
     
 	<atom:link href="https://wlw-5g.cn/tags/redis/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>php hscan的用法</title>
+      <link>https://wlw-5g.cn/php/hscan/</link>
+      <pubDate>Tue, 10 Mar 2020 21:22:44 +0800</pubDate>
+      
+      <guid>https://wlw-5g.cn/php/hscan/</guid>
+      <description>主要特点 hscan 同样是使用游标迭代，当游标返回0时，表示对这个hash中的field迭代结束了，此时迭代结果是false。 迭代结果可能返回空数组，所以不能直接ret == false ，空数组==false， 必须用ret===false 才表示结束 hscan如果field数小于513，则一次操作会全部返</description>
+    </item>
     
     <item>
       <title>php Scan的用法</title>

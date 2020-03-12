@@ -6,20 +6,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>一张导图了解cookie和session | 学而时习之</title>
-    <meta property="og:title" content="一张导图了解cookie和session - 学而时习之">
+    <title>php hscan的用法 | 学而时习之</title>
+    <meta property="og:title" content="php hscan的用法 - 学而时习之">
     <meta property="og:type" content="article">
         
-    <meta property="article:published_time" content='2019-06-09T21:50:00&#43;08:00'>
+    <meta property="article:published_time" content='2020-03-10T21:22:44&#43;08:00'>
         
         
-    <meta property="article:modified_time" content='2019-06-09T21:50:00&#43;08:00'>
+    <meta property="article:modified_time" content='2020-03-10T21:22:44&#43;08:00'>
         
-    <meta name="Keywords" content="golang,go语言,go语言笔记,lua,redis,openresty">
-    <meta name="description" content="一张导图了解cookie和session">
+    <meta name="Keywords" content="[php redis]">
+    <meta name="description" content="php hscan的用法">
         
     <meta name="author" content="明明">
-    <meta property="og:url" content="https://wlw-5g.cn/php/cookie_and_session/">
+    <meta property="og:url" content="https://wlw-5g.cn/php/hscan/">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href='/css/normalize.css'>
@@ -143,7 +143,12 @@
 <div class="post-toc" style="position: absolute; top: 188px;">
     <h2 class="post-toc-title">文章目录</h2>
     <div class="post-toc-content">
-        <nav id="TableOfContents"></nav>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#主要特点">主要特点</a></li>
+    <li><a href="#代码示例">代码示例</a></li>
+  </ul>
+</nav>
     </div>
 </div>
 <script type="text/javascript">
@@ -175,16 +180,16 @@
 </script>
     <article class="post">
         <header>
-            <h1 class="post-title">一张导图了解cookie和session</h1>
+            <h1 class="post-title">php hscan的用法</h1>
         </header>
         <date class="post-meta meta-date">
-            2019年6月9日
+            2020年3月10日
         </date>
         
         <div class="post-meta">
             <span>|</span>
             
-            <span class="meta-category"><a href='https://wlw-5g.cn/categories/nginx'>nginx</a></span>
+            <span class="meta-category"><a href='https://wlw-5g.cn/categories/php'>php</a></span>
             
         </div>
         
@@ -195,16 +200,93 @@
         </div>
         
         
-        <div class="clear" style="display: none">
-            <div class="toc-article">
-                <div class="toc-title">文章目录</div>
-            </div>
-        </div>
-        
         <div class="post-content">
-            <h1 id="cookie和session的区别">cookie和session的区别</h1>
-<p><img src="/img/cookie_and_session/cookie_and_session.png" alt=""></p>
+            <h2 id="主要特点">主要特点</h2>
+<ul>
+<li>hscan 同样是使用游标迭代，当游标返回0时，表示对这个hash中的field迭代结束了，此时迭代结果是false。</li>
+<li>迭代结果可能返回空数组，所以不能直接ret == false ，空数组==false， 必须用ret===false 才表示结束</li>
+<li>hscan如果field数小于513，则一次操作会全部返回; 如果field大于等于513，则会触发分页，就会多次迭代，每次返回只几个field</li>
+</ul>
+<h2 id="代码示例">代码示例</h2>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#999;font-weight:bold;font-style:italic">&lt;?php</span>
+<span style="color:#998;font-style:italic">//HSCAN key cursor [MATCH pattern] [COUNT count]
+</span><span style="color:#998;font-style:italic">// hscan 命令结束的标志是游标被修改成0； 此时hscan的返回值是false
+</span><span style="color:#998;font-style:italic"></span>date_default_timezone_set(<span style="color:#d14">&#39;PRC&#39;</span>);  <span style="color:#998;font-style:italic">//china timezone
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">echo</span> date(<span style="color:#d14">&#34;Y-m-d H:i:s&#34;</span>, time())<span style="color:#000;font-weight:bold">.</span><span style="color:#d14">&#34;</span><span style="color:#d14">\n</span><span style="color:#d14">&#34;</span>;
 
+<span style="color:#000;font-weight:bold">function</span> <span style="color:#900;font-weight:bold">redis_init</span>(<span style="color:#008080">$db</span><span style="color:#000;font-weight:bold">=</span><span style="color:#099">0</span>){
+    <span style="color:#008080">$host</span> <span style="color:#000;font-weight:bold">=</span> getenv(<span style="color:#d14">&#34;REDIS_HOST&#34;</span>);
+    <span style="color:#008080">$port</span> <span style="color:#000;font-weight:bold">=</span> getenv(<span style="color:#d14">&#34;REDIS_PORT&#34;</span>);
+    
+    <span style="color:#008080">$redis</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">new</span> Redis();
+    <span style="color:#008080">$redis</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">connect</span>(<span style="color:#008080">$host</span>,<span style="color:#008080">$port</span>);
+    <span style="color:#008080">$redis</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">select</span>(<span style="color:#008080">$db</span>);
+    
+    <span style="color:#000;font-weight:bold">return</span> <span style="color:#008080">$redis</span>;
+}
+
+<span style="color:#008080">$cur</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">null</span>;
+<span style="color:#000;font-weight:bold">do</span>{
+	<span style="color:#998;font-style:italic">// 每次迭代5个
+</span><span style="color:#998;font-style:italic"></span>    <span style="color:#008080">$hash_list</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#008080">$redis</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">hscan</span>(<span style="color:#d14">&#34;count:date:20200203:num:hash&#34;</span>, <span style="color:#008080">$cur</span>, <span style="color:#d14">&#34;*&#34;</span>, <span style="color:#099">5</span>);
+    <span style="color:#000;font-weight:bold">echo</span> <span style="color:#d14">&#34;======&#34;</span><span style="color:#000;font-weight:bold">.</span><span style="color:#008080">$cur</span><span style="color:#000;font-weight:bold">.</span><span style="color:#d14">&#34;</span><span style="color:#d14">\n</span><span style="color:#d14">&#34;</span>;
+    <span style="color:#000;font-weight:bold">if</span>(<span style="color:#008080">$hash_list</span> <span style="color:#000;font-weight:bold">===</span> <span style="color:#000;font-weight:bold">false</span>){
+        <span style="color:#000;font-weight:bold">break</span>;
+    }
+    
+    <span style="color:#000;font-weight:bold">foreach</span>(<span style="color:#008080">$hash_list</span> <span style="color:#000;font-weight:bold">as</span> <span style="color:#008080">$tid</span><span style="color:#000;font-weight:bold">=&gt;</span><span style="color:#008080">$tid_num</span>){
+	    <span style="color:#008080">$t_tid_sql</span> <span style="color:#000;font-weight:bold">=</span> sprintf(<span style="color:#008080">$tid_sql</span>, <span style="color:#008080">$tid_num</span>, <span style="color:#008080">$tid</span>);
+	    <span style="color:#000;font-weight:bold">echo</span> <span style="color:#008080">$t_tid_sql</span><span style="color:#000;font-weight:bold">.</span><span style="color:#d14">&#34;</span><span style="color:#d14">\n</span><span style="color:#d14">&#34;</span>;
+	    <span style="color:#008080">$mysql</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">exec</span>(<span style="color:#008080">$t_tid_sql</span>);
+    }
+}<span style="color:#000;font-weight:bold">while</span>(<span style="color:#008080">$cur</span>);
+
+
+
+<span style="color:#008080">$redis</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">close</span>();
+</code></pre></td></tr></table>
+</div>
+</div>
         </div>
 
         
@@ -216,15 +298,7 @@
     <h2>See Also</h2>
     <ul class="listing">
         
-        <li><a href="/openresty/nginx_config/">nginx支持php</a></li>
-        
-        <li><a href="/linux/centos6%E5%92%8C7%E7%9A%84%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/">一张图看懂centos6和7的启动流程区别</a></li>
-        
-        <li><a href="/linux/%E4%BA%86%E8%A7%A3%E4%B8%80%E4%B8%8Blinux%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8/">了解一下linux开机启动</a></li>
-        
-        <li><a href="/python/3_reload_sys/">python 编码reload(sys)的作用</a></li>
-        
-        <li><a href="/html/weixin/">微信支付流程</a></li>
+        <li><a href="/php/scan/">php Scan的用法</a></li>
         
     </ul>
 </div>
@@ -234,7 +308,9 @@
             
             <ul class="clearfix">
                 
-                <li><a href='https://wlw-5g.cn/tags/nginx'>nginx</a></li>
+                <li><a href='https://wlw-5g.cn/tags/php'>php</a></li>
+                
+                <li><a href='https://wlw-5g.cn/tags/redis'>redis</a></li>
                 
             </ul>
             

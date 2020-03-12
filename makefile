@@ -1,4 +1,4 @@
 all:
-	git add .
-	git commit -m 'hugo'
+	git add -A
+	git commit -m 'new'
 	git push

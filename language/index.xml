@@ -1,165 +1,0 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Languages on 学而时习之</title>
-    <link>https://wlw-5g.cn/language/</link>
-    <description>Recent content in Languages on 学而时习之</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language>
-    <lastBuildDate>Sun, 30 Jun 2019 14:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://wlw-5g.cn/language/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>openresty 变量</title>
-      <link>https://wlw-5g.cn/language/lua/openresty%E5%8F%98%E9%87%8F%E8%8C%83%E5%9B%B4/</link>
-      <pubDate>Sun, 30 Jun 2019 14:00:00 +0000</pubDate>
-      
-      <guid>https://wlw-5g.cn/language/lua/openresty%E5%8F%98%E9%87%8F%E8%8C%83%E5%9B%B4/</guid>
-      <description>NGX_LUA的三种变量范围   进程间共享， nginx的所有work进程共享，使用lua_shared_dict定义，这样高并发就出触发锁。
-  进程内共享，lua代码中不加local关键字就是全局变量，这样的变量在同一个进程的所有请求之间共享,因为开启了lua缓存，每个work的VM虚拟机都会缓存全局变量.
-  同一个请求，比如local声明的或者ngx.ctx
-  lua_shared_dict 有模块lua-resty-lrucache可以实现在一个work中共享，由于nginx是单进程的，所以永远不会触发锁 就是兼顾效率而且没有锁的问题，缺点内存比进程间共享占用比较大。
-  </description>
-    </item>
-    
-    <item>
-      <title>js 对象和原型链</title>
-      <link>https://wlw-5g.cn/language/html/js_obj/</link>
-      <pubDate>Sat, 22 Jun 2019 20:04:30 +0000</pubDate>
-      
-      <guid>https://wlw-5g.cn/language/html/js_obj/</guid>
-      <description>js 对象和原型链 </description>
-    </item>
-    
-    <item>
-      <title>一张导图了解cookie和session</title>
-      <link>https://wlw-5g.cn/language/php/cookie_and_session/</link>
-      <pubDate>Sun, 09 Jun 2019 21:50:00 +0000</pubDate>
-      
-      <guid>https://wlw-5g.cn/language/php/cookie_and_session/</guid>
-      <description>cookie和session的区别 </description>
-    </item>
-    
-    <item>
-      <title>python 编码reload(sys)的作用</title>
-      <link>https://wlw-5g.cn/language/python/3_reload_sys/</link>
-      <pubDate>Thu, 02 May 2019 14:00:00 +0000</pubDate>
-      
-      <guid>https://wlw-5g.cn/language/python/3_reload_sys/</guid>
-      <description>为什么需要sys.setdefaultencoding(&amp;ldquo;utf-8&amp;rdquo;)  因为python转码是通过unicode作为中间码的。 比如字符串 x = &amp;ldquo;你们&amp;rdquo;，本身是str， 首先我们指定了文件编码uft8，所以x是utf8编码的。 如果要转化gb18030， 默认是x用默认解码方式（ASCII）decode成中间码 unicode -&amp;gt; encode成gb18030 如果x是abc这些ascii字符本身ascii和utf8方式是一样的,不会报错; 但是x是中文，就不能按ascii方式解码了。。怎么办呢？ 1 . 自己指定解码方式，在编码  y = x.decode(&amp;#34;utf-8&amp;#34;).encode(&amp;#34;gb18030&amp;#34;)  2.开头设置默认编解码方式  import sys reload(sys) sys.setdefaultencoding(&amp;#34;utf-8&amp;#34;) 为什么reload(sys)呢  因为模块/lib/site.py删除了sys.setdefaultencoding这个函数。  site.py 有什么作用  是解释器初始化时自动导入的，这个模块的作用是：自动将第三方模块路径加入到sys.path中。  import的实质  import sys导入语句，只是导入了一个对sys的引用，因为别人已经提前导入了sys，后面的模块使用sys都是引用这个对象。 而作为初始化模块site.py,导入了许多内建模块包括sys，而且删除了sys.setdefaultencoding这个方法，后面你写的模块，只要导入sys,都是没有这个方法的。 所以需要reload一把，reload也是有前提的，就是之前已经加载过的模块，如果没有加载过的，就无重谈起重新加载了。  </description>
-    </item>
-    
-    <item>
-      <title>微信支付流程</title>
-      <link>https://wlw-5g.cn/language/html/weixin/</link>
-      <pubDate>Sat, 13 Apr 2019 09:40:00 +0000</pubDate>
-      
-      <guid>https://wlw-5g.cn/language/html/weixin/</guid>
-      <description>三个平台都有什么？  微信公众平台: 微信官方平台，功能： 群发推送、自动回复、二维码订阅，用途：消息推送、品牌传播、分享 微信开放平台: 为第三方提供接口，比如分享朋友圈，发送给微信好友等 微信商户平台：主要是用于微信支付的，比如APP和公众号需要接入支付功能，就需要申请一个商户号。  前提  在开放平台，注册自己的app，通俗讲就是在微信备案一下。  客户端需要干嘛？  需要下载微信安卓或者ios版SDK,集成到自己的app中，主要是为了调起微信支付模块。 app调起支付模块，需要传参数吧，不然请求微信服务器也不知道具体转给谁钱，转多少钱&amp;hellip; 支付参数哪里来呢？服务器生成啊&amp;hellip;.. 支付完成后微信会返回微信订单号的信心，后期可以用于到微信服务器查询订单状态。  商户服务器需要干嘛，比如一个卖游戏点卡的app？ 给客户端提供接口   1.支付接口，这个接口需要以下业务功能
-   1.去查询用户是否存在，用户信息可以在redis中记录
-    2.如果某类商品，用户只能有一个产品生效的,比如点卡A,产品类别id为A
-    3.使用redis记录uid:goodsid[A]:hash记录这个购买的点卡x的信息,记录createtime，orderid，prepayid
-    4.如果uid对应点卡A的信息存在，且now - createtime &amp;lt; 15分钟，说明微信没回调过来，是支付中&amp;hellip;的状态。直接拿缓存中信息返回给客户端就可以了，供客户端调用支付模块。
-    5.如果uid对应的点卡信心不存在，就说明用户没买过这种A这类的商品,生成28位的订单号作为out_trade_no参数，其他参数按规定设置，然后调用微信统一下单接口 https://api.mch.weixin.qq.com/pay/unifiedorder
-    当前商户服务器统一下单的过程中，需要用mysql记录自己的订单信息、更新用户的余额扣减、记录一些用户订购该类产品的缓存信息等；mysql数据用于支付完成后，微信发起异步回调状态时更新订单状态。      7.下单后生成预支付id：prepayid，因为还没有真正调起支付模块，只是微信那边现生成一个预支付回话id。
-    8.有了prepayid加上其他参数，返回给客户端用于真正调起sdk支付模块。</description>
-    </item>
-    
-    <item>
-      <title>python 导入模块文件以及相对导入和__init__文件作用</title>
-      <link>https://wlw-5g.cn/language/python/2__init__%E6%96%87%E4%BB%B6%E7%9A%84%E4%BD%9C%E7%94%A8/</link>
-      <pubDate>Thu, 14 Feb 2019 14:00:00 +0000</pubDate>
-      
-      <guid>https://wlw-5g.cn/language/python/2__init__%E6%96%87%E4%BB%B6%E7%9A%84%E4%BD%9C%E7%94%A8/</guid>
-      <description>python 导入模块文件的2中方式 import lib or from lib import * # 导入子目录中模块 import tmp.lib3 or from tmp.lib3 import * # 导入上级目录 import sys sys.path.append(&amp;#39;home/app/&amp;#39;) import mod import xxxx   与import类似, 被导入的module仍然会执行且仅执行一次
-  from *** import 的实质
-  当以 &amp;ldquo;from *** import &amp;quot; 方式导入module时, python会在当前module 的命名空间中新建相应的命名. 即, &amp;ldquo;from t2 import var1&amp;rdquo; 相当于:
-  import t2 var1= t2.var1  from package import item # 这种方式，item可以是包中的一个子模块或子包，也可以是包中定义的其他命名，像函数、类、变量。 import item.subitem.subsubitem # 这些子项必须是包，最后的子项是包或模块。但不能为函数、类或变量。否则出错：No module named ***  __init__.</description>
-    </item>
-    
-    <item>
-      <title>python类的三种装饰器</title>
-      <link>https://wlw-5g.cn/language/python/1_%E4%B8%89%E7%A7%8D%E8%A3%85%E9%A5%B0%E5%99%A8/</link>
-      <pubDate>Thu, 14 Feb 2019 14:00:00 +0000</pubDate>
-      
-      <guid>https://wlw-5g.cn/language/python/1_%E4%B8%89%E7%A7%8D%E8%A3%85%E9%A5%B0%E5%99%A8/</guid>
-      <description>property装饰器作用和原理    我们知道c++中有public,projected,private等修饰类私有属性的作用，这样就限定了某些属性只能读取，不能修改；有些能读也能需改。    设置C++类中的一个属性可以自定义方法get和set方法。    python中实现这种原理，就需要装饰器property，本身可修饰（变量x同名）的函数，让x拥有可读的属性（相当于get函数    @property进而又生成一个@x.setter装饰器，在修饰一下属性x同名的函数就让x拥有可写的属性（相当于set函数）    property 装饰器 class Student(object): @property def birth(self): return self._birth @birth.setter def birth(self, value): self._birth = value @property def age(self): return 2014 - self._birth # birth 是一个可读可写的属性，age是只读属性。 # property装饰器本身可以把getter方法变成属性，同时生成一个@birth.setter装饰器，可以修饰birth变成一个可设置的属性。 # 但要注意这些额外函数的名字和 property 下的一样，例如这里的 birth,age。 一种古老的用法，使用内置函数property实现如下，和上面的方法一样。 class Animal(object): def __init__(self, name, age): self._name = name self._age = age self._color = &amp;#39;Black&amp;#39; def get_name(self): return self.</description>
-    </item>
-    
-    <item>
-      <title>flask 第1章(基本结构和概念)</title>
-      <link>https://wlw-5g.cn/language/python/1%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84/</link>
-      <pubDate>Mon, 28 Jan 2019 22:22:00 +0000</pubDate>
-      
-      <guid>https://wlw-5g.cn/language/python/1%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84/</guid>
-      <description>开始和程序基本结构 1.首先安装虚拟环境包和git工具  sudo apt-get install python-virtualenv sudo apt-get install git  2.创建一个目录  mkdir flask_learn cd flask_learn  3.下载实例代码  git clone http://github.com/miguelgrinberg/flasky.git cd flask 建立一个虚拟环境 virtualenv venv 激活虚拟环境 source venv/bin/activate 取消激活分区 deactivate 虚拟环境下安装pip pip install flask 切换分支 git checkout 2a  from flask import Flaskapp = Flask(__name__)@app.route(&amp;#39;/&amp;#39;)def index():return &amp;#39;&amp;lt;h1&amp;gt;Hello World!&amp;lt;/h1&amp;gt;&amp;#39;if __name__ == &amp;#34;__main__&amp;#34;:app.run(debug=True) 执行 python hello.py 浏览器输入http://127.0.0.1:5000/ 就可以看到helloword了。 但是这样会出现一个问题。你在linux虚拟机里面执行的代码。在window上浏览器看就不行，需要设置 如下改动 app.run(debug=True，host=&amp;quot;0.0.0.0&amp;rdquo;)或者使用manage模块扩展传参数，后面会提到。  4.</description>
-    </item>
-    
-    <item>
-      <title>nginx  support  php</title>
-      <link>https://wlw-5g.cn/language/lua/nginx_config/</link>
-      <pubDate>Sat, 10 Dec 2016 11:30:55 +0000</pubDate>
-      
-      <guid>https://wlw-5g.cn/language/lua/nginx_config/</guid>
-      <description>ubuntu14.04 +nginx+php5-fpm 一，安装Nginx 　apt-get install nginx
-　1，配置nginx
-　nginx所有的配置在 /etc/nginx/nginx.conf中
-　nginx.conf配置里面包括了
-　include /etc/nginx/conf.d/.conf; include /etc/nginx/sites-enabled/; 这两个配置，所以这里面的配置也是有效的。 错误日志 error_log /var/log/nginx/error.log;
-　这里我们把配置写在 /etc/nginx/sites-available/default中 修改 root /usr/share/nginx/html; 这是网页的根目录，默认里面有一个index.html页面 index index.html index.htm修改成index index.php index.html index.htm; 增加
-　location ~ .php$ { try_files $uri =404; fastcgi_pass 127.0.0.1:9000; fastcgi_index index.php; include fastcgi_params; }
-　2，保存文件，使配置生效 /etc/init.d/nginx reload
-　3，启动nginx /etc/init.d/nginx start
-　4，在 /usr/share/nginx/html下新建index.php &amp;lt;? php phpinfo(); ?&amp;gt;
-二 安装php sudo apt-get install php5-fpm</description>
-    </item>
-    
-    <item>
-      <title>ajax简介</title>
-      <link>https://wlw-5g.cn/language/html/ajax/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://wlw-5g.cn/language/html/ajax/</guid>
-      <description>1.ajax 简介 ajax = 异步javascript+XML AAJAX是基于现有的Internet标准，并且联合使用它们： XMLHttpRequest 对象 (异步的与服务器交换数据) JavaScript/DOM (信息显示/交互) CSS (给数据定义样式) XML (作为转换数据的格式) lamp AJAX应用程序与浏览器和平台无关的！ 实现不刷新整个页面，实现页面动态更新的技术。
-ajax工作原理：
-2.ajax实例 1.首先建立XMLHttpRequest对象，区分不同的浏览器版本，IE5,IE6不支持直接建立XMLHttpRequest对象，所以：
-var xmlhttp;if(window.XMLHttpRequest){ //如果为真，则支持XMLHttpRequest对象 xmlhttp = new XMLHttpRequest();}else{//code for IE5,6 xmlhttp = new ActiveXObject(&amp;#34;Microsoft.XMLHTTP&amp;#34;;)}2.XMLHttpRequest对象用于和服务器交换数据
-open方法用于发送请求，参数1：方法，参数2：url，参数3:异步/同步
- xmlhttp.open(&amp;ldquo;GET&amp;rdquo;,&amp;ldquo;ajax_info.txt&amp;rdquo;,true)
- send方法也用于请求，不过只支持post请求，参数：string
- xmlhttp.send(string);
- GET和POST的区别：
- GET更简单，更快，大部分情况都能用。以下情况使用POST： 无法使用缓存文件更新服务器上的文件或数据库。 发送大量数据到服务器。 发送用户输入的未知字符到服务器时。  例子 get请求：
-xmlhttp.open(&amp;#34;GET&amp;#34;,&amp;#34;demo_get2.html?fname=Henry&amp;amp;lname=Ford&amp;#34;,true);xmlhttp.send();post请求：
-如果post表单那样的提交数据，需要添加http头
-xmlhttp.open(&amp;#34;POST&amp;#34;,&amp;#34;ajax_test.html&amp;#34;,true);xmlhttp.setRequestHeader(&amp;#34;Content-type&amp;#34;,&amp;#34;application/x-www-form-urlencoded&amp;#34;);xmlhttp.send(&amp;#34;fname=Henry&amp;amp;lname=Ford&amp;#34;);setRequestHeader方法：setRequestHeader(header,value) 向请求添加 HTTP 头。header: 规定头的名称value: 规定头的值Async=true  使用XMLRequest.</description>
-    </item>
-    
-    <item>
-      <title>html5标签</title>
-      <link>https://wlw-5g.cn/language/html/html5_tags/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://wlw-5g.cn/language/html/html5_tags/</guid>
-      <description>html5标签总结 1. &amp;lt;!----&amp;gt; 注释 2. &amp;lt;!DOCTYPE&amp;gt; 定义html文本类型 3. &amp;lt;a&amp;gt; 定义超链接 4. &amp;lt;abbr&amp;gt; 把一段字符串用缩写表示&amp;lt;abbr title =&amp;#34;People world&amp;#34;&amp;gt;PW &amp;lt;/abbr&amp;gt; 5. &amp;lt;address&amp;gt; 在article元素内部，表示该文章的作者身份信息 6. &amp;lt;applet&amp;gt; 定义嵌入的applet ，html5不支持了。请用object代替 7. &amp;lt;acronym&amp;gt; html5不支持了，请用&amp;lt;abbr代替哦 8. &amp;lt;area&amp;gt; 标签定义图像映射内部的区域，图像中部分区域可以点击，就是说有链接的 9. 两栏式架构 |header---------------------------------------------------------------------------------------|顶部 |nav------------------------------------------------------------------------------------------|外链 |article---包含&amp;lt;section&amp;gt;-----------------&amp;lt;aside&amp;gt;--------------------------|文章主体--段落或章节-侧边栏 |footer---------------------------------------------------------------------------------------|底部 以前都是用&amp;lt;div id=&amp;#34;header&amp;#34;&amp;gt; &amp;lt;div id =&amp;#34;nav&amp;#34;&amp;gt;...... 这样来定义页面的结构，html5新定义了这些，避免div太多混乱. 10. &amp;lt;aside&amp;gt; 可用于文章的侧边栏 11. &amp;lt;audio&amp;gt; 定义声音链接 12. &amp;lt;b&amp;gt; 定义粗体字体，强调 13. &amp;lt;base&amp;gt; 放在head里面，用于页面中的链接的基地址。后面的链接就可以写相对地址了。 比如base =www.xxx000.com/img ,链接一个图片就可以不写全路径，直接src=&amp;#34;xxx.jpeg&amp;#34; 14. &amp;lt;basefont&amp;gt; html不支持了。设置文档中所有字体的默认颜色，大小 15. &amp;lt;bdi&amp;gt; 通过脱离父元素的文本设置方向 16. &amp;lt;bdo&amp;gt; 定义文本方向，指定dir属性是rtl还是ltr 17. &amp;lt;big&amp;gt; html不支持了。请用css控制 ，制作更大的文本 18.</description>
-    </item>
-    
-    <item>
-      <title>nginx配置跨域资源共享CORS</title>
-      <link>https://wlw-5g.cn/language/html/%E8%B7%A8%E5%9F%9F%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://wlw-5g.cn/language/html/%E8%B7%A8%E5%9F%9F%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB/</guid>
-      <description>跨域  浏览器为了安全，有个策略: 同源策略， 页面中的链接必须域名一致。  为什么跨域  页面请求的接口可能位于独立api服务器， 所以就会有跨域存在。  解决问题   代理，没怎么研究
-  jsonp，构造javascrit 标签，利用src属性请求这个链接，返回body是可执行的js代码，代码中的函数需要本地定义，巧妙的接收到了数据
-  配置api服务器支持跨域资源共享， nginx location中添加 &amp;ldquo;add_header Access-Control-Allow-Origin *&amp;rdquo; ,* 表示任意域名过来的都可以请求， 也可以是某个域名 &amp;ldquo;http://127.0.0.1:5000&amp;rdquo;
-  preflight request(预检请求 OPTIONS方法)
-   W3C规定的，有些类型的请求比如post，都需要优先发送一个OPTIONS方法的请求，以获得nginx是否支持这种类型，比如post一个json格式的数据，就需要先发options请求 发送options请求，是为了获取nginx是否支持content-type ，所以nginx配置需要增加：  add_header Access-Control-Allow-Headers &amp;quot;Origin, X-Requested-With, Content-Type, Accept&amp;quot;;   这样请求header中有Access-Control-Allow-Headers： content-type,
-  服务器响应header返回的也有Access-Control-Allow-Headers： content-type,就不会报Request header field Content-Type is not allowed by Access-Control-Allow-Headers in preflight response.的错误了。
-  以下几种post格式不用发options请求，直接发post请求</description>
-    </item>
-    
-  </channel>
-</rss>

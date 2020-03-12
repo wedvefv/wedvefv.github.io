@@ -6,15 +6,24 @@
     <description>Recent content in Tags on 学而时习之</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 09 Mar 2020 22:56:27 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 12 Mar 2020 23:22:44 +0800</lastBuildDate>
     
 	<atom:link href="https://wlw-5g.cn/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>mysql</title>
+      <link>https://wlw-5g.cn/tags/mysql/</link>
+      <pubDate>Thu, 12 Mar 2020 23:22:44 +0800</pubDate>
+      
+      <guid>https://wlw-5g.cn/tags/mysql/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>php</title>
       <link>https://wlw-5g.cn/tags/php/</link>
-      <pubDate>Mon, 09 Mar 2020 22:56:27 +0800</pubDate>
+      <pubDate>Thu, 12 Mar 2020 23:22:44 +0800</pubDate>
       
       <guid>https://wlw-5g.cn/tags/php/</guid>
       <description></description>
@@ -23,7 +32,7 @@
     <item>
       <title>redis</title>
       <link>https://wlw-5g.cn/tags/redis/</link>
-      <pubDate>Mon, 09 Mar 2020 22:56:27 +0800</pubDate>
+      <pubDate>Tue, 10 Mar 2020 21:22:44 +0800</pubDate>
       
       <guid>https://wlw-5g.cn/tags/redis/</guid>
       <description></description>
