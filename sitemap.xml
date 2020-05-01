@@ -38,11 +38,6 @@
   </url>
   
   <url>
-    <loc>https://wlw-5g.cn/</loc>
-    <lastmod>2020-03-12T23:22:44+08:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://wlw-5g.cn/php/hscan/</loc>
     <lastmod>2020-03-10T21:22:44+08:00</lastmod>
   </url>
@@ -78,12 +73,12 @@
   </url>
   
   <url>
-    <loc>https://wlw-5g.cn/categories/nginx/</loc>
+    <loc>https://wlw-5g.cn/tags/nginx/</loc>
     <lastmod>2020-02-03T14:33:58+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://wlw-5g.cn/tags/nginx/</loc>
+    <loc>https://wlw-5g.cn/categories/nginx/</loc>
     <lastmod>2020-02-03T14:33:58+00:00</lastmod>
   </url>
   
@@ -148,12 +143,12 @@
   </url>
   
   <url>
-    <loc>https://wlw-5g.cn/categories/ES/</loc>
+    <loc>https://wlw-5g.cn/tags/ES/</loc>
     <lastmod>2019-06-29T23:10:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://wlw-5g.cn/tags/ES/</loc>
+    <loc>https://wlw-5g.cn/categories/ES/</loc>
     <lastmod>2019-06-29T23:10:00+00:00</lastmod>
   </url>
   
@@ -164,6 +159,11 @@
   
   <url>
     <loc>https://wlw-5g.cn/js_obj/</loc>
+    <lastmod>2019-06-22T20:04:30+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://wlw-5g.cn/</loc>
     <lastmod>2019-06-22T20:04:30+00:00</lastmod>
   </url>
   

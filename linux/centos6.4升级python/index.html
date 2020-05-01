@@ -56,7 +56,9 @@
                         学而时习之
                     </a>
                 
-                <p class="description">专注于服务端开发</p>
+                <p class="description">专注于服务端开发  </p>
+                <p id="count_view">aa</p>
+
             </div>
             <div>
                 <nav id="nav-menu" class="clearfix">
@@ -222,10 +224,10 @@
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">tar zxvf Python<span style="color:#000;font-weight:bold">-</span><span style="color:#099">2.7</span><span style="color:#099">.12</span>.tgz
-cd Python<span style="color:#000;font-weight:bold">-</span><span style="color:#099">2.7</span><span style="color:#099">.12</span>
-.<span style="color:#000;font-weight:bold">/</span>configure <span style="color:#000;font-weight:bold">-</span><span style="color:#000;font-weight:bold">-</span>prefix<span style="color:#000;font-weight:bold">=</span><span style="color:#000;font-weight:bold">/</span>usr<span style="color:#000;font-weight:bold">/</span>local<span style="color:#000;font-weight:bold">/</span>python27 <span style="color:#000;font-weight:bold">&amp;</span><span style="color:#000;font-weight:bold">&amp;</span> make <span style="color:#000;font-weight:bold">&amp;</span><span style="color:#000;font-weight:bold">&amp;</span> make install <span style="color:#000;font-weight:bold">&amp;</span><span style="color:#000;font-weight:bold">&amp;</span> echo <span style="color:#a61717;background-color:#e3d2d2">$</span><span style="color:#000;font-weight:bold">?</span>
-<span style="color:#a61717;background-color:#e3d2d2">如</span><span style="color:#a61717;background-color:#e3d2d2">果</span><span style="color:#a61717;background-color:#e3d2d2">以</span><span style="color:#a61717;background-color:#e3d2d2">上</span><span style="color:#a61717;background-color:#e3d2d2">输</span><span style="color:#a61717;background-color:#e3d2d2">出</span><span style="color:#a61717;background-color:#e3d2d2">为</span><span style="color:#099">0</span><span style="color:#a61717;background-color:#e3d2d2">，</span><span style="color:#a61717;background-color:#e3d2d2">说</span><span style="color:#a61717;background-color:#e3d2d2">明</span><span style="color:#a61717;background-color:#e3d2d2">没</span><span style="color:#a61717;background-color:#e3d2d2">有</span><span style="color:#a61717;background-color:#e3d2d2">报</span><span style="color:#a61717;background-color:#e3d2d2">错</span><span style="color:#a61717;background-color:#e3d2d2">，</span><span style="color:#a61717;background-color:#e3d2d2">安</span><span style="color:#a61717;background-color:#e3d2d2">装</span><span style="color:#a61717;background-color:#e3d2d2">正</span><span style="color:#a61717;background-color:#e3d2d2">常</span>
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">tar zxvf Python<span style="color:#000;font-weight:bold">-</span><span style="color:#099">2.7.12</span>.tgz
+cd Python<span style="color:#000;font-weight:bold">-</span><span style="color:#099">2.7.12</span>
+.<span style="color:#000;font-weight:bold">/</span>configure <span style="color:#000;font-weight:bold">--</span>prefix<span style="color:#000;font-weight:bold">=/</span>usr<span style="color:#000;font-weight:bold">/</span>local<span style="color:#000;font-weight:bold">/</span>python27 <span style="color:#000;font-weight:bold">&amp;&amp;</span> make <span style="color:#000;font-weight:bold">&amp;&amp;</span> make install <span style="color:#000;font-weight:bold">&amp;&amp;</span> echo <span style="color:#a61717;background-color:#e3d2d2">$</span><span style="color:#000;font-weight:bold">?</span>
+<span style="color:#a61717;background-color:#e3d2d2">如果以上输出为</span><span style="color:#099">0</span><span style="color:#a61717;background-color:#e3d2d2">，说明没有报错，安装正常</span>
 </code></pre></td></tr></table>
 </div>
 </div><h1 id="3-add-path-and-backup-the-python26">3. add path and backup the python2.6</h1>
@@ -240,13 +242,13 @@ cd Python<span style="color:#000;font-weight:bold">-</span><span style="color:#0
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#a61717;background-color:#e3d2d2">移</span><span style="color:#a61717;background-color:#e3d2d2">除</span><span style="color:#a61717;background-color:#e3d2d2">以</span><span style="color:#a61717;background-color:#e3d2d2">前</span><span style="color:#a61717;background-color:#e3d2d2">的</span><span style="color:#a61717;background-color:#e3d2d2">版</span><span style="color:#a61717;background-color:#e3d2d2">本</span>
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#a61717;background-color:#e3d2d2">移除以前的版本</span>
 mv <span style="color:#000;font-weight:bold">/</span>usr<span style="color:#000;font-weight:bold">/</span>bin<span style="color:#000;font-weight:bold">/</span>python <span style="color:#000;font-weight:bold">/</span>usr<span style="color:#000;font-weight:bold">/</span>bin<span style="color:#000;font-weight:bold">/</span>python26
-<span style="color:#a61717;background-color:#e3d2d2">创</span><span style="color:#a61717;background-color:#e3d2d2">建</span><span style="color:#a61717;background-color:#e3d2d2">软</span><span style="color:#a61717;background-color:#e3d2d2">连</span><span style="color:#a61717;background-color:#e3d2d2">接</span>
+<span style="color:#a61717;background-color:#e3d2d2">创建软连接</span>
 ln <span style="color:#000;font-weight:bold">-</span>s <span style="color:#000;font-weight:bold">/</span>usr<span style="color:#000;font-weight:bold">/</span>local<span style="color:#000;font-weight:bold">/</span>python27<span style="color:#000;font-weight:bold">/</span>bin<span style="color:#000;font-weight:bold">/</span>python <span style="color:#000;font-weight:bold">/</span>usr<span style="color:#000;font-weight:bold">/</span>bin<span style="color:#000;font-weight:bold">/</span>python
-<span style="color:#a61717;background-color:#e3d2d2">查</span><span style="color:#a61717;background-color:#e3d2d2">看</span><span style="color:#a61717;background-color:#e3d2d2">版</span><span style="color:#a61717;background-color:#e3d2d2">本</span><span style="color:#a61717;background-color:#e3d2d2">是</span><span style="color:#a61717;background-color:#e3d2d2">否</span><span style="color:#a61717;background-color:#e3d2d2">升</span><span style="color:#a61717;background-color:#e3d2d2">级</span><span style="color:#a61717;background-color:#e3d2d2">成</span><span style="color:#a61717;background-color:#e3d2d2">功</span>
+<span style="color:#a61717;background-color:#e3d2d2">查看版本是否升级成功</span>
 python <span style="color:#000;font-weight:bold">-</span>V
-Python <span style="color:#099">2.7</span><span style="color:#099">.12</span>
+Python <span style="color:#099">2.7.12</span>
 </code></pre></td></tr></table>
 </div>
 </div><h1 id="4-modify-yum">4. modify yum</h1>
@@ -258,10 +260,10 @@ Python <span style="color:#099">2.7</span><span style="color:#099">.12</span>
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#a61717;background-color:#e3d2d2">如</span><span style="color:#a61717;background-color:#e3d2d2">果</span><span style="color:#a61717;background-color:#e3d2d2">不</span><span style="color:#a61717;background-color:#e3d2d2">修</span><span style="color:#a61717;background-color:#e3d2d2">改</span><span style="color:#a61717;background-color:#e3d2d2">此</span><span style="color:#a61717;background-color:#e3d2d2">项</span><span style="color:#a61717;background-color:#e3d2d2">，</span><span style="color:#a61717;background-color:#e3d2d2">会</span><span style="color:#a61717;background-color:#e3d2d2">导</span><span style="color:#a61717;background-color:#e3d2d2">致</span>yum无法使用
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#a61717;background-color:#e3d2d2">如果不修改此项，会导致</span>yum无法使用
 vim <span style="color:#000;font-weight:bold">/</span>usr<span style="color:#000;font-weight:bold">/</span>bin<span style="color:#000;font-weight:bold">/</span>yum
-<span style="color:#a61717;background-color:#e3d2d2">修</span><span style="color:#a61717;background-color:#e3d2d2">改</span><span style="color:#a61717;background-color:#e3d2d2">第</span><span style="color:#a61717;background-color:#e3d2d2">一</span><span style="color:#a61717;background-color:#e3d2d2">行</span><span style="color:#a61717;background-color:#e3d2d2">即</span><span style="color:#a61717;background-color:#e3d2d2">可</span><span style="color:#a61717;background-color:#e3d2d2">，</span><span style="color:#a61717;background-color:#e3d2d2">将</span><span style="color:#a61717;background-color:#e3d2d2">环</span><span style="color:#a61717;background-color:#e3d2d2">境</span><span style="color:#a61717;background-color:#e3d2d2">变</span><span style="color:#a61717;background-color:#e3d2d2">量</span><span style="color:#a61717;background-color:#e3d2d2">指</span><span style="color:#a61717;background-color:#e3d2d2">向</span><span style="color:#a61717;background-color:#e3d2d2">以</span><span style="color:#a61717;background-color:#e3d2d2">前</span><span style="color:#a61717;background-color:#e3d2d2">的</span>python版本
-<span style="color:#999;font-weight:bold;font-style:italic">#</span><span style="color:#999;font-weight:bold;font-style:italic">!</span><span style="color:#999;font-weight:bold;font-style:italic">/</span><span style="color:#999;font-weight:bold;font-style:italic">usr</span><span style="color:#999;font-weight:bold;font-style:italic">/</span><span style="color:#999;font-weight:bold;font-style:italic">bin</span><span style="color:#999;font-weight:bold;font-style:italic">/</span><span style="color:#999;font-weight:bold;font-style:italic">python26</span><span style="color:#999;font-weight:bold;font-style:italic">
+<span style="color:#a61717;background-color:#e3d2d2">修改第一行即可，将环境变量指向以前的</span>python版本
+<span style="color:#999;font-weight:bold;font-style:italic">#!/usr/bin/python26
 </span></code></pre></td></tr></table>
 </div>
 </div><h1 id="5-reinstall-pip">5. reinstall pip</h1>
@@ -298,35 +300,35 @@ vim <span style="color:#000;font-weight:bold">/</span>usr<span style="color:#000
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#099">1.</span><span style="color:#a61717;background-color:#e3d2d2">安</span><span style="color:#a61717;background-color:#e3d2d2">装</span>pip之前首先需要安装setuptools
-<span style="color:#a61717;background-color:#e3d2d2">下</span><span style="color:#a61717;background-color:#e3d2d2">载</span><span style="color:#a61717;background-color:#e3d2d2">链</span><span style="color:#a61717;background-color:#e3d2d2">接</span>
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#099">1.</span><span style="color:#a61717;background-color:#e3d2d2">安装</span>pip之前首先需要安装setuptools
+<span style="color:#a61717;background-color:#e3d2d2">下载链接</span>
 <span style="color:#900;font-weight:bold">https</span>:<span style="color:#998;font-style:italic">//pypi.python.org/pypi/setuptools
-</span><span style="color:#998;font-style:italic"></span><span style="color:#a61717;background-color:#e3d2d2">下</span><span style="color:#a61717;background-color:#e3d2d2">载</span><span style="color:#a61717;background-color:#e3d2d2">地</span><span style="color:#a61717;background-color:#e3d2d2">址</span>
+</span><span style="color:#998;font-style:italic"></span><span style="color:#a61717;background-color:#e3d2d2">下载地址</span>
 wget <span style="color:#900;font-weight:bold">https</span>:<span style="color:#998;font-style:italic">//pypi.python.org/packages/ff/d4/209f4939c49e31f5524fa0027bf1c8ec3107abaf7c61fdaad704a648c281/setuptools-21.0.0.tar.gz#md5=81964fdb89534118707742e6d1a1ddb4 --no-check-certificate
-</span><span style="color:#998;font-style:italic"></span><span style="color:#a61717;background-color:#e3d2d2">解</span><span style="color:#a61717;background-color:#e3d2d2">压</span>
-tar zxvf setuptools<span style="color:#000;font-weight:bold">-</span><span style="color:#099">21.0</span><span style="color:#099">.0</span>.tar.gz
-<span style="color:#a61717;background-color:#e3d2d2">安</span><span style="color:#a61717;background-color:#e3d2d2">装</span>
-cd setuptools<span style="color:#000;font-weight:bold">-</span><span style="color:#099">21.0</span><span style="color:#099">.0</span>
+</span><span style="color:#998;font-style:italic"></span><span style="color:#a61717;background-color:#e3d2d2">解压</span>
+tar zxvf setuptools<span style="color:#000;font-weight:bold">-</span><span style="color:#099">21.0.0</span>.tar.gz
+<span style="color:#a61717;background-color:#e3d2d2">安装</span>
+cd setuptools<span style="color:#000;font-weight:bold">-</span><span style="color:#099">21.0.0</span>
 python setup.py  install
 
-<span style="color:#099">2.</span><span style="color:#a61717;background-color:#e3d2d2">安</span><span style="color:#a61717;background-color:#e3d2d2">装</span>pip
-<span style="color:#a61717;background-color:#e3d2d2">下</span><span style="color:#a61717;background-color:#e3d2d2">载</span><span style="color:#a61717;background-color:#e3d2d2">链</span><span style="color:#a61717;background-color:#e3d2d2">接</span>
+<span style="color:#099">2.</span><span style="color:#a61717;background-color:#e3d2d2">安装</span>pip
+<span style="color:#a61717;background-color:#e3d2d2">下载链接</span>
 <span style="color:#900;font-weight:bold">https</span>:<span style="color:#998;font-style:italic">//pypi.python.org/pypi/pip
-</span><span style="color:#998;font-style:italic"></span><span style="color:#a61717;background-color:#e3d2d2">下</span><span style="color:#a61717;background-color:#e3d2d2">载</span><span style="color:#a61717;background-color:#e3d2d2">地</span><span style="color:#a61717;background-color:#e3d2d2">址</span>
+</span><span style="color:#998;font-style:italic"></span><span style="color:#a61717;background-color:#e3d2d2">下载地址</span>
 wget <span style="color:#900;font-weight:bold">https</span>:<span style="color:#998;font-style:italic">//pypi.python.org/packages/41/27/9a8d24e1b55bd8c85e4d022da2922cb206f183e2d18fee4e320c9547e751/pip-8.1.1.tar.gz#md5=6b86f11841e89c8241d689956ba99ed7 --no-check-certificate
-</span><span style="color:#998;font-style:italic"></span><span style="color:#a61717;background-color:#e3d2d2">解</span><span style="color:#a61717;background-color:#e3d2d2">压</span>
-tar zxvf pip<span style="color:#000;font-weight:bold">-</span><span style="color:#099">8.1</span><span style="color:#099">.1</span>.tar.gz 
-<span style="color:#a61717;background-color:#e3d2d2">安</span><span style="color:#a61717;background-color:#e3d2d2">装</span> 
-cd pip<span style="color:#000;font-weight:bold">-</span><span style="color:#099">8.1</span><span style="color:#099">.1</span>
+</span><span style="color:#998;font-style:italic"></span><span style="color:#a61717;background-color:#e3d2d2">解压</span>
+tar zxvf pip<span style="color:#000;font-weight:bold">-</span><span style="color:#099">8.1.1</span>.tar.gz 
+<span style="color:#a61717;background-color:#e3d2d2">安装</span> 
+cd pip<span style="color:#000;font-weight:bold">-</span><span style="color:#099">8.1.1</span>
 python setup.py install
 
-<span style="color:#099">3.</span><span style="color:#a61717;background-color:#e3d2d2">添</span><span style="color:#a61717;background-color:#e3d2d2">加</span><span style="color:#a61717;background-color:#e3d2d2">环</span><span style="color:#a61717;background-color:#e3d2d2">境</span><span style="color:#a61717;background-color:#e3d2d2">变</span><span style="color:#a61717;background-color:#e3d2d2">量</span>
-<span style="color:#a61717;background-color:#e3d2d2">安</span><span style="color:#a61717;background-color:#e3d2d2">装</span><span style="color:#a61717;background-color:#e3d2d2">完</span><span style="color:#a61717;background-color:#e3d2d2">之</span><span style="color:#a61717;background-color:#e3d2d2">后</span><span style="color:#a61717;background-color:#e3d2d2">，</span><span style="color:#a61717;background-color:#e3d2d2">之</span><span style="color:#a61717;background-color:#e3d2d2">后</span><span style="color:#a61717;background-color:#e3d2d2">执</span><span style="color:#a61717;background-color:#e3d2d2">行</span>pip还是调用的以前的环境变量<span style="color:#a61717;background-color:#e3d2d2">，</span><span style="color:#a61717;background-color:#e3d2d2">需</span><span style="color:#a61717;background-color:#e3d2d2">要</span><span style="color:#a61717;background-color:#e3d2d2">手</span><span style="color:#a61717;background-color:#e3d2d2">动</span><span style="color:#a61717;background-color:#e3d2d2">添</span><span style="color:#a61717;background-color:#e3d2d2">加</span><span style="color:#a61717;background-color:#e3d2d2">环</span><span style="color:#a61717;background-color:#e3d2d2">境</span><span style="color:#a61717;background-color:#e3d2d2">变</span><span style="color:#a61717;background-color:#e3d2d2">量</span>
+<span style="color:#099">3.</span><span style="color:#a61717;background-color:#e3d2d2">添加环境变量</span>
+<span style="color:#a61717;background-color:#e3d2d2">安装完之后，之后执行</span>pip还是调用的以前的环境变量<span style="color:#a61717;background-color:#e3d2d2">，需要手动添加环境变量</span>
 mv <span style="color:#000;font-weight:bold">/</span>usr<span style="color:#000;font-weight:bold">/</span>bin<span style="color:#000;font-weight:bold">/</span>pip <span style="color:#000;font-weight:bold">/</span>usr<span style="color:#000;font-weight:bold">/</span>bin<span style="color:#000;font-weight:bold">/</span>pip26
 ln <span style="color:#000;font-weight:bold">-</span>s <span style="color:#000;font-weight:bold">/</span>usr<span style="color:#000;font-weight:bold">/</span>local<span style="color:#000;font-weight:bold">/</span>python27<span style="color:#000;font-weight:bold">/</span>bin<span style="color:#000;font-weight:bold">/</span>pip <span style="color:#000;font-weight:bold">/</span>usr<span style="color:#000;font-weight:bold">/</span>bin<span style="color:#000;font-weight:bold">/</span>
-<span style="color:#a61717;background-color:#e3d2d2">再</span><span style="color:#a61717;background-color:#e3d2d2">次</span><span style="color:#a61717;background-color:#e3d2d2">查</span><span style="color:#a61717;background-color:#e3d2d2">看</span><span style="color:#a61717;background-color:#e3d2d2">版</span><span style="color:#a61717;background-color:#e3d2d2">本</span>
+<span style="color:#a61717;background-color:#e3d2d2">再次查看版本</span>
 pip <span style="color:#000;font-weight:bold">-</span>V
-pip <span style="color:#099">8.1</span><span style="color:#099">.1</span> from <span style="color:#000;font-weight:bold">/</span>usr<span style="color:#000;font-weight:bold">/</span>local<span style="color:#000;font-weight:bold">/</span>python27<span style="color:#000;font-weight:bold">/</span>lib<span style="color:#000;font-weight:bold">/</span>python2<span style="color:#099">.7</span><span style="color:#000;font-weight:bold">/</span>site<span style="color:#000;font-weight:bold">-</span>packages<span style="color:#000;font-weight:bold">/</span>pip<span style="color:#000;font-weight:bold">-</span><span style="color:#099">8.1</span><span style="color:#099">.1</span><span style="color:#000;font-weight:bold">-</span>py2<span style="color:#099">.7</span>.egg (python <span style="color:#099">2.7</span>)
+pip <span style="color:#099">8.1.1</span> from <span style="color:#000;font-weight:bold">/</span>usr<span style="color:#000;font-weight:bold">/</span>local<span style="color:#000;font-weight:bold">/</span>python27<span style="color:#000;font-weight:bold">/</span>lib<span style="color:#000;font-weight:bold">/</span>python2<span style="color:#099">.7</span><span style="color:#000;font-weight:bold">/</span>site<span style="color:#000;font-weight:bold">-</span>packages<span style="color:#000;font-weight:bold">/</span>pip<span style="color:#000;font-weight:bold">-</span><span style="color:#099">8.1.1</span><span style="color:#000;font-weight:bold">-</span>py2<span style="color:#099">.7</span>.egg (python <span style="color:#099">2.7</span>)
 </code></pre></td></tr></table>
 </div>
 </div><h1 id="6使用pip安装第三方库">6.使用pip安装第三方库</h1>
@@ -354,26 +356,26 @@ pip <span style="color:#099">8.1</span><span style="color:#099">.1</span> from <
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#a61717;background-color:#e3d2d2">如</span><span style="color:#a61717;background-color:#e3d2d2">果</span><span style="color:#a61717;background-color:#e3d2d2">报</span><span style="color:#a61717;background-color:#e3d2d2">错</span>locale.<span style="color:#900;font-weight:bold">Error</span>: unsupported locale setting
-<span style="color:#a61717;background-color:#e3d2d2">加</span><span style="color:#a61717;background-color:#e3d2d2">入</span><span style="color:#a61717;background-color:#e3d2d2">环</span><span style="color:#a61717;background-color:#e3d2d2">境</span><span style="color:#a61717;background-color:#e3d2d2">变</span><span style="color:#a61717;background-color:#e3d2d2">量</span><span style="color:#a61717;background-color:#e3d2d2">：</span>
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#a61717;background-color:#e3d2d2">如果报错</span>locale.<span style="color:#900;font-weight:bold">Error</span>: unsupported locale setting
+<span style="color:#a61717;background-color:#e3d2d2">加入环境变量：</span>
 export LANGUAGE<span style="color:#000;font-weight:bold">=</span>en_US.UTF<span style="color:#000;font-weight:bold">-</span><span style="color:#099">8</span>
 export LC_ALL<span style="color:#000;font-weight:bold">=</span>en_US.UTF<span style="color:#000;font-weight:bold">-</span><span style="color:#099">8</span>
 
 pip install psutil
 pip install MySQLdb<span style="color:#000;font-weight:bold">-</span>python
-pip install django<span style="color:#000;font-weight:bold">=</span><span style="color:#099">1.8</span><span style="color:#099">.2</span>
+pip install django<span style="color:#000;font-weight:bold">=</span><span style="color:#099">1.8.2</span>
 
-<span style="color:#a61717;background-color:#e3d2d2">报</span><span style="color:#a61717;background-color:#e3d2d2">错</span><span style="color:#a61717;background-color:#e3d2d2">：</span>
+<span style="color:#a61717;background-color:#e3d2d2">报错：</span>
  pip install MySQLdb<span style="color:#000;font-weight:bold">-</span>python
 Collecting MySQLdb<span style="color:#000;font-weight:bold">-</span>python
-  Retrying (Retry(total<span style="color:#000;font-weight:bold">=</span><span style="color:#099">4</span>, connect<span style="color:#000;font-weight:bold">=</span>None, read<span style="color:#000;font-weight:bold">=</span>None, redirect<span style="color:#000;font-weight:bold">=</span>None)) after connection broken by <span style="color:#a61717;background-color:#e3d2d2">&#39;</span>ReadTimeoutError(<span style="color:#d14"></span><span style="color:#d14">&#34;</span><span style="color:#d14">HTTPSConnectionPool(host=&#39;pypi.python.org&#39;, port=443): Read timed out. (read timeout=15)</span><span style="color:#d14">&#34;</span>,)<span style="color:#a61717;background-color:#e3d2d2">&#39;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">/</span>simple<span style="color:#000;font-weight:bold">/</span>mysqldb<span style="color:#000;font-weight:bold">-</span>python<span style="color:#000;font-weight:bold">/</span>
+  Retrying (Retry(total<span style="color:#000;font-weight:bold">=</span><span style="color:#099">4</span>, connect<span style="color:#000;font-weight:bold">=</span>None, read<span style="color:#000;font-weight:bold">=</span>None, redirect<span style="color:#000;font-weight:bold">=</span>None)) after connection broken by <span style="color:#a61717;background-color:#e3d2d2">&#39;</span>ReadTimeoutError(<span style="color:#d14">&#34;HTTPSConnectionPool(host=&#39;pypi.python.org&#39;, port=443): Read timed out. (read timeout=15)&#34;</span>,)<span style="color:#a61717;background-color:#e3d2d2">&#39;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">/</span>simple<span style="color:#000;font-weight:bold">/</span>mysqldb<span style="color:#000;font-weight:bold">-</span>python<span style="color:#000;font-weight:bold">/</span>
   Could not find a version that satisfies the requirement MySQLdb<span style="color:#000;font-weight:bold">-</span>python (from <span style="color:#900;font-weight:bold">versions</span>: )
 No matching distribution found <span style="color:#000;font-weight:bold">for</span> MySQLdb<span style="color:#000;font-weight:bold">-</span>python
-You are using pip version <span style="color:#099">8.1</span><span style="color:#099">.1</span>, however version <span style="color:#099">9.0</span><span style="color:#099">.1</span> is available.
-You should consider upgrading via the <span style="color:#a61717;background-color:#e3d2d2">&#39;</span>pip install <span style="color:#000;font-weight:bold">-</span><span style="color:#000;font-weight:bold">-</span>upgrade pip<span style="color:#a61717;background-color:#e3d2d2">&#39;</span> command.
-<span style="color:#a61717;background-color:#e3d2d2">当</span><span style="color:#a61717;background-color:#e3d2d2">安</span><span style="color:#a61717;background-color:#e3d2d2">装</span><span style="color:#a61717;background-color:#e3d2d2">中</span><span style="color:#a61717;background-color:#e3d2d2">提</span><span style="color:#a61717;background-color:#e3d2d2">示</span><span style="color:#a61717;background-color:#e3d2d2">版</span><span style="color:#a61717;background-color:#e3d2d2">本</span><span style="color:#a61717;background-color:#e3d2d2">太</span><span style="color:#a61717;background-color:#e3d2d2">低</span><span style="color:#a61717;background-color:#e3d2d2">的</span><span style="color:#a61717;background-color:#e3d2d2">时</span><span style="color:#a61717;background-color:#e3d2d2">候</span><span style="color:#a61717;background-color:#e3d2d2">，</span><span style="color:#a61717;background-color:#e3d2d2">执</span><span style="color:#a61717;background-color:#e3d2d2">行</span><span style="color:#a61717;background-color:#e3d2d2">提</span><span style="color:#a61717;background-color:#e3d2d2">示</span><span style="color:#a61717;background-color:#e3d2d2">的</span><span style="color:#a61717;background-color:#e3d2d2">命</span><span style="color:#a61717;background-color:#e3d2d2">令</span><span style="color:#a61717;background-color:#e3d2d2">进</span><span style="color:#a61717;background-color:#e3d2d2">行</span><span style="color:#a61717;background-color:#e3d2d2">升</span><span style="color:#a61717;background-color:#e3d2d2">级</span><span style="color:#a61717;background-color:#e3d2d2">即</span><span style="color:#a61717;background-color:#e3d2d2">可</span>
-pip install <span style="color:#000;font-weight:bold">-</span><span style="color:#000;font-weight:bold">-</span>upgrade pip
-<span style="color:#a61717;background-color:#e3d2d2">升</span><span style="color:#a61717;background-color:#e3d2d2">级</span><span style="color:#a61717;background-color:#e3d2d2">完</span><span style="color:#a61717;background-color:#e3d2d2">重</span><span style="color:#a61717;background-color:#e3d2d2">新</span><span style="color:#a61717;background-color:#e3d2d2">执</span><span style="color:#a61717;background-color:#e3d2d2">行</span><span style="color:#a61717;background-color:#e3d2d2">要</span><span style="color:#a61717;background-color:#e3d2d2">安</span><span style="color:#a61717;background-color:#e3d2d2">装</span><span style="color:#a61717;background-color:#e3d2d2">的</span><span style="color:#a61717;background-color:#e3d2d2">库</span>
+You are using pip version <span style="color:#099">8.1.1</span>, however version <span style="color:#099">9.0.1</span> is available.
+You should consider upgrading via the <span style="color:#a61717;background-color:#e3d2d2">&#39;</span>pip install <span style="color:#000;font-weight:bold">--</span>upgrade pip<span style="color:#a61717;background-color:#e3d2d2">&#39;</span> command.
+<span style="color:#a61717;background-color:#e3d2d2">当安装中提示版本太低的时候，执行提示的命令进行升级即可</span>
+pip install <span style="color:#000;font-weight:bold">--</span>upgrade pip
+<span style="color:#a61717;background-color:#e3d2d2">升级完重新执行要安装的库</span>
 </code></pre></td></tr></table>
 </div>
 </div>
@@ -565,9 +567,13 @@ pip install <span style="color:#000;font-weight:bold">-</span><span style="color
         <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
         <a href="http://www.beian.miit.gov.cn" target="_blank">豫ICP备20003135号</a>
         
+ 
+
     </div>
+
 </footer>
 
+		
 
     
     <script type="text/javascript">
@@ -581,7 +587,19 @@ pip install <span style="color:#000;font-weight:bold">-</span><span style="color
     <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
 
 
+
+
+
 <a id="rocket" href="#top"></a>
+<script>
+	function count(num){
+		var ob = document.getElementById("count_view");
+		ob.innerText="浏览总量: "+ num;
+	}
+</script>
+
+<script type="text/javascript" src="https://codesource.online/lua/count?callback=count"></script>
+
 <script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
 
 
@@ -593,6 +611,8 @@ pip install <span style="color:#000;font-weight:bold">-</span><span style="color
 
     <script src='/js/douban.js'></script>
 
-</body>
 
+    
+
+</body>
 </html>

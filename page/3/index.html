@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-	<meta name="generator" content="Hugo 0.64.1" />
+	<meta name="generator" content="Hugo 0.70.0-DEV" />
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -52,7 +52,9 @@
                         </a>
                     </h1>
                 
-                <p class="description">专注于服务端开发</p>
+                <p class="description">专注于服务端开发  </p>
+                <p id="count_view">aa</p>
+
             </div>
             <div>
                 <nav id="nav-menu" class="clearfix">
@@ -463,12 +465,25 @@
         <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
         <a href="http://www.beian.miit.gov.cn" target="_blank">豫ICP备20003135号</a>
         
+ 
+
     </div>
+
 </footer>
 
+		
 
 
 <a id="rocket" href="#top"></a>
+<script>
+	function count(num){
+		var ob = document.getElementById("count_view");
+		ob.innerText="浏览总量: "+ num;
+	}
+</script>
+
+<script type="text/javascript" src="https://codesource.online/lua/count?callback=count"></script>
+
 <script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
 
 
@@ -480,6 +495,8 @@
 
     <script src='/js/douban.js'></script>
 
-</body>
 
+    
+
+</body>
 </html>

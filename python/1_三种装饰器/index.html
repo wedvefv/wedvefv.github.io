@@ -56,7 +56,9 @@
                         学而时习之
                     </a>
                 
-                <p class="description">专注于服务端开发</p>
+                <p class="description">专注于服务端开发  </p>
+                <p id="count_view">aa</p>
+
             </div>
             <div>
                 <nav id="nav-menu" class="clearfix">
@@ -317,7 +319,7 @@
     <span style="color:#000;font-weight:bold">def</span> __init__(<span style="color:#999">self</span>, name, age):
         <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>_name <span style="color:#000;font-weight:bold">=</span> name
         <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>_age <span style="color:#000;font-weight:bold">=</span> age
-        <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>_color <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14"></span><span style="color:#d14">&#39;</span><span style="color:#d14">Black</span><span style="color:#d14">&#39;</span>
+        <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>_color <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;Black&#39;</span>
 
     <span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">get_name</span>(<span style="color:#999">self</span>):
         <span style="color:#000;font-weight:bold">return</span> <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>_name
@@ -326,9 +328,9 @@
         <span style="color:#000;font-weight:bold">if</span> <span style="color:#0086b3">isinstance</span>(value, <span style="color:#0086b3">basestring</span>):
             <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>_name <span style="color:#000;font-weight:bold">=</span> value
         <span style="color:#000;font-weight:bold">else</span>:
-            <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>_name <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14"></span><span style="color:#d14">&#39;</span><span style="color:#d14">No name</span><span style="color:#d14">&#39;</span>
+            <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>_name <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;No name&#39;</span>
 
-    name <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">property</span>(fget<span style="color:#000;font-weight:bold">=</span>get_name, fset<span style="color:#000;font-weight:bold">=</span>set_name, fdel<span style="color:#000;font-weight:bold">=</span><span style="color:#999">None</span>, doc<span style="color:#000;font-weight:bold">=</span><span style="color:#d14"></span><span style="color:#d14">&#39;</span><span style="color:#d14">name of an animal</span><span style="color:#d14">&#39;</span>)
+    name <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">property</span>(fget<span style="color:#000;font-weight:bold">=</span>get_name, fset<span style="color:#000;font-weight:bold">=</span>set_name, fdel<span style="color:#000;font-weight:bold">=</span><span style="color:#999">None</span>, doc<span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#39;name of an animal&#39;</span>)
 
     <span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">get_age</span>(<span style="color:#999">self</span>):
         <span style="color:#000;font-weight:bold">return</span> <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>_age
@@ -340,15 +342,15 @@
             <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>_age <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">0</span>
             <span style="color:#998;font-style:italic"># print &#39;invalid age value.&#39;</span>
 
-    age <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">property</span>(fget<span style="color:#000;font-weight:bold">=</span>get_age, fset<span style="color:#000;font-weight:bold">=</span>set_age, fdel<span style="color:#000;font-weight:bold">=</span><span style="color:#999">None</span>, doc<span style="color:#000;font-weight:bold">=</span><span style="color:#d14"></span><span style="color:#d14">&#39;</span><span style="color:#d14">name of an animal</span><span style="color:#d14">&#39;</span>)
+    age <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">property</span>(fget<span style="color:#000;font-weight:bold">=</span>get_age, fset<span style="color:#000;font-weight:bold">=</span>set_age, fdel<span style="color:#000;font-weight:bold">=</span><span style="color:#999">None</span>, doc<span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#39;name of an animal&#39;</span>)
     
 
-a <span style="color:#000;font-weight:bold">=</span> Animal(<span style="color:#d14"></span><span style="color:#d14">&#39;</span><span style="color:#d14">black dog</span><span style="color:#d14">&#39;</span>, <span style="color:#099">3</span>)
-a<span style="color:#000;font-weight:bold">.</span>name <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14"></span><span style="color:#d14">&#39;</span><span style="color:#d14">white dog</span><span style="color:#d14">&#39;</span>
+a <span style="color:#000;font-weight:bold">=</span> Animal(<span style="color:#d14">&#39;black dog&#39;</span>, <span style="color:#099">3</span>)
+a<span style="color:#000;font-weight:bold">.</span>name <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;white dog&#39;</span>
 a<span style="color:#000;font-weight:bold">.</span>age <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">3</span>
-<span style="color:#000;font-weight:bold">print</span> <span style="color:#d14"></span><span style="color:#d14">&#39;</span><span style="color:#d14">Name:</span><span style="color:#d14">&#39;</span>, a<span style="color:#000;font-weight:bold">.</span>name
+<span style="color:#000;font-weight:bold">print</span> <span style="color:#d14">&#39;Name:&#39;</span>, a<span style="color:#000;font-weight:bold">.</span>name
 <span style="color:#000;font-weight:bold">print</span> Animal<span style="color:#000;font-weight:bold">.</span>name<span style="color:#000;font-weight:bold">.</span>__doc__
-<span style="color:#000;font-weight:bold">print</span> <span style="color:#d14"></span><span style="color:#d14">&#39;</span><span style="color:#d14">Age:</span><span style="color:#d14">&#39;</span>, a<span style="color:#000;font-weight:bold">.</span>age
+<span style="color:#000;font-weight:bold">print</span> <span style="color:#d14">&#39;Age:&#39;</span>, a<span style="color:#000;font-weight:bold">.</span>age
 </code></pre></td></tr></table>
 </div>
 </div>
@@ -540,9 +542,13 @@ a<span style="color:#000;font-weight:bold">.</span>age <span style="color:#000;f
         <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
         <a href="http://www.beian.miit.gov.cn" target="_blank">豫ICP备20003135号</a>
         
+ 
+
     </div>
+
 </footer>
 
+		
 
     
     <script type="text/javascript">
@@ -556,7 +562,19 @@ a<span style="color:#000;font-weight:bold">.</span>age <span style="color:#000;f
     <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
 
 
+
+
+
 <a id="rocket" href="#top"></a>
+<script>
+	function count(num){
+		var ob = document.getElementById("count_view");
+		ob.innerText="浏览总量: "+ num;
+	}
+</script>
+
+<script type="text/javascript" src="https://codesource.online/lua/count?callback=count"></script>
+
 <script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
 
 
@@ -568,6 +586,8 @@ a<span style="color:#000;font-weight:bold">.</span>age <span style="color:#000;f
 
     <script src='/js/douban.js'></script>
 
-</body>
 
+    
+
+</body>
 </html>

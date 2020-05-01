@@ -56,7 +56,9 @@
                         学而时习之
                     </a>
                 
-                <p class="description">专注于服务端开发</p>
+                <p class="description">专注于服务端开发  </p>
+                <p id="count_view">aa</p>
+
             </div>
             <div>
                 <nav id="nav-menu" class="clearfix">
@@ -224,12 +226,12 @@
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
 <pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">[http]
-	proxy <span style="color:#000;font-weight:bold">=</span> <span style="color:#a61717;background-color:#e3d2d2">代</span><span style="color:#a61717;background-color:#e3d2d2">理</span><span style="color:#900;font-weight:bold">ip</span>:<span style="color:#a61717;background-color:#e3d2d2">代</span><span style="color:#a61717;background-color:#e3d2d2">理</span>port
+	proxy <span style="color:#000;font-weight:bold">=</span> <span style="color:#a61717;background-color:#e3d2d2">代理</span><span style="color:#900;font-weight:bold">ip</span>:<span style="color:#a61717;background-color:#e3d2d2">代理</span>port
 [user]
 	email <span style="color:#000;font-weight:bold">=</span> xxxxx<span style="color:#a61717;background-color:#e3d2d2">@</span>gmail.com
 	name <span style="color:#000;font-weight:bold">=</span>xxxxxhhh 
 [gui]  
-encoding <span style="color:#000;font-weight:bold">=</span> utf<span style="color:#000;font-weight:bold">-</span><span style="color:#099">8</span> <span style="color:#a61717;background-color:#e3d2d2">#</span><span style="color:#a61717;background-color:#e3d2d2">代</span><span style="color:#a61717;background-color:#e3d2d2">码</span><span style="color:#a61717;background-color:#e3d2d2">库</span><span style="color:#a61717;background-color:#e3d2d2">统</span><span style="color:#a61717;background-color:#e3d2d2">一</span><span style="color:#a61717;background-color:#e3d2d2">使</span><span style="color:#a61717;background-color:#e3d2d2">用</span>utf<span style="color:#000;font-weight:bold">-</span><span style="color:#099">8</span>  
+encoding <span style="color:#000;font-weight:bold">=</span> utf<span style="color:#000;font-weight:bold">-</span><span style="color:#099">8</span> <span style="color:#a61717;background-color:#e3d2d2">#代码库统一使用</span>utf<span style="color:#000;font-weight:bold">-</span><span style="color:#099">8</span>  
 </code></pre></td></tr></table>
 </div>
 </div><h3 id="由于本人电脑是日语版os所以git终端显示中文字体是乱码所以索性设置全部">由于本人电脑是日语版OS，所以GIT终端显示中文字体是乱码，所以索性设置全部</h3>
@@ -415,9 +417,13 @@ encoding <span style="color:#000;font-weight:bold">=</span> utf<span style="colo
         <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
         <a href="http://www.beian.miit.gov.cn" target="_blank">豫ICP备20003135号</a>
         
+ 
+
     </div>
+
 </footer>
 
+		
 
     
     <script type="text/javascript">
@@ -431,7 +437,19 @@ encoding <span style="color:#000;font-weight:bold">=</span> utf<span style="colo
     <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
 
 
+
+
+
 <a id="rocket" href="#top"></a>
+<script>
+	function count(num){
+		var ob = document.getElementById("count_view");
+		ob.innerText="浏览总量: "+ num;
+	}
+</script>
+
+<script type="text/javascript" src="https://codesource.online/lua/count?callback=count"></script>
+
 <script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
 
 
@@ -443,6 +461,8 @@ encoding <span style="color:#000;font-weight:bold">=</span> utf<span style="colo
 
     <script src='/js/douban.js'></script>
 
-</body>
 
+    
+
+</body>
 </html>

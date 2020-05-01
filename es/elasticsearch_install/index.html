@@ -56,7 +56,9 @@
                         学而时习之
                     </a>
                 
-                <p class="description">专注于服务端开发</p>
+                <p class="description">专注于服务端开发  </p>
+                <p id="count_view">aa</p>
+
             </div>
             <div>
                 <nav id="nav-menu" class="clearfix">
@@ -479,26 +481,26 @@ npm run start
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-lua" data-lang="lua"><span style="color:#000;font-weight:bold">local</span> http <span style="color:#000;font-weight:bold">=</span>  require(<span style="color:#d14">&#34;</span><span style="color:#d14">resty.http</span><span style="color:#d14">&#34;</span>)
-<span style="color:#000;font-weight:bold">local</span> json <span style="color:#000;font-weight:bold">=</span> require(<span style="color:#d14">&#34;</span><span style="color:#d14">cjson</span><span style="color:#d14">&#34;</span>)
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-lua" data-lang="lua"><span style="color:#000;font-weight:bold">local</span> http <span style="color:#000;font-weight:bold">=</span>  require(<span style="color:#d14">&#34;resty.http&#34;</span>)
+<span style="color:#000;font-weight:bold">local</span> json <span style="color:#000;font-weight:bold">=</span> require(<span style="color:#d14">&#34;cjson&#34;</span>)
 
 <span style="color:#000;font-weight:bold">for</span> i<span style="color:#000;font-weight:bold">=</span><span style="color:#099">0</span>, <span style="color:#099">500000</span> <span style="color:#000;font-weight:bold">do</span>
     <span style="color:#000;font-weight:bold">local</span> httpc <span style="color:#000;font-weight:bold">=</span> http:new()
     
-    <span style="color:#000;font-weight:bold">local</span> name  <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;</span><span style="color:#d14">name_</span><span style="color:#d14">&#34;</span><span style="color:#000;font-weight:bold">..</span>i
+    <span style="color:#000;font-weight:bold">local</span> name  <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;name_&#34;</span><span style="color:#000;font-weight:bold">..</span>i
     <span style="color:#000;font-weight:bold">local</span> age <span style="color:#000;font-weight:bold">=</span> math.random(<span style="color:#099">30</span>,<span style="color:#099">100</span>);
-    <span style="color:#000;font-weight:bold">local</span> addr <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;</span><span style="color:#d14">addr_</span><span style="color:#d14">&#34;</span><span style="color:#000;font-weight:bold">..</span>i
+    <span style="color:#000;font-weight:bold">local</span> addr <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;addr_&#34;</span><span style="color:#000;font-weight:bold">..</span>i
     <span style="color:#000;font-weight:bold">local</span> body1 <span style="color:#000;font-weight:bold">=</span> {
-          [<span style="color:#d14">&#34;</span><span style="color:#d14">name</span><span style="color:#d14">&#34;</span>] <span style="color:#000;font-weight:bold">=</span>  name,
-            [<span style="color:#d14">&#34;</span><span style="color:#d14">age</span><span style="color:#d14">&#34;</span>]<span style="color:#000;font-weight:bold">=</span>  age,
-            [<span style="color:#d14">&#34;</span><span style="color:#d14">addr</span><span style="color:#d14">&#34;</span>]<span style="color:#000;font-weight:bold">=</span> addr
+          [<span style="color:#d14">&#34;name&#34;</span>] <span style="color:#000;font-weight:bold">=</span>  name,
+            [<span style="color:#d14">&#34;age&#34;</span>]<span style="color:#000;font-weight:bold">=</span>  age,
+            [<span style="color:#d14">&#34;addr&#34;</span>]<span style="color:#000;font-weight:bold">=</span> addr
     }    
-    <span style="color:#000;font-weight:bold">local</span> url <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;</span><span style="color:#d14">http://192.168.1.8:9200/megacorp/employee/?pretty</span><span style="color:#d14">&#34;</span>
+    <span style="color:#000;font-weight:bold">local</span> url <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;http://192.168.1.8:9200/megacorp/employee/?pretty&#34;</span>
    <span style="color:#000;font-weight:bold">local</span> res, err_ <span style="color:#000;font-weight:bold">=</span> httpc:request_uri(url, {
-        method <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;</span><span style="color:#d14">POST</span><span style="color:#d14">&#34;</span>,
+        method <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;POST&#34;</span>,
         body <span style="color:#000;font-weight:bold">=</span> json.encode(body1),
         headers <span style="color:#000;font-weight:bold">=</span> {
-            [<span style="color:#d14">&#34;</span><span style="color:#d14">Content-Type</span><span style="color:#d14">&#34;</span>] <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;</span><span style="color:#d14">application/json</span><span style="color:#d14">&#34;</span>,
+            [<span style="color:#d14">&#34;Content-Type&#34;</span>] <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;application/json&#34;</span>,
         }
     })
     print(err)
@@ -740,9 +742,13 @@ curl -XGET <span style="color:#d14">&#39;localhost:9200/megacorp/employee/_searc
         <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
         <a href="http://www.beian.miit.gov.cn" target="_blank">豫ICP备20003135号</a>
         
+ 
+
     </div>
+
 </footer>
 
+		
 
     
     <script type="text/javascript">
@@ -756,7 +762,19 @@ curl -XGET <span style="color:#d14">&#39;localhost:9200/megacorp/employee/_searc
     <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
 
 
+
+
+
 <a id="rocket" href="#top"></a>
+<script>
+	function count(num){
+		var ob = document.getElementById("count_view");
+		ob.innerText="浏览总量: "+ num;
+	}
+</script>
+
+<script type="text/javascript" src="https://codesource.online/lua/count?callback=count"></script>
+
 <script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
 
 
@@ -768,6 +786,8 @@ curl -XGET <span style="color:#d14">&#39;localhost:9200/megacorp/employee/_searc
 
     <script src='/js/douban.js'></script>
 
-</body>
 
+    
+
+</body>
 </html>

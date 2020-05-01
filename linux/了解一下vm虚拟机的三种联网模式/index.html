@@ -56,7 +56,9 @@
                         学而时习之
                     </a>
                 
-                <p class="description">专注于服务端开发</p>
+                <p class="description">专注于服务端开发  </p>
+                <p id="count_view">aa</p>
+
             </div>
             <div>
                 <nav id="nav-menu" class="clearfix">
@@ -148,7 +150,7 @@
     <li><a href="#1host-only">1.HOST-ONLY</a></li>
     <li><a href="#2nat模式网络地址转换">2.NAT模式，网络地址转换</a></li>
     <li><a href="#3bridged模式桥接模式">3.Bridged模式，（桥接模式）</a></li>
-    <li><a href="#虚拟机vmnet0vmnet1和vmnet8的区别httpswwwcnblogscomfeifei-cyjp7686166html">虚拟机vmnet0、vmnet1和vmnet8的区别</a></li>
+    <li><a href="#虚拟机vmnet0vmnet1和vmnet8的区别httpswwwcnblogscomfeifei-cyjp7686166html"><a href="https://www.cnblogs.com/feifei-cyj/p/7686166.html">虚拟机vmnet0、vmnet1和vmnet8的区别</a></a></li>
   </ul>
 </nav>
     </div>
@@ -426,9 +428,13 @@
         <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
         <a href="http://www.beian.miit.gov.cn" target="_blank">豫ICP备20003135号</a>
         
+ 
+
     </div>
+
 </footer>
 
+		
 
     
     <script type="text/javascript">
@@ -442,7 +448,19 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
 
 
+
+
+
 <a id="rocket" href="#top"></a>
+<script>
+	function count(num){
+		var ob = document.getElementById("count_view");
+		ob.innerText="浏览总量: "+ num;
+	}
+</script>
+
+<script type="text/javascript" src="https://codesource.online/lua/count?callback=count"></script>
+
 <script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
 
 
@@ -454,6 +472,8 @@
 
     <script src='/js/douban.js'></script>
 
-</body>
 
+    
+
+</body>
 </html>
