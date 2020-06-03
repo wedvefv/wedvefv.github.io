@@ -2,48 +2,48 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Phps on 学而时习之</title>
-    <link>https://wlw-5g.cn/php/</link>
+    <link>http://wlw-5g.cn/php/</link>
     <description>Recent content in Phps on 学而时习之</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <lastBuildDate>Thu, 12 Mar 2020 23:22:44 +0800</lastBuildDate>
     
-	<atom:link href="https://wlw-5g.cn/php/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://wlw-5g.cn/php/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>php 查询mysql大量数据的用法</title>
-      <link>https://wlw-5g.cn/php/mysql_iter/</link>
+      <link>http://wlw-5g.cn/php/mysql_iter/</link>
       <pubDate>Thu, 12 Mar 2020 23:22:44 +0800</pubDate>
       
-      <guid>https://wlw-5g.cn/php/mysql_iter/</guid>
+      <guid>http://wlw-5g.cn/php/mysql_iter/</guid>
       <description>内容提要 pdo 默认是使用缓冲区的，就是一次取回结果，注入php进程，以遍后续使用游标操作。 一旦内存消耗太大，程序就会报错，挂掉。 这种非缓冲的链句柄，执行期间是禁止exec等其他操作的，就算执行也没效果。 使用不缓冲模式，每次迭代一条数据出来 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23</description>
     </item>
     
     <item>
       <title>php hscan的用法</title>
-      <link>https://wlw-5g.cn/php/hscan/</link>
+      <link>http://wlw-5g.cn/php/hscan/</link>
       <pubDate>Tue, 10 Mar 2020 21:22:44 +0800</pubDate>
       
-      <guid>https://wlw-5g.cn/php/hscan/</guid>
+      <guid>http://wlw-5g.cn/php/hscan/</guid>
       <description>主要特点 hscan 同样是使用游标迭代，当游标返回0时，表示对这个hash中的field迭代结束了，此时迭代结果是false。 迭代结果可能返回空数组，所以不能直接ret == false ，空数组==false， 必须用ret===false 才表示结束 hscan如果field数小于513，则一次操作会全部返</description>
     </item>
     
     <item>
       <title>php Scan的用法</title>
-      <link>https://wlw-5g.cn/php/scan/</link>
+      <link>http://wlw-5g.cn/php/scan/</link>
       <pubDate>Mon, 09 Mar 2020 22:56:27 +0800</pubDate>
       
-      <guid>https://wlw-5g.cn/php/scan/</guid>
+      <guid>http://wlw-5g.cn/php/scan/</guid>
       <description>php scan遍历key redis是单进程，keys会阻塞redis，scan以游标的方式，不会阻塞redis。 需要安装phpredis扩展，redis-server版本需要&amp;gt;=2.8.0 代码例子 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 &amp;lt;?php //SCAN cursor [MATCH</description>
     </item>
     
     <item>
       <title>一张导图了解cookie和session</title>
-      <link>https://wlw-5g.cn/php/cookie_and_session/</link>
+      <link>http://wlw-5g.cn/php/cookie_and_session/</link>
       <pubDate>Sun, 09 Jun 2019 21:50:00 +0000</pubDate>
       
-      <guid>https://wlw-5g.cn/php/cookie_and_session/</guid>
+      <guid>http://wlw-5g.cn/php/cookie_and_session/</guid>
       <description>cookie和session的区别</description>
     </item>
     
