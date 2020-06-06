@@ -284,7 +284,7 @@
 <li>原因是axios异步执行，return的时候，结果并没来得及返回，所以ret是空的。</li>
 <li>既然是异步执行。then里面是结果来了的回调函数，所以只要在这里把数据传出去就ok了</li>
 <li>于是我就把vue组件调用的函数updateDay的地方取一下对象，一直传到getReq中。把结果赋值给对象的data就ok了。</li>
-<li>这里有一个知识点： 函数中this最终指向的是直接调用这个函数的对象实体。 参考这个 <img src="https://www.cnblogs.com/pssp/p/5216085.html" alt="彻底理解this指向问题"></li>
+<li>这里有一个知识点： 函数中this最终指向的是直接调用这个函数的对象实体。 参考这个 <a href="https://www.cnblogs.com/pssp/p/5216085.html">彻底理解this指向问题</a></li>
 </ul>
 <h2 id="改版之后的代码">改版之后的代码</h2>
 <ul>
