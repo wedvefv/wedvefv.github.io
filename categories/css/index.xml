@@ -6,7 +6,7 @@
     <description>Recent content in css on 学而时习之</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 21 May 2020 20:04:30 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 21 May 2020 20:04:30 +0800</lastBuildDate>
     
 	<atom:link href="http://wlw-5g.cn/categories/css/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,7 +14,7 @@
     <item>
       <title>css浮动</title>
       <link>http://wlw-5g.cn/html/css/1_float/</link>
-      <pubDate>Thu, 21 May 2020 20:04:30 +0000</pubDate>
+      <pubDate>Thu, 21 May 2020 20:04:30 +0800</pubDate>
       
       <guid>http://wlw-5g.cn/html/css/1_float/</guid>
       <description>主要知识点 不管元素是行内元素还是块元素，只要设置float属性，就会变成块级框， 可以设置wieth和height。</description>

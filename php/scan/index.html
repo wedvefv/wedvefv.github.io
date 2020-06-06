@@ -6,17 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>php Scan的用法 | 学而时习之</title>
-    <meta property="og:title" content="php Scan的用法 - 学而时习之">
+    <title> | 学而时习之</title>
+    <meta property="og:title" content=" - 学而时习之">
     <meta property="og:type" content="article">
         
-    <meta property="article:published_time" content='2020-03-09T22:56:27&#43;08:00'>
-        
-        
-    <meta property="article:modified_time" content='2020-03-09T22:56:27&#43;08:00'>
         
     <meta name="Keywords" content="golang,go语言,go语言笔记,lua,redis,openresty">
-    <meta name="description" content="php Scan的用法">
+    <meta name="description" content="">
         
     <meta name="author" content="明明">
     <meta property="og:url" content="http://wlw-5g.cn/php/scan/">
@@ -177,18 +173,11 @@
 </script>
     <article class="post">
         <header>
-            <h1 class="post-title">php Scan的用法</h1>
+            <h1 class="post-title"></h1>
         </header>
         <date class="post-meta meta-date">
-            2020年3月9日
+            1年1月1日
         </date>
-        
-        <div class="post-meta">
-            <span>|</span>
-            
-            <span class="meta-category"><a href='http://wlw-5g.cn/categories/php'>php</a></span>
-            
-        </div>
         
         
         <div class="post-meta">
@@ -198,93 +187,7 @@
         
         
         <div class="post-content">
-            <h1 id="php-scan遍历key">php scan遍历key</h1>
-<ul>
-<li>redis是单进程，keys会阻塞redis，scan以游标的方式，不会阻塞redis。</li>
-<li>需要安装phpredis扩展，redis-server版本需要&gt;=2.8.0</li>
-</ul>
-<h1 id="代码例子">代码例子</h1>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#999;font-weight:bold;font-style:italic">&lt;?php</span>
-<span style="color:#998;font-style:italic">//SCAN cursor [MATCH pattern] [COUNT count]
-</span><span style="color:#998;font-style:italic">// scan 命令结束的标志是游标被修改成0； 此时scan的返回值是false
-</span><span style="color:#998;font-style:italic"></span>date_default_timezone_set(<span style="color:#d14">&#39;PRC&#39;</span>);  <span style="color:#998;font-style:italic">//china timezone
-</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">echo</span> date(<span style="color:#d14">&#34;Y-m-d H:i:s&#34;</span>, time())<span style="color:#000;font-weight:bold">.</span><span style="color:#d14">&#34;</span><span style="color:#d14">\n</span><span style="color:#d14">&#34;</span>;
-
-<span style="color:#000;font-weight:bold">function</span> <span style="color:#900;font-weight:bold">redis_init</span>(<span style="color:#008080">$db</span><span style="color:#000;font-weight:bold">=</span><span style="color:#099">0</span>){
-    <span style="color:#008080">$host</span> <span style="color:#000;font-weight:bold">=</span> getenv(<span style="color:#d14">&#34;REDIS_HOST&#34;</span>);
-    <span style="color:#008080">$port</span> <span style="color:#000;font-weight:bold">=</span> getenv(<span style="color:#d14">&#34;REDIS_PORT&#34;</span>);
-    
-    <span style="color:#008080">$redis</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">new</span> Redis();
-    <span style="color:#008080">$redis</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">connect</span>(<span style="color:#008080">$host</span>,<span style="color:#008080">$port</span>);
-    <span style="color:#008080">$redis</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">select</span>(<span style="color:#008080">$db</span>);
-    
-    <span style="color:#000;font-weight:bold">return</span> <span style="color:#008080">$redis</span>;
-}
-<span style="color:#008080">$cur</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">null</span>;
-<span style="color:#000;font-weight:bold">do</span>{
-	<span style="color:#998;font-style:italic">// match是匹配的key的格式，5表示要取出的数量
-</span><span style="color:#998;font-style:italic"></span>	<span style="color:#008080">$match</span> <span style="color:#000;font-weight:bold">=</span> sprintf(<span style="color:#d14">&#34;test:%s:num&#34;</span>, <span style="color:#008080">$cdate</span>);
-	<span style="color:#008080">$key_list</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#008080">$redis</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">scan</span>(<span style="color:#008080">$cur</span>, <span style="color:#008080">$match</span>, <span style="color:#099">5</span>);
-	<span style="color:#998;font-style:italic"># $key_list 有可能是空数组，空数组和false是相等的。
-</span><span style="color:#998;font-style:italic"></span>	<span style="color:#998;font-style:italic"># 如果结果为false，需要用===比较 （类型和值都相等）。
-</span><span style="color:#998;font-style:italic"></span>	<span style="color:#000;font-weight:bold">if</span>(<span style="color:#008080">$key_list</span> <span style="color:#000;font-weight:bold">===</span> <span style="color:#000;font-weight:bold">false</span>){
-		<span style="color:#000;font-weight:bold">break</span>;
-	}
-	<span style="color:#000;font-weight:bold">foreach</span>(<span style="color:#008080">$key_list</span> <span style="color:#000;font-weight:bold">as</span> <span style="color:#008080">$key</span>){
-		<span style="color:#000;font-weight:bold">echo</span> <span style="color:#008080">$key</span><span style="color:#000;font-weight:bold">.</span><span style="color:#d14">&#34;</span><span style="color:#d14">\n</span><span style="color:#d14">&#34;</span>;
-	}
-	
-}<span style="color:#000;font-weight:bold">while</span>(<span style="color:#008080">$cur</span>);
-
-<span style="color:#998;font-style:italic">// 也可以while条件是true，在代码中判断$cur 游标==0时退出。
-</span><span style="color:#998;font-style:italic"></span>
-<span style="color:#008080">$redis</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">close</span>();
-
-
-</code></pre></td></tr></table>
-</div>
-</div>
+            
         </div>
 
         
@@ -296,15 +199,15 @@
     <h2>See Also</h2>
     <ul class="listing">
         
+        <li><a href="/html/axios_that/">axios为什么拿不到结果</a></li>
+        
+        <li><a href="/html/css/1_float/">css浮动</a></li>
+        
         <li><a href="/html/bibao/">如何解释js闭包</a></li>
         
         <li><a href="/nginx/%E9%85%8D%E7%BD%AEssl%E8%AF%81%E4%B9%A6/">nginx 配置免费的ssl证书</a></li>
         
         <li><a href="/nginx/%E8%B7%A8%E5%9F%9F%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB/">nginx配置跨域资源共享CORS</a></li>
-        
-        <li><a href="/openresty/openresty%E5%8F%98%E9%87%8F%E8%8C%83%E5%9B%B4/">openresty 变量</a></li>
-        
-        <li><a href="/es/Elasticsearch_install/">Elasticsearch 安装笔记</a></li>
         
     </ul>
 </div>
@@ -312,13 +215,7 @@
 
         <div class="post-meta meta-tags">
             
-            <ul class="clearfix">
-                
-                <li><a href='http://wlw-5g.cn/tags/php'>php</a></li>
-                
-                <li><a href='http://wlw-5g.cn/tags/redis'>redis</a></li>
-                
-            </ul>
+            没有标签
             
         </div>
     </article>
@@ -403,9 +300,9 @@
     
     <li><a href="http://wlw-5g.cn/categories/openresty/">openresty (1)</a></li>
     
-    <li><a href="http://wlw-5g.cn/categories/php/">php (3)</a></li>
-    
     <li><a href="http://wlw-5g.cn/categories/python/">python (3)</a></li>
+    
+    <li><a href="http://wlw-5g.cn/categories/vue/">vue (1)</a></li>
     
     <li><a href="http://wlw-5g.cn/categories/weixin/">weixin (1)</a></li>
     
@@ -430,17 +327,13 @@
     
     <a href="http://wlw-5g.cn/tags/linux/">linux</a>
     
-    <a href="http://wlw-5g.cn/tags/mysql/">mysql</a>
-    
     <a href="http://wlw-5g.cn/tags/nginx/">nginx</a>
     
     <a href="http://wlw-5g.cn/tags/openresty/">openresty</a>
     
-    <a href="http://wlw-5g.cn/tags/php/">php</a>
-    
     <a href="http://wlw-5g.cn/tags/python/">python</a>
     
-    <a href="http://wlw-5g.cn/tags/redis/">redis</a>
+    <a href="http://wlw-5g.cn/tags/vue/">vue</a>
     
     <a href="http://wlw-5g.cn/tags/weixin/">weixin</a>
     

@@ -6,7 +6,7 @@
     <description>Recent content in ES on 学而时习之</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 29 Jun 2019 23:10:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 29 Jun 2019 23:10:00 +0800</lastBuildDate>
     
 	<atom:link href="http://wlw-5g.cn/tags/ES/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,7 +14,7 @@
     <item>
       <title>Elasticsearch 安装笔记</title>
       <link>http://wlw-5g.cn/es/Elasticsearch_install/</link>
-      <pubDate>Sat, 29 Jun 2019 23:10:00 +0000</pubDate>
+      <pubDate>Sat, 29 Jun 2019 23:10:00 +0800</pubDate>
       
       <guid>http://wlw-5g.cn/es/Elasticsearch_install/</guid>
       <description>1. 看一下elasticsearch-head插件查看集群健康状态的图 概况 这是一台虚拟机，创建了index为megacorp, ES默认是5个分片，然后每个分片一个副本，也就是10个分片;三个节点，就会出现如图的样子。 同一个分片必然不在一个节点，不然副本就没意义了。 绿色表示状态健康，</description>
