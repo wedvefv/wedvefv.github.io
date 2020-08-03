@@ -6,10 +6,28 @@
     <description>Recent content in Tags on 学而时习之</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 13 Jun 2020 14:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 03 Aug 2020 23:00:00 +0800</lastBuildDate>
     
 	<atom:link href="http://codesource.online/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>nginx</title>
+      <link>http://codesource.online/tags/nginx/</link>
+      <pubDate>Mon, 03 Aug 2020 23:00:00 +0800</pubDate>
+      
+      <guid>http://codesource.online/tags/nginx/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>regex</title>
+      <link>http://codesource.online/tags/regex/</link>
+      <pubDate>Sat, 25 Jul 2020 12:00:00 +0800</pubDate>
+      
+      <guid>http://codesource.online/tags/regex/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>python</title>
@@ -17,15 +35,6 @@
       <pubDate>Sat, 13 Jun 2020 14:00:00 +0800</pubDate>
       
       <guid>http://codesource.online/tags/python/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>vue</title>
-      <link>http://codesource.online/tags/vue/</link>
-      <pubDate>Sat, 06 Jun 2020 10:04:30 +0800</pubDate>
-      
-      <guid>http://codesource.online/tags/vue/</guid>
       <description></description>
     </item>
     
@@ -57,15 +66,6 @@
     </item>
     
     <item>
-      <title>nginx</title>
-      <link>http://codesource.online/tags/nginx/</link>
-      <pubDate>Mon, 03 Feb 2020 14:33:58 +0800</pubDate>
-      
-      <guid>http://codesource.online/tags/nginx/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>openresty</title>
       <link>http://codesource.online/tags/openresty/</link>
       <pubDate>Sun, 30 Jun 2019 14:00:00 +0800</pubDate>
@@ -80,15 +80,6 @@
       <pubDate>Sat, 29 Jun 2019 23:10:00 +0800</pubDate>
       
       <guid>http://codesource.online/tags/ES/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>weixin</title>
-      <link>http://codesource.online/tags/weixin/</link>
-      <pubDate>Sat, 13 Apr 2019 09:40:00 +0800</pubDate>
-      
-      <guid>http://codesource.online/tags/weixin/</guid>
       <description></description>
     </item>
     

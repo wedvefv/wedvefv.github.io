@@ -1,4 +1,4 @@
 all:
-	git add -A
-	git commit -m 'new'
-	git push
+	git add .
+	git commit -m 'update'
+	git push origin master

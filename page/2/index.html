@@ -11,7 +11,7 @@
     <meta property="og:title" content="学而时习之 | 专注于服务端开发">
     <meta property="og:type" content="website">
     <meta name="Keywords" content="golang,go语言,go语言笔记,lua,redis,openresty">
-    <meta name="description" content="记性不太好，找个地方记录一下工作学习的心得">
+    <meta name="description" content="--">
     <meta property="og:url" content="http://codesource.online/">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
@@ -81,30 +81,53 @@
     <article class="post">
         <header>
             <h1 class="post-title">
-                <a href="http://codesource.online/html/js_obj/" title="js 对象和原型链">js 对象和原型链</a>
+                <a href="http://codesource.online/nginx%E7%AC%94%E8%AE%B0/openresty%E5%8F%98%E9%87%8F%E8%8C%83%E5%9B%B4/" title="openresty 变量">openresty 变量</a>
             </h1>
         </header>
         <date class="post-meta meta-date">
-            2019年6月22日
+            2019年6月30日
         </date>
         
         <div class="post-meta">
             <span>|</span>
             
-            <span class="meta-category"><a href='http://codesource.online/categories/js'>js</a></span>
+            <span class="meta-category"><a href='http://codesource.online/categories/openresty'>openresty</a></span>
             
         </div>
         
         <div class="post-content">
-            js 对象和原型链……
+            NGX_LUA的三种变量范围 进程间共享， nginx的所有work进程共享，使用lua_shared_dict定义，这样高并发就出触发锁。 进程内共享，lua代码中不加local关键字就是全局变量，这样的变量在同一个进程的所有请求之间共享,因为开启了lua缓存，每个work的VM虚拟……
         </div>
-        <p class="readmore"><a href="http://codesource.online/html/js_obj/">阅读全文</a></p>
+        <p class="readmore"><a href="http://codesource.online/nginx%E7%AC%94%E8%AE%B0/openresty%E5%8F%98%E9%87%8F%E8%8C%83%E5%9B%B4/">阅读全文</a></p>
     </article>
     
     <article class="post">
         <header>
             <h1 class="post-title">
-                <a href="http://codesource.online/python/4_scrapy/" title="scrapy笔记">scrapy笔记</a>
+                <a href="http://codesource.online/linux%E7%AC%94%E8%AE%B0/Elasticsearch_install/" title="Elasticsearch 安装笔记">Elasticsearch 安装笔记</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2019年6月29日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='http://codesource.online/categories/ES'>ES</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            1. 看一下elasticsearch-head插件查看集群健康状态的图 概况 这是一台虚拟机，创建了index为megacorp, ES默认是5个分片，然后每个分片一个副本，也就是10个分片;三个节点，就会出现如图的样子。 同一个分片必然不在一个节点，不然副本就没意义了。 绿色表示状态健康，……
+        </div>
+        <p class="readmore"><a href="http://codesource.online/linux%E7%AC%94%E8%AE%B0/Elasticsearch_install/">阅读全文</a></p>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="http://codesource.online/python%E7%AC%94%E8%AE%B0/4_scrapy/" title="scrapy笔记">scrapy笔记</a>
             </h1>
         </header>
         <date class="post-meta meta-date">
@@ -119,15 +142,15 @@
         </div>
         
         <div class="post-content">
-            1. 初识爬虫 开启项目: scrapy startproject example 定义爬虫文件: cd example; scrapy genspider book_psider http://books.toscrape.com/ 定义数据最终需要的字段, 修改items.py。 如果不用pipeline处理，则yeild item， 直接 -o 到文件json文件即可。 执行爬虫 scrapy crawl book_spider -o book.json 2. 核心概念 爬虫组件 组件 描述 类型 ENGINE 引擎，框架核心组件 内部组件 SCHEDULER 调度器 内部组件 DOWNLOADER 下载器……
+            1.初识爬虫 开启项目: scrapy startproject example 定义爬虫文件: cd example; scrapy genspider book_psider http://books.toscrape.com/ 定义数据最终需要的字段, 修改items.py。 如果不用pipeline处理，则yeild item， 直接 -o 到文件json文件即可。 执行爬虫 scrapy crawl book_spider -o book.json 2. 核心概念 爬虫组件 组件 描述 类型 ENGINE 引擎，框架核心组件 内部组件 SCHEDULER 调度器 内部组件 DOWNLOADER 下载……
         </div>
-        <p class="readmore"><a href="http://codesource.online/python/4_scrapy/">阅读全文</a></p>
+        <p class="readmore"><a href="http://codesource.online/python%E7%AC%94%E8%AE%B0/4_scrapy/">阅读全文</a></p>
     </article>
     
     <article class="post">
         <header>
             <h1 class="post-title">
-                <a href="http://codesource.online/php/cookie_and_session/" title="一张导图了解cookie和session">一张导图了解cookie和session</a>
+                <a href="http://codesource.online/php%E7%AC%94%E8%AE%B0/cookie_and_session/" title="一张导图了解cookie和session">一张导图了解cookie和session</a>
             </h1>
         </header>
         <date class="post-meta meta-date">
@@ -144,13 +167,13 @@
         <div class="post-content">
             cookie和session的区别……
         </div>
-        <p class="readmore"><a href="http://codesource.online/php/cookie_and_session/">阅读全文</a></p>
+        <p class="readmore"><a href="http://codesource.online/php%E7%AC%94%E8%AE%B0/cookie_and_session/">阅读全文</a></p>
     </article>
     
     <article class="post">
         <header>
             <h1 class="post-title">
-                <a href="http://codesource.online/linux/centos6%E5%92%8C7%E7%9A%84%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/" title="一张图看懂centos6和7的启动流程区别">一张图看懂centos6和7的启动流程区别</a>
+                <a href="http://codesource.online/linux%E7%AC%94%E8%AE%B0/centos6%E5%92%8C7%E7%9A%84%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/" title="一张图看懂centos6和7的启动流程区别">一张图看懂centos6和7的启动流程区别</a>
             </h1>
         </header>
         <date class="post-meta meta-date">
@@ -167,13 +190,13 @@
         <div class="post-content">
             启动流程……
         </div>
-        <p class="readmore"><a href="http://codesource.online/linux/centos6%E5%92%8C7%E7%9A%84%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/">阅读全文</a></p>
+        <p class="readmore"><a href="http://codesource.online/linux%E7%AC%94%E8%AE%B0/centos6%E5%92%8C7%E7%9A%84%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/">阅读全文</a></p>
     </article>
     
     <article class="post">
         <header>
             <h1 class="post-title">
-                <a href="http://codesource.online/linux/%E4%BA%86%E8%A7%A3%E4%B8%80%E4%B8%8Blinux%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8/" title="了解一下linux开机启动">了解一下linux开机启动</a>
+                <a href="http://codesource.online/linux%E7%AC%94%E8%AE%B0/%E4%BA%86%E8%A7%A3%E4%B8%80%E4%B8%8Blinux%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8/" title="了解一下linux开机启动">了解一下linux开机启动</a>
             </h1>
         </header>
         <date class="post-meta meta-date">
@@ -190,13 +213,13 @@
         <div class="post-content">
             1. linux的启动等级 0 关机模式 1 单用户模式 2 无网络多用户模式 3 有网络多用户模式，如果没网络和2一样。 4.系统保留，未使用 5.GUI图形界面 6.重启模式，默认不能是这个级别，否则就会无限循环重启 正常默认就是3了, 命令行模式，有桌面的，应该默认是5. 关机就可以终端输入init 0，重……
         </div>
-        <p class="readmore"><a href="http://codesource.online/linux/%E4%BA%86%E8%A7%A3%E4%B8%80%E4%B8%8Blinux%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8/">阅读全文</a></p>
+        <p class="readmore"><a href="http://codesource.online/linux%E7%AC%94%E8%AE%B0/%E4%BA%86%E8%A7%A3%E4%B8%80%E4%B8%8Blinux%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8/">阅读全文</a></p>
     </article>
     
     <article class="post">
         <header>
             <h1 class="post-title">
-                <a href="http://codesource.online/python/3_reload_sys/" title="python 编码reload(sys)的作用">python 编码reload(sys)的作用</a>
+                <a href="http://codesource.online/python%E7%AC%94%E8%AE%B0/3_reload_sys/" title="python 编码reload(sys)的作用">python 编码reload(sys)的作用</a>
             </h1>
         </header>
         <date class="post-meta meta-date">
@@ -213,36 +236,13 @@
         <div class="post-content">
             为什么需要sys.setdefaultencoding(&ldquo;utf-8&rdquo;) 因为python转码是通过unicode作为中间码的。 比如字符串 x = &ldquo;你们&rdquo;，本身是str， 首先我们指定了文件编码uft8，所以x是utf8编码的。 如果要转化g……
         </div>
-        <p class="readmore"><a href="http://codesource.online/python/3_reload_sys/">阅读全文</a></p>
+        <p class="readmore"><a href="http://codesource.online/python%E7%AC%94%E8%AE%B0/3_reload_sys/">阅读全文</a></p>
     </article>
     
     <article class="post">
         <header>
             <h1 class="post-title">
-                <a href="http://codesource.online/html/weixin/" title="微信支付流程">微信支付流程</a>
-            </h1>
-        </header>
-        <date class="post-meta meta-date">
-            2019年4月13日
-        </date>
-        
-        <div class="post-meta">
-            <span>|</span>
-            
-            <span class="meta-category"><a href='http://codesource.online/categories/weixin'>weixin</a></span>
-            
-        </div>
-        
-        <div class="post-content">
-            三个平台都有什么？ 微信公众平台: 微信官方平台，功能： 群发推送、自动回复、二维码订阅，用途：消息推送、品牌传播、分享 微信开放平台: 为第三方提供接口，比如分享朋友圈，发送给微信好友等 微信商户平台：主要是用于微信支付的，比如APP和公众号需要接入支付功能，就需要申请一个商户号。 前提 在开……
-        </div>
-        <p class="readmore"><a href="http://codesource.online/html/weixin/">阅读全文</a></p>
-    </article>
-    
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://codesource.online/git/git_linux%E6%90%AD%E5%BB%BA%E6%9C%8D%E5%8A%A1%E5%99%A8/" title="git_linux搭建服务器">git_linux搭建服务器</a>
+                <a href="http://codesource.online/git%E7%AC%94%E8%AE%B0/linux%E6%90%AD%E5%BB%BA%E6%9C%8D%E5%8A%A1%E7%AB%AF/" title="git_linux搭建服务器">git_linux搭建服务器</a>
             </h1>
         </header>
         <date class="post-meta meta-date">
@@ -257,15 +257,15 @@
         </div>
         
         <div class="post-content">
-            为什么本地搭建一个git服务器 对于自己学习使用的代码，在没有网络的情况下不能用github，gitlab,所以本地建立一个git服务器。 git服务器环境准备centos7 服务端创建git用户 1 2 3 4 5 id git # 查看是否存在git用户，存在就不创建了。 useradd git passwd git 输入密码，我设置的是xxx……
+            服务端创建git用户(centos7) 1 2 3 4 5 id git # 查看是否存在git用户，存在就不创建了。 useradd git passwd git 输入密码，我设置的是xxx@123 客户端开启公钥认证认证，免密push/pull 首先服务端需要开启ssh服务 1 2 3 4 5 6 7 8 9 vim /etc/ssh/sshd_config RSAAuthentication yes PubkeyAuthentication yes AuthorizedKeysFile .ssh/authorized_keys 如果是centos7.4以上（含7.……
         </div>
-        <p class="readmore"><a href="http://codesource.online/git/git_linux%E6%90%AD%E5%BB%BA%E6%9C%8D%E5%8A%A1%E5%99%A8/">阅读全文</a></p>
+        <p class="readmore"><a href="http://codesource.online/git%E7%AC%94%E8%AE%B0/linux%E6%90%AD%E5%BB%BA%E6%9C%8D%E5%8A%A1%E7%AB%AF/">阅读全文</a></p>
     </article>
     
     <article class="post">
         <header>
             <h1 class="post-title">
-                <a href="http://codesource.online/git/git_tag%E7%94%A8%E6%B3%95/" title="git_tag用法">git_tag用法</a>
+                <a href="http://codesource.online/git%E7%AC%94%E8%AE%B0/git%E7%9A%84tag%E5%92%8Cbranch%E7%9A%84%E5%8C%BA%E5%88%AB/" title="git_tag用法">git_tag用法</a>
             </h1>
         </header>
         <date class="post-meta meta-date">
@@ -282,13 +282,13 @@
         <div class="post-content">
             tag 和branch的区别 Git tag是一系列commit的中的一个点，只能查看，不能移动。 branch是一系列串联的commit的线。 git tag的用法 我们常常在代码封板时,使用git 创建一个tag ,这样一个不可修改的历史代码版本就像被我们封存起来一样,不论是运维发布拉取,或者以后的代码版……
         </div>
-        <p class="readmore"><a href="http://codesource.online/git/git_tag%E7%94%A8%E6%B3%95/">阅读全文</a></p>
+        <p class="readmore"><a href="http://codesource.online/git%E7%AC%94%E8%AE%B0/git%E7%9A%84tag%E5%92%8Cbranch%E7%9A%84%E5%8C%BA%E5%88%AB/">阅读全文</a></p>
     </article>
     
     <article class="post">
         <header>
             <h1 class="post-title">
-                <a href="http://codesource.online/linux/%E4%BA%86%E8%A7%A3%E4%B8%80%E4%B8%8B%E5%8A%A0%E5%AF%86%E5%90%8D%E8%AF%8D/" title="了解一下加密名词AES-DES-RAS-DSA-ECDSA-ECC ">了解一下加密名词AES-DES-RAS-DSA-ECDSA-ECC </a>
+                <a href="http://codesource.online/linux%E7%AC%94%E8%AE%B0/%E4%BA%86%E8%A7%A3%E4%B8%80%E4%B8%8B%E5%8A%A0%E5%AF%86%E5%90%8D%E8%AF%8D/" title="了解一下加密名词AES-DES-RAS-DSA-ECDSA-ECC ">了解一下加密名词AES-DES-RAS-DSA-ECDSA-ECC </a>
             </h1>
         </header>
         <date class="post-meta meta-date">
@@ -305,7 +305,7 @@
         <div class="post-content">
             加密体系 对称加密算法，加密和机密密钥一样，加密方和解密方都持有. DES加密 56位密钥长度，美国数据加密标准，DES算法的入口参数有三个：Key、Data、Mode。其中Key为7个字节共56位，是DES算法的工作密钥；Data为8个字节64位，是要被加密或被解密的数据；Mode为……
         </div>
-        <p class="readmore"><a href="http://codesource.online/linux/%E4%BA%86%E8%A7%A3%E4%B8%80%E4%B8%8B%E5%8A%A0%E5%AF%86%E5%90%8D%E8%AF%8D/">阅读全文</a></p>
+        <p class="readmore"><a href="http://codesource.online/linux%E7%AC%94%E8%AE%B0/%E4%BA%86%E8%A7%A3%E4%B8%80%E4%B8%8B%E5%8A%A0%E5%AF%86%E5%90%8D%E8%AF%8D/">阅读全文</a></p>
     </article>
     
     
@@ -336,10 +336,6 @@
         <a href="http://codesource.online/page/4/">4</a>
     </li>
     
-    <li >
-        <a href="http://codesource.online/page/5/">5</a>
-    </li>
-    
 
     
     <li class="next">
@@ -368,10 +364,6 @@
         <h3 class="widget-title">最近文章</h3>
 <ul class="widget-list">
     
-    <li>
-        <a href="http://codesource.online/html/html5_tags/" title="html5标签">html5标签</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -389,21 +381,19 @@
     
     <li><a href="http://codesource.online/categories/git/">git (4)</a></li>
     
-    <li><a href="http://codesource.online/categories/js/">js (4)</a></li>
+    <li><a href="http://codesource.online/categories/js/">js (1)</a></li>
     
     <li><a href="http://codesource.online/categories/linux/">linux (13)</a></li>
     
-    <li><a href="http://codesource.online/categories/nginx/">nginx (4)</a></li>
+    <li><a href="http://codesource.online/categories/nginx/">nginx (5)</a></li>
     
     <li><a href="http://codesource.online/categories/openresty/">openresty (1)</a></li>
     
     <li><a href="http://codesource.online/categories/python/">python (5)</a></li>
     
-    <li><a href="http://codesource.online/categories/vue/">vue (1)</a></li>
-    
-    <li><a href="http://codesource.online/categories/weixin/">weixin (1)</a></li>
-    
     <li><a href="http://codesource.online/categories/%E5%8A%A0%E5%AF%86/">加密 (2)</a></li>
+    
+    <li><a href="http://codesource.online/categories/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">正则表达式 (2)</a></li>
     
 </ul>
     </section>
@@ -430,9 +420,7 @@
     
     <a href="http://codesource.online/tags/python/">python</a>
     
-    <a href="http://codesource.online/tags/vue/">vue</a>
-    
-    <a href="http://codesource.online/tags/weixin/">weixin</a>
+    <a href="http://codesource.online/tags/regex/">regex</a>
     
     <a href="http://codesource.online/tags/%E5%8A%A0%E5%AF%86/">加密</a>
     

@@ -11,7 +11,7 @@
     <meta property="og:title" content="学而时习之 | 专注于服务端开发">
     <meta property="og:type" content="website">
     <meta name="Keywords" content="golang,go语言,go语言笔记,lua,redis,openresty">
-    <meta name="description" content="记性不太好，找个地方记录一下工作学习的心得">
+    <meta name="description" content="--">
     <meta property="og:url" content="http://codesource.online/">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
@@ -81,7 +81,76 @@
     <article class="post">
         <header>
             <h1 class="post-title">
-                <a href="http://codesource.online/python/5_http/" title="python http请求">python http请求</a>
+                <a href="http://codesource.online/nginx%E7%AC%94%E8%AE%B0/nginx%E4%BD%BF%E7%94%A8http%E7%89%88%E6%9C%AC/" title="openresty 变量">openresty 变量</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2020年8月3日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='http://codesource.online/categories/nginx'>nginx</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            nginx 的http版本的问题 http1.0 需要客户端请求header 指明 connection：keep-alive 表明长链接， 请求完不会立刻关闭。 http1.1 默认就是connection: keep-alive的， 大部分脚本语言发送http默认都是1.1了。 问题来了： 如果访问的域名没有配置到server_na……
+        </div>
+        <p class="readmore"><a href="http://codesource.online/nginx%E7%AC%94%E8%AE%B0/nginx%E4%BD%BF%E7%94%A8http%E7%89%88%E6%9C%AC/">阅读全文</a></p>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="http://codesource.online/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/lua%E7%9A%84%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="lua正则表达式使用">lua正则表达式使用</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2020年7月25日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='http://codesource.online/categories/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F'>正则表达式</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            lua正则特别之处 并未使用POSIX规范的正则表达式，主要是太大，4000行 lua自己实现了模式匹配只有400行，基本满足要求 lua 使用%转义字符，其他语言貌似都是\ 模式 lua支持一下字符类 字符类 说明 . 任意字符 %a 字母 %c 控制字符 %d 数字 %l 小写字母 %p 标点字符 %s 空白符 %u 大写字母 %w 字母和数字 %x……
+        </div>
+        <p class="readmore"><a href="http://codesource.online/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/lua%E7%9A%84%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">阅读全文</a></p>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="http://codesource.online/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%AF%AD%E6%B3%95%E5%92%8C%E5%8E%9F%E7%90%86/" title="正则表达式原理">正则表达式原理</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2020年7月25日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='http://codesource.online/categories/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F'>正则表达式</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            什么是正则表达式 起源于神经网络研究，由数学家Stephen Kleene总结 Warren McCulloch和Walter Pitts早期工作基础之上,发表了一篇题目是《神经网事件的表示法》的论文, 利用称之为正则集合的数学符号来描述此模型，引入了正则表达式的概念 unix之父Ken Thompson 将其利用到搜索……
+        </div>
+        <p class="readmore"><a href="http://codesource.online/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%AF%AD%E6%B3%95%E5%92%8C%E5%8E%9F%E7%90%86/">阅读全文</a></p>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="http://codesource.online/python%E7%AC%94%E8%AE%B0/5_http/" title="python http请求">python http请求</a>
             </h1>
         </header>
         <date class="post-meta meta-date">
@@ -98,36 +167,13 @@
         <div class="post-content">
             urlib 模块 urlib.urlopen(url) 只由url参数，不能设置header等信息 urllib有urlencode函数，可以把字典编码转成get参数（&amp;方式连接）, urllib2 没有 urllib.quote(s, safe=&rsquo;/') 是转义编码用的, 默认不编码/, 且把空格转成%20 urllib.quote_plus(s, safe=&rsquo;') 默认全部编码, 会调用quote(s, safe=&rsquo; &lsquo;) 不编码空格, 最后替换s中的空格为+ 号。……
         </div>
-        <p class="readmore"><a href="http://codesource.online/python/5_http/">阅读全文</a></p>
+        <p class="readmore"><a href="http://codesource.online/python%E7%AC%94%E8%AE%B0/5_http/">阅读全文</a></p>
     </article>
     
     <article class="post">
         <header>
             <h1 class="post-title">
-                <a href="http://codesource.online/html/axios_that/" title="axios为什么拿不到结果">axios为什么拿不到结果</a>
-            </h1>
-        </header>
-        <date class="post-meta meta-date">
-            2020年6月6日
-        </date>
-        
-        <div class="post-meta">
-            <span>|</span>
-            
-            <span class="meta-category"><a href='http://codesource.online/categories/vue'>vue</a></span>
-            
-        </div>
-        
-        <div class="post-content">
-            第一版的写法 request.js 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 import axios from &#39;axios&#39; var getReq = function(url){ var ret axios .get(url) .then(function(res){ console.log(res.data, &#39;打印api返回值的json&#39;) ret = res.data }) .catch( function(error) { console.log(&#34;错误：&#34;,error) } ) } vue 组件调用 1 2 3 4 5 6 7 8 9 10 data: function() { return { data: [] } }, methods: { updateDay(m) { this.data = getReq(&#34;/mock/data&#34;) } } 本来的……
-        </div>
-        <p class="readmore"><a href="http://codesource.online/html/axios_that/">阅读全文</a></p>
-    </article>
-    
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://codesource.online/linux/mongodb%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85/" title="mongodb编译安装">mongodb编译安装</a>
+                <a href="http://codesource.online/linux%E7%AC%94%E8%AE%B0/mongodb%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85/" title="mongodb编译安装">mongodb编译安装</a>
             </h1>
         </header>
         <date class="post-meta meta-date">
@@ -142,15 +188,15 @@
         </div>
         
         <div class="post-content">
-            CentOS7 编译安装 Mongodb (实测 笔记 Centos 7.0 + Mongodb 2.6.6) 环境： 系统硬件：vmware vsphere (CPU：2*4核，内存2G，双网卡) 系统版本：CentOS-7.0-1406-x86_64-DVD.iso 安装步骤： 1.准备 1.1 显示系统版本 [root@centos ~]# cat /etc/redhat-release CentOS Linux release 7.0.1406 (Core) [root@centos ~]# uname -a Linux tCentos7 3.10.0-123.13.1.el7.x86_64 #1 SMP Tue Dec 9 23:06:09 UTC 2014 x86_64 x86_64 x86_64 GNU/Linux 1.2 安装基本软件包 [root@centos ~]# yum……
+            1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104 105 106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125 126 127 128 129 130 131 132 133 134 135 136 137 138 139 140……
         </div>
-        <p class="readmore"><a href="http://codesource.online/linux/mongodb%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85/">阅读全文</a></p>
+        <p class="readmore"><a href="http://codesource.online/linux%E7%AC%94%E8%AE%B0/mongodb%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85/">阅读全文</a></p>
     </article>
     
     <article class="post">
         <header>
             <h1 class="post-title">
-                <a href="http://codesource.online/html/css/1_float/" title="css浮动">css浮动</a>
+                <a href="http://codesource.online/js%E7%AC%94%E8%AE%B0/%E6%B5%AE%E5%8A%A8/" title="css浮动">css浮动</a>
             </h1>
         </header>
         <date class="post-meta meta-date">
@@ -167,13 +213,13 @@
         <div class="post-content">
             主要知识点 不管元素是行内元素还是块元素，只要设置float属性，就会变成块级框， 可以设置wieth和height。……
         </div>
-        <p class="readmore"><a href="http://codesource.online/html/css/1_float/">阅读全文</a></p>
+        <p class="readmore"><a href="http://codesource.online/js%E7%AC%94%E8%AE%B0/%E6%B5%AE%E5%8A%A8/">阅读全文</a></p>
     </article>
     
     <article class="post">
         <header>
             <h1 class="post-title">
-                <a href="http://codesource.online/html/bibao/" title="如何解释js闭包">如何解释js闭包</a>
+                <a href="http://codesource.online/js%E7%AC%94%E8%AE%B0/%E9%97%AD%E5%8C%85/" title="如何解释js闭包">如何解释js闭包</a>
             </h1>
         </header>
         <date class="post-meta meta-date">
@@ -190,13 +236,13 @@
         <div class="post-content">
             看个例子 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 function assert (condition, msg) { if (condition) { console.log(msg, &#39;&#39;) } else { console.log(error, &#39;&#39;) } } var outerValue = &#34;samurai&#34;; var later; function outerFunc() { var innerValue = &#34;ninja&#34;; function innerFunc(){ var a = 90; assert(outerValue === &#34;samurai&#34;, &#34;i can see your&#34;); assert(innerValue === &#34;ninja&#34;, &#34;i can see the ninja&#34;); } later = innerFunc; } function animate() { var timer = setInterval(function () { console.log(&#39;time-----&#39;, &#39;&#39;) },5) } outerFunc(); later(); x和outerFunc函数都属于全局作用域 y和innerFunc是属于……
         </div>
-        <p class="readmore"><a href="http://codesource.online/html/bibao/">阅读全文</a></p>
+        <p class="readmore"><a href="http://codesource.online/js%E7%AC%94%E8%AE%B0/%E9%97%AD%E5%8C%85/">阅读全文</a></p>
     </article>
     
     <article class="post">
         <header>
             <h1 class="post-title">
-                <a href="http://codesource.online/nginx/%E9%85%8D%E7%BD%AEssl%E8%AF%81%E4%B9%A6/" title="nginx 配置免费的ssl证书">nginx 配置免费的ssl证书</a>
+                <a href="http://codesource.online/nginx%E7%AC%94%E8%AE%B0/%E9%85%8D%E7%BD%AEssl%E8%AF%81%E4%B9%A6/" title="nginx 配置免费的ssl证书">nginx 配置免费的ssl证书</a>
             </h1>
         </header>
         <date class="post-meta meta-date">
@@ -211,15 +257,15 @@
         </div>
         
         <div class="post-content">
-            免费证书申请 wget https://dl.eff.org/certbot-auto chmod a+x ./certbot-auto ./certbot-auto certonly --manual --preferred-challenge dns -d 'xxxx.cn' -d 'xxxxx.com' 会提示验证你的域名，如果你在腾讯云或者阿里云注册的域名，需要添加一个TXT类型的记录: 主机记录：_acme-challenge 记录类型： TXT 记录值： foRfz_Vr2vLVGw3U8WsFc4ohMWfk4oETX89vCi-0Lx4 （这个随机生成的，看你自己的是多少） 填写完保存，然后回到终端按下 回车键。 修改nginx 的配置……
+            免费证书申请 1 2 3 4 5 6 7 8 9 10 11 12 wget https://dl.eff.org/certbot-auto chmod a+x ./certbot-auto ./certbot-auto certonly --manual --preferred-challenge dns -d &#39;xxxx.cn&#39; -d &#39;xxxxx.com&#39; 会提示验证你的域名，如果你在腾讯云或者阿里云注册的域名，需要添加一个TXT类型的记录: 主机记录：_acme-challenge 记录类型： TXT 记录值： foRfz_Vr2vLVGw3U8WsFc4ohMWfk4oETX89vCi-0Lx4 （这个随机生成的，看你自己的是多少） 填写完保存，然后回到终端按下 回车……
         </div>
-        <p class="readmore"><a href="http://codesource.online/nginx/%E9%85%8D%E7%BD%AEssl%E8%AF%81%E4%B9%A6/">阅读全文</a></p>
+        <p class="readmore"><a href="http://codesource.online/nginx%E7%AC%94%E8%AE%B0/%E9%85%8D%E7%BD%AEssl%E8%AF%81%E4%B9%A6/">阅读全文</a></p>
     </article>
     
     <article class="post">
         <header>
             <h1 class="post-title">
-                <a href="http://codesource.online/nginx/%E8%B7%A8%E5%9F%9F%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB/" title="nginx配置跨域资源共享CORS">nginx配置跨域资源共享CORS</a>
+                <a href="http://codesource.online/nginx%E7%AC%94%E8%AE%B0/%E8%B7%A8%E5%9F%9F%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB/" title="nginx配置跨域资源共享CORS">nginx配置跨域资源共享CORS</a>
             </h1>
         </header>
         <date class="post-meta meta-date">
@@ -236,13 +282,13 @@
         <div class="post-content">
             跨域 浏览器为了安全，有个策略: 同源策略， 页面中的链接必须域名一致。 为什么跨域 页面请求的接口可能位于独立api服务器， 所以就会有跨域存在。 解决问题 代理，没怎么研究 jsonp，构造javascrit 标签，利用src属性请求这个链接，返回body是可执行的js代码，代码中的函数需要本地……
         </div>
-        <p class="readmore"><a href="http://codesource.online/nginx/%E8%B7%A8%E5%9F%9F%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB/">阅读全文</a></p>
+        <p class="readmore"><a href="http://codesource.online/nginx%E7%AC%94%E8%AE%B0/%E8%B7%A8%E5%9F%9F%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB/">阅读全文</a></p>
     </article>
     
     <article class="post">
         <header>
             <h1 class="post-title">
-                <a href="http://codesource.online/linux/mac%E6%8C%82%E8%BD%BDNTFS%E7%A3%81%E7%9B%98/" title="mac挂载NTFS磁盘">mac挂载NTFS磁盘</a>
+                <a href="http://codesource.online/linux%E7%AC%94%E8%AE%B0/mac%E6%8C%82%E8%BD%BDNTFS%E7%A3%81%E7%9B%98/" title="mac挂载NTFS磁盘">mac挂载NTFS磁盘</a>
             </h1>
         </header>
         <date class="post-meta meta-date">
@@ -259,53 +305,7 @@
         <div class="post-content">
             查看移动硬盘的信息 diskutil list 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 /dev/disk0 (internal): #: TYPE NAME SIZE IDENTIFIER 0: GUID_partition_scheme 121.3 GB disk0 1: EFI EFI 314.6 MB disk0s1 2: Apple_APFS Container disk1 121.0 GB disk0s2 /dev/disk1 (synthesized): #: TYPE NAME SIZE IDENTIFIER 0: APFS Container Scheme - +121.0 GB disk1 Physical Store disk0s2 1: APFS Volume Macintosh HD 97.9 GB disk1s1 2: APFS Volume Preboot 44.2 MB disk1s2 3: APFS Volume Recovery 509.7 MB disk1s3 4: APFS Volume VM 1.1 GB disk1s4 /dev/disk2 (external, physical): #: TYPE NAME SIZE IDENTIFIER 0: FDisk_partition_scheme *500.1 GB disk2 1: Windows_NTFS C_224 224.4 GB disk2s5 2: Windows_NTFS D_138 138.5 GB disk2s6 3: Windows_NTFS E_137 137.2 GB disk2s7 磁盘 /dev/disk2 就……
         </div>
-        <p class="readmore"><a href="http://codesource.online/linux/mac%E6%8C%82%E8%BD%BDNTFS%E7%A3%81%E7%9B%98/">阅读全文</a></p>
-    </article>
-    
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://codesource.online/openresty/openresty%E5%8F%98%E9%87%8F%E8%8C%83%E5%9B%B4/" title="openresty 变量">openresty 变量</a>
-            </h1>
-        </header>
-        <date class="post-meta meta-date">
-            2019年6月30日
-        </date>
-        
-        <div class="post-meta">
-            <span>|</span>
-            
-            <span class="meta-category"><a href='http://codesource.online/categories/openresty'>openresty</a></span>
-            
-        </div>
-        
-        <div class="post-content">
-            NGX_LUA的三种变量范围 进程间共享， nginx的所有work进程共享，使用lua_shared_dict定义，这样高并发就出触发锁。 进程内共享，lua代码中不加local关键字就是全局变量，这样的变量在同一个进程的所有请求之间共享,因为开启了lua缓存，每个work的VM虚拟……
-        </div>
-        <p class="readmore"><a href="http://codesource.online/openresty/openresty%E5%8F%98%E9%87%8F%E8%8C%83%E5%9B%B4/">阅读全文</a></p>
-    </article>
-    
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://codesource.online/es/Elasticsearch_install/" title="Elasticsearch 安装笔记">Elasticsearch 安装笔记</a>
-            </h1>
-        </header>
-        <date class="post-meta meta-date">
-            2019年6月29日
-        </date>
-        
-        <div class="post-meta">
-            <span>|</span>
-            
-            <span class="meta-category"><a href='http://codesource.online/categories/ES'>ES</a></span>
-            
-        </div>
-        
-        <div class="post-content">
-            1. 看一下elasticsearch-head插件查看集群健康状态的图 概况 这是一台虚拟机，创建了index为megacorp, ES默认是5个分片，然后每个分片一个副本，也就是10个分片;三个节点，就会出现如图的样子。 同一个分片必然不在一个节点，不然副本就没意义了。 绿色表示状态健康，……
-        </div>
-        <p class="readmore"><a href="http://codesource.online/es/Elasticsearch_install/">阅读全文</a></p>
+        <p class="readmore"><a href="http://codesource.online/linux%E7%AC%94%E8%AE%B0/mac%E6%8C%82%E8%BD%BDNTFS%E7%A3%81%E7%9B%98/">阅读全文</a></p>
     </article>
     
     
@@ -330,10 +330,6 @@
     
     <li >
         <a href="http://codesource.online/page/4/">4</a>
-    </li>
-    
-    <li >
-        <a href="http://codesource.online/page/5/">5</a>
     </li>
     
 
@@ -364,10 +360,6 @@
         <h3 class="widget-title">最近文章</h3>
 <ul class="widget-list">
     
-    <li>
-        <a href="http://codesource.online/html/html5_tags/" title="html5标签">html5标签</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -385,21 +377,19 @@
     
     <li><a href="http://codesource.online/categories/git/">git (4)</a></li>
     
-    <li><a href="http://codesource.online/categories/js/">js (4)</a></li>
+    <li><a href="http://codesource.online/categories/js/">js (1)</a></li>
     
     <li><a href="http://codesource.online/categories/linux/">linux (13)</a></li>
     
-    <li><a href="http://codesource.online/categories/nginx/">nginx (4)</a></li>
+    <li><a href="http://codesource.online/categories/nginx/">nginx (5)</a></li>
     
     <li><a href="http://codesource.online/categories/openresty/">openresty (1)</a></li>
     
     <li><a href="http://codesource.online/categories/python/">python (5)</a></li>
     
-    <li><a href="http://codesource.online/categories/vue/">vue (1)</a></li>
-    
-    <li><a href="http://codesource.online/categories/weixin/">weixin (1)</a></li>
-    
     <li><a href="http://codesource.online/categories/%E5%8A%A0%E5%AF%86/">加密 (2)</a></li>
+    
+    <li><a href="http://codesource.online/categories/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">正则表达式 (2)</a></li>
     
 </ul>
     </section>
@@ -426,9 +416,7 @@
     
     <a href="http://codesource.online/tags/python/">python</a>
     
-    <a href="http://codesource.online/tags/vue/">vue</a>
-    
-    <a href="http://codesource.online/tags/weixin/">weixin</a>
+    <a href="http://codesource.online/tags/regex/">regex</a>
     
     <a href="http://codesource.online/tags/%E5%8A%A0%E5%AF%86/">加密</a>
     
