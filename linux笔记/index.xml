@@ -6,10 +6,19 @@
     <description>Recent content in Linux笔记s on 学而时习之</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 05 Jun 2020 20:06:30 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 27 Aug 2020 14:00:00 +0800</lastBuildDate>
     
 	<atom:link href="http://codesource.online/linux%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>linux常用命令</title>
+      <link>http://codesource.online/linux%E7%AC%94%E8%AE%B0/linux%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4/</link>
+      <pubDate>Thu, 27 Aug 2020 14:00:00 +0800</pubDate>
+      
+      <guid>http://codesource.online/linux%E7%AC%94%E8%AE%B0/linux%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4/</guid>
+      <description>查看centos版本 rpm -q centos-release 查看是否安装ssh rpm -qa | grep ssh 没有则 yum install openssh-server /etc/init.d/sshd status|start|stop netstat -antp | grep sshd 查看运行级别 chkconfig &amp;ndash;list sshd 开启 chkconfig &amp;ndash;level 2345 sshd on 开机启动 chkconfig sshd on 安装go语言 通过源 rpm -Uvh http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm yum install golang -y 查看go所在目录然后配置环境变量 export PATH=$PATH:$GOPATH/bin 升级centos6的gcc到4.8 wget http://people.centos.org/tru/devtools-2/devtools-2.repo mv devtools-2.repo /etc/yum.repos.d yum install devtoolset-2-gcc devtoolset-2-binutils devtoolset-2-gcc-c++ 保存以前的gcc mv /usr/bin/gcc /usr/bin/gcc-4.4.7 mv /usr/bin/g++ /usr/bin/g++-4.4.7 mv /usr/bin/c++</description>
+    </item>
     
     <item>
       <title>mongodb编译安装</title>
