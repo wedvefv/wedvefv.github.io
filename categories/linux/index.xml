@@ -6,10 +6,19 @@
     <description>Recent content in linux on 学而时习之</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 27 Aug 2020 14:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 18 Sep 2020 20:00:00 +0800</lastBuildDate>
     
 	<atom:link href="http://codesource.online/categories/linux/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>ipv6配置</title>
+      <link>http://codesource.online/linux%E7%AC%94%E8%AE%B0/ipv6/</link>
+      <pubDate>Fri, 18 Sep 2020 20:00:00 +0800</pubDate>
+      
+      <guid>http://codesource.online/linux%E7%AC%94%E8%AE%B0/ipv6/</guid>
+      <description>ipv6格式 冒号分割， 每一段都是16位，一般显示4个16进制数， xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx 连续的0 可以用两个冒号表示 就会出现 fe80::315:b3ba:674b:3fdc的 ，实际上是 fe80:0000:0000:0000:0315:b3ba:674b:3fdc linux中的ipv6有两种类型 Scope:Global Scope:Link 这种方式是由mac地址按照一定格式转换出来的全球唯一本地链路 ping Scope:Link 这种方式直接pin</description>
+    </item>
     
     <item>
       <title>linux常用命令</title>

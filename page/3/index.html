@@ -81,6 +81,29 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="http://codesource.online/git%E7%AC%94%E8%AE%B0/linux%E6%90%AD%E5%BB%BA%E6%9C%8D%E5%8A%A1%E7%AB%AF/" title="git_linux搭建服务器">git_linux搭建服务器</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2019年3月2日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='http://codesource.online/categories/git'>git</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            服务端创建git用户(centos7) 1 2 3 4 5 id git # 查看是否存在git用户，存在就不创建了。 useradd git passwd git 输入密码，我设置的是xxx@123 客户端开启公钥认证认证，免密push/pull 首先服务端需要开启ssh服务 1 2 3 4 5 6 7 8 9 vim /etc/ssh/sshd_config RSAAuthentication yes PubkeyAuthentication yes AuthorizedKeysFile .ssh/authorized_keys 如果是centos7.4以上（含7.……
+        </div>
+        <p class="readmore"><a href="http://codesource.online/git%E7%AC%94%E8%AE%B0/linux%E6%90%AD%E5%BB%BA%E6%9C%8D%E5%8A%A1%E7%AB%AF/">阅读全文</a></p>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="http://codesource.online/git%E7%AC%94%E8%AE%B0/git%E7%9A%84tag%E5%92%8Cbranch%E7%9A%84%E5%8C%BA%E5%88%AB/" title="git_tag用法">git_tag用法</a>
             </h1>
         </header>
@@ -285,29 +308,6 @@
         <p class="readmore"><a href="http://codesource.online/linux%E7%AC%94%E8%AE%B0/2018-10-05_linux/">阅读全文</a></p>
     </article>
     
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://codesource.online/linux%E7%AC%94%E8%AE%B0/centos6.4%E5%8D%87%E7%BA%A7python/" title="centos6.4 升级python到2.7">centos6.4 升级python到2.7</a>
-            </h1>
-        </header>
-        <date class="post-meta meta-date">
-            2018年6月30日
-        </date>
-        
-        <div class="post-meta">
-            <span>|</span>
-            
-            <span class="meta-category"><a href='http://codesource.online/categories/linux'>linux</a></span>
-            
-        </div>
-        
-        <div class="post-content">
-            1. download source 1 2 wget https://www.python.org/ftp/python/2.7.12/Python-2.7.12.tgz 2. compire and install 1 2 3 4 tar zxvf Python-2.7.12.tgz cd Python-2.7.12 ./configure --prefix=/usr/local/python27 &amp;&amp; make &amp;&amp; make install &amp;&amp; echo $? 如果以上输出为0，说明没有报错，安装正常 3. add path and backup the python2.6 1 2 3 4 5 6 7 移除以前的版本 mv /usr/bin/python /usr/bin/python26 创建软连接 ln -s /usr/local/python27/bin/python /usr/bin/python 查看版本是否升级成功 python -V Python 2.7.12 4. modify yum 1 2 3 4 如果不修改此项，会导致yum无法使用 vim /usr/bin/yum 修改第一行即可，将环境变量指向以……
-        </div>
-        <p class="readmore"><a href="http://codesource.online/linux%E7%AC%94%E8%AE%B0/centos6.4%E5%8D%87%E7%BA%A7python/">阅读全文</a></p>
-    </article>
-    
     
 
 
@@ -383,7 +383,7 @@
     
     <li><a href="http://codesource.online/categories/js/">js (1)</a></li>
     
-    <li><a href="http://codesource.online/categories/linux/">linux (14)</a></li>
+    <li><a href="http://codesource.online/categories/linux/">linux (15)</a></li>
     
     <li><a href="http://codesource.online/categories/nginx/">nginx (5)</a></li>
     
