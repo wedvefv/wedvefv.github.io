@@ -6,19 +6,10 @@
     <description>Recent content in Js笔记s on 学而时习之</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 21 May 2020 20:04:30 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 06 Mar 2020 14:47:30 +0800</lastBuildDate>
     
 	<atom:link href="http://codesource.online/js%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>css浮动</title>
-      <link>http://codesource.online/js%E7%AC%94%E8%AE%B0/%E6%B5%AE%E5%8A%A8/</link>
-      <pubDate>Thu, 21 May 2020 20:04:30 +0800</pubDate>
-      
-      <guid>http://codesource.online/js%E7%AC%94%E8%AE%B0/%E6%B5%AE%E5%8A%A8/</guid>
-      <description>主要知识点 不管元素是行内元素还是块元素，只要设置float属性，就会变成块级框， 可以设置wieth和height。</description>
-    </item>
     
     <item>
       <title>如何解释js闭包</title>

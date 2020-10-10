@@ -1,5 +1,5 @@
 #encoding=utf8
-
+# 替换 hexo文章的格式为hugo，主要是日期需要替换
 import os,re
 from sys import argv
 x = argv[1]
