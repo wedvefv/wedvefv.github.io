@@ -191,7 +191,7 @@
         <div class="post-meta">
             <span>|</span>
             
-            <span class="meta-category"><a href='http://codesource.online/categories/nginx'>nginx</a></span>
+            <span class="meta-category"><a href='http://codesource.online/categories/php'>php</a></span>
             
         </div>
         
@@ -216,36 +216,33 @@
 </ul>
 <pre><code>- 配置nginx
 nginx所有的配置在 /etc/nginx/nginx.conf中
+
 nginx.conf配置里面包括了
-include /etc/nginx/conf.d/*.conf;
-include /etc/nginx/sites-enabled/*;
+	include /etc/nginx/conf.d/*.conf;
+	include /etc/nginx/sites-enabled/*;
 这两个配置，所以这里面的配置也是有效的。
 错误日志 error_log /var/log/nginx/error.log;
+
 这里我们把配置写在 /etc/nginx/sites-available/default中
-修改  root /usr/share/nginx/html;   这是网页的根目录，默认里面有一个index.html页面
-index  index.html index.htm修改成index index.php index.html index.htm;
-增加    
+修改  root /usr/share/nginx/html;   
+这是网页的根目录，默认里面有一个index.html页面
+index  index.html index.htm增加index.php类型支持
+配置php解释器  
 　　location ~ \.php$ {
               　　  try_files $uri =404;
               　　  fastcgi_pass 127.0.0.1:9000;
               　　  fastcgi_index index.php;
               　　  include fastcgi_params;
 	}
-</code></pre><ul>
-<li>
-<p>保存文件，使配置生效 /etc/init.d/nginx reload</p>
-</li>
-<li>
-<p>启动nginx</p>
-<ul>
-<li>/etc/init.d/nginx start</li>
-</ul>
-</li>
-<li>
-<p>在 /usr/share/nginx/html下新建index.php就可以测试了</p>
-</li>
-</ul>
-<h2 id="二-安装php">二 安装php</h2>
+
+保存文件，使配置生效 /etc/init.d/nginx reload 
+
+启动nginx
+   - /etc/init.d/nginx start
+   
+在 /usr/share/nginx/html下新建index.php就可以测试了
+
+</code></pre><h2 id="二-安装php">二 安装php</h2>
 <div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -340,7 +337,7 @@ sudo service php5-fpm status
             
             <ul class="clearfix">
                 
-                <li><a href='http://codesource.online/tags/nginx'>nginx</a></li>
+                <li><a href='http://codesource.online/tags/php'>php</a></li>
                 
             </ul>
             
@@ -417,9 +414,11 @@ sudo service php5-fpm status
     
     <li><a href="http://codesource.online/categories/linux/">linux (15)</a></li>
     
-    <li><a href="http://codesource.online/categories/nginx/">nginx (5)</a></li>
+    <li><a href="http://codesource.online/categories/nginx/">nginx (4)</a></li>
     
     <li><a href="http://codesource.online/categories/openresty/">openresty (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/php/">php (1)</a></li>
     
     <li><a href="http://codesource.online/categories/python/">python (5)</a></li>
     
@@ -449,6 +448,8 @@ sudo service php5-fpm status
     <a href="http://codesource.online/tags/nginx/">nginx</a>
     
     <a href="http://codesource.online/tags/openresty/">openresty</a>
+    
+    <a href="http://codesource.online/tags/php/">php</a>
     
     <a href="http://codesource.online/tags/python/">python</a>
     
