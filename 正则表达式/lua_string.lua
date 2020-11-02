@@ -2,11 +2,12 @@
 title="lua捕获"
 categories=["正则表达式"] 
 tags=["regex"] 
-date="2020-11-02 22:00:00+0800"
+date="2020-11-02 1s2:00:00+0800"
 toc=true
 +++
 
-### 直接上代码
+#### 直接上代码
+
 ```lua
 -- 实现特定字符分割字符串
 local function explode(deli, str)
@@ -174,12 +175,5 @@ end
 
 -- 替换匹配的math.sin(3) 为计算额结果, 2^5 也为计算结果
 print(ret)
-
-
-
-
-
-
-
 
 ```
