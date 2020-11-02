@@ -6,20 +6,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>mongodb编译安装 | 学而时习之</title>
-    <meta property="og:title" content="mongodb编译安装 - 学而时习之">
+    <title>lua捕获 | 学而时习之</title>
+    <meta property="og:title" content="lua捕获 - 学而时习之">
     <meta property="og:type" content="article">
         
-    <meta property="article:published_time" content='2020-06-05T20:06:30&#43;08:00'>
+    <meta property="article:published_time" content='2020-11-02T12:00:00&#43;08:00'>
         
         
-    <meta property="article:modified_time" content='2020-06-05T20:06:30&#43;08:00'>
+    <meta property="article:modified_time" content='2020-11-02T12:00:00&#43;08:00'>
         
     <meta name="Keywords" content="golang,go语言,go语言笔记,lua,redis,openresty">
-    <meta name="description" content="mongodb编译安装">
+    <meta name="description" content="lua捕获">
         
     <meta name="author" content="明明">
-    <meta property="og:url" content="http://codesource.online/linux%E7%AC%94%E8%AE%B0/mongodb%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85/">
+    <meta property="og:url" content="http://codesource.online/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/lua_string/">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href='/css/normalize.css'>
@@ -145,7 +145,15 @@
 <div class="post-toc" style="position: absolute; top: 188px;">
     <h2 class="post-toc-title">文章目录</h2>
     <div class="post-toc-content">
-        <nav id="TableOfContents"></nav>
+        <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
     </div>
 </div>
 <script type="text/javascript">
@@ -177,16 +185,16 @@
 </script>
     <article class="post">
         <header>
-            <h1 class="post-title">mongodb编译安装</h1>
+            <h1 class="post-title">lua捕获</h1>
         </header>
         <date class="post-meta meta-date">
-            2020年6月5日
+            2020年11月2日
         </date>
         
         <div class="post-meta">
             <span>|</span>
             
-            <span class="meta-category"><a href='http://codesource.online/categories/linux'>linux</a></span>
+            <span class="meta-category"><a href='http://codesource.online/categories/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F'>正则表达式</a></span>
             
         </div>
         
@@ -204,7 +212,8 @@
         </div>
         
         <div class="post-content">
-            <div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+            <h4 id="直接上代码">直接上代码</h4>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  1
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  2
@@ -373,232 +382,174 @@
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">165
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">166
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">167
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">168
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">169
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">170
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">171
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">172
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">173
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">174
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">175
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">176
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">177
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">178
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">179
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">180
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">181
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">182
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">183
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">184
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">185
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">186
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">187
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">188
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">189
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">190
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">191
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">192
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">193
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">194
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">195
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">196
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">
-CentOS7 编译安装 Mongodb (实测 笔记 Centos 7.0 + Mongodb 2.6.6)
-环境：
-
-系统硬件：vmware vsphere (CPU：2*4核，内存2G，双网卡)
-
-系统版本：CentOS-7.0-1406-x86_64-DVD.iso
-
-
-安装步骤：
-
-1.准备
-
-1.1 显示系统版本
-[root@centos ~]# cat /etc/redhat-release
-CentOS Linux release 7.0.1406 (Core)
-
-
-[root@centos ~]# uname -a
-Linux tCentos7 3.10.0-123.13.1.el7.x86_64 #1 SMP Tue Dec 9 23:06:09 UTC 2014 x86_64 x86_64 x86_64 GNU/Linux
-1.2 安装基本软件包
-
-[root@centos ~]# yum install vim wget lsof gcc gcc-c++ bzip2 -y
-
-[root@centos ~]# yum install net-tools bind-utils -y
-
-
-1.3 显示IP地址 (centos7需要先安装 net-tools bind-utils包)
-
-[root@centos ~]# ifconfig|grep inet
-
-inet 192.168.1.10 netmask 255.255.255.0 broadcast 192.168.1.255
-
- 
-
-2.编译安装mongodb
-
-2.1 下载包
-[root@centos ~]# cd /usr/local/src/
-
-[root@centos ~]# wget http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-2.6.6.tgz
-
-[root@centos ~]# tar -zvxf mongodb-linux-x86_64-2.6.6.tgz
-
-[root@centos ~]# mv mongodb-linux-x86_64-2.6.6 /opt/mongodb/
-
- 
-
-2.2 配置path环境变量,确保mongodb的bin目录包含在path环境变量中。
-
-[root@centos ~]# vim /etc/profile
-
-找到export PATH USER LOGNAME MAIL HOSTNAME HISTSIZE HISTCONTROL，在这行上面添加以下内容：
-
-#set for mongodb
-export MONGODB_HOME=/opt/mongodb
-export PATH=$MONGODB_HOME/bin:$PATH
-
-保存退出
-
-
-[root@centos ~]# echo $PATH
-
-[root@centos ~]# source /etc/profile
-
-[root@centos ~]# echo $PATH
-
-[root@centos ~]# mongod -version
-
-显示以下内容，则表示安装成功
-db version v2.6.6
-2014-12-18T11:02:15.100+0800 git version: 608e8bc319627693b04cc7da29ecc300a5f45a1f
-
-
-2.3 建立存储数据及日志的目录：
-
-[root@centos ~]# mkdir -p /data/mongodb/journal
-
-[root@centos ~]# mkdir -p /data/mongodb/log
-
-[root@centos ~]# touch /data/mongodb/log/mongodb.log
-
-
-2.4 增加mongodb用户及设置权限
-
-[root@centos ~]# useradd mongodb -M -s /sbin/nologin
-
-[root@centos ~]# chown -R mongodb.mongodb /data/mongodb
-　　
-
-2.5 建立配置文件
-
-[root@centos ~]# vim /etc/mongodb.conf
-
-输入以下内容
-
-dbpath=/data/mongodb
-logpath=/data/mongodb/log/mongodb.log
-logappend=true
-port=27017
-fork=true
-noauth=true
-nojournal = true
-smallfiles = true
-noprealloc = true
-
-保存，退出
-
-# **********************************************
-#　　mongodb的参数说明：
-#
-#　　--dbpath 数据库路径(数据文件)
-#　　--logpath 日志文件路径
-#　　--master 指定为主机器
-#　　--slave 指定为从机器
-#　　--source 指定主机器的IP地址
-#　　--pologSize 指定日志文件大小不超过64M.因为resync是非常操作量大且耗时，
-
-#　　　　最好通过设置一个足够大的oplogSize来避免resync(默认的 oplog大小是空闲磁盘大小的5%)。
-#　　--logappend 日志文件末尾添加
-#　　--port 启用端口号
-#　　--fork 在后台运行
-#　　--only 指定只复制哪一个数据库
-#　　--slavedelay 指从复制检测的时间间隔
-#　　--auth 是否需要验证权限登录(用户名和密码)
-
-
-2.6 将mongod服务加到开机启动服务
-
-[root@centos ~]# vim /lib/systemd/system/mongodb.service
-
-输入以下内容
-
-[Unit]
-Description=mongodb
-After=network.target remote-fs.target nss-lookup.target
-
-[Service]
-Type=forking
-PIDFile=/data/mongodb/mongod.lock
-ExecStart=/opt/mongodb/bin/mongod -f /etc/mongodb.conf
-ExecReload=/bin/kill -s HUP $MAINPID
-ExecStop=/bin/kill -s QUIT $MAINPID
-PrivateTmp=true
-
-[Install]
-WantedBy=multi-user.target
-
-
-保存，退出
-
-
-[root@centos ~]# systemctl enable mongodb.service
-
-[root@centos ~]# systemctl list-unit-files|grep enabled|grep mongodb
-
-[root@centos ~]# systemctl daemon-reload
-
-[root@centos ~]# systemctl start mongodb.service
-
-[root@centos ~]# systemctl status mongodb.service -l
-
-
-3 测试数据库是否正常
-
-[root@centos ~]# ps -ef|grep mongod
-
-[root@centos ~]# mongo admin
-
-添加admin用户名密码,使用创建的用户登录MongoDB：
-
-&gt; show dbs
-
-&gt; use admin
-
-&gt; db.addUser(&#39;admin&#39;,&#39;manager&#39;)
-
-&gt; db.auth(&#39;admin&#39;,&#39;manager&#39;)
-
-&gt; show collections
-
-&gt; db.system.users.find()
-
-&gt; exit
-
-
-4 防火墙添加27017端口
-
-[root@centos ~]# iptables -L|grep ACCEPT
-
-[root@centos ~]# firewall-cmd --zone=public --add-port=27017/tcp --permanent
-
-[root@centos ~]# firewall-cmd --reload
-
-[root@centos ~]# iptables -L|grep ACCEPT
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-lua" data-lang="lua"><span style="color:#998;font-style:italic">-- 实现特定字符分割字符串</span>
+<span style="color:#000;font-weight:bold">local</span> <span style="color:#000;font-weight:bold">function</span> <span style="color:#900;font-weight:bold">explode</span>(deli, str)
+	<span style="color:#000;font-weight:bold">local</span> start, find_pos <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">1</span>,<span style="color:#099">1</span>
+	<span style="color:#000;font-weight:bold">local</span> t <span style="color:#000;font-weight:bold">=</span> {}
+	<span style="color:#000;font-weight:bold">while</span> <span style="color:#000;font-weight:bold">true</span>  <span style="color:#000;font-weight:bold">do</span>
+		find_pos <span style="color:#000;font-weight:bold">=</span> string.find(str, deli, start,<span style="color:#000;font-weight:bold">true</span>)  <span style="color:#998;font-style:italic">-- 第三个参数是查找的开始位置</span>
+		<span style="color:#000;font-weight:bold">if</span> <span style="color:#000;font-weight:bold">not</span> find_pos  <span style="color:#000;font-weight:bold">then</span> 
+			<span style="color:#000;font-weight:bold">break</span> 
+		<span style="color:#000;font-weight:bold">end</span>
+
+		t[<span style="color:#000;font-weight:bold">#</span>t<span style="color:#000;font-weight:bold">+</span><span style="color:#099">1</span>] <span style="color:#000;font-weight:bold">=</span> string.sub(str, start, find_pos <span style="color:#000;font-weight:bold">-</span><span style="color:#099">1</span>) 
+		start <span style="color:#000;font-weight:bold">=</span> find_pos <span style="color:#000;font-weight:bold">+</span> <span style="color:#099">1</span>
+	<span style="color:#000;font-weight:bold">end</span>
+	<span style="color:#998;font-style:italic">-- 最后一段字符串</span>
+	t[<span style="color:#000;font-weight:bold">#</span>t<span style="color:#000;font-weight:bold">+</span><span style="color:#099">1</span>] <span style="color:#000;font-weight:bold">=</span> string.sub(str, start)
+	<span style="color:#000;font-weight:bold">return</span> t
+<span style="color:#000;font-weight:bold">end</span>
+
+<span style="color:#998;font-style:italic">-- 测试 explode </span>
+<span style="color:#000;font-weight:bold">local</span> x <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;aaaa,bbb,ccc,111,tt,111&#34;</span>
+<span style="color:#000;font-weight:bold">local</span> arr <span style="color:#000;font-weight:bold">=</span> explode(<span style="color:#d14">&#34;,&#34;</span>, x)
+<span style="color:#000;font-weight:bold">for</span> i, x <span style="color:#000;font-weight:bold">in</span> ipairs(arr) <span style="color:#000;font-weight:bold">do</span>
+	print(i,x)
+<span style="color:#000;font-weight:bold">end</span>
+
+
+print(string.char(<span style="color:#099">97</span>)) <span style="color:#998;font-style:italic">-- a</span>
+print(string.byte(<span style="color:#d14">&#39;a&#39;</span>)) <span style="color:#998;font-style:italic">-- 97</span>
+print((<span style="color:#000;font-weight:bold">#</span><span style="color:#d14">&#34;中&#34;</span>)) <span style="color:#998;font-style:italic">--3 个字节</span>
+print((string.byte(<span style="color:#d14">&#34;中&#34;</span>,<span style="color:#099">1</span>))) <span style="color:#998;font-style:italic">-- 228 </span>
+print((string.byte(<span style="color:#d14">&#34;中&#34;</span>,<span style="color:#099">2</span>))) <span style="color:#998;font-style:italic">-- 184</span>
+print((string.byte(<span style="color:#d14">&#34;中&#34;</span>,<span style="color:#099">3</span>))) <span style="color:#998;font-style:italic">-- 173</span>
+<span style="color:#998;font-style:italic">--[[
+</span><span style="color:#998;font-style:italic">1110 0100
+</span><span style="color:#998;font-style:italic">E 4 
+</span><span style="color:#998;font-style:italic">128 +64 + 32 + 4  = 228
+</span><span style="color:#998;font-style:italic">
+</span><span style="color:#998;font-style:italic">1011 1000
+</span><span style="color:#998;font-style:italic">B 8
+</span><span style="color:#998;font-style:italic">128 + 32 + 16 +8 = 184
+</span><span style="color:#998;font-style:italic">
+</span><span style="color:#998;font-style:italic">1010 1101
+</span><span style="color:#998;font-style:italic">A D
+</span><span style="color:#998;font-style:italic">128 + 32 + 8 + 4 + 1 = 173 
+</span><span style="color:#998;font-style:italic">“中” 字的utf8编码是E4B8AD三个字节
+</span><span style="color:#998;font-style:italic">]]</span>
+
+
+<span style="color:#998;font-style:italic">-- string.gsub</span>
+s ,c <span style="color:#000;font-weight:bold">=</span> string.gsub(<span style="color:#d14">&#34;all lii&#34;</span>, <span style="color:#d14">&#39;l&#39;</span>, <span style="color:#d14">&#39;x&#39;</span>, <span style="color:#099">2</span>) <span style="color:#998;font-style:italic">-- 替换2次l为x</span>
+print(s, c) <span style="color:#998;font-style:italic">-- axx lii 2 。 c表示替换次数</span>
+
+
+<span style="color:#998;font-style:italic">--[[
+</span><span style="color:#998;font-style:italic">. 任意字符
+</span><span style="color:#998;font-style:italic">%a 字母
+</span><span style="color:#998;font-style:italic">%c 控制字符
+</span><span style="color:#998;font-style:italic">%d 数字
+</span><span style="color:#998;font-style:italic">%l 小写字母
+</span><span style="color:#998;font-style:italic">%p 标点字符
+</span><span style="color:#998;font-style:italic">%s 空白符
+</span><span style="color:#998;font-style:italic">%u 大写字母
+</span><span style="color:#998;font-style:italic">%w 字母和数字
+</span><span style="color:#998;font-style:italic">%x 十六进制数字
+</span><span style="color:#998;font-style:italic">%z 代表 0 的字符
+</span><span style="color:#998;font-style:italic">]]</span>
+<span style="color:#998;font-style:italic">-- %A 大写的都表示补集，非%a</span>
+
+<span style="color:#998;font-style:italic">-- 特殊字符</span>
+<span style="color:#998;font-style:italic">-- ( ) . % + - * ? [ ^ $</span>
+
+<span style="color:#998;font-style:italic">--[[
+</span><span style="color:#998;font-style:italic">+ 匹配前一字符 1 次或多次
+</span><span style="color:#998;font-style:italic">* 匹配前一字符 0 次或多次
+</span><span style="color:#998;font-style:italic">- 匹配前一字符 0 次或多次
+</span><span style="color:#998;font-style:italic">? 匹配前一字符 0 次或 1 次
+</span><span style="color:#998;font-style:italic">]]</span>
+
+<span style="color:#998;font-style:italic">-- 正则匹配</span>
+test <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;int x; /* 111111 */ int y; /* 22222 */&#34;</span>
+<span style="color:#998;font-style:italic">-- .* 是匹配0次或多次字符， 最长匹配</span>
+print(string.gsub(test, <span style="color:#d14">&#34;/%*.*%*/&#34;</span>, <span style="color:#d14">&#34;注释&#34;</span>)) 
+<span style="color:#998;font-style:italic">-- int x; 注释  1次 </span>
+
+<span style="color:#998;font-style:italic">-- .- 也是匹配0次或多次字符，是最短匹配</span>
+print(string.gsub(test, <span style="color:#d14">&#34;/%*.-%*/&#34;</span>, <span style="color:#d14">&#34;注释&#34;</span>))
+<span style="color:#998;font-style:italic">-- int x; 注释 int y; 注释 2</span>
+
+
+test <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;a (enclosed (in) parentheses) line&#34;</span>
+print(string.find(test, <span style="color:#d14">&#34;%bes&#34;</span>)) 
+<span style="color:#998;font-style:italic">-- 匹配%b后面的两个字母es之间的内容，包括 e和s， </span>
+<span style="color:#998;font-style:italic">-- 4， 9</span>
+
+
+<span style="color:#998;font-style:italic">-- 捕获功能1</span>
+<span style="color:#998;font-style:italic">-- 用括号括起来的部分就叫做一个捕获 capture</span>
+pair <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;name = anna&#39;</span>
+
+a, b , key , value <span style="color:#000;font-weight:bold">=</span> string.find(pair, <span style="color:#d14">&#34;(%a+)%s=%s(%a+)&#34;</span>)
+print(a, b , key, value)
+<span style="color:#998;font-style:italic">-- 1       11      name    anna </span>
+<span style="color:#998;font-style:italic">-- a,b是找到的整个匹配的起点和终点</span>
+<span style="color:#998;font-style:italic">-- 除了前两个参数，后面的每个值，对应一个小括号中的匹配值</span>
+
+date <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;17/7/1970&#34;</span>
+_,_,d,m,y <span style="color:#000;font-weight:bold">=</span> string.find(date, <span style="color:#d14">&#34;(%d+)/(%d+)/(%d+)&#34;</span>)
+print(d, m, y ) <span style="color:#998;font-style:italic">-- 17, 7, 1970</span>
+
+
+<span style="color:#998;font-style:italic">-- 捕获功能2 ,匹配引号之间的数据</span>
+
+s <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">[[then he said: &#34;it&#39;s all righ&#39;t&#34;!]]</span>
+a, b , c,  quote_str<span style="color:#000;font-weight:bold">=</span> string.find(s, <span style="color:#d14">&#34;([</span><span style="color:#d14">\&#34;\&#39;</span><span style="color:#d14">])(.-)%1&#34;</span>)
+<span style="color:#998;font-style:italic">-- a, b , c,  quote_str= string.find(s, &#34;([\&#34;])(.-)[\&#34;]&#34;)</span>
+print(a,b, c, quote_str)
+<span style="color:#998;font-style:italic">-- %1 表示第一个小括号的匹配值</span>
+
+print(string.gsub(<span style="color:#d14">&#34;hello lua&#34;</span>, <span style="color:#d14">&#34;(%a)&#34;</span>, <span style="color:#d14">&#34;%1-%1&#34;</span>))
+<span style="color:#998;font-style:italic">-- h-he-el-ll-lo-o L-Lu-ua-a</span>
+
+print(string.gsub(<span style="color:#d14">&#34;hello lua&#34;</span>, <span style="color:#d14">&#34;(.)(.)&#34;</span>, <span style="color:#d14">&#34;%2%1&#34;</span>))
+<span style="color:#998;font-style:italic">-- 替换相邻字符</span>
+<span style="color:#998;font-style:italic">-- --&gt; ehll ouLa</span>
+
+<span style="color:#998;font-style:italic">-- 捕获3 -替换</span>
+x <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;</span><span style="color:#d14">\\</span><span style="color:#d14">command {some text}&#34;</span>  <span style="color:#998;font-style:italic">-- LaTeX格式</span>
+<span style="color:#998;font-style:italic">-- 转成html格式 &lt;command&gt; some text &lt;/command&gt;</span>
+print(string.gsub(x, <span style="color:#d14">&#34;</span><span style="color:#d14">\\</span><span style="color:#d14">(%a+)%s{(.-)}&#34;</span>, <span style="color:#d14">&#34;&lt;%1&gt; %2 &lt;/%1&gt;&#34;</span>))
+
+x <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;the </span><span style="color:#d14">\\</span><span style="color:#d14">quote{task} is to </span><span style="color:#d14">\\</span><span style="color:#d14">em{change} that&#34;</span>
+print(string.gsub(x, <span style="color:#d14">&#34;(.-)</span><span style="color:#d14">\\</span><span style="color:#d14">(%a+){(.-)}(.-)</span><span style="color:#d14">\\</span><span style="color:#d14">(.-){(.-)}(.-)&#34;</span>, <span style="color:#d14">&#34;%1 &lt;%2&gt;%3&lt;/%2&gt;%4&lt;%5&gt;%6&lt;/%5&gt;%7&#34;</span>))
+<span style="color:#998;font-style:italic">-- the  &lt;quote&gt;task&lt;/quote&gt; is to &lt;em&gt;change&lt;/em&gt; that</span>
+
+
+<span style="color:#998;font-style:italic">-- trim函数替换空格</span>
+<span style="color:#000;font-weight:bold">local</span> <span style="color:#000;font-weight:bold">function</span> <span style="color:#900;font-weight:bold">trim</span>(s)
+	<span style="color:#000;font-weight:bold">return</span> string.gsub(s, <span style="color:#d14">&#34;^%s*(.-)%s*$&#34;</span>, <span style="color:#d14">&#34;%1&#34;</span>)
+<span style="color:#000;font-weight:bold">end</span>
+x <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34; hello &#34;</span>
+print(<span style="color:#d14">&#34;xxx&#34;</span><span style="color:#000;font-weight:bold">..</span>trim(x)<span style="color:#000;font-weight:bold">..</span><span style="color:#d14">&#34;aa&#34;</span>)
+
+
+
+<span style="color:#998;font-style:italic">-- 捕获4</span>
+<span style="color:#000;font-weight:bold">local</span> <span style="color:#000;font-weight:bold">function</span> <span style="color:#900;font-weight:bold">expand</span>(s)
+	s <span style="color:#000;font-weight:bold">=</span> string.gsub(s, <span style="color:#d14">&#34;$(%w+)&#34;</span>, <span style="color:#000;font-weight:bold">function</span>(n) <span style="color:#000;font-weight:bold">return</span> _G[n] <span style="color:#000;font-weight:bold">end</span>) <span style="color:#998;font-style:italic">-- %w字母或数字</span>
+	<span style="color:#000;font-weight:bold">return</span> s
+<span style="color:#000;font-weight:bold">end</span>
+<span style="color:#998;font-style:italic">-- 每次匹配到值，都会传给 第三个参数指定的函数</span>
+name <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;lua&#34;</span>  status<span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;great&#34;</span>
+print(expand(<span style="color:#d14">&#34;$name is $status, isnt it?&#34;</span>))
+<span style="color:#998;font-style:italic">-- 匹配到单词 name ，就去_G中寻找_G[&#34;name&#34;], name = &#34;lua&#34; status也是如此</span>
+
+
+<span style="color:#998;font-style:italic">-- 捕获5</span>
+s <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;sin(3) = $[math.sin(3)]; 2^5 = $[2^5]&#34;</span>
+<span style="color:#000;font-weight:bold">local</span> ret <span style="color:#000;font-weight:bold">=</span> string.gsub(s, <span style="color:#d14">&#34;$(%b[])&#34;</span>, <span style="color:#000;font-weight:bold">function</span>(x)
+	x <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;return &#34;</span> <span style="color:#000;font-weight:bold">..</span> string.sub(x, <span style="color:#099">2</span>, <span style="color:#000;font-weight:bold">-</span><span style="color:#099">2</span>)
+	<span style="color:#000;font-weight:bold">local</span> f <span style="color:#000;font-weight:bold">=</span> loadstring(x) <span style="color:#998;font-style:italic">-- loadstring 类似定义一个函数体</span>
+	<span style="color:#000;font-weight:bold">return</span> f()
+<span style="color:#000;font-weight:bold">end</span>
+)
+
+<span style="color:#998;font-style:italic">-- 替换匹配的math.sin(3) 为计算额结果, 2^5 也为计算结果</span>
+print(ret)
 
 </code></pre></td></tr></table>
 </div>
@@ -614,15 +565,15 @@ WantedBy=multi-user.target
     <h2>See Also</h2>
     <ul class="listing">
         
-        <li><a href="/linux%E7%AC%94%E8%AE%B0/centos6%E5%92%8C7%E7%9A%84%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/">一张图看懂centos6和7的启动流程区别</a></li>
+        <li><a href="/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/lua%E7%9A%84%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">lua正则表达式使用</a></li>
         
-        <li><a href="/linux%E7%AC%94%E8%AE%B0/%E4%BA%86%E8%A7%A3%E4%B8%80%E4%B8%8Blinux%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8/">了解一下linux开机启动</a></li>
+        <li><a href="/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%AF%AD%E6%B3%95%E5%92%8C%E5%8E%9F%E7%90%86/">正则表达式原理</a></li>
         
-        <li><a href="/linux%E7%AC%94%E8%AE%B0/%E4%BA%86%E8%A7%A3%E4%B8%80%E4%B8%8BVM%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%9A%84%E4%B8%89%E7%A7%8D%E8%81%94%E7%BD%91%E6%A8%A1%E5%BC%8F/">了解一下VM虚拟机的三种联网模式</a></li>
+        <li><a href="/linux%E7%AC%94%E8%AE%B0/ipv6/">ipv6配置</a></li>
         
-        <li><a href="/linux%E7%AC%94%E8%AE%B0/%E4%BA%86%E8%A7%A3%E4%B8%80%E4%B8%8Btcp%E5%8D%8A%E8%BF%9E%E6%8E%A5%E9%98%9F%E5%88%97%E5%92%8C%E5%85%A8%E8%BF%9E%E6%8E%A5%E9%98%9F%E5%88%97/">tcp连接过程，半连接队列和全连接队列</a></li>
+        <li><a href="/vim%E7%AC%94%E8%AE%B0/nvim%E9%85%8D%E7%BD%AEcoc%E8%A1%A5%E5%85%A8/">coc如何补全vim的</a></li>
         
-        <li><a href="/linux%E7%AC%94%E8%AE%B0/ip%E5%9C%B0%E5%9D%80%E5%AD%90%E7%BD%91%E6%8E%A9%E7%A0%81%E7%9A%84%E5%85%B3%E7%B3%BB/">ip地址和子网掩码，广播地址关系</a></li>
+        <li><a href="/linux%E7%AC%94%E8%AE%B0/linux%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4/">linux常用命令</a></li>
         
     </ul>
 </div>
@@ -632,7 +583,7 @@ WantedBy=multi-user.target
             
             <ul class="clearfix">
                 
-                <li><a href='http://codesource.online/tags/linux'>linux</a></li>
+                <li><a href='http://codesource.online/tags/regex'>regex</a></li>
                 
             </ul>
             
