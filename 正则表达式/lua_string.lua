@@ -2,10 +2,11 @@
 title="lua捕获"
 categories=["正则表达式"] 
 tags=["regex"] 
-date="2020-11-02 23:00:00+0800"
+date="2020-11-02 22:00:00+0800"
 toc=true
 +++
 
+### 直接上代码
 ```lua
 -- 实现特定字符分割字符串
 local function explode(deli, str)
