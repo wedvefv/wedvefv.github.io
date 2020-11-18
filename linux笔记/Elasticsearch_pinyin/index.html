@@ -161,6 +161,7 @@
         <li><a href="#查询数据3">查询数据3</a></li>
       </ul>
     </li>
+    <li><a href="#查询错误">查询错误</a></li>
   </ul>
 </nav>
     </div>
@@ -353,19 +354,21 @@
    &quot;name.pinyin&quot;: &quot;刘德h&quot;
  }}
 }'
-```## 查询错误
-</code></pre><p>{&ldquo;error&rdquo;:{&ldquo;root_cause&rdquo;:[{&ldquo;type&rdquo;:&ldquo;circuit_breaking_exception&rdquo;,&ldquo;reason&rdquo;:&quot;[fielddata] Data too large, data for [name.raw] would be [5112378110/4.7gb], which is larger than the limit of [5112122572/4.7gb]&quot;,&ldquo;bytes_wanted&rdquo;:5112378110,&ldquo;bytes_limit&rdquo;:5112122572}</p>
-<p>是内存问题，修改配置文件：
-elasticsearch.yml 增加配置</p>
-<p>indices.fielddata.cache.size: 20%
-indices.breaker.total.use_real_memory: false</p>
-<h1 id="fielddata-断路器默认设置堆的-60-作为-fielddata-大小的上限">fielddata 断路器默认设置堆的 60% 作为 fielddata 大小的上限。</h1>
-<p>indices.breaker.fielddata.limit: 40%</p>
-<h1 id="request-断路器估算需要完成其他请求部分的结构大小例如创建一个聚合桶默认限制是堆内存的-40">request 断路器估算需要完成其他请求部分的结构大小，例如创建一个聚合桶，默认限制是堆内存的 40%。</h1>
-<p>indices.breaker.request.limit: 40%</p>
-<h1 id="total-揉合-request-和-fielddata-断路器保证两者组合起来不会使用超过堆内存的-70默认值">total 揉合 request 和 fielddata 断路器保证两者组合起来不会使用超过堆内存的 70%(默认值)。</h1>
-<p>indices.breaker.total.limit: 95%</p>
-<pre><code></code></pre>
+</code></pre><h2 id="查询错误">查询错误</h2>
+<pre><code>{&quot;error&quot;:{&quot;root_cause&quot;:[{&quot;type&quot;:&quot;circuit_breaking_exception&quot;,&quot;reason&quot;:&quot;[fielddata] Data too large, data for [name.raw] would be [5112378110/4.7gb], which is larger than the limit of [5112122572/4.7gb]&quot;,&quot;bytes_wanted&quot;:5112378110,&quot;bytes_limit&quot;:5112122572}
+
+是内存问题，修改配置文件：
+elasticsearch.yml 增加配置
+
+indices.fielddata.cache.size: 20%
+indices.breaker.total.use_real_memory: false
+# fielddata 断路器默认设置堆的 60% 作为 fielddata 大小的上限。
+indices.breaker.fielddata.limit: 40%
+# request 断路器估算需要完成其他请求部分的结构大小，例如创建一个聚合桶，默认限制是堆内存的 40%。
+indices.breaker.request.limit: 40%
+# total 揉合 request 和 fielddata 断路器保证两者组合起来不会使用超过堆内存的 70%(默认值)。
+indices.breaker.total.limit: 95%
+</code></pre>
         </div>
 
         
