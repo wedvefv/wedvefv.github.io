@@ -81,6 +81,29 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="http://codesource.online/js%E7%AC%94%E8%AE%B0/%E9%97%AD%E5%8C%85/" title="如何解释js闭包">如何解释js闭包</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2020年3月6日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='http://codesource.online/categories/js'>js</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            看个例子 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 function assert (condition, msg) { if (condition) { console.log(msg, &#39;&#39;) } else { console.log(error, &#39;&#39;) } } var outerValue = &#34;samurai&#34;; var later; function outerFunc() { var innerValue = &#34;ninja&#34;; function innerFunc(){ var a = 90; assert(outerValue === &#34;samurai&#34;, &#34;i can see your&#34;); assert(innerValue === &#34;ninja&#34;, &#34;i can see the ninja&#34;); } later = innerFunc; } function animate() { var timer = setInterval(function () { console.log(&#39;time-----&#39;, &#39;&#39;) },5) } outerFunc(); later(); x和outerFunc函数都属于全局作用域 y和innerFunc是属于……
+        </div>
+        <p class="readmore"><a href="http://codesource.online/js%E7%AC%94%E8%AE%B0/%E9%97%AD%E5%8C%85/">阅读全文</a></p>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="http://codesource.online/nginx%E7%AC%94%E8%AE%B0/%E9%85%8D%E7%BD%AEssl%E8%AF%81%E4%B9%A6/" title="nginx 配置免费的ssl证书">nginx 配置免费的ssl证书</a>
             </h1>
         </header>
@@ -285,29 +308,6 @@
         <p class="readmore"><a href="http://codesource.online/linux%E7%AC%94%E8%AE%B0/%E4%BA%86%E8%A7%A3%E4%B8%80%E4%B8%8Blinux%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8/">阅读全文</a></p>
     </article>
     
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://codesource.online/python%E7%AC%94%E8%AE%B0/3_reload_sys/" title="python 编码reload(sys)的作用">python 编码reload(sys)的作用</a>
-            </h1>
-        </header>
-        <date class="post-meta meta-date">
-            2019年5月2日
-        </date>
-        
-        <div class="post-meta">
-            <span>|</span>
-            
-            <span class="meta-category"><a href='http://codesource.online/categories/python'>python</a></span>
-            
-        </div>
-        
-        <div class="post-content">
-            为什么需要sys.setdefaultencoding(&ldquo;utf-8&rdquo;) 因为python转码是通过unicode作为中间码的。 比如字符串 x = &ldquo;你们&rdquo;，本身是str， 首先我们指定了文件编码uft8，所以x是utf8编码的。 如果要转化g……
-        </div>
-        <p class="readmore"><a href="http://codesource.online/python%E7%AC%94%E8%AE%B0/3_reload_sys/">阅读全文</a></p>
-    </article>
-    
     
 
 
@@ -334,6 +334,10 @@
     
     <li >
         <a href="http://codesource.online/page/4/">4</a>
+    </li>
+    
+    <li >
+        <a href="http://codesource.online/page/5/">5</a>
     </li>
     
 
@@ -373,7 +377,7 @@
         <h3 class="widget-title">分类</h3>
 <ul class="widget-list">
     
-    <li><a href="http://codesource.online/categories/ES/">ES (1)</a></li>
+    <li><a href="http://codesource.online/categories/ES/">ES (2)</a></li>
     
     <li><a href="http://codesource.online/categories/dll/">dll (1)</a></li>
     

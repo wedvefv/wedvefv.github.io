@@ -6,10 +6,19 @@
     <description>Recent content in Linux笔记s on 学而时习之</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 18 Sep 2020 20:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 17 Nov 2020 23:10:00 +0800</lastBuildDate>
     
 	<atom:link href="http://codesource.online/linux%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Elasticsearch pinyin插件</title>
+      <link>http://codesource.online/linux%E7%AC%94%E8%AE%B0/Elasticsearch_pinyin/</link>
+      <pubDate>Tue, 17 Nov 2020 23:10:00 +0800</pubDate>
+      
+      <guid>http://codesource.online/linux%E7%AC%94%E8%AE%B0/Elasticsearch_pinyin/</guid>
+      <description>插件安装 ./bin/elasticsearch-plugin install https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v7.9.3/elasticsearch-analysis-ik-7.9.3.zip ./bin/elasticsearch-plugin install https://github.com/medcl/elasticsearch-analysis-pinyin/releases/download/v7.9.3/elasticsearch-analysis-pinyin-7.9.3.zip pinyin插件 keep_first_letter 选项默认true，刘德华-&amp;gt; ldh keep_separate_first_letter 选项默认fasle ， 刘德华 -&amp;gt; l,d,h limit_first_letter_length 首字母默认长度 16 keep_full_pinyin 默认true， 刘德华 -&amp;gt; [liu, de, hua] keep_joined_full_pinyin 默认false 刘德华-&amp;gt; [liudehua] keep_none_chinese 默认true， 保持非中问的字符或数字 keep_none_chinese_together 需要keep_none_chinese=true； D</description>
+    </item>
     
     <item>
       <title>ipv6配置</title>

@@ -6,10 +6,19 @@
     <description>Recent content in Categories on 学而时习之</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 02 Nov 2020 12:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 17 Nov 2020 23:10:00 +0800</lastBuildDate>
     
 	<atom:link href="http://codesource.online/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>ES</title>
+      <link>http://codesource.online/categories/ES/</link>
+      <pubDate>Tue, 17 Nov 2020 23:10:00 +0800</pubDate>
+      
+      <guid>http://codesource.online/categories/ES/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>正则表达式</title>
@@ -71,15 +80,6 @@
       <pubDate>Sun, 30 Jun 2019 14:00:00 +0800</pubDate>
       
       <guid>http://codesource.online/categories/openresty/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>ES</title>
-      <link>http://codesource.online/categories/ES/</link>
-      <pubDate>Sat, 29 Jun 2019 23:10:00 +0800</pubDate>
-      
-      <guid>http://codesource.online/categories/ES/</guid>
       <description></description>
     </item>
     

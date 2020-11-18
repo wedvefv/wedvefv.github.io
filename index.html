@@ -81,6 +81,29 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="http://codesource.online/linux%E7%AC%94%E8%AE%B0/Elasticsearch_pinyin/" title="Elasticsearch pinyin插件">Elasticsearch pinyin插件</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2020年11月17日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='http://codesource.online/categories/ES'>ES</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            插件安装 ./bin/elasticsearch-plugin install https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v7.9.3/elasticsearch-analysis-ik-7.9.3.zip ./bin/elasticsearch-plugin install https://github.com/medcl/elasticsearch-analysis-pinyin/releases/download/v7.9.3/elasticsearch-analysis-pinyin-7.9.3.zip pinyin插件 keep_first_letter 选项默认true，刘德华-&gt; ldh keep_separate_first_letter 选项默认fasle ， 刘德华 -&gt; l,d,h limit_first_letter_length 首字母默认长度 16 keep_full_pinyin 默认true， 刘德华 -&gt; [liu, de, hua] keep_joined_full_pinyin 默认false 刘德华-&gt; [liudehua] keep_none_chinese 默认true， 保持非中问的字符或数字 keep_none_chinese_together 需要keep_none_chinese=true； D……
+        </div>
+        <p class="readmore"><a href="http://codesource.online/linux%E7%AC%94%E8%AE%B0/Elasticsearch_pinyin/">阅读全文</a></p>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="http://codesource.online/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/lua_string/" title="lua捕获">lua捕获</a>
             </h1>
         </header>
@@ -285,29 +308,6 @@
         <p class="readmore"><a href="http://codesource.online/linux%E7%AC%94%E8%AE%B0/mongodb%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85/">阅读全文</a></p>
     </article>
     
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://codesource.online/js%E7%AC%94%E8%AE%B0/%E9%97%AD%E5%8C%85/" title="如何解释js闭包">如何解释js闭包</a>
-            </h1>
-        </header>
-        <date class="post-meta meta-date">
-            2020年3月6日
-        </date>
-        
-        <div class="post-meta">
-            <span>|</span>
-            
-            <span class="meta-category"><a href='http://codesource.online/categories/js'>js</a></span>
-            
-        </div>
-        
-        <div class="post-content">
-            看个例子 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 function assert (condition, msg) { if (condition) { console.log(msg, &#39;&#39;) } else { console.log(error, &#39;&#39;) } } var outerValue = &#34;samurai&#34;; var later; function outerFunc() { var innerValue = &#34;ninja&#34;; function innerFunc(){ var a = 90; assert(outerValue === &#34;samurai&#34;, &#34;i can see your&#34;); assert(innerValue === &#34;ninja&#34;, &#34;i can see the ninja&#34;); } later = innerFunc; } function animate() { var timer = setInterval(function () { console.log(&#39;time-----&#39;, &#39;&#39;) },5) } outerFunc(); later(); x和outerFunc函数都属于全局作用域 y和innerFunc是属于……
-        </div>
-        <p class="readmore"><a href="http://codesource.online/js%E7%AC%94%E8%AE%B0/%E9%97%AD%E5%8C%85/">阅读全文</a></p>
-    </article>
-    
     
 
 
@@ -330,6 +330,10 @@
     
     <li >
         <a href="http://codesource.online/page/4/">4</a>
+    </li>
+    
+    <li >
+        <a href="http://codesource.online/page/5/">5</a>
     </li>
     
 
@@ -369,7 +373,7 @@
         <h3 class="widget-title">分类</h3>
 <ul class="widget-list">
     
-    <li><a href="http://codesource.online/categories/ES/">ES (1)</a></li>
+    <li><a href="http://codesource.online/categories/ES/">ES (2)</a></li>
     
     <li><a href="http://codesource.online/categories/dll/">dll (1)</a></li>
     
