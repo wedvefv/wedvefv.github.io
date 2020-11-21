@@ -364,22 +364,23 @@ discovery.zen.ping.unicast.hosts: <span style="color:#000;font-weight:bold">[</s
 </code></pre></td></tr></table>
 </div>
 </div><ul>
-<li>解释一下</li>
-</ul>
-<blockquote>
-<p>cluster.name 集群名字必须一样
-node.name 节点名字不要一样
-以下两行是跨域设置，不然3个节点之间是互相发现不了的。
-http.cors.enabled: true
-http.cors.allow-origin: &ldquo;*&rdquo;
-在外部可以允许外部ip访问操作节点， 不然只能是在本地使用127.0.0.1访问ES
-network.host: 0.0.0.0 这个是访问节点的ip
-http.port 9200 节点对外端口
-transport.tcp.port: 9320 这个是节点内部同步数据使用的端口
-discovery.zen.ping.unicast.hosts: 这是节点列表</p>
-</blockquote>
+<li>
+<p>解释一下</p>
 <ul>
-<li>启动三个ES服务把
+<li>cluster.name 集群名字必须一样</li>
+<li>node.name 节点名字不要一样</li>
+<li>以下两行是跨域设置，不然3个节点之间是互相发现不了的。</li>
+<li>http.cors.enabled: true</li>
+<li>http.cors.allow-origin: &ldquo;*&rdquo;</li>
+<li>在外部可以允许外部ip访问操作节点， 不然只能是在本地使用127.0.0.1访问ES</li>
+<li>network.host: 0.0.0.0 这个是访问节点的ip</li>
+<li>http.port 9200 节点对外端口</li>
+<li>transport.tcp.port: 9320 这个是节点内部同步数据使用的端口</li>
+<li>discovery.zen.ping.unicast.hosts: 这是节点列表</li>
+</ul>
+</li>
+<li>
+<p>启动三个ES服务把</p>
 <ul>
 <li>
 <p>分别进入/usr/local/server1, /usr/local/server2, /usr/local/server3
