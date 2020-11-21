@@ -226,13 +226,25 @@
 <ul>
 <li>mapping 可以单独设置，必须是创建index之后，设置了就不能修改了。</li>
 </ul>
-<pre><code>POST /city_index/_mapping
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#a61717;background-color:#e3d2d2">POST</span> <span style="color:#a61717;background-color:#e3d2d2">/city_index/_mapping</span>
 {
-	properties&quot;{
-	...
+	<span style="color:#a61717;background-color:#e3d2d2">properties&#34;{</span>
+	<span style="color:#a61717;background-color:#e3d2d2">...</span>
 	}
-}
-</code></pre><ul>
+<span style="color:#a61717;background-color:#e3d2d2">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><ul>
 <li>也可以创建索引时，一并设置， 如下</li>
 </ul>
 <h3 id="城市信息索引-city_index">城市信息索引 city_index</h3>
@@ -312,36 +324,87 @@
           }
       },
 	  <span style="color:#000080">&#34;cityid&#34;</span>: {
-	  	<span style="color:#000080">&#34;type&#34;</span>: <span style="color:#a61717;background-color:#e3d2d2">long</span>
+	  	<span style="color:#000080">&#34;type&#34;</span>: <span style="color:#d14">&#34;long&#34;</span>
 	  }
   }
 }
 </code></pre></td></tr></table>
 </div>
 </div><h3 id="添加数据">添加数据</h3>
-<pre><code>PUT /city_index/create
-PUT /city_index/_create/1?pretty
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#a61717;background-color:#e3d2d2">PUT</span> <span style="color:#a61717;background-color:#e3d2d2">/city_index/create</span>
 {
-  &quot;name&quot;: &quot;北京市&quot;,
-  &quot;cityid&quot;: &quot;1&quot;
+	<span style="color:#000080">&#34;.... 自动生成id&#34;</span>
 }
-// put 会覆盖id=1的数据
-</code></pre><h3 id="更新数据7x">更新数据7.x</h3>
-<pre><code>POST /city_index/_update/1
+
+<span style="color:#a61717;background-color:#e3d2d2">PUT</span> <span style="color:#a61717;background-color:#e3d2d2">/city_index/_create/</span><span style="color:#099">1</span><span style="color:#a61717;background-color:#e3d2d2">?pretty</span>
 {
-  &quot;doc&quot;:{
-    &quot;name&quot;: &quot;北京市1&quot;
+  <span style="color:#000080">&#34;name&#34;</span>: <span style="color:#d14">&#34;北京市&#34;</span>,
+  <span style="color:#000080">&#34;cityid&#34;</span>: <span style="color:#d14">&#34;1&#34;</span>
+}
+<span style="color:#a61717;background-color:#e3d2d2">//</span> <span style="color:#a61717;background-color:#e3d2d2">put</span> <span style="color:#a61717;background-color:#e3d2d2">会覆盖id=</span><span style="color:#099">1</span><span style="color:#a61717;background-color:#e3d2d2">的数据</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="更新数据7x">更新数据7.x</h3>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#a61717;background-color:#e3d2d2">POST</span> <span style="color:#a61717;background-color:#e3d2d2">/city_index/_update/</span><span style="color:#099">1</span>
+{
+  <span style="color:#000080">&#34;doc&#34;</span>:{
+    <span style="color:#000080">&#34;name&#34;</span>: <span style="color:#d14">&#34;北京市1&#34;</span>
   }
 }
-也可以
-POST /city_index/_doc/1/_update ，会提示_doc类型以后会被删除。
-其他版本 这么写
-POST /book/type/1/_update
-</code></pre><h3 id="删除文档">删除文档</h3>
-<pre><code>DELETE /city_index/_doc/1
-</code></pre><h3 id="删除索引">删除索引</h3>
-<pre><code>DELETE /city_index
-</code></pre><h3 id="搜索">搜索</h3>
+<span style="color:#a61717;background-color:#e3d2d2">也可以</span>
+<span style="color:#a61717;background-color:#e3d2d2">POST</span> <span style="color:#a61717;background-color:#e3d2d2">/city_index/_doc/</span><span style="color:#099">1</span><span style="color:#a61717;background-color:#e3d2d2">/_update</span> <span style="color:#a61717;background-color:#e3d2d2">，会提示_doc类型以后会被删除。</span>
+<span style="color:#a61717;background-color:#e3d2d2">其他版本</span> <span style="color:#a61717;background-color:#e3d2d2">这么写</span>
+<span style="color:#a61717;background-color:#e3d2d2">POST</span> <span style="color:#a61717;background-color:#e3d2d2">/book/type/</span><span style="color:#099">1</span><span style="color:#a61717;background-color:#e3d2d2">/_update</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="删除文档">删除文档</h3>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#a61717;background-color:#e3d2d2">DELETE</span> <span style="color:#a61717;background-color:#e3d2d2">/city_index/_doc/</span><span style="color:#099">1</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="删除索引">删除索引</h3>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#a61717;background-color:#e3d2d2">DELETE</span> <span style="color:#a61717;background-color:#e3d2d2">/city_index</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="搜索">搜索</h3>
 <h4 id="match">match</h4>
 <ul>
 <li>默认分词器，比如汉字他会拆分成单个汉字，这样就会匹配出很多，比较宽松。</li>
@@ -368,85 +431,174 @@ POST /book/type/1/_update
 </ul>
 </li>
 </ul>
-<pre><code>{
-  &quot;tokens&quot; : [
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+  <span style="color:#000080">&#34;tokens&#34;</span> : [
     {
-      &quot;token&quot; : &quot;京&quot;,
-      &quot;start_offset&quot; : 0,
-      &quot;end_offset&quot; : 1,
-      &quot;type&quot; : &quot;CN_CHAR&quot;,
-      &quot;position&quot; : 0
+      <span style="color:#000080">&#34;token&#34;</span> : <span style="color:#d14">&#34;京&#34;</span>,
+      <span style="color:#000080">&#34;start_offset&#34;</span> : <span style="color:#099">0</span>,
+      <span style="color:#000080">&#34;end_offset&#34;</span> : <span style="color:#099">1</span>,
+      <span style="color:#000080">&#34;type&#34;</span> : <span style="color:#d14">&#34;CN_CHAR&#34;</span>,
+      <span style="color:#000080">&#34;position&#34;</span> : <span style="color:#099">0</span>
     },
     {
-      &quot;token&quot; : &quot;北&quot;,
-      &quot;start_offset&quot; : 1,
-      &quot;end_offset&quot; : 2,
-      &quot;type&quot; : &quot;CN_CHAR&quot;,
-      &quot;position&quot; : 1
+      <span style="color:#000080">&#34;token&#34;</span> : <span style="color:#d14">&#34;北&#34;</span>,
+      <span style="color:#000080">&#34;start_offset&#34;</span> : <span style="color:#099">1</span>,
+      <span style="color:#000080">&#34;end_offset&#34;</span> : <span style="color:#099">2</span>,
+      <span style="color:#000080">&#34;type&#34;</span> : <span style="color:#d14">&#34;CN_CHAR&#34;</span>,
+      <span style="color:#000080">&#34;position&#34;</span> : <span style="color:#099">1</span>
     },
     {
-      &quot;token&quot; : &quot;第一&quot;,
-      &quot;start_offset&quot; : 2,
-      &quot;end_offset&quot; : 4,
-      &quot;type&quot; : &quot;CN_WORD&quot;,
-      &quot;position&quot; : 2
+      <span style="color:#000080">&#34;token&#34;</span> : <span style="color:#d14">&#34;第一&#34;</span>,
+      <span style="color:#000080">&#34;start_offset&#34;</span> : <span style="color:#099">2</span>,
+      <span style="color:#000080">&#34;end_offset&#34;</span> : <span style="color:#099">4</span>,
+      <span style="color:#000080">&#34;type&#34;</span> : <span style="color:#d14">&#34;CN_WORD&#34;</span>,
+      <span style="color:#000080">&#34;position&#34;</span> : <span style="color:#099">2</span>
     },
     {
-      &quot;token&quot; : &quot;一草&quot;,
-      &quot;start_offset&quot; : 3,
-      &quot;end_offset&quot; : 5,
-      &quot;type&quot; : &quot;CN_WORD&quot;,
-      &quot;position&quot; : 3
+      <span style="color:#000080">&#34;token&#34;</span> : <span style="color:#d14">&#34;一草&#34;</span>,
+      <span style="color:#000080">&#34;start_offset&#34;</span> : <span style="color:#099">3</span>,
+      <span style="color:#000080">&#34;end_offset&#34;</span> : <span style="color:#099">5</span>,
+      <span style="color:#000080">&#34;type&#34;</span> : <span style="color:#d14">&#34;CN_WORD&#34;</span>,
+      <span style="color:#000080">&#34;position&#34;</span> : <span style="color:#099">3</span>
     },
     {
-      &quot;token&quot; : &quot;一&quot;,
-      &quot;start_offset&quot; : 3,
-      &quot;end_offset&quot; : 4,
-      &quot;type&quot; : &quot;TYPE_CNUM&quot;,
-      &quot;position&quot; : 4
+      <span style="color:#000080">&#34;token&#34;</span> : <span style="color:#d14">&#34;一&#34;</span>,
+      <span style="color:#000080">&#34;start_offset&#34;</span> : <span style="color:#099">3</span>,
+      <span style="color:#000080">&#34;end_offset&#34;</span> : <span style="color:#099">4</span>,
+      <span style="color:#000080">&#34;type&#34;</span> : <span style="color:#d14">&#34;TYPE_CNUM&#34;</span>,
+      <span style="color:#000080">&#34;position&#34;</span> : <span style="color:#099">4</span>
     },
     {
-      &quot;token&quot; : &quot;草原&quot;,
-      &quot;start_offset&quot; : 4,
-      &quot;end_offset&quot; : 6,
-      &quot;type&quot; : &quot;CN_WORD&quot;,
-      &quot;position&quot; : 5
+      <span style="color:#000080">&#34;token&#34;</span> : <span style="color:#d14">&#34;草原&#34;</span>,
+      <span style="color:#000080">&#34;start_offset&#34;</span> : <span style="color:#099">4</span>,
+      <span style="color:#000080">&#34;end_offset&#34;</span> : <span style="color:#099">6</span>,
+      <span style="color:#000080">&#34;type&#34;</span> : <span style="color:#d14">&#34;CN_WORD&#34;</span>,
+      <span style="color:#000080">&#34;position&#34;</span> : <span style="color:#099">5</span>
     }
   ]
 }
-</code></pre><ul>
+</code></pre></td></tr></table>
+</div>
+</div><ul>
 <li>这样使用name.ik分词属性的字段，使用match匹配京，就可以查出 京北第一草原</li>
 <li>同样使用term也能完全匹配 京这个分词。</li>
+<li>查出了 京北第一草原、卡缅斯克-沙赫京斯基</li>
 </ul>
-<pre><code>POST /city_index/_search
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#a61717;background-color:#e3d2d2">POST</span> <span style="color:#a61717;background-color:#e3d2d2">/city_index/_search</span>
 {
-   &quot;query&quot;: {
-       &quot;bool&quot;: {
-           &quot;must&quot;: [{
-               &quot;term&quot;: {
-                   &quot;name.ik&quot;: &quot;京&quot;
+   <span style="color:#000080">&#34;query&#34;</span>: {
+       <span style="color:#000080">&#34;bool&#34;</span>: {
+           <span style="color:#000080">&#34;must&#34;</span>: [{
+               <span style="color:#000080">&#34;term&#34;</span>: {
+                   <span style="color:#000080">&#34;name.ik&#34;</span>: <span style="color:#d14">&#34;京&#34;</span>
                }
            }],
-           &quot;must_not&quot;: [],
-           &quot;should&quot;: []
+           <span style="color:#000080">&#34;must_not&#34;</span>: [],
+           <span style="color:#000080">&#34;should&#34;</span>: []
        }
    },
-   &quot;from&quot;: 0,
-   &quot;size&quot;: 1000,
-   &quot;sort&quot;: [],
-   &quot;aggs&quot;: {}
+   <span style="color:#000080">&#34;from&#34;</span>: <span style="color:#099">0</span>,
+   <span style="color:#000080">&#34;size&#34;</span>: <span style="color:#099">1000</span>,
+   <span style="color:#000080">&#34;sort&#34;</span>: [],
+   <span style="color:#000080">&#34;aggs&#34;</span>: {}
 }
-查出了 京北第一草原、卡缅斯克-沙赫京斯基
-</code></pre><ul>
+</code></pre></td></tr></table>
+</div>
+</div><ul>
 <li>但是京不会匹配出 <strong>北京，京东</strong> ，这些词，他们不会被ik拆分。ik_max_word 虽然是最细划分，但是尽可能组成词。实在不是词，才可能拆除单字， 这是由ik的分词算法决定的。</li>
 <li>总结就是match是依据分词个体来匹配，term需要搜索词和分词个体相等。</li>
 </ul>
-<pre><code>POST /city_index/_analyze
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#a61717;background-color:#e3d2d2">POST</span> <span style="color:#a61717;background-color:#e3d2d2">/city_index/_analyze</span>
 {
-       &quot;text&quot;: &quot;北京市&quot;,
-       &quot;analyzer&quot;: &quot;standard&quot;
+		<span style="color:#000080">&#34;text&#34;</span>: <span style="color:#d14">&#34;北京市&#34;</span>,
+		<span style="color:#000080">&#34;analyzer&#34;</span>: <span style="color:#d14">&#34;standard&#34;</span>
 }
-</code></pre><p>&ndash; 分词结果如下</p>
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>分词结果如下</li>
+</ul>
 <div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -506,49 +658,100 @@ POST /book/type/1/_update
 </div><h4 id="query_string">query_string</h4>
 <ul>
 <li>也是按分词器分出来的个体一一匹配的, 但是查询词可以用通配符 <em>京</em> 可以匹配分词北京，东京， 基本包含京的词都能查出来， 和默认分词器 + match一样。</li>
+<li>同样：查出了 京北第一草原、卡缅斯克-沙赫京斯基</li>
 </ul>
-<pre><code>{
-	&quot;query&quot;: {
-		&quot;bool&quot;: {
-			&quot;must&quot;: [{
-				&quot;query_string&quot;: {
-					&quot;default_field&quot;: &quot;name.ik&quot;,
-					&quot;query&quot;: &quot;京&quot;
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+	<span style="color:#000080">&#34;query&#34;</span>: {
+		<span style="color:#000080">&#34;bool&#34;</span>: {
+			<span style="color:#000080">&#34;must&#34;</span>: [{
+				<span style="color:#000080">&#34;query_string&#34;</span>: {
+					<span style="color:#000080">&#34;default_field&#34;</span>: <span style="color:#d14">&#34;name.ik&#34;</span>,
+					<span style="color:#000080">&#34;query&#34;</span>: <span style="color:#d14">&#34;京&#34;</span>
 				}
 			}],
-			&quot;must_not&quot;: [],
-			&quot;should&quot;: []
+			<span style="color:#000080">&#34;must_not&#34;</span>: [],
+			<span style="color:#000080">&#34;should&#34;</span>: []
 		}
 	},
-	&quot;from&quot;: 0,
-	&quot;size&quot;: 1000,
-	&quot;sort&quot;: [],
-	&quot;aggs&quot;: {}
+	<span style="color:#000080">&#34;from&#34;</span>: <span style="color:#099">0</span>,
+	<span style="color:#000080">&#34;size&#34;</span>: <span style="color:#099">1000</span>,
+	<span style="color:#000080">&#34;sort&#34;</span>: [],
+	<span style="color:#000080">&#34;aggs&#34;</span>: {}
 }
-同样：查出了 京北第一草原、卡缅斯克-沙赫京斯基
-</code></pre><h4 id="range--范围查询">range  范围查询</h4>
-<pre><code>POST  /city_index/_search
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="range--范围查询">range  范围查询</h4>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#a61717;background-color:#e3d2d2">POST</span>  <span style="color:#a61717;background-color:#e3d2d2">/city_index/_search</span>
 {
-	&quot;query&quot;: {
-		&quot;bool&quot;: {
-			&quot;must&quot;: [{
-				&quot;range&quot;: {
-					&quot;gid&quot;: {
-						&quot;gt&quot;: &quot;100&quot;,
-						&quot;lt&quot;: &quot;200000&quot;
+	<span style="color:#000080">&#34;query&#34;</span>: {
+		<span style="color:#000080">&#34;bool&#34;</span>: {
+			<span style="color:#000080">&#34;must&#34;</span>: [{
+				<span style="color:#000080">&#34;range&#34;</span>: {
+					<span style="color:#000080">&#34;gid&#34;</span>: {
+						<span style="color:#000080">&#34;gt&#34;</span>: <span style="color:#d14">&#34;100&#34;</span>,
+						<span style="color:#000080">&#34;lt&#34;</span>: <span style="color:#d14">&#34;200000&#34;</span>
 					}
 				}
 			}],
-			&quot;must_not&quot;: [],
-			&quot;should&quot;: []
+			<span style="color:#000080">&#34;must_not&#34;</span>: [],
+			<span style="color:#000080">&#34;should&#34;</span>: []
 		}
 	},
-	&quot;from&quot;: 0,
-	&quot;size&quot;: 5000,
-	&quot;sort&quot;: [],
-	&quot;aggs&quot;: {}
+	<span style="color:#000080">&#34;from&#34;</span>: <span style="color:#099">0</span>,
+	<span style="color:#000080">&#34;size&#34;</span>: <span style="color:#099">5000</span>,
+	<span style="color:#000080">&#34;sort&#34;</span>: [],
+	<span style="color:#000080">&#34;aggs&#34;</span>: {}
 }
-</code></pre><h4 id="wildcard-通配符匹配">wildcard 通配符匹配</h4>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="wildcard-通配符匹配">wildcard 通配符匹配</h4>
 <ul>
 <li>同样也是根据字段设置的分词器决定的，如果没设置，都是standard默认分词器， 汉字都会拆成单字。</li>
 <li>比如搜索词汇是 <em><strong>北京</strong></em>，默认分词器会拆成<em><strong>北</strong></em>和<em><strong>京</strong></em>， 这样wildcard 就匹配不到<em><strong>北京</strong></em>, 就查不到。</li>
@@ -563,277 +766,609 @@ POST /book/type/1/_update
 <li>河北省、河北天下第一城 等信息</li>
 </ul>
 <h4 id="missing-判断不存在的字段">missing 判断不存在的字段</h4>
-<pre><code>-- 查询name为null的字段
--- must_not 改为must就是查询存在name的数据
-GET /city_index/_search
+<ul>
+<li>查询name为null的字段</li>
+<li>must_not 改为must就是查询存在name的数据</li>
+</ul>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#a61717;background-color:#e3d2d2">GET</span> <span style="color:#a61717;background-color:#e3d2d2">/city_index/_search</span>
 {
-  &quot;query&quot;: {
-    &quot;bool&quot;: {
-      &quot;must&quot;: [],
-      &quot;must_not&quot;: [
+  <span style="color:#000080">&#34;query&#34;</span>: {
+    <span style="color:#000080">&#34;bool&#34;</span>: {
+      <span style="color:#000080">&#34;must&#34;</span>: [],
+      <span style="color:#000080">&#34;must_not&#34;</span>: [
         {
-          &quot;exists&quot;: {
-            &quot;field&quot;: &quot;name&quot;
+          <span style="color:#000080">&#34;exists&#34;</span>: {
+            <span style="color:#000080">&#34;field&#34;</span>: <span style="color:#d14">&#34;name&#34;</span>
           }
         }
       ],
-      &quot;should&quot;: [
+      <span style="color:#000080">&#34;should&#34;</span>: [
         {
-          &quot;match_all&quot;: {}
+          <span style="color:#000080">&#34;match_all&#34;</span>: {}
         }
       ]
     }
   },
-  &quot;from&quot;: 0,
-  &quot;size&quot;: 250,
-  &quot;sort&quot;: [],
-  &quot;aggs&quot;: {}
+  <span style="color:#000080">&#34;from&#34;</span>: <span style="color:#099">0</span>,
+  <span style="color:#000080">&#34;size&#34;</span>: <span style="color:#099">250</span>,
+  <span style="color:#000080">&#34;sort&#34;</span>: [],
+  <span style="color:#000080">&#34;aggs&#34;</span>: {}
 }
-</code></pre><h4 id="fuzzy-是为了纠错的模糊查询">fuzzy 是为了纠错的模糊查询</h4>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="fuzzy-是为了纠错的模糊查询">fuzzy 是为了纠错的模糊查询</h4>
 <ul>
 <li>比如你查sky，输入错误了ski</li>
 <li>fuzziness是允许输错的字母个数。</li>
 </ul>
-<pre><code>PUT fuzzyindex/_doc/1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#a61717;background-color:#e3d2d2">PUT</span> <span style="color:#a61717;background-color:#e3d2d2">fuzzyindex/_doc/</span><span style="color:#099">1</span>
 {
-  &quot;content&quot;: &quot;I like blue sky&quot;
+  <span style="color:#000080">&#34;content&#34;</span>: <span style="color:#d14">&#34;I like blue sky&#34;</span>
 }
 
 
-GET fuzzyindex/_search
+<span style="color:#a61717;background-color:#e3d2d2">GET</span> <span style="color:#a61717;background-color:#e3d2d2">fuzzyindex/_search</span>
 {
-  &quot;query&quot;: {
-    &quot;match&quot;: {
-      &quot;content&quot;: {
-        &quot;query&quot;: &quot;ski&quot;,
-        &quot;fuzziness&quot;: &quot;1&quot;
+  <span style="color:#000080">&#34;query&#34;</span>: {
+    <span style="color:#000080">&#34;match&#34;</span>: {
+      <span style="color:#000080">&#34;content&#34;</span>: {
+        <span style="color:#000080">&#34;query&#34;</span>: <span style="color:#d14">&#34;ski&#34;</span>,
+        <span style="color:#000080">&#34;fuzziness&#34;</span>: <span style="color:#d14">&#34;1&#34;</span>
       }
     }
   }
 }
-</code></pre><h4 id="分词器测试-pinyin分词">分词器测试 pinyin分词</h4>
-<pre><code></code></pre><p>POST /city_index/_analyze
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="分词器测试-pinyin分词">分词器测试 pinyin分词</h4>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#a61717;background-color:#e3d2d2">POST</span> <span style="color:#a61717;background-color:#e3d2d2">/city_index/_analyze</span>
 {
-&ldquo;text&rdquo;:&rdquo; 河北&rdquo;,
-&ldquo;analyzer&rdquo;: &ldquo;pinyin_analyzer&rdquo;
-}</p>
-<pre><code>-- 结果如下
-</code></pre><p>{
-&ldquo;tokens&rdquo; : [
-{
-&ldquo;token&rdquo; : &ldquo;b&rdquo;,
-&ldquo;start_offset&rdquo; : 0,
-&ldquo;end_offset&rdquo; : 0,
-&ldquo;type&rdquo; : &ldquo;word&rdquo;,
-&ldquo;position&rdquo; : 0
-},
-{
-&ldquo;token&rdquo; : &ldquo;bei&rdquo;,
-&ldquo;start_offset&rdquo; : 0,
-&ldquo;end_offset&rdquo; : 0,
-&ldquo;type&rdquo; : &ldquo;word&rdquo;,
-&ldquo;position&rdquo; : 0
-},
-{
-&ldquo;token&rdquo; : &ldquo;北京市&rdquo;,
-&ldquo;start_offset&rdquo; : 0,
-&ldquo;end_offset&rdquo; : 0,
-&ldquo;type&rdquo; : &ldquo;word&rdquo;,
-&ldquo;position&rdquo; : 0
-},
-{
-&ldquo;token&rdquo; : &ldquo;bjs&rdquo;,
-&ldquo;start_offset&rdquo; : 0,
-&ldquo;end_offset&rdquo; : 0,
-&ldquo;type&rdquo; : &ldquo;word&rdquo;,
-&ldquo;position&rdquo; : 0
-},
-{
-&ldquo;token&rdquo; : &ldquo;j&rdquo;,
-&ldquo;start_offset&rdquo; : 0,
-&ldquo;end_offset&rdquo; : 0,
-&ldquo;type&rdquo; : &ldquo;word&rdquo;,
-&ldquo;position&rdquo; : 1
-},
-{
-&ldquo;token&rdquo; : &ldquo;jing&rdquo;,
-&ldquo;start_offset&rdquo; : 0,
-&ldquo;end_offset&rdquo; : 0,
-&ldquo;type&rdquo; : &ldquo;word&rdquo;,
-&ldquo;position&rdquo; : 1
-},
-{
-&ldquo;token&rdquo; : &ldquo;s&rdquo;,
-&ldquo;start_offset&rdquo; : 0,
-&ldquo;end_offset&rdquo; : 0,
-&ldquo;type&rdquo; : &ldquo;word&rdquo;,
-&ldquo;position&rdquo; : 2
-},
-{
-&ldquo;token&rdquo; : &ldquo;shi&rdquo;,
-&ldquo;start_offset&rdquo; : 0,
-&ldquo;end_offset&rdquo; : 0,
-&ldquo;type&rdquo; : &ldquo;word&rdquo;,
-&ldquo;position&rdquo; : 2
+  <span style="color:#000080">&#34;text&#34;</span>:<span style="color:#d14">&#34; 河北&#34;</span>,
+  <span style="color:#000080">&#34;analyzer&#34;</span>: <span style="color:#d14">&#34;pinyin_analyzer&#34;</span>
 }
-]
-}</p>
-<pre><code>
-#### 分词器测试 keyword
-- keyword 不可分词，text可以分词。
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>结果如下</li>
+</ul>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">55
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">56
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">57
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">58
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">59
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">60
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+  <span style="color:#000080">&#34;tokens&#34;</span> : [
+    {
+      <span style="color:#000080">&#34;token&#34;</span> : <span style="color:#d14">&#34;b&#34;</span>,
+      <span style="color:#000080">&#34;start_offset&#34;</span> : <span style="color:#099">0</span>,
+      <span style="color:#000080">&#34;end_offset&#34;</span> : <span style="color:#099">0</span>,
+      <span style="color:#000080">&#34;type&#34;</span> : <span style="color:#d14">&#34;word&#34;</span>,
+      <span style="color:#000080">&#34;position&#34;</span> : <span style="color:#099">0</span>
+    },
+    {
+      <span style="color:#000080">&#34;token&#34;</span> : <span style="color:#d14">&#34;bei&#34;</span>,
+      <span style="color:#000080">&#34;start_offset&#34;</span> : <span style="color:#099">0</span>,
+      <span style="color:#000080">&#34;end_offset&#34;</span> : <span style="color:#099">0</span>,
+      <span style="color:#000080">&#34;type&#34;</span> : <span style="color:#d14">&#34;word&#34;</span>,
+      <span style="color:#000080">&#34;position&#34;</span> : <span style="color:#099">0</span>
+    },
+    {
+      <span style="color:#000080">&#34;token&#34;</span> : <span style="color:#d14">&#34;北京市&#34;</span>,
+      <span style="color:#000080">&#34;start_offset&#34;</span> : <span style="color:#099">0</span>,
+      <span style="color:#000080">&#34;end_offset&#34;</span> : <span style="color:#099">0</span>,
+      <span style="color:#000080">&#34;type&#34;</span> : <span style="color:#d14">&#34;word&#34;</span>,
+      <span style="color:#000080">&#34;position&#34;</span> : <span style="color:#099">0</span>
+    },
+    {
+      <span style="color:#000080">&#34;token&#34;</span> : <span style="color:#d14">&#34;bjs&#34;</span>,
+      <span style="color:#000080">&#34;start_offset&#34;</span> : <span style="color:#099">0</span>,
+      <span style="color:#000080">&#34;end_offset&#34;</span> : <span style="color:#099">0</span>,
+      <span style="color:#000080">&#34;type&#34;</span> : <span style="color:#d14">&#34;word&#34;</span>,
+      <span style="color:#000080">&#34;position&#34;</span> : <span style="color:#099">0</span>
+    },
+    {
+      <span style="color:#000080">&#34;token&#34;</span> : <span style="color:#d14">&#34;j&#34;</span>,
+      <span style="color:#000080">&#34;start_offset&#34;</span> : <span style="color:#099">0</span>,
+      <span style="color:#000080">&#34;end_offset&#34;</span> : <span style="color:#099">0</span>,
+      <span style="color:#000080">&#34;type&#34;</span> : <span style="color:#d14">&#34;word&#34;</span>,
+      <span style="color:#000080">&#34;position&#34;</span> : <span style="color:#099">1</span>
+    },
+    {
+      <span style="color:#000080">&#34;token&#34;</span> : <span style="color:#d14">&#34;jing&#34;</span>,
+      <span style="color:#000080">&#34;start_offset&#34;</span> : <span style="color:#099">0</span>,
+      <span style="color:#000080">&#34;end_offset&#34;</span> : <span style="color:#099">0</span>,
+      <span style="color:#000080">&#34;type&#34;</span> : <span style="color:#d14">&#34;word&#34;</span>,
+      <span style="color:#000080">&#34;position&#34;</span> : <span style="color:#099">1</span>
+    },
+    {
+      <span style="color:#000080">&#34;token&#34;</span> : <span style="color:#d14">&#34;s&#34;</span>,
+      <span style="color:#000080">&#34;start_offset&#34;</span> : <span style="color:#099">0</span>,
+      <span style="color:#000080">&#34;end_offset&#34;</span> : <span style="color:#099">0</span>,
+      <span style="color:#000080">&#34;type&#34;</span> : <span style="color:#d14">&#34;word&#34;</span>,
+      <span style="color:#000080">&#34;position&#34;</span> : <span style="color:#099">2</span>
+    },
+    {
+      <span style="color:#000080">&#34;token&#34;</span> : <span style="color:#d14">&#34;shi&#34;</span>,
+      <span style="color:#000080">&#34;start_offset&#34;</span> : <span style="color:#099">0</span>,
+      <span style="color:#000080">&#34;end_offset&#34;</span> : <span style="color:#099">0</span>,
+      <span style="color:#000080">&#34;type&#34;</span> : <span style="color:#d14">&#34;word&#34;</span>,
+      <span style="color:#000080">&#34;position&#34;</span> : <span style="color:#099">2</span>
+    }
+  ]
+}
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="分词器测试-keyword">分词器测试 keyword</h4>
+<ul>
+<li>keyword 不可分词，text可以分词。</li>
+</ul>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#a61717;background-color:#e3d2d2">POST</span> <span style="color:#a61717;background-color:#e3d2d2">/city_index/_analyze</span>
+{
+  <span style="color:#000080">&#34;text&#34;</span>:<span style="color:#d14">&#34;北京市&#34;</span>,
+  <span style="color:#000080">&#34;analyzer&#34;</span>:<span style="color:#d14">&#34;keyword&#34;</span>  <span style="color:#a61717;background-color:#e3d2d2">//</span> <span style="color:#a61717;background-color:#e3d2d2">keyword</span> <span style="color:#a61717;background-color:#e3d2d2">不可分词</span>
+  
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>&ndash; 结果如下</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+  <span style="color:#000080">&#34;tokens&#34;</span> : [
+    {
+      <span style="color:#000080">&#34;token&#34;</span> : <span style="color:#d14">&#34;北京市&#34;</span>,
+      <span style="color:#000080">&#34;start_offset&#34;</span> : <span style="color:#099">0</span>,
+      <span style="color:#000080">&#34;end_offset&#34;</span> : <span style="color:#099">3</span>,
+      <span style="color:#000080">&#34;type&#34;</span> : <span style="color:#d14">&#34;word&#34;</span>,
+      <span style="color:#000080">&#34;position&#34;</span> : <span style="color:#099">0</span>
+    }
+  ]
+}
 
-</code></pre><p>POST /city_index/_analyze
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="分词器测试-ik_max_word">分词器测试 ik_max_word</h4>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#a61717;background-color:#e3d2d2">POST</span> <span style="color:#a61717;background-color:#e3d2d2">/city_index/_analyze</span>
 {
-&ldquo;text&rdquo;:&ldquo;北京市&rdquo;,
-&ldquo;analyzer&rdquo;:&ldquo;keyword&rdquo;  // keyword 不可分词</p>
-<p>}</p>
-<pre><code>--- 结果如下
-</code></pre><p>{
-&ldquo;tokens&rdquo; : [
-{
-&ldquo;token&rdquo; : &ldquo;北京市&rdquo;,
-&ldquo;start_offset&rdquo; : 0,
-&ldquo;end_offset&rdquo; : 3,
-&ldquo;type&rdquo; : &ldquo;word&rdquo;,
-&ldquo;position&rdquo; : 0
+  <span style="color:#000080">&#34;text&#34;</span>:<span style="color:#d14">&#34;北京市动物园&#34;</span>,
+  <span style="color:#000080">&#34;analyzer&#34;</span>: <span style="color:#d14">&#34;ik_max_word&#34;</span> 
+  
 }
-]
-}</p>
-<pre><code>
-#### 分词器测试 ik_max_word
-</code></pre><p>POST /city_index/_analyze
-{
-&ldquo;text&rdquo;:&ldquo;北京市动物园&rdquo;,
-&ldquo;analyzer&rdquo;: &ldquo;ik_max_word&rdquo;</p>
-<p>}</p>
-<pre><code>-- 结果如下
-</code></pre><p>{
-&ldquo;tokens&rdquo; : [
-{
-&ldquo;token&rdquo; : &ldquo;北京市&rdquo;,
-&ldquo;start_offset&rdquo; : 0,
-&ldquo;end_offset&rdquo; : 3,
-&ldquo;type&rdquo; : &ldquo;CN_WORD&rdquo;,
-&ldquo;position&rdquo; : 0
-},
-{
-&ldquo;token&rdquo; : &ldquo;北京&rdquo;,
-&ldquo;start_offset&rdquo; : 0,
-&ldquo;end_offset&rdquo; : 2,
-&ldquo;type&rdquo; : &ldquo;CN_WORD&rdquo;,
-&ldquo;position&rdquo; : 1
-},
-{
-&ldquo;token&rdquo; : &ldquo;市&rdquo;,
-&ldquo;start_offset&rdquo; : 2,
-&ldquo;end_offset&rdquo; : 3,
-&ldquo;type&rdquo; : &ldquo;CN_CHAR&rdquo;,
-&ldquo;position&rdquo; : 2
-},
-{
-&ldquo;token&rdquo; : &ldquo;动物园&rdquo;,
-&ldquo;start_offset&rdquo; : 3,
-&ldquo;end_offset&rdquo; : 6,
-&ldquo;type&rdquo; : &ldquo;CN_WORD&rdquo;,
-&ldquo;position&rdquo; : 3
-},
-{
-&ldquo;token&rdquo; : &ldquo;动物&rdquo;,
-&ldquo;start_offset&rdquo; : 3,
-&ldquo;end_offset&rdquo; : 5,
-&ldquo;type&rdquo; : &ldquo;CN_WORD&rdquo;,
-&ldquo;position&rdquo; : 4
-},
-{
-&ldquo;token&rdquo; : &ldquo;园&rdquo;,
-&ldquo;start_offset&rdquo; : 5,
-&ldquo;end_offset&rdquo; : 6,
-&ldquo;type&rdquo; : &ldquo;CN_CHAR&rdquo;,
-&ldquo;position&rdquo; : 5
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>结果如下</li>
+</ul>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+  <span style="color:#000080">&#34;tokens&#34;</span> : [
+    {
+      <span style="color:#000080">&#34;token&#34;</span> : <span style="color:#d14">&#34;北京市&#34;</span>,
+      <span style="color:#000080">&#34;start_offset&#34;</span> : <span style="color:#099">0</span>,
+      <span style="color:#000080">&#34;end_offset&#34;</span> : <span style="color:#099">3</span>,
+      <span style="color:#000080">&#34;type&#34;</span> : <span style="color:#d14">&#34;CN_WORD&#34;</span>,
+      <span style="color:#000080">&#34;position&#34;</span> : <span style="color:#099">0</span>
+    },
+    {
+      <span style="color:#000080">&#34;token&#34;</span> : <span style="color:#d14">&#34;北京&#34;</span>,
+      <span style="color:#000080">&#34;start_offset&#34;</span> : <span style="color:#099">0</span>,
+      <span style="color:#000080">&#34;end_offset&#34;</span> : <span style="color:#099">2</span>,
+      <span style="color:#000080">&#34;type&#34;</span> : <span style="color:#d14">&#34;CN_WORD&#34;</span>,
+      <span style="color:#000080">&#34;position&#34;</span> : <span style="color:#099">1</span>
+    },
+    {
+      <span style="color:#000080">&#34;token&#34;</span> : <span style="color:#d14">&#34;市&#34;</span>,
+      <span style="color:#000080">&#34;start_offset&#34;</span> : <span style="color:#099">2</span>,
+      <span style="color:#000080">&#34;end_offset&#34;</span> : <span style="color:#099">3</span>,
+      <span style="color:#000080">&#34;type&#34;</span> : <span style="color:#d14">&#34;CN_CHAR&#34;</span>,
+      <span style="color:#000080">&#34;position&#34;</span> : <span style="color:#099">2</span>
+    },
+    {
+      <span style="color:#000080">&#34;token&#34;</span> : <span style="color:#d14">&#34;动物园&#34;</span>,
+      <span style="color:#000080">&#34;start_offset&#34;</span> : <span style="color:#099">3</span>,
+      <span style="color:#000080">&#34;end_offset&#34;</span> : <span style="color:#099">6</span>,
+      <span style="color:#000080">&#34;type&#34;</span> : <span style="color:#d14">&#34;CN_WORD&#34;</span>,
+      <span style="color:#000080">&#34;position&#34;</span> : <span style="color:#099">3</span>
+    },
+    {
+      <span style="color:#000080">&#34;token&#34;</span> : <span style="color:#d14">&#34;动物&#34;</span>,
+      <span style="color:#000080">&#34;start_offset&#34;</span> : <span style="color:#099">3</span>,
+      <span style="color:#000080">&#34;end_offset&#34;</span> : <span style="color:#099">5</span>,
+      <span style="color:#000080">&#34;type&#34;</span> : <span style="color:#d14">&#34;CN_WORD&#34;</span>,
+      <span style="color:#000080">&#34;position&#34;</span> : <span style="color:#099">4</span>
+    },
+    {
+      <span style="color:#000080">&#34;token&#34;</span> : <span style="color:#d14">&#34;园&#34;</span>,
+      <span style="color:#000080">&#34;start_offset&#34;</span> : <span style="color:#099">5</span>,
+      <span style="color:#000080">&#34;end_offset&#34;</span> : <span style="color:#099">6</span>,
+      <span style="color:#000080">&#34;type&#34;</span> : <span style="color:#d14">&#34;CN_CHAR&#34;</span>,
+      <span style="color:#000080">&#34;position&#34;</span> : <span style="color:#099">5</span>
+    }
+  ]
 }
-]
-}</p>
-<pre><code>
-#### 分词器测试 ik_smart
-</code></pre><p>POST /city_index/_analyze
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="分词器测试-ik_smart">分词器测试 ik_smart</h4>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#a61717;background-color:#e3d2d2">POST</span> <span style="color:#a61717;background-color:#e3d2d2">/city_index/_analyze</span>
 {
-&ldquo;text&rdquo;:&ldquo;北京市动物园&rdquo;,
-&ldquo;analyzer&rdquo;: &ldquo;ik_smart&rdquo;
-}</p>
-<pre><code>-- 结果如下
-</code></pre><p>{
-&ldquo;tokens&rdquo; : [
-{
-&ldquo;token&rdquo; : &ldquo;北京市&rdquo;,
-&ldquo;start_offset&rdquo; : 0,
-&ldquo;end_offset&rdquo; : 3,
-&ldquo;type&rdquo; : &ldquo;CN_WORD&rdquo;,
-&ldquo;position&rdquo; : 0
-},
-{
-&ldquo;token&rdquo; : &ldquo;动物园&rdquo;,
-&ldquo;start_offset&rdquo; : 3,
-&ldquo;end_offset&rdquo; : 6,
-&ldquo;type&rdquo; : &ldquo;CN_WORD&rdquo;,
-&ldquo;position&rdquo; : 1
+  <span style="color:#000080">&#34;text&#34;</span>:<span style="color:#d14">&#34;北京市动物园&#34;</span>,
+  <span style="color:#000080">&#34;analyzer&#34;</span>: <span style="color:#d14">&#34;ik_smart&#34;</span>
 }
-]
-}</p>
-<pre><code>
-#### 分词器测试 standard (es默认分词)
-</code></pre><p>POST /city_index/_analyze
-{
-&ldquo;text&rdquo;:&ldquo;北京市动物园&rdquo;,
-&ldquo;analyzer&rdquo;: &ldquo;standard&rdquo;
-}</p>
-<pre><code>-- 结果如下
-</code></pre><p>{
-&ldquo;tokens&rdquo; : [
-{
-&ldquo;token&rdquo; : &ldquo;北&rdquo;,
-&ldquo;start_offset&rdquo; : 0,
-&ldquo;end_offset&rdquo; : 1,
-&ldquo;type&rdquo; : &ldquo;<!-- raw HTML omitted -->&rdquo;,
-&ldquo;position&rdquo; : 0
-},
-{
-&ldquo;token&rdquo; : &ldquo;京&rdquo;,
-&ldquo;start_offset&rdquo; : 1,
-&ldquo;end_offset&rdquo; : 2,
-&ldquo;type&rdquo; : &ldquo;<!-- raw HTML omitted -->&rdquo;,
-&ldquo;position&rdquo; : 1
-},
-{
-&ldquo;token&rdquo; : &ldquo;市&rdquo;,
-&ldquo;start_offset&rdquo; : 2,
-&ldquo;end_offset&rdquo; : 3,
-&ldquo;type&rdquo; : &ldquo;<!-- raw HTML omitted -->&rdquo;,
-&ldquo;position&rdquo; : 2
-},
-{
-&ldquo;token&rdquo; : &ldquo;动&rdquo;,
-&ldquo;start_offset&rdquo; : 3,
-&ldquo;end_offset&rdquo; : 4,
-&ldquo;type&rdquo; : &ldquo;<!-- raw HTML omitted -->&rdquo;,
-&ldquo;position&rdquo; : 3
-},
-{
-&ldquo;token&rdquo; : &ldquo;物&rdquo;,
-&ldquo;start_offset&rdquo; : 4,
-&ldquo;end_offset&rdquo; : 5,
-&ldquo;type&rdquo; : &ldquo;<!-- raw HTML omitted -->&rdquo;,
-&ldquo;position&rdquo; : 4
-},
-{
-&ldquo;token&rdquo; : &ldquo;园&rdquo;,
-&ldquo;start_offset&rdquo; : 5,
-&ldquo;end_offset&rdquo; : 6,
-&ldquo;type&rdquo; : &ldquo;<!-- raw HTML omitted -->&rdquo;,
-&ldquo;position&rdquo; : 5
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>结果如下</li>
+</ul>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+  <span style="color:#000080">&#34;tokens&#34;</span> : [
+    {
+      <span style="color:#000080">&#34;token&#34;</span> : <span style="color:#d14">&#34;北京市&#34;</span>,
+      <span style="color:#000080">&#34;start_offset&#34;</span> : <span style="color:#099">0</span>,
+      <span style="color:#000080">&#34;end_offset&#34;</span> : <span style="color:#099">3</span>,
+      <span style="color:#000080">&#34;type&#34;</span> : <span style="color:#d14">&#34;CN_WORD&#34;</span>,
+      <span style="color:#000080">&#34;position&#34;</span> : <span style="color:#099">0</span>
+    },
+    {
+      <span style="color:#000080">&#34;token&#34;</span> : <span style="color:#d14">&#34;动物园&#34;</span>,
+      <span style="color:#000080">&#34;start_offset&#34;</span> : <span style="color:#099">3</span>,
+      <span style="color:#000080">&#34;end_offset&#34;</span> : <span style="color:#099">6</span>,
+      <span style="color:#000080">&#34;type&#34;</span> : <span style="color:#d14">&#34;CN_WORD&#34;</span>,
+      <span style="color:#000080">&#34;position&#34;</span> : <span style="color:#099">1</span>
+    }
+  ]
 }
-]
-}</p>
-<pre><code>#### </code></pre>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="分词器测试-standard-es默认分词">分词器测试 standard (es默认分词)</h4>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#a61717;background-color:#e3d2d2">POST</span> <span style="color:#a61717;background-color:#e3d2d2">/city_index/_analyze</span>
+{
+  <span style="color:#000080">&#34;text&#34;</span>:<span style="color:#d14">&#34;北京市动物园&#34;</span>,
+  <span style="color:#000080">&#34;analyzer&#34;</span>: <span style="color:#d14">&#34;standard&#34;</span> 
+}
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>结果如下</li>
+</ul>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+  <span style="color:#000080">&#34;tokens&#34;</span> : [
+    {
+      <span style="color:#000080">&#34;token&#34;</span> : <span style="color:#d14">&#34;北&#34;</span>,
+      <span style="color:#000080">&#34;start_offset&#34;</span> : <span style="color:#099">0</span>,
+      <span style="color:#000080">&#34;end_offset&#34;</span> : <span style="color:#099">1</span>,
+      <span style="color:#000080">&#34;type&#34;</span> : <span style="color:#d14">&#34;&lt;IDEOGRAPHIC&gt;&#34;</span>,
+      <span style="color:#000080">&#34;position&#34;</span> : <span style="color:#099">0</span>
+    },
+    {
+      <span style="color:#000080">&#34;token&#34;</span> : <span style="color:#d14">&#34;京&#34;</span>,
+      <span style="color:#000080">&#34;start_offset&#34;</span> : <span style="color:#099">1</span>,
+      <span style="color:#000080">&#34;end_offset&#34;</span> : <span style="color:#099">2</span>,
+      <span style="color:#000080">&#34;type&#34;</span> : <span style="color:#d14">&#34;&lt;IDEOGRAPHIC&gt;&#34;</span>,
+      <span style="color:#000080">&#34;position&#34;</span> : <span style="color:#099">1</span>
+    },
+    {
+      <span style="color:#000080">&#34;token&#34;</span> : <span style="color:#d14">&#34;市&#34;</span>,
+      <span style="color:#000080">&#34;start_offset&#34;</span> : <span style="color:#099">2</span>,
+      <span style="color:#000080">&#34;end_offset&#34;</span> : <span style="color:#099">3</span>,
+      <span style="color:#000080">&#34;type&#34;</span> : <span style="color:#d14">&#34;&lt;IDEOGRAPHIC&gt;&#34;</span>,
+      <span style="color:#000080">&#34;position&#34;</span> : <span style="color:#099">2</span>
+    },
+    {
+      <span style="color:#000080">&#34;token&#34;</span> : <span style="color:#d14">&#34;动&#34;</span>,
+      <span style="color:#000080">&#34;start_offset&#34;</span> : <span style="color:#099">3</span>,
+      <span style="color:#000080">&#34;end_offset&#34;</span> : <span style="color:#099">4</span>,
+      <span style="color:#000080">&#34;type&#34;</span> : <span style="color:#d14">&#34;&lt;IDEOGRAPHIC&gt;&#34;</span>,
+      <span style="color:#000080">&#34;position&#34;</span> : <span style="color:#099">3</span>
+    },
+    {
+      <span style="color:#000080">&#34;token&#34;</span> : <span style="color:#d14">&#34;物&#34;</span>,
+      <span style="color:#000080">&#34;start_offset&#34;</span> : <span style="color:#099">4</span>,
+      <span style="color:#000080">&#34;end_offset&#34;</span> : <span style="color:#099">5</span>,
+      <span style="color:#000080">&#34;type&#34;</span> : <span style="color:#d14">&#34;&lt;IDEOGRAPHIC&gt;&#34;</span>,
+      <span style="color:#000080">&#34;position&#34;</span> : <span style="color:#099">4</span>
+    },
+    {
+      <span style="color:#000080">&#34;token&#34;</span> : <span style="color:#d14">&#34;园&#34;</span>,
+      <span style="color:#000080">&#34;start_offset&#34;</span> : <span style="color:#099">5</span>,
+      <span style="color:#000080">&#34;end_offset&#34;</span> : <span style="color:#099">6</span>,
+      <span style="color:#000080">&#34;type&#34;</span> : <span style="color:#d14">&#34;&lt;IDEOGRAPHIC&gt;&#34;</span>,
+      <span style="color:#000080">&#34;position&#34;</span> : <span style="color:#099">5</span>
+    }
+  ]
+}
+</code></pre></td></tr></table>
+</div>
+</div>
         </div>
 
         
