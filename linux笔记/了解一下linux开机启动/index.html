@@ -362,21 +362,31 @@
 </code></pre></td></tr></table>
 </div>
 </div><ul>
-<li>chmod +x nginx</li>
-<li>chkconfig &ndash;add nginx (老写法：chkconfig nginx on)</li>
-<li><strong>这样在对应等级rcX.d/目录下就会生成对应的链接，K开头脚本这个服务关闭，S开头的脚本是这个服务要开启.</strong></li>
-<li>每个添加的自启动脚本必须要有2行注释：</li>
 <li>
-<blockquote>
-<p>#chkconfig: 2345 80 90</p>
-</blockquote>
+<p>chmod +x nginx</p>
 </li>
 <li>
-<blockquote>
-<p>#description:nginx_test 可以随便写描述</p>
-</blockquote>
+<p>chkconfig &ndash;add nginx (老写法：chkconfig nginx on)</p>
 </li>
-<li>centos7 开头这么加也可以</li>
+<li>
+<p><strong>这样在对应等级rcX.d/目录下就会生成对应的链接，K开头脚本这个服务关闭，S开头的脚本是这个服务要开启.</strong></p>
+</li>
+<li>
+<p>每个添加的自启动脚本必须要有2行注释：</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#998;font-style:italic">#chkconfig: 2345 80 90</span>
+<span style="color:#998;font-style:italic">#description:nginx_test 可以随便写描述</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>centos7 开头这么加也可以</p>
+</li>
 </ul>
 <div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
