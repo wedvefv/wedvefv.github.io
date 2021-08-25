@@ -1,0 +1,527 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>tp5url和路由 | 学而时习之</title>
+    <meta property="og:title" content="tp5url和路由 - 学而时习之">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2021-06-12T12:00:00&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2021-06-12T12:00:00&#43;08:00'>
+        
+    <meta name="Keywords" content="golang,go语言,go语言笔记,lua,redis,openresty">
+    <meta name="description" content="tp5url和路由">
+        
+    <meta name="author" content="明明">
+    <meta property="og:url" content="http://codesource.online/2url%E5%92%8C%E8%B7%AF%E7%94%B1/">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+    (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-9224870466612638",
+        enable_page_level_ads: true
+    });
+    </script>
+    
+
+
+    
+    
+        <link rel="stylesheet" href='/css/douban.css'>
+    
+        <link rel="stylesheet" href='/css/other.css'>
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="http://codesource.online/">
+                        学而时习之
+                    </a>
+                
+                <p class="description">专注于服务端开发  </p>
+                <p id="count_view"></p>
+
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="http://codesource.online/">首页</a>
+                    
+                    <a  href="http://codesource.online/tags" title="标签">标签</a>
+                    
+                    <a  href="http://codesource.online/categories" title="分类">分类</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+					
+<div class="res-cons">
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">tp5url和路由</h1>
+        </header>
+        <date class="post-meta meta-date">
+            2021年6月12日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='http://codesource.online/categories/html'>html</a></span>
+            
+        </div>
+        
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                    阅读</span></span>
+        </div>
+        
+        
+        <div class="post-content">
+            <h2 id="ngxin配置文件">ngxin配置文件</h2>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">server {
+	<span style="color:#0086b3">listen</span> <span style="color:#099">81</span>;
+
+    set <span style="color:#008080">$root</span>  <span style="color:#009926">/usr/</span><span style="color:#0086b3">local</span><span style="color:#009926">/openresty/</span>nginx<span style="color:#009926">/php/</span>tp5<span style="color:#000;font-weight:bold">/</span>public;
+    <span style="color:#998;font-style:italic">#access_log /usr/local/openresty/nginx/logs/access.log;</span>
+    <span style="color:#998;font-style:italic">#默认请求</span>
+    location <span style="color:#000;font-weight:bold">/</span> {
+        root <span style="color:#008080">$root</span>;
+        <span style="color:#998;font-style:italic">#index index.php index.html index.htm;</span>
+        <span style="color:#998;font-style:italic">#定义首页索引文件的名称</span>
+        <span style="color:#998;font-style:italic">#if ( -f $request_filename) {</span>
+	    <span style="color:#998;font-style:italic">#    echo $request_filename;</span>
+        <span style="color:#998;font-style:italic">#    break;</span>
+        <span style="color:#998;font-style:italic">#}</span>
+        
+        <span style="color:#998;font-style:italic"># 隐藏index.php</span>
+        <span style="color:#000;font-weight:bold">if</span> ( <span style="color:#000;font-weight:bold">!-</span>e <span style="color:#008080">$request_filename</span>) {
+	        rewrite <span style="color:#000;font-weight:bold">^</span>(<span style="color:#000;font-weight:bold">.*</span>)<span style="color:#008080">$</span> <span style="color:#a61717;background-color:#e3d2d2">/</span><span style="color:#008080">index</span><span style="color:#000;font-weight:bold">.</span>php?s<span style="color:#000;font-weight:bold">=/</span><span style="color:#008080">$1</span> <span style="color:#000;font-weight:bold">last</span>;
+	        break;
+        }
+    }
+    
+    location <span style="color:#000;font-weight:bold">~</span> <span style="color:#000;font-weight:bold">.+\.</span>php(<span style="color:#008080">$|</span><span style="color:#000;font-weight:bold">/</span>) {
+        set <span style="color:#008080">$script</span> <span style="color:#008080">$uri</span>;
+        set <span style="color:#008080">$path_info</span> <span style="color:#d14">&#34;&#34;</span>;
+        <span style="color:#000;font-weight:bold">if</span> (<span style="color:#008080">$uri</span> <span style="color:#000;font-weight:bold">~</span> <span style="color:#d14">&#34;^(.+\.php)(/.+)&#34;</span>) {
+            set <span style="color:#008080">$script</span> <span style="color:#008080">$1</span>;
+            set <span style="color:#008080">$path_info</span> <span style="color:#008080">$2</span>;
+        }
+	    fastcgi_pass <span style="color:#099">127.0.0.1</span>:<span style="color:#099">9000</span>;
+        fastcgi_index    <span style="color:#0086b3">index</span><span style="color:#000;font-weight:bold">.</span>php?IF_REWRITE<span style="color:#000;font-weight:bold">=</span><span style="color:#099">1</span>;
+        fastcgi_param    PATH_INFO    <span style="color:#008080">$path_info</span>;
+        fastcgi_param    SCRIPT_FILENAME    <span style="color:#008080">$root$fastcgi_script_name</span>;
+        fastcgi_param    SCRIPT_NAME    <span style="color:#008080">$script</span>;
+        include        fastcgi_params;
+    }
+}
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="url访问">url访问</h2>
+<ul>
+<li>
+<p>http://serverName/index.php/模块/控制器/操作</p>
+</li>
+<li>
+<p>默认目录都是小写字母命名</p>
+</li>
+<li>
+<p>进入到php/tp5根目录 php think build &ndash;module index2 ; 就创建了一个index2模块目录</p>
+</li>
+<li>
+<p>http://192.168.1.8/index.php  等价于（省略了/index/index/index）</p>
+</li>
+<li>
+<p>控制器和操作是不区分大小写的，可以大写，可以小写</p>
+</li>
+<li>
+<p>php <strong>单引号是不能用变量插入的，必须双引号</strong></p>
+</li>
+<li>
+<p>url参数可以直接用/ 分隔，不用写key，直接写value。php代码自动按顺序读取</p>
+</li>
+<li>
+<p>或者直接使用a=10&amp;b=20这样指定get参数</p>
+</li>
+</ul>
+<h2 id="定义路由">定义路由</h2>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#000;font-weight:bold">return</span> [
+    <span style="color:#d14">&#39;__pattern__&#39;</span> <span style="color:#000;font-weight:bold">=&gt;</span> [
+        <span style="color:#d14">&#39;name&#39;</span> <span style="color:#000;font-weight:bold">=&gt;</span> <span style="color:#d14">&#39;\w+&#39;</span>,
+    ],
+
+<span style="color:#998;font-style:italic">/*
+</span><span style="color:#998;font-style:italic">    &#34;hello/:name&#34; =&gt; function($name){
+</span><span style="color:#998;font-style:italic">	    return &#34;hello &#34;.$name.&#34;!&#34;;
+</span><span style="color:#998;font-style:italic">    },
+</span><span style="color:#998;font-style:italic">*/</span>
+    <span style="color:#d14">&#39;hello/[:name]&#39;</span> <span style="color:#000;font-weight:bold">=&gt;</span> [<span style="color:#d14">&#39;index/index/hello&#39;</span>,[<span style="color:#d14">&#39;method&#39;</span><span style="color:#000;font-weight:bold">=&gt;</span><span style="color:#d14">&#39;get&#39;</span>]]
+    
+	<span style="color:#998;font-style:italic">// [:name] 可选参数 /dd 则name=dd， 否则dd=null
+</span><span style="color:#998;font-style:italic"></span>];
+
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="命名空间">命名空间</h2>
+<h3 id="自动注册">自动注册</h3>
+<ul>
+<li>
+<p>使用时直接use  my;的方式  使用extend\my下的php文件类</p>
+</li>
+<li>
+<p>正常情况下是 extend目录下的的自定义命名空间类库</p>
+</li>
+<li>
+<p>define(&lsquo;EXTEND_PATH&rsquo;, &lsquo;../vendor&rsquo;); 可以将默认的extend目录修改到vendor下</p>
+</li>
+</ul>
+<h3 id="手动注册">手动注册</h3>
+
+        </div>
+
+        
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/lua/proto%E6%96%87%E4%BB%B6%E8%BD%AClua%E6%96%87%E4%BB%B6/">proto转lua</a></li>
+        
+        <li><a href="/nginx%E7%AC%94%E8%AE%B0/mysql%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96/">mysql join查询优化</a></li>
+        
+        <li><a href="/linux%E7%AC%94%E8%AE%B0/Elasticsearch_note/">Elasticsearch总结</a></li>
+        
+        <li><a href="/linux%E7%AC%94%E8%AE%B0/Elasticsearch_pinyin/">Elasticsearch pinyin插件</a></li>
+        
+        <li><a href="/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/lua_string/">lua捕获</a></li>
+        
+    </ul>
+</div>
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='http://codesource.online/tags/html'>html</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "your github repo"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+</div>
+
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='http://codesource.online/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="http://codesource.online/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li><a href="http://codesource.online/categories/ES/">ES (3)</a></li>
+    
+    <li><a href="http://codesource.online/categories/android/">android (5)</a></li>
+    
+    <li><a href="http://codesource.online/categories/dll/">dll (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/git/">git (4)</a></li>
+    
+    <li><a href="http://codesource.online/categories/go/">go (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/html/">html (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/js/">js (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/linux/">linux (16)</a></li>
+    
+    <li><a href="http://codesource.online/categories/lua/">lua (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/mysql/">mysql (5)</a></li>
+    
+    <li><a href="http://codesource.online/categories/nginx/">nginx (4)</a></li>
+    
+    <li><a href="http://codesource.online/categories/openresty/">openresty (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/php/">php (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/python/">python (5)</a></li>
+    
+    <li><a href="http://codesource.online/categories/svn/">svn (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/vim/">vim (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/%E5%8A%A0%E5%AF%86/">加密 (2)</a></li>
+    
+    <li><a href="http://codesource.online/categories/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">正则表达式 (3)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="http://codesource.online/tags/ES/">ES</a>
+    
+    <a href="http://codesource.online/tags/android/">android</a>
+    
+    <a href="http://codesource.online/tags/cpu/">cpu</a>
+    
+    <a href="http://codesource.online/tags/dll/">dll</a>
+    
+    <a href="http://codesource.online/tags/git/">git</a>
+    
+    <a href="http://codesource.online/tags/html/">html</a>
+    
+    <a href="http://codesource.online/tags/hugo/">hugo</a>
+    
+    <a href="http://codesource.online/tags/js/">js</a>
+    
+    <a href="http://codesource.online/tags/linux/">linux</a>
+    
+    <a href="http://codesource.online/tags/lua/">lua</a>
+    
+    <a href="http://codesource.online/tags/mysql/">mysql</a>
+    
+    <a href="http://codesource.online/tags/nginx/">nginx</a>
+    
+    <a href="http://codesource.online/tags/openresty/">openresty</a>
+    
+    <a href="http://codesource.online/tags/php/">php</a>
+    
+    <a href="http://codesource.online/tags/python/">python</a>
+    
+    <a href="http://codesource.online/tags/regex/">regex</a>
+    
+    <a href="http://codesource.online/tags/svn/">svn</a>
+    
+    <a href="http://codesource.online/tags/vim/">vim</a>
+    
+    <a href="http://codesource.online/tags/%E5%8A%A0%E5%AF%86/">加密</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="http://openresty.org/download/agentzh-nginx-tutorials-zhcn.html" title="">春哥的nginx教程</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="http://codesource.online/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+    <footer id="footer">
+    <div class="container">
+        &copy; 2021 <a href="http://codesource.online/">学而时习之 By 明明</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
+        <a href="http://beian.miit.gov.cn" target="_blank">豫ICP备20003135号</a>
+        
+ 
+
+    </div>
+
+</footer>
+
+		
+
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+
+
+
+<a id="rocket" href="#top"></a>
+<script>
+	function count(num){
+		var ob = document.getElementById("count_view");
+		ob.innerText="浏览总量: "+ num;
+	}
+</script>
+
+<script type="text/javascript" src="http://codesource.online/lua/count?callback=count"></script>
+
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
+
+
+    
+
+</body>
+</html>

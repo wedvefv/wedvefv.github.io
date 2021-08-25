@@ -1,0 +1,920 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>html5标签 | 学而时习之</title>
+    <meta property="og:title" content="html5标签 - 学而时习之">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2016-08-10T11:30:55&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2016-08-10T11:30:55&#43;08:00'>
+        
+    <meta name="Keywords" content="golang,go语言,go语言笔记,lua,redis,openresty">
+    <meta name="description" content="html5标签">
+        
+    <meta name="author" content="明明">
+    <meta property="og:url" content="http://codesource.online/html/html5_tags/">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+    (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-9224870466612638",
+        enable_page_level_ads: true
+    });
+    </script>
+    
+
+
+    
+    
+        <link rel="stylesheet" href='/css/douban.css'>
+    
+        <link rel="stylesheet" href='/css/other.css'>
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="http://codesource.online/">
+                        学而时习之
+                    </a>
+                
+                <p class="description">专注于服务端开发  </p>
+                <p id="count_view"></p>
+
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="http://codesource.online/">首页</a>
+                    
+                    <a  href="http://codesource.online/tags" title="标签">标签</a>
+                    
+                    <a  href="http://codesource.online/categories" title="分类">分类</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents"></nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if(leftPos<220){
+                postToc.css({"width":leftPos-10,"margin-left":(0-leftPos)})
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">html5标签</h1>
+        </header>
+        <date class="post-meta meta-date">
+            2016年8月10日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='http://codesource.online/categories/js'>js</a></span>
+            
+        </div>
+        
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                    阅读</span></span>
+        </div>
+        
+        
+        <div class="clear" style="display: none">
+            <div class="toc-article">
+                <div class="toc-title">文章目录</div>
+            </div>
+        </div>
+        
+        <div class="post-content">
+            <h1 id="html5标签总结">html5标签总结</h1>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 41
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 42
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 43
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 44
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 45
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 46
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 47
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 48
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 49
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 50
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 51
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 52
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 53
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 54
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 55
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 56
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 57
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 58
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 59
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 60
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 61
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 62
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 63
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 64
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 65
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 66
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 67
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 68
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 69
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 70
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 71
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 72
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 73
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 74
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 75
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 76
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 77
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 78
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 79
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 80
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 81
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 82
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 83
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 84
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 85
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 86
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 87
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 88
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 89
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 90
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 91
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 92
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 93
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 94
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 95
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 96
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 97
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 98
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 99
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">100
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">101
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">102
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">103
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">104
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">105
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">106
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">107
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">108
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">109
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">110
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">111
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">112
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">113
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">114
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">115
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">116
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">117
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">118
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">119
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">120
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">121
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">122
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">123
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">124
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">125
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">126
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">127
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">128
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">129
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">130
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">131
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">132
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">133
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">134
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">135
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">136
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">137
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">138
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">139
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">140
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">141
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">142
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">143
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">144
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">145
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">146
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">147
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">148
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">149
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">150
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">151
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">152
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">153
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">154
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">155
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">156
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">157
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">158
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">159
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">160
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">161
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">162
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">163
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">164
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">165
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">166
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">167
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">168
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">169
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">170
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">171
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">172
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">173
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">174
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">175
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">176
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">177
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">178
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">179
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">180
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">181
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">182
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">183
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">184
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">185
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">186
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">187
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">188
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">189
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">190
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">191
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">192
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">193
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">194
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">195
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">196
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">197
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">198
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">199
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">200
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">201
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">202
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">203
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">204
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">205
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">206
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">207
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">208
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">209
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">210
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">211
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">212
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">213
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">214
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">215
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">216
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">217
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">218
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">219
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">220
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">221
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">222
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">223
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">224
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">225
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">226
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">227
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">228
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">229
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">230
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">
+1. <span style="color:#998;font-style:italic">&lt;!----&gt;</span>       注释
+2. <span style="color:#999;font-weight:bold;font-style:italic">&lt;!DOCTYPE&gt;</span>    定义html文本类型
+3. &lt;<span style="color:#000080">a</span>&gt;           定义超链接
+4. &lt;<span style="color:#000080">abbr</span>&gt;        把一段字符串用缩写表示&lt;<span style="color:#000080">abbr</span> <span style="color:#008080">title </span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;People world&#34;</span>&gt;PW &lt;/<span style="color:#000080">abbr</span>&gt;
+5. &lt;<span style="color:#000080">address</span>&gt;     在article元素内部，表示该文章的作者身份信息
+6. &lt;<span style="color:#000080">applet</span>&gt;      定义嵌入的applet ，html5不支持了。请用object代替
+7. &lt;<span style="color:#000080">acronym</span>&gt;     html5不支持了，请用&lt;<span style="color:#000080">abbr代替哦</span>
+<span style="color:#008080">8</span><span style="color:#a61717;background-color:#e3d2d2">.</span> <span style="color:#a61717;background-color:#e3d2d2">&lt;</span><span style="color:#008080">area</span>&gt;        标签定义图像映射内部的区域，图像中部分区域可以点击，就是说有链接的
+9. 两栏式架构   
+    |header---------------------------------------------------------------------------------------|顶部
+    |nav------------------------------------------------------------------------------------------|外链
+    |article---包含&lt;<span style="color:#000080">section</span>&gt;-----------------&lt;<span style="color:#000080">aside</span>&gt;--------------------------|文章主体--段落或章节-侧边栏
+    |footer---------------------------------------------------------------------------------------|底部
+   以前都是用&lt;<span style="color:#000080">div</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;header&#34;</span>&gt;  &lt;<span style="color:#000080">div</span> <span style="color:#008080">id </span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;nav&#34;</span>&gt;......
+   这样来定义页面的结构，html5新定义了这些，避免div太多混乱.
+
+10. &lt;<span style="color:#000080">aside</span>&gt;     可用于文章的侧边栏
+11. &lt;<span style="color:#000080">audio</span>&gt;     定义声音链接
+12. &lt;<span style="color:#000080">b</span>&gt;         定义粗体字体，强调
+13. &lt;<span style="color:#000080">base</span>&gt;      放在head里面，用于页面中的链接的基地址。后面的链接就可以写相对地址了。
+                比如base =www.xxx000.com/img  ,链接一个图片就可以不写全路径，直接src=&#34;xxx.jpeg&#34;
+14. &lt;<span style="color:#000080">basefont</span>&gt;  html不支持了。设置文档中所有字体的默认颜色，大小
+15. &lt;<span style="color:#000080">bdi</span>&gt;       通过脱离父元素的文本设置方向
+16. &lt;<span style="color:#000080">bdo</span>&gt;       定义文本方向，指定dir属性是rtl还是ltr
+17. &lt;<span style="color:#000080">big</span>&gt;       html不支持了。请用css控制 ，制作更大的文本
+18. &lt;<span style="color:#000080">blockquote</span>&gt;摘自另一个源的块引用
+19. &lt;<span style="color:#000080">body</span>&gt;      定义文档主体
+20. &lt;<span style="color:#000080">br</span> &gt;       换行符
+21. &lt;<span style="color:#000080">button</span>&gt;    定义按钮，多种属性，可以是按钮，提交，重置.....
+22. &lt;<span style="color:#000080">canvas</span>&gt;    只是承载图形的容器。需要script脚本绘制图形，然后传给canvas标签中
+23. &lt;<span style="color:#000080">caption</span>&gt;   放在table后面，定义表格的标题的
+24. &lt;<span style="color:#000080">canter</span>&gt;    5不支持了，请用CSS定义居中
+25. &lt;<span style="color:#000080">cite</span>&gt;      定义歌曲，影视，书籍等作品的标题
+26. &lt;<span style="color:#000080">code</span>&gt;      HTML5 &lt;<span style="color:#000080">em</span>&gt; &lt;<span style="color:#000080">strong</span>&gt; &lt;<span style="color:#000080">dfn</span>&gt; &lt;<span style="color:#000080">code</span>&gt; &lt;<span style="color:#000080">samp</span>&gt; &lt;<span style="color:#000080">kbd</span>&gt; &lt;<span style="color:#000080">var</span>&gt; &lt;<span style="color:#000080">cite</span>&gt; 等短标签，
+                不推荐使用了。css能有更丰富的表现
+27. &lt;<span style="color:#000080">col</span>&gt;       只能在table或者colgroup元素内使用，定义一列或多列表格的属性值。默认
+                至少一列，只有span属性能用了，其他的用css
+28. &lt;<span style="color:#000080">colgroup</span>&gt;  里面只能有col元素 H5已经不支持大部分属性了，用于对表格中的列进行组合，
+                并格式化。要区别于col
+29. &lt;<span style="color:#000080">command</span>&gt;   可以指定消息事件处理函数。目前只支持ＩＥ
+30. &lt;<span style="color:#000080">datalist</span>&gt;  定义选项列表。和input元素配合使用，对于输入框提示作用
+31. &lt;<span style="color:#000080">dd</span>&gt;　　　  dl定义列表，dt定义项目,dd对项目进行描述
+32. &lt;<span style="color:#000080">del</span>&gt;       定义已经删除的文本。中划线
+33. &lt;<span style="color:#000080">details</span>&gt;   描述文档中的某个细节。目前只chrome支持
+34. &lt;<span style="color:#000080">div</span>&gt;       定义文档中的分割和部分。以便对块元素进行格式化。
+35. &lt;<span style="color:#000080">dl</span>&gt;        定义一个list　配合dt和dd使用。dt是项目。dd是项目具体描述
+36. &lt;<span style="color:#000080">em</span>&gt;        被强调的文本。一般配合css使用啦。
+37. &lt;<span style="color:#000080">embed</span>&gt;     定义嵌入的内容。属性src=&#34;&#34;
+38. &lt;<span style="color:#000080">fieldset</span>&gt;  表单中 配合legend标签定义fieldset的标题。相当与通过legend定义的标题话一个框框,\
+                把许多表单元素圈住。
+39. &lt;<span style="color:#000080">figcaptio</span>&gt; 标签定义 figure 元素的标题（caption）。
+40. &lt;<span style="color:#000080">figure</span>&gt;    标签规定独立的流内容（图像、图表、照片、代码等等）。定义的内容与主内容无关，              定义的内容不存在时也不对文档有影响
+41. &lt;<span style="color:#000080">font</span>&gt;      H5不支持了，请用CSS
+42. &lt;<span style="color:#000080">footer</span>&gt;    定义页脚，作者信息等等
+43. &lt;<span style="color:#000080">form</span>&gt;      form 元素包含一个或多个表单元素，比如：
+                button
+                input
+                keygen
+                object
+                output
+                select
+                textarea
+
+44. &lt;<span style="color:#000080">frame</span>&gt;     H5不支持了。
+45. &lt;<span style="color:#000080">frameset</span>&gt;  5也不支持了。
+46. &lt;<span style="color:#000080">h1-h6</span>&gt;     定义标题大小
+47. &lt;<span style="color:#000080">head</span>&gt;      头部元素，下面是可用在 head 部分的标签：
+                base
+                link
+                meta
+                script
+                style
+                title
+48. &lt;<span style="color:#000080">header</span>&gt;    定义文档的页眉
+49. &lt;<span style="color:#000080">hgroup</span>&gt;    对标题进行组合 .H5的新标签
+50. &lt;<span style="color:#000080">hr</span>&gt;        定义主题变化，表现为一条水平线。
+51. &lt;<span style="color:#000080">html</span>&gt;      定义html文档
+52. &lt;<span style="color:#000080">i</span>&gt;         斜体。应该使用CSS
+53. &lt;<span style="color:#000080">iframe</span>&gt;    创建包含另个文档的内嵌框架。
+54. &lt;<span style="color:#000080">img</span>&gt;       必须要的两个属性src和alt（指定图片表述，以备图片无法加载时显示文字）
+55. &lt;<span style="color:#000080">input</span>&gt;     定义用户的输入字段，根据不同的 type 属性，输入字段有多种形态。输入字段可以是 文本字段、复选框、密码字段、单选按钮、按钮等等。
+56. &lt;<span style="color:#000080">ins</span>&gt;       地难以插入文本，一般和del一起使用。ins定义的文字会加入下划线
+57. &lt;<span style="color:#000080">keygen</span>&gt;    类似input,定义表单的密钥生成器字段。H5新标签
+58.  &lt;<span style="color:#000080">kbd</span>&gt;      表示文本是键盘输入的
+59. &lt;<span style="color:#000080">label</span>&gt;     input标签配合使用。点击label标签定义的文字，相当与自动点击input控件
+60.  &lt;<span style="color:#000080">legend</span>&gt;   给一下元素定义标题的：&lt;<span style="color:#000080">fieldset</span>&gt;、&lt;<span style="color:#000080">figure</span>&gt;、&lt;<span style="color:#000080">details</span>&gt;。
+61.  &lt;<span style="color:#000080">li</span>&gt;       定义列表项。在&lt;<span style="color:#000080">ul</span>&gt;标签和&lt;<span style="color:#000080">ol</span>&gt;标签中使用/有序和无序列表
+62. &lt;<span style="color:#000080">link</span>&gt;      文档链接外部资源的。大部分用来链接外部样式表css文件
+63.  &lt;<span style="color:#000080">map</span>&gt;      定义图像区域映射，name属性和ｉｍｇ的usemap属性关联，包含area元素。
+64. &lt;<span style="color:#000080">mark</span>&gt;      突出显示文本。文本背景黄色。
+65. &lt;<span style="color:#000080">menu</span>&gt;      标签定义菜单列表。用于排列表单控件
+
+                &lt;<span style="color:#000080">menu</span>&gt;
+                &lt;<span style="color:#000080">li</span>&gt;&lt;<span style="color:#000080">input</span> <span style="color:#008080">type</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;checkbox&#34;</span> /&gt;Red&lt;/<span style="color:#000080">li</span>&gt;
+                &lt;<span style="color:#000080">li</span>&gt;&lt;<span style="color:#000080">input</span> <span style="color:#008080">type</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;checkbox&#34;</span> /&gt;blue&lt;/<span style="color:#000080">li</span>&gt;
+                &lt;/<span style="color:#000080">menu</span>&gt;
+
+67. &lt;<span style="color:#000080">meta</span>&gt;      定义页面相关信息。位于head中定义关键词，利于搜索引擎检索：
+
+                &lt;<span style="color:#000080">meta</span> <span style="color:#008080">name</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;keywords&#34;</span> <span style="color:#008080">content</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;HTML, CSS, XML, XHTML, JavaScript&#34;</span> /&gt;
+                定义对页面的描述：
+                &lt;<span style="color:#000080">meta</span> <span style="color:#008080">name</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;description&#34;</span> <span style="color:#008080">content</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;w3c html web 技术标准教程。&#34;</span> /&gt;
+                每５秒刷新一次页面：
+                &lt;<span style="color:#000080">meta</span> <span style="color:#008080">http-equiv</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;refresh&#34;</span> <span style="color:#008080">content</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;5&#34;</span> /&gt;
+
+68. &lt;<span style="color:#000080">meter</span>&gt;     定义度量范围，可以用属性,max/min　也可以用文本中定义范围。
+69. &lt;<span style="color:#000080">nav</span>&gt;       定义导航栏的链接的部分
+70. &lt;<span style="color:#000080">noframes</span>&gt;  H5不支持了，用于不能显示框架的时候提示文本
+71. &lt;<span style="color:#000080">noscript</span>&gt;  当不支持脚本时。显示提示的文本
+72. &lt;<span style="color:#000080">object</span>&gt;    定义一个嵌入的对象，多媒体等。图像请使用ｉｍｇ代替。大部分html4中的属性H5不支持了。
+73. &lt;<span style="color:#000080">ol</span>&gt;        有序列表
+74. &lt;<span style="color:#000080">optgroup</span>&gt;  组合选项：
+
+              &lt;<span style="color:#000080">select</span>&gt;
+              &lt;<span style="color:#000080">optgroup</span> <span style="color:#008080">label</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;Swedish Cars&#34;</span>&gt;
+              &lt;<span style="color:#000080">option</span> <span style="color:#008080">value </span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;volvo&#34;</span>&gt;Volvo&lt;/<span style="color:#000080">option</span>&gt;
+              &lt;<span style="color:#000080">option</span> <span style="color:#008080">value </span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;saab&#34;</span>&gt;Saab&lt;/<span style="color:#000080">option</span>&gt;
+              &lt;/<span style="color:#000080">optgroup</span>&gt;
+              &lt;<span style="color:#000080">optgroup</span> <span style="color:#008080">label</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;German Cars&#34;</span>&gt;
+              &lt;<span style="color:#000080">option</span> <span style="color:#008080">value </span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;mercedes&#34;</span>&gt;Mercedes&lt;/<span style="color:#000080">option</span>&gt;
+              &lt;<span style="color:#000080">option</span> <span style="color:#008080">value </span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;audi&#34;</span>&gt;Audi&lt;/<span style="color:#000080">option</span>&gt;
+              &lt;/<span style="color:#000080">optgroup</span>&gt;
+              &lt;/<span style="color:#000080">select</span>&gt;
+
+75. &lt;<span style="color:#000080">optlon</span>&gt;    定义一个下拉列表选项：
+76.
+              &lt;<span style="color:#000080">select</span>&gt;
+              &lt;<span style="color:#000080">option</span> <span style="color:#008080">value</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;volvo&#34;</span>&gt;Volvo&lt;/<span style="color:#000080">option</span>&gt;
+              &lt;<span style="color:#000080">option</span> <span style="color:#008080">value</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;saab&#34;</span>&gt;Saab&lt;/<span style="color:#000080">option</span>&gt;
+              &lt;<span style="color:#000080">option</span> <span style="color:#008080">value</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;opel&#34;</span> <span style="color:#008080">selected</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;selected&#34;</span>&gt;Opel&lt;/<span style="color:#000080">option</span>&gt;
+              &lt;<span style="color:#000080">option</span> <span style="color:#008080">value</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;audi&#34;</span>&gt;Audi&lt;/<span style="color:#000080">option</span>&gt;
+              &lt;/<span style="color:#000080">select</span>&gt;
+
+76. &lt;<span style="color:#000080">output</span>&gt;    标签定义不同类型的输出，比如脚本的输出。:
+
+              &lt;<span style="color:#000080">form</span> <span style="color:#008080">oninput</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;x.value=parseInt(a.value)+parseInt(b.value)&#34;</span>&gt;0&lt;<span style="color:#000080">input</span> <span style="color:#008080">type</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;range&#34;</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;a&#34;</span> <span style="color:#008080">value</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;50&#34;</span>&gt;100+&lt;<span style="color:#000080">input</span> <span style="color:#008080">type</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;number&#34;</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;b&#34;</span> <span style="color:#008080">value</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;50&#34;</span>&gt;
+              =&lt;<span style="color:#000080">output</span> <span style="color:#008080">name</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;x&#34;</span> <span style="color:#008080">for</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;a b&#34;</span>&gt;&lt;/<span style="color:#000080">output</span>&gt;
+              &lt;/<span style="color:#000080">form</span>&gt;
+              计算0-100的随机数加50＝多少，&lt;<span style="color:#000080">input</span> <span style="color:#008080">type</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;range&#34;</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;a&#34;</span> <span style="color:#008080">value</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;50&#34;</span>&gt;表示一个随机滚动条。
+
+77. &lt;<span style="color:#000080">p</span>&gt;         段落
+78. &lt;<span style="color:#000080">param</span>&gt;     http://www.w3chtml.com/html5/tag/param.html
+79. &lt;<span style="color:#000080">pre</span>&gt;       文本原样输出。不会改变格式
+80. &lt;<span style="color:#000080">progress</span>&gt;  表示时间函数有关的进度条：
+
+                &lt;<span style="color:#000080">progress</span>&gt;
+                &lt;<span style="color:#000080">span</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;objprogress&#34;</span>&gt;85&lt;/<span style="color:#000080">span</span>&gt;%
+                &lt;/<span style="color:#000080">progress</span>&gt;
+
+81. &lt;<span style="color:#000080">q</span>&gt;         短引用，cite属性指定来源地址，显示是会插入了一个引号，表示后面的内容是引用的内容。
+82. &lt;<span style="color:#000080">rp</span>&gt;        指示不支持ruby元素时，显示的文本注释
+83. &lt;<span style="color:#000080">ruby</span>&gt;      显示中文注音或者字符。里面用&lt;<span style="color:#000080">rt</span>&gt;和&lt;<span style="color:#000080">rp</span>&gt;元素包裹。
+84. &lt;<span style="color:#000080">s</span>&gt;         增加删除线文本。H5不支持了。请用css，
+85. &lt;<span style="color:#000080">samp</span>&gt;      如下标签都是不推荐使用的，请用css样式表，更好。
+    &lt;<span style="color:#000080">em</span>&gt;        呈现为被强调的文本。
+    &lt;<span style="color:#000080">strong</span>&gt;    定义重要的文本。
+    &lt;<span style="color:#000080">dfn</span>&gt;       定义一个定义项目。
+    &lt;<span style="color:#000080">code</span>&gt;      定义计算机代码文本。
+    &lt;<span style="color:#000080">samp</span>&gt;      定义样本文本。
+    &lt;<span style="color:#000080">kbd</span>&gt;       定义键盘文本。它表示文本是从键盘上键入的。它经常用在与计算机相关的文档或手册中。
+    &lt;<span style="color:#000080">var</span>&gt;       定义变量。您可以将此标签与 &lt;<span style="color:#000080">pre</span>&gt; 及 &lt;<span style="color:#000080">code</span>&gt; 标签配合使用。
+    &lt;<span style="color:#000080">cite</span>&gt;      定义引用。可使用该标签对参考文献的引用进行定义，比如书籍或杂志的标题。
+86. &lt;<span style="color:#000080">script</span>&gt;<span style="color:#a61717;background-color:#e3d2d2">    javascript脚本置于其中。可链接外部ｊｓ脚本，一般脚本用于图像操作，表单验证和动态内容更改。</span>
+87. &lt;<span style="color:#000080">select</span>&gt;    多个option标签置于其中，形成选择下拉列表。
+88. &lt;<span style="color:#000080">small</span>&gt;     小型文本，一般作为旁注信息
+89. &lt;<span style="color:#000080">source</span>&gt;    多媒体资源标签：
+
+                &lt;<span style="color:#000080">audio</span> <span style="color:#008080">controls</span>&gt;
+                &lt;<span style="color:#000080">source</span> <span style="color:#008080">src</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;horse.ogg&#34;</span> <span style="color:#008080">type</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;audio/ogg&#34;</span>&gt;
+                &lt;<span style="color:#000080">source</span> <span style="color:#008080">src</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;horse.mp3&#34;</span> <span style="color:#008080">type</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;audio/mpeg&#34;</span>&gt;
+                Your browser does not support the audio element.
+                &lt;/<span style="color:#000080">audio</span>&gt;
+
+90 .&lt;<span style="color:#000080">span</span>&gt;      对文档中行内元素进行分组。一遍对单独的一组文本进行样式控制。
+91 .&lt;<span style="color:#000080">strike</span>&gt;    加删除线。请用del代替。不建议使用，用css吧
+92. &lt;<span style="color:#000080">strong</span>&gt;    加粗文本
+93. &lt;<span style="color:#000080">style</span>&gt;<span style="color:#a61717;background-color:#e3d2d2">     html插入样式信息标签。</span>
+94 .&lt;<span style="color:#000080">sub</span>&gt;       定义上标文本，相当于脚注信息
+95. &lt;<span style="color:#000080">summary</span>&gt;   &lt;<span style="color:#000080">datails</span>&gt;元素的地一个元素，定义details的标题内容。
+96. &lt;<span style="color:#000080">sup</span>&gt;       定义上标文本，相当于脚注信息
+97. &lt;<span style="color:#000080">table</span>&gt;     定义表格　&lt;<span style="color:#000080">tr</span>&gt;定义一行,&lt;<span style="color:#000080">th</span>&gt;定义表的第一行头。&lt;<span style="color:#000080">td</span>&gt;定义表的内容
+
+                &lt;<span style="color:#000080">table</span> <span style="color:#008080">border</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;1&#34;</span>&gt;
+                &lt;<span style="color:#000080">tr</span>&gt;
+                &lt;<span style="color:#000080">th</span>&gt;月份&lt;/<span style="color:#000080">th</span>&gt;
+                &lt;<span style="color:#000080">th</span>&gt;存款&lt;/<span style="color:#000080">th</span>&gt;
+                &lt;/<span style="color:#000080">tr</span>&gt;
+                &lt;<span style="color:#000080">tr</span>&gt;
+                &lt;<span style="color:#000080">td</span>&gt;一月&lt;/<span style="color:#000080">td</span>&gt;
+                &lt;<span style="color:#000080">td</span>&gt;1000 元&lt;/<span style="color:#000080">td</span>&gt;
+                &lt;/<span style="color:#000080">tr</span>&gt;
+                &lt;/<span style="color:#000080">table</span>&gt;
+
+98. &lt;<span style="color:#000080">tbody</span>&gt;     表格的正文部分。H５已废除
+99. &lt;<span style="color:#000080">td</span>&gt;        表格内容行
+100. &lt;<span style="color:#000080">textarea</span>&gt; 文本域，相当于MFC中的编辑框
+101. &lt;<span style="color:#000080">tfoot</span>&gt; 	  表格的页脚部分，H5已废除
+102. &lt;<span style="color:#000080">th</span>&gt;       表格的头一行
+103. &lt;<span style="color:#000080">thead</span>&gt;    表格的头部分，需要有tr行
+104. &lt;<span style="color:#000080">time</span>&gt;     定义时间或者日期，目前浏览器还都不支持
+105 .&lt;<span style="color:#000080">title</span>&gt;    浏览器显示的标题
+106. &lt;<span style="color:#000080">tr</span>&gt;       定义表格中的行
+107. &lt;<span style="color:#000080">track</span>&gt;    为视频媒体文件制定外部文本轨道。比如字幕啥的。目前浏览器还不要支持此标签。
+
+                &lt;<span style="color:#000080">video</span> <span style="color:#008080">width</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;320&#34;</span> <span style="color:#008080">height</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;240&#34;</span> <span style="color:#008080">controls</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;controls&#34;</span>&gt;
+                &lt;<span style="color:#000080">source</span> <span style="color:#008080">src</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;forrest_gump.mp4&#34;</span> <span style="color:#008080">type</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;video/mp4&#34;</span> /&gt;
+                &lt;<span style="color:#000080">source</span> <span style="color:#008080">src</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;forrest_gump.ogg&#34;</span> <span style="color:#008080">type</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;video/ogg&#34;</span> /&gt;
+                &lt;<span style="color:#000080">track</span> <span style="color:#008080">kind</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;subtitles&#34;</span> <span style="color:#008080">src</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;subs_chi.srt&#34;</span> <span style="color:#008080">srclang</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;zh&#34;</span> <span style="color:#008080">label</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;Chinese&#34;</span>&gt;
+                &lt;<span style="color:#000080">track</span> <span style="color:#008080">kind</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;subtitles&#34;</span> <span style="color:#008080">src</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;subs_eng.srt&#34;</span> <span style="color:#008080">srclang</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;en&#34;</span> <span style="color:#008080">label</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;English&#34;</span>&gt;
+                &lt;/<span style="color:#000080">video</span>&gt;
+
+108. &lt;<span style="color:#000080">tt</span>&gt;       定义打印机文本。目前h5已经不支持了。
+109. &lt;<span style="color:#000080">u</span>&gt;        下划线。目前已不支持
+110. &lt;<span style="color:#000080">ul</span>&gt;       无需列表。
+111. &lt;<span style="color:#000080">var</span>&gt;      定义变量。您可以将此标签与 &lt;<span style="color:#000080">pre</span>&gt; 及 &lt;<span style="color:#000080">code</span>&gt; 标签配合使用。
+112. &lt;<span style="color:#000080">video</span>&gt;    视频标签：
+                &lt;<span style="color:#000080">video</span> <span style="color:#008080">src</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;movie.ogg&#34;</span> <span style="color:#008080">controls</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;controls&#34;</span>&gt;
+                您的浏览器不支持 video 标签。
+                &lt;/<span style="color:#000080">video</span>&gt;
+
+113. &lt;<span style="color:#000080">wbr</span>&gt;      标志在何处适合加入换行符，避免有些单词加入换行符没拆开，不明意义。
+114. &lt;<span style="color:#000080">rt</span>&gt;       在ruby元素中加入汉字的注音：
+
+                &lt;<span style="color:#000080">ruby</span>&gt;
+                漢 &lt;<span style="color:#000080">rt</span>&gt; ㄏㄢˋ &lt;/<span style="color:#000080">rt</span>&gt;
+                &lt;/<span style="color:#000080">ruby</span>&gt;
+
+115. &lt;<span style="color:#000080">section</span>&gt;  定义区段。页眉，页脚.......
+116. &lt;<span style="color:#000080">label</span>&gt;    定义一个选项组的标注		
+</code></pre></td></tr></table>
+</div>
+</div>
+        </div>
+
+        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>原文作者：</strong><a rel="author" href="http://codesource.online/">明明</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="http://codesource.online/html/html5_tags/">http://codesource.online/html/html5_tags/</a></li>
+        <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可，非商业转载请注明出处（作者，原文链接），商业转载请联系作者获得授权。</li>
+    </ul>
+</div>
+<br/>
+
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/linux/LinuxFTP/">LinuxFTP的建立</a></li>
+        
+        <li><a href="/linux/%E4%BA%86%E8%A7%A3%E4%B8%80%E4%B8%8B%E5%8A%A0%E5%AF%86/">常见加密方式</a></li>
+        
+        <li><a href="/git/git_1_config/">git 配置文件</a></li>
+        
+        <li><a href="/php/scan/"></a></li>
+        
+        <li><a href="/php/mysql_iter/"></a></li>
+        
+    </ul>
+</div>
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='http://codesource.online/tags/js'>js</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "your github repo"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+</div>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='http://codesource.online/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="http://codesource.online/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="http://codesource.online/html/html5_tags/" title="html5标签">html5标签</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li><a href="http://codesource.online/categories/ES/">ES (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/css/">css (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/dll/">dll (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/git/">git (4)</a></li>
+    
+    <li><a href="http://codesource.online/categories/js/">js (4)</a></li>
+    
+    <li><a href="http://codesource.online/categories/linux/">linux (13)</a></li>
+    
+    <li><a href="http://codesource.online/categories/nginx/">nginx (4)</a></li>
+    
+    <li><a href="http://codesource.online/categories/openresty/">openresty (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/python/">python (5)</a></li>
+    
+    <li><a href="http://codesource.online/categories/vue/">vue (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/weixin/">weixin (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/%E5%8A%A0%E5%AF%86/">加密 (2)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="http://codesource.online/tags/ES/">ES</a>
+    
+    <a href="http://codesource.online/tags/css/">css</a>
+    
+    <a href="http://codesource.online/tags/dll/">dll</a>
+    
+    <a href="http://codesource.online/tags/git/">git</a>
+    
+    <a href="http://codesource.online/tags/js/">js</a>
+    
+    <a href="http://codesource.online/tags/linux/">linux</a>
+    
+    <a href="http://codesource.online/tags/nginx/">nginx</a>
+    
+    <a href="http://codesource.online/tags/openresty/">openresty</a>
+    
+    <a href="http://codesource.online/tags/python/">python</a>
+    
+    <a href="http://codesource.online/tags/vue/">vue</a>
+    
+    <a href="http://codesource.online/tags/weixin/">weixin</a>
+    
+    <a href="http://codesource.online/tags/%E5%8A%A0%E5%AF%86/">加密</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="http://openresty.org/download/agentzh-nginx-tutorials-zhcn.html" title="">春哥的nginx教程</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="http://codesource.online/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+    <footer id="footer">
+    <div class="container">
+        &copy; 2020 <a href="http://codesource.online/">学而时习之 By 明明</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
+        <a href="http://www.beian.miit.gov.cn" target="_blank">豫ICP备20003135号</a>
+        
+ 
+
+    </div>
+
+</footer>
+
+		
+
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+
+
+
+<a id="rocket" href="#top"></a>
+<script>
+	function count(num){
+		var ob = document.getElementById("count_view");
+		ob.innerText="浏览总量: "+ num;
+	}
+</script>
+
+<script type="text/javascript" src="http://codesource.online/lua/count?callback=count"></script>
+
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
+
+
+    
+
+</body>
+</html>

@@ -1,0 +1,816 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>lua捕获 | 学而时习之</title>
+    <meta property="og:title" content="lua捕获 - 学而时习之">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2020-11-02T12:00:00&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2020-11-02T12:00:00&#43;08:00'>
+        
+    <meta name="Keywords" content="golang,go语言,go语言笔记,lua,redis,openresty">
+    <meta name="description" content="lua捕获">
+        
+    <meta name="author" content="明明">
+    <meta property="og:url" content="http://codesource.online/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/lua_string/">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+    (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-9224870466612638",
+        enable_page_level_ads: true
+    });
+    </script>
+    
+
+
+    
+    
+        <link rel="stylesheet" href='/css/douban.css'>
+    
+        <link rel="stylesheet" href='/css/other.css'>
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="http://codesource.online/">
+                        学而时习之
+                    </a>
+                
+                <p class="description">专注于服务端开发  </p>
+                <p id="count_view"></p>
+
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="http://codesource.online/">首页</a>
+                    
+                    <a  href="http://codesource.online/tags" title="标签">标签</a>
+                    
+                    <a  href="http://codesource.online/categories" title="分类">分类</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+					
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if(leftPos<220){
+                postToc.css({"width":leftPos-10,"margin-left":(0-leftPos)})
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">lua捕获</h1>
+        </header>
+        <date class="post-meta meta-date">
+            2020年11月2日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='http://codesource.online/categories/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F'>正则表达式</a></span>
+            
+        </div>
+        
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                    阅读</span></span>
+        </div>
+        
+        
+        <div class="clear" style="display: none">
+            <div class="toc-article">
+                <div class="toc-title">文章目录</div>
+            </div>
+        </div>
+        
+        <div class="post-content">
+            <h4 id="直接上代码">直接上代码</h4>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 41
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 42
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 43
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 44
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 45
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 46
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 47
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 48
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 49
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 50
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 51
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 52
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 53
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 54
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 55
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 56
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 57
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 58
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 59
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 60
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 61
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 62
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 63
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 64
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 65
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 66
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 67
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 68
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 69
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 70
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 71
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 72
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 73
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 74
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 75
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 76
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 77
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 78
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 79
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 80
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 81
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 82
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 83
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 84
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 85
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 86
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 87
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 88
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 89
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 90
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 91
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 92
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 93
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 94
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 95
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 96
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 97
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 98
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 99
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">100
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">101
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">102
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">103
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">104
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">105
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">106
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">107
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">108
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">109
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">110
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">111
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">112
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">113
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">114
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">115
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">116
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">117
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">118
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">119
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">120
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">121
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">122
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">123
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">124
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">125
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">126
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">127
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">128
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">129
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">130
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">131
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">132
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">133
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">134
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">135
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">136
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">137
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">138
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">139
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">140
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">141
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">142
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">143
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">144
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">145
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">146
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">147
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">148
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">149
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">150
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">151
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">152
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">153
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">154
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">155
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">156
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">157
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">158
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">159
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">160
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">161
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">162
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">163
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">164
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">165
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">166
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">167
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-lua" data-lang="lua"><span style="color:#998;font-style:italic">-- 实现特定字符分割字符串</span>
+<span style="color:#000;font-weight:bold">local</span> <span style="color:#000;font-weight:bold">function</span> <span style="color:#900;font-weight:bold">explode</span>(deli, str)
+	<span style="color:#000;font-weight:bold">local</span> start, find_pos <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">1</span>,<span style="color:#099">1</span>
+	<span style="color:#000;font-weight:bold">local</span> t <span style="color:#000;font-weight:bold">=</span> {}
+	<span style="color:#000;font-weight:bold">while</span> <span style="color:#000;font-weight:bold">true</span>  <span style="color:#000;font-weight:bold">do</span>
+		find_pos <span style="color:#000;font-weight:bold">=</span> string.find(str, deli, start,<span style="color:#000;font-weight:bold">true</span>)  <span style="color:#998;font-style:italic">-- 第三个参数是查找的开始位置</span>
+		<span style="color:#000;font-weight:bold">if</span> <span style="color:#000;font-weight:bold">not</span> find_pos  <span style="color:#000;font-weight:bold">then</span> 
+			<span style="color:#000;font-weight:bold">break</span> 
+		<span style="color:#000;font-weight:bold">end</span>
+
+		t[<span style="color:#000;font-weight:bold">#</span>t<span style="color:#000;font-weight:bold">+</span><span style="color:#099">1</span>] <span style="color:#000;font-weight:bold">=</span> string.sub(str, start, find_pos <span style="color:#000;font-weight:bold">-</span><span style="color:#099">1</span>) 
+		start <span style="color:#000;font-weight:bold">=</span> find_pos <span style="color:#000;font-weight:bold">+</span> <span style="color:#099">1</span>
+	<span style="color:#000;font-weight:bold">end</span>
+	<span style="color:#998;font-style:italic">-- 最后一段字符串</span>
+	t[<span style="color:#000;font-weight:bold">#</span>t<span style="color:#000;font-weight:bold">+</span><span style="color:#099">1</span>] <span style="color:#000;font-weight:bold">=</span> string.sub(str, start)
+	<span style="color:#000;font-weight:bold">return</span> t
+<span style="color:#000;font-weight:bold">end</span>
+
+<span style="color:#998;font-style:italic">-- 测试 explode </span>
+<span style="color:#000;font-weight:bold">local</span> x <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;aaaa,bbb,ccc,111,tt,111&#34;</span>
+<span style="color:#000;font-weight:bold">local</span> arr <span style="color:#000;font-weight:bold">=</span> explode(<span style="color:#d14">&#34;,&#34;</span>, x)
+<span style="color:#000;font-weight:bold">for</span> i, x <span style="color:#000;font-weight:bold">in</span> ipairs(arr) <span style="color:#000;font-weight:bold">do</span>
+	print(i,x)
+<span style="color:#000;font-weight:bold">end</span>
+
+
+print(string.char(<span style="color:#099">97</span>)) <span style="color:#998;font-style:italic">-- a</span>
+print(string.byte(<span style="color:#d14">&#39;a&#39;</span>)) <span style="color:#998;font-style:italic">-- 97</span>
+print((<span style="color:#000;font-weight:bold">#</span><span style="color:#d14">&#34;中&#34;</span>)) <span style="color:#998;font-style:italic">--3 个字节</span>
+print((string.byte(<span style="color:#d14">&#34;中&#34;</span>,<span style="color:#099">1</span>))) <span style="color:#998;font-style:italic">-- 228 </span>
+print((string.byte(<span style="color:#d14">&#34;中&#34;</span>,<span style="color:#099">2</span>))) <span style="color:#998;font-style:italic">-- 184</span>
+print((string.byte(<span style="color:#d14">&#34;中&#34;</span>,<span style="color:#099">3</span>))) <span style="color:#998;font-style:italic">-- 173</span>
+<span style="color:#998;font-style:italic">--[[
+</span><span style="color:#998;font-style:italic">1110 0100
+</span><span style="color:#998;font-style:italic">E 4 
+</span><span style="color:#998;font-style:italic">128 +64 + 32 + 4  = 228
+</span><span style="color:#998;font-style:italic">
+</span><span style="color:#998;font-style:italic">1011 1000
+</span><span style="color:#998;font-style:italic">B 8
+</span><span style="color:#998;font-style:italic">128 + 32 + 16 +8 = 184
+</span><span style="color:#998;font-style:italic">
+</span><span style="color:#998;font-style:italic">1010 1101
+</span><span style="color:#998;font-style:italic">A D
+</span><span style="color:#998;font-style:italic">128 + 32 + 8 + 4 + 1 = 173 
+</span><span style="color:#998;font-style:italic">“中” 字的utf8编码是E4B8AD三个字节
+</span><span style="color:#998;font-style:italic">]]</span>
+
+
+<span style="color:#998;font-style:italic">-- string.gsub</span>
+s ,c <span style="color:#000;font-weight:bold">=</span> string.gsub(<span style="color:#d14">&#34;all lii&#34;</span>, <span style="color:#d14">&#39;l&#39;</span>, <span style="color:#d14">&#39;x&#39;</span>, <span style="color:#099">2</span>) <span style="color:#998;font-style:italic">-- 替换2次l为x</span>
+print(s, c) <span style="color:#998;font-style:italic">-- axx lii 2 。 c表示替换次数</span>
+
+
+<span style="color:#998;font-style:italic">--[[
+</span><span style="color:#998;font-style:italic">. 任意字符
+</span><span style="color:#998;font-style:italic">%a 字母
+</span><span style="color:#998;font-style:italic">%c 控制字符
+</span><span style="color:#998;font-style:italic">%d 数字
+</span><span style="color:#998;font-style:italic">%l 小写字母
+</span><span style="color:#998;font-style:italic">%p 标点字符
+</span><span style="color:#998;font-style:italic">%s 空白符
+</span><span style="color:#998;font-style:italic">%u 大写字母
+</span><span style="color:#998;font-style:italic">%w 字母和数字
+</span><span style="color:#998;font-style:italic">%x 十六进制数字
+</span><span style="color:#998;font-style:italic">%z 代表 0 的字符
+</span><span style="color:#998;font-style:italic">]]</span>
+<span style="color:#998;font-style:italic">-- %A 大写的都表示补集，非%a</span>
+
+<span style="color:#998;font-style:italic">-- 特殊字符</span>
+<span style="color:#998;font-style:italic">-- ( ) . % + - * ? [ ^ $</span>
+
+<span style="color:#998;font-style:italic">--[[
+</span><span style="color:#998;font-style:italic">+ 匹配前一字符 1 次或多次
+</span><span style="color:#998;font-style:italic">* 匹配前一字符 0 次或多次
+</span><span style="color:#998;font-style:italic">- 匹配前一字符 0 次或多次
+</span><span style="color:#998;font-style:italic">? 匹配前一字符 0 次或 1 次
+</span><span style="color:#998;font-style:italic">]]</span>
+
+<span style="color:#998;font-style:italic">-- 正则匹配</span>
+test <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;int x; /* 111111 */ int y; /* 22222 */&#34;</span>
+<span style="color:#998;font-style:italic">-- .* 是匹配0次或多次字符， 最长匹配</span>
+print(string.gsub(test, <span style="color:#d14">&#34;/%*.*%*/&#34;</span>, <span style="color:#d14">&#34;注释&#34;</span>)) 
+<span style="color:#998;font-style:italic">-- int x; 注释  1次 </span>
+
+<span style="color:#998;font-style:italic">-- .- 也是匹配0次或多次字符，是最短匹配</span>
+print(string.gsub(test, <span style="color:#d14">&#34;/%*.-%*/&#34;</span>, <span style="color:#d14">&#34;注释&#34;</span>))
+<span style="color:#998;font-style:italic">-- int x; 注释 int y; 注释 2</span>
+
+
+test <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;a (enclosed (in) parentheses) line&#34;</span>
+print(string.find(test, <span style="color:#d14">&#34;%bes&#34;</span>)) 
+<span style="color:#998;font-style:italic">-- 匹配%b后面的两个字母es之间的内容，包括 e和s， </span>
+<span style="color:#998;font-style:italic">-- 4， 9</span>
+
+
+<span style="color:#998;font-style:italic">-- 捕获功能1</span>
+<span style="color:#998;font-style:italic">-- 用括号括起来的部分就叫做一个捕获 capture</span>
+pair <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;name = anna&#39;</span>
+
+a, b , key , value <span style="color:#000;font-weight:bold">=</span> string.find(pair, <span style="color:#d14">&#34;(%a+)%s=%s(%a+)&#34;</span>)
+print(a, b , key, value)
+<span style="color:#998;font-style:italic">-- 1       11      name    anna </span>
+<span style="color:#998;font-style:italic">-- a,b是找到的整个匹配的起点和终点</span>
+<span style="color:#998;font-style:italic">-- 除了前两个参数，后面的每个值，对应一个小括号中的匹配值</span>
+
+date <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;17/7/1970&#34;</span>
+_,_,d,m,y <span style="color:#000;font-weight:bold">=</span> string.find(date, <span style="color:#d14">&#34;(%d+)/(%d+)/(%d+)&#34;</span>)
+print(d, m, y ) <span style="color:#998;font-style:italic">-- 17, 7, 1970</span>
+
+
+<span style="color:#998;font-style:italic">-- 捕获功能2 ,匹配引号之间的数据</span>
+
+s <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">[[then he said: &#34;it&#39;s all righ&#39;t&#34;!]]</span>
+a, b , c,  quote_str<span style="color:#000;font-weight:bold">=</span> string.find(s, <span style="color:#d14">&#34;([</span><span style="color:#d14">\&#34;\&#39;</span><span style="color:#d14">])(.-)%1&#34;</span>)
+<span style="color:#998;font-style:italic">-- a, b , c,  quote_str= string.find(s, &#34;([\&#34;])(.-)[\&#34;]&#34;)</span>
+print(a,b, c, quote_str)
+<span style="color:#998;font-style:italic">-- %1 表示第一个小括号的匹配值</span>
+
+print(string.gsub(<span style="color:#d14">&#34;hello lua&#34;</span>, <span style="color:#d14">&#34;(%a)&#34;</span>, <span style="color:#d14">&#34;%1-%1&#34;</span>))
+<span style="color:#998;font-style:italic">-- h-he-el-ll-lo-o L-Lu-ua-a</span>
+
+print(string.gsub(<span style="color:#d14">&#34;hello lua&#34;</span>, <span style="color:#d14">&#34;(.)(.)&#34;</span>, <span style="color:#d14">&#34;%2%1&#34;</span>))
+<span style="color:#998;font-style:italic">-- 替换相邻字符</span>
+<span style="color:#998;font-style:italic">-- --&gt; ehll ouLa</span>
+
+<span style="color:#998;font-style:italic">-- 捕获3 -替换</span>
+x <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;</span><span style="color:#d14">\\</span><span style="color:#d14">command {some text}&#34;</span>  <span style="color:#998;font-style:italic">-- LaTeX格式</span>
+<span style="color:#998;font-style:italic">-- 转成html格式 &lt;command&gt; some text &lt;/command&gt;</span>
+print(string.gsub(x, <span style="color:#d14">&#34;</span><span style="color:#d14">\\</span><span style="color:#d14">(%a+)%s{(.-)}&#34;</span>, <span style="color:#d14">&#34;&lt;%1&gt; %2 &lt;/%1&gt;&#34;</span>))
+
+x <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;the </span><span style="color:#d14">\\</span><span style="color:#d14">quote{task} is to </span><span style="color:#d14">\\</span><span style="color:#d14">em{change} that&#34;</span>
+print(string.gsub(x, <span style="color:#d14">&#34;(.-)</span><span style="color:#d14">\\</span><span style="color:#d14">(%a+){(.-)}(.-)</span><span style="color:#d14">\\</span><span style="color:#d14">(.-){(.-)}(.-)&#34;</span>, <span style="color:#d14">&#34;%1 &lt;%2&gt;%3&lt;/%2&gt;%4&lt;%5&gt;%6&lt;/%5&gt;%7&#34;</span>))
+<span style="color:#998;font-style:italic">-- the  &lt;quote&gt;task&lt;/quote&gt; is to &lt;em&gt;change&lt;/em&gt; that</span>
+
+
+<span style="color:#998;font-style:italic">-- trim函数替换空格</span>
+<span style="color:#000;font-weight:bold">local</span> <span style="color:#000;font-weight:bold">function</span> <span style="color:#900;font-weight:bold">trim</span>(s)
+	<span style="color:#000;font-weight:bold">return</span> string.gsub(s, <span style="color:#d14">&#34;^%s*(.-)%s*$&#34;</span>, <span style="color:#d14">&#34;%1&#34;</span>)
+<span style="color:#000;font-weight:bold">end</span>
+x <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34; hello &#34;</span>
+print(<span style="color:#d14">&#34;xxx&#34;</span><span style="color:#000;font-weight:bold">..</span>trim(x)<span style="color:#000;font-weight:bold">..</span><span style="color:#d14">&#34;aa&#34;</span>)
+
+
+
+<span style="color:#998;font-style:italic">-- 捕获4</span>
+<span style="color:#000;font-weight:bold">local</span> <span style="color:#000;font-weight:bold">function</span> <span style="color:#900;font-weight:bold">expand</span>(s)
+	s <span style="color:#000;font-weight:bold">=</span> string.gsub(s, <span style="color:#d14">&#34;$(%w+)&#34;</span>, <span style="color:#000;font-weight:bold">function</span>(n) <span style="color:#000;font-weight:bold">return</span> _G[n] <span style="color:#000;font-weight:bold">end</span>) <span style="color:#998;font-style:italic">-- %w字母或数字</span>
+	<span style="color:#000;font-weight:bold">return</span> s
+<span style="color:#000;font-weight:bold">end</span>
+<span style="color:#998;font-style:italic">-- 每次匹配到值，都会传给 第三个参数指定的函数</span>
+name <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;lua&#34;</span>  status<span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;great&#34;</span>
+print(expand(<span style="color:#d14">&#34;$name is $status, isnt it?&#34;</span>))
+<span style="color:#998;font-style:italic">-- 匹配到单词 name ，就去_G中寻找_G[&#34;name&#34;], name = &#34;lua&#34; status也是如此</span>
+
+
+<span style="color:#998;font-style:italic">-- 捕获5</span>
+s <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;sin(3) = $[math.sin(3)]; 2^5 = $[2^5]&#34;</span>
+<span style="color:#000;font-weight:bold">local</span> ret <span style="color:#000;font-weight:bold">=</span> string.gsub(s, <span style="color:#d14">&#34;$(%b[])&#34;</span>, <span style="color:#000;font-weight:bold">function</span>(x)
+	x <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;return &#34;</span> <span style="color:#000;font-weight:bold">..</span> string.sub(x, <span style="color:#099">2</span>, <span style="color:#000;font-weight:bold">-</span><span style="color:#099">2</span>)
+	<span style="color:#000;font-weight:bold">local</span> f <span style="color:#000;font-weight:bold">=</span> loadstring(x) <span style="color:#998;font-style:italic">-- loadstring 类似定义一个函数体</span>
+	<span style="color:#000;font-weight:bold">return</span> f()
+<span style="color:#000;font-weight:bold">end</span>
+)
+
+<span style="color:#998;font-style:italic">-- 替换匹配的math.sin(3) 为计算额结果, 2^5 也为计算结果</span>
+print(ret)
+
+</code></pre></td></tr></table>
+</div>
+</div>
+        </div>
+
+        
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/lua%E7%9A%84%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">lua正则表达式使用</a></li>
+        
+        <li><a href="/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%AF%AD%E6%B3%95%E5%92%8C%E5%8E%9F%E7%90%86/">正则表达式原理</a></li>
+        
+        <li><a href="/linux%E7%AC%94%E8%AE%B0/ipv6/">ipv6配置</a></li>
+        
+        <li><a href="/vim%E7%AC%94%E8%AE%B0/nvim%E9%85%8D%E7%BD%AEcoc%E8%A1%A5%E5%85%A8/">coc如何补全vim的</a></li>
+        
+        <li><a href="/linux%E7%AC%94%E8%AE%B0/linux%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4/">linux常用命令</a></li>
+        
+    </ul>
+</div>
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='http://codesource.online/tags/regex'>regex</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "your github repo"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+</div>
+
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='http://codesource.online/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="http://codesource.online/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li><a href="http://codesource.online/categories/ES/">ES (3)</a></li>
+    
+    <li><a href="http://codesource.online/categories/android/">android (5)</a></li>
+    
+    <li><a href="http://codesource.online/categories/dll/">dll (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/git/">git (4)</a></li>
+    
+    <li><a href="http://codesource.online/categories/go/">go (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/html/">html (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/js/">js (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/linux/">linux (16)</a></li>
+    
+    <li><a href="http://codesource.online/categories/lua/">lua (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/mysql/">mysql (5)</a></li>
+    
+    <li><a href="http://codesource.online/categories/nginx/">nginx (4)</a></li>
+    
+    <li><a href="http://codesource.online/categories/openresty/">openresty (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/php/">php (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/python/">python (5)</a></li>
+    
+    <li><a href="http://codesource.online/categories/svn/">svn (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/vim/">vim (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/%E5%8A%A0%E5%AF%86/">加密 (2)</a></li>
+    
+    <li><a href="http://codesource.online/categories/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">正则表达式 (3)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="http://codesource.online/tags/ES/">ES</a>
+    
+    <a href="http://codesource.online/tags/android/">android</a>
+    
+    <a href="http://codesource.online/tags/cpu/">cpu</a>
+    
+    <a href="http://codesource.online/tags/dll/">dll</a>
+    
+    <a href="http://codesource.online/tags/git/">git</a>
+    
+    <a href="http://codesource.online/tags/html/">html</a>
+    
+    <a href="http://codesource.online/tags/hugo/">hugo</a>
+    
+    <a href="http://codesource.online/tags/js/">js</a>
+    
+    <a href="http://codesource.online/tags/linux/">linux</a>
+    
+    <a href="http://codesource.online/tags/lua/">lua</a>
+    
+    <a href="http://codesource.online/tags/mysql/">mysql</a>
+    
+    <a href="http://codesource.online/tags/nginx/">nginx</a>
+    
+    <a href="http://codesource.online/tags/openresty/">openresty</a>
+    
+    <a href="http://codesource.online/tags/php/">php</a>
+    
+    <a href="http://codesource.online/tags/python/">python</a>
+    
+    <a href="http://codesource.online/tags/regex/">regex</a>
+    
+    <a href="http://codesource.online/tags/svn/">svn</a>
+    
+    <a href="http://codesource.online/tags/vim/">vim</a>
+    
+    <a href="http://codesource.online/tags/%E5%8A%A0%E5%AF%86/">加密</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="http://openresty.org/download/agentzh-nginx-tutorials-zhcn.html" title="">春哥的nginx教程</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="http://codesource.online/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+    <footer id="footer">
+    <div class="container">
+        &copy; 2021 <a href="http://codesource.online/">学而时习之 By 明明</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
+        <a href="http://beian.miit.gov.cn" target="_blank">豫ICP备20003135号</a>
+        
+ 
+
+    </div>
+
+</footer>
+
+		
+
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+
+
+
+<a id="rocket" href="#top"></a>
+<script>
+	function count(num){
+		var ob = document.getElementById("count_view");
+		ob.innerText="浏览总量: "+ num;
+	}
+</script>
+
+<script type="text/javascript" src="http://codesource.online/lua/count?callback=count"></script>
+
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
+
+
+    
+
+</body>
+</html>

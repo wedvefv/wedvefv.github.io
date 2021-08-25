@@ -1,0 +1,567 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>微信支付流程 | 学而时习之</title>
+    <meta property="og:title" content="微信支付流程 - 学而时习之">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2019-04-13T09:40:00&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2019-04-13T09:40:00&#43;08:00'>
+        
+    <meta name="Keywords" content="golang,go语言,go语言笔记,lua,redis,openresty">
+    <meta name="description" content="微信支付流程">
+        
+    <meta name="author" content="明明">
+    <meta property="og:url" content="http://codesource.online/html/weixin/">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+    (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-9224870466612638",
+        enable_page_level_ads: true
+    });
+    </script>
+    
+
+
+    
+    
+        <link rel="stylesheet" href='/css/douban.css'>
+    
+        <link rel="stylesheet" href='/css/other.css'>
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="http://codesource.online/">
+                        学而时习之
+                    </a>
+                
+                <p class="description">专注于服务端开发  </p>
+                <p id="count_view"></p>
+
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="http://codesource.online/">首页</a>
+                    
+                    <a  href="http://codesource.online/tags" title="标签">标签</a>
+                    
+                    <a  href="http://codesource.online/categories" title="分类">分类</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#三个平台都有什么">三个平台都有什么？</a></li>
+    <li><a href="#前提">前提</a></li>
+    <li><a href="#客户端需要干嘛">客户端需要干嘛？</a></li>
+    <li><a href="#商户服务器需要干嘛比如一个卖游戏点卡的app">商户服务器需要干嘛，比如一个卖游戏点卡的app？</a>
+      <ul>
+        <li><a href="#给客户端提供接口">给客户端提供接口</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if(leftPos<220){
+                postToc.css({"width":leftPos-10,"margin-left":(0-leftPos)})
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">微信支付流程</h1>
+        </header>
+        <date class="post-meta meta-date">
+            2019年4月13日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='http://codesource.online/categories/weixin'>weixin</a></span>
+            
+        </div>
+        
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                    阅读</span></span>
+        </div>
+        
+        
+        <div class="clear" style="display: none">
+            <div class="toc-article">
+                <div class="toc-title">文章目录</div>
+            </div>
+        </div>
+        
+        <div class="post-content">
+            <h2 id="三个平台都有什么">三个平台都有什么？</h2>
+<ul>
+<li>微信公众平台: 微信官方平台，功能： 群发推送、自动回复、二维码订阅，用途：消息推送、品牌传播、分享</li>
+<li>微信开放平台: 为第三方提供接口，比如分享朋友圈，发送给微信好友等</li>
+<li>微信商户平台：主要是用于微信支付的，比如APP和公众号需要接入支付功能，就需要申请一个商户号。</li>
+</ul>
+<h2 id="前提">前提</h2>
+<ul>
+<li>在开放平台，注册自己的app，通俗讲就是在微信备案一下。</li>
+</ul>
+<h2 id="客户端需要干嘛">客户端需要干嘛？</h2>
+<ul>
+<li>需要下载微信安卓或者ios版SDK,集成到自己的app中，主要是为了调起微信支付模块。</li>
+<li>app调起支付模块，需要传参数吧，不然请求微信服务器也不知道具体转给谁钱，转多少钱&hellip;</li>
+<li>支付参数哪里来呢？服务器生成啊&hellip;..</li>
+<li>支付完成后微信会返回微信订单号的信心，后期可以用于到微信服务器查询订单状态。</li>
+</ul>
+<h2 id="商户服务器需要干嘛比如一个卖游戏点卡的app">商户服务器需要干嘛，比如一个卖游戏点卡的app？</h2>
+<h3 id="给客户端提供接口">给客户端提供接口</h3>
+<ul>
+<li>
+<p>1.支付接口，这个接口需要以下业务功能</p>
+</li>
+<li>
+<blockquote>
+<p>1.去查询用户是否存在，用户信息可以在redis中记录</p>
+</blockquote>
+</li>
+<li>
+<blockquote>
+<p>2.如果某类商品，用户只能有一个产品生效的,比如点卡A,产品类别id为A</p>
+</blockquote>
+</li>
+<li>
+<blockquote>
+<p>3.使用redis记录uid:goodsid[A]:hash记录这个购买的点卡x的信息,记录createtime，orderid，prepayid</p>
+</blockquote>
+</li>
+<li>
+<blockquote>
+<p>4.如果uid对应点卡A的信息存在，且now - createtime &lt; 15分钟，说明微信没回调过来，是支付中&hellip;的状态。直接拿缓存中信息返回给客户端就可以了，供客户端调用支付模块。</p>
+</blockquote>
+</li>
+<li>
+<blockquote>
+<p>5.如果uid对应的点卡信心不存在，就说明用户没买过这种A这类的商品,生成28位的订单号作为out_trade_no参数，其他参数按规定设置，然后调用微信统一下单接口 <a href="https://api.mch.weixin.qq.com/pay/unifiedorder">https://api.mch.weixin.qq.com/pay/unifiedorder</a></p>
+</blockquote>
+</li>
+<li>
+<blockquote>
+<ol start="6">
+<li>当前商户服务器统一下单的过程中，需要用mysql记录自己的订单信息、更新用户的余额扣减、记录一些用户订购该类产品的缓存信息等；mysql数据用于支付完成后，微信发起异步回调状态时更新订单状态。</li>
+</ol>
+</blockquote>
+</li>
+<li>
+<blockquote>
+<p>7.下单后生成预支付id：prepayid，因为还没有真正调起支付模块，只是微信那边现生成一个预支付回话id。</p>
+</blockquote>
+</li>
+<li>
+<blockquote>
+<p>8.有了prepayid加上其他参数，返回给客户端用于真正调起sdk支付模块。</p>
+</blockquote>
+</li>
+<li>
+<blockquote>
+<p>9.调完支付模块后，微信服务器会立刻返回到app中，这时候客户端需要实现onResp回调函数，如果支付成功，需要去服务器查询是否真的ok，永远以服务端返回的支付结果为准。</p>
+</blockquote>
+</li>
+<li>
+<p>2.主动查询订单接口</p>
+</li>
+<li>
+<blockquote>
+<p>1.需要知道我们自己分配的订单orderid，和uid，从mysql获取缓存，校验orderid和uid是不是对应同一个人。</p>
+</blockquote>
+</li>
+<li>
+<blockquote>
+<p>2.查到mysql记录的这个订单状态还是支付中，就用orderid，微信推荐优先使用微信订单号，如果这个字段缺少就用商户的订单号。</p>
+</blockquote>
+</li>
+<li>
+<blockquote>
+<p>3.调起微信查询url <a href="https://api.mch.weixin.qq.com/pay/orderquery">https://api.mch.weixin.qq.com/pay/orderquery</a>，判断返回结果，然后事务操作（更新mysql订单状态，及用户金钱信息余额等）。</p>
+</blockquote>
+</li>
+<li>
+<p>回调接口（给微信服务器使用，用于回调支付状态）</p>
+</li>
+<li>
+<blockquote>
+<p>1.我们首先查询订单状态是否为1支付中的状态，如果不是，说明失败，或者成功了，不与理会</p>
+</blockquote>
+</li>
+<li>
+<blockquote>
+<p>2.如果数据return_code或者result_code不全是SUCCESS，直接按对应格式返回成功</p>
+</blockquote>
+</li>
+<li>
+<blockquote>
+<p>3.如果都是SUCCESS，校验WXPAY_SECKEY，APPID，MCHID。</p>
+</blockquote>
+</li>
+<li>
+<blockquote>
+<p>4.都通过了,则事务操作（更新mysql订单状态，及用户金钱信息余额等）,修改必要的缓存。</p>
+</blockquote>
+</li>
+</ul>
+
+        </div>
+
+        
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/git/git_linux%E6%90%AD%E5%BB%BA%E6%9C%8D%E5%8A%A1%E5%99%A8/">git_linux搭建服务器</a></li>
+        
+        <li><a href="/git/git_tag%E7%94%A8%E6%B3%95/">git_tag用法</a></li>
+        
+        <li><a href="/linux/%E4%BA%86%E8%A7%A3%E4%B8%80%E4%B8%8B%E5%8A%A0%E5%AF%86%E5%90%8D%E8%AF%8D/">了解一下加密名词AES-DES-RAS-DSA-ECDSA-ECC </a></li>
+        
+        <li><a href="/linux/%E4%BA%86%E8%A7%A3%E4%B8%80%E4%B8%8BVM%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%9A%84%E4%B8%89%E7%A7%8D%E8%81%94%E7%BD%91%E6%A8%A1%E5%BC%8F/">了解一下VM虚拟机的三种联网模式</a></li>
+        
+        <li><a href="/linux/%E4%BA%86%E8%A7%A3%E4%B8%80%E4%B8%8Btcp%E5%8D%8A%E8%BF%9E%E6%8E%A5%E9%98%9F%E5%88%97%E5%92%8C%E5%85%A8%E8%BF%9E%E6%8E%A5%E9%98%9F%E5%88%97/">tcp连接过程，半连接队列和全连接队列</a></li>
+        
+    </ul>
+</div>
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='http://codesource.online/tags/weixin'>weixin</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "your github repo"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+</div>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='http://codesource.online/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="http://codesource.online/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="http://codesource.online/html/html5_tags/" title="html5标签">html5标签</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li><a href="http://codesource.online/categories/ES/">ES (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/css/">css (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/dll/">dll (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/git/">git (4)</a></li>
+    
+    <li><a href="http://codesource.online/categories/js/">js (4)</a></li>
+    
+    <li><a href="http://codesource.online/categories/linux/">linux (13)</a></li>
+    
+    <li><a href="http://codesource.online/categories/nginx/">nginx (4)</a></li>
+    
+    <li><a href="http://codesource.online/categories/openresty/">openresty (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/python/">python (5)</a></li>
+    
+    <li><a href="http://codesource.online/categories/vue/">vue (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/weixin/">weixin (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/%E5%8A%A0%E5%AF%86/">加密 (2)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="http://codesource.online/tags/ES/">ES</a>
+    
+    <a href="http://codesource.online/tags/css/">css</a>
+    
+    <a href="http://codesource.online/tags/dll/">dll</a>
+    
+    <a href="http://codesource.online/tags/git/">git</a>
+    
+    <a href="http://codesource.online/tags/js/">js</a>
+    
+    <a href="http://codesource.online/tags/linux/">linux</a>
+    
+    <a href="http://codesource.online/tags/nginx/">nginx</a>
+    
+    <a href="http://codesource.online/tags/openresty/">openresty</a>
+    
+    <a href="http://codesource.online/tags/python/">python</a>
+    
+    <a href="http://codesource.online/tags/vue/">vue</a>
+    
+    <a href="http://codesource.online/tags/weixin/">weixin</a>
+    
+    <a href="http://codesource.online/tags/%E5%8A%A0%E5%AF%86/">加密</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="http://openresty.org/download/agentzh-nginx-tutorials-zhcn.html" title="">春哥的nginx教程</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="http://codesource.online/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+    <footer id="footer">
+    <div class="container">
+        &copy; 2020 <a href="http://codesource.online/">学而时习之 By 明明</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
+        <a href="http://www.beian.miit.gov.cn" target="_blank">豫ICP备20003135号</a>
+        
+ 
+
+    </div>
+
+</footer>
+
+		
+
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+
+
+
+<a id="rocket" href="#top"></a>
+<script>
+	function count(num){
+		var ob = document.getElementById("count_view");
+		ob.innerText="浏览总量: "+ num;
+	}
+</script>
+
+<script type="text/javascript" src="http://codesource.online/lua/count?callback=count"></script>
+
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
+
+
+    
+
+</body>
+</html>

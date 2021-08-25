@@ -1,0 +1,599 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title> | 学而时习之</title>
+    <meta property="og:title" content=" - 学而时习之">
+    <meta property="og:type" content="article">
+        
+        
+    <meta name="Keywords" content="golang,go语言,go语言笔记,lua,redis,openresty">
+    <meta name="description" content="">
+        
+    <meta name="author" content="明明">
+    <meta property="og:url" content="http://codesource.online/hugo/hugo_template/">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+    (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-9224870466612638",
+        enable_page_level_ads: true
+    });
+    </script>
+    
+
+
+    
+    
+        <link rel="stylesheet" href='/css/douban.css'>
+    
+        <link rel="stylesheet" href='/css/other.css'>
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="http://codesource.online/">
+                        学而时习之
+                    </a>
+                
+                <p class="description">专注于服务端开发  </p>
+                <p id="count_view"></p>
+
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="http://codesource.online/">首页</a>
+                    
+                    <a  href="http://codesource.online/tags" title="标签">标签</a>
+                    
+                    <a  href="http://codesource.online/categories" title="分类">分类</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+					
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#介绍hugo的模板">介绍hugo的模板</a>
+      <ul>
+        <li><a href="#基本语法">基本语法</a></li>
+        <li><a href="#变量--variable">变量- variable</a></li>
+      </ul>
+    </li>
+    <li><a href="#函数--functions">函数- functions</a></li>
+    <li><a href="#includes">includes</a></li>
+    <li><a href="#partial">partial</a></li>
+    <li><a href="#template">Template</a></li>
+    <li><a href="#迭代-iteration">迭代 iteration</a></li>
+    <li><a href="#conditionals">Conditionals</a>
+      <ul>
+        <li><a href="#with">with</a></li>
+      </ul>
+    </li>
+    <li><a href="#with--else">with .. else</a></li>
+  </ul>
+</nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if(leftPos<220){
+                postToc.css({"width":leftPos-10,"margin-left":(0-leftPos)})
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title"></h1>
+        </header>
+        <date class="post-meta meta-date">
+            1年1月1日
+        </date>
+        
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                    阅读</span></span>
+        </div>
+        
+        
+        <div class="post-content">
+            <h2 id="介绍hugo的模板">介绍hugo的模板</h2>
+<ul>
+<li>hugo 使用go的html/template 和text/templete 库为基础进行模板操作</li>
+</ul>
+<blockquote>
+<p>下面只是基础的go template操作，为了更深度的了解请看 <a href="https://golang.org/pkg/text/template/">go文档</a></p>
+</blockquote>
+<ul>
+<li>go 模板提供了一种非常简单的模板语言，他坚信只有最基本的逻辑才是属于模板和视图层。</li>
+</ul>
+<h3 id="基本语法">基本语法</h3>
+<p>go 模板是html文件，加上一些变量和函数，变量和函数使用   {{ }} 获取。</p>
+<pre><code>{{ .Title }}
+{{ $address }}
+</code></pre><p>函数的参数使用 空格分隔 ，像这样</p>
+<pre><code>{{ function arg1 arg2 }}
+</code></pre><ul>
+<li>方法和字段通过点号访问</li>
+</ul>
+<pre><code>{{ .Params.bar }}
+</code></pre><ul>
+<li>圆括号可以分组</li>
+</ul>
+<pre><code>{{if or (isset .Params &quot;alt&quot;) (isset .Params &quot;caption&quot;)}} Catption {{end}}
+</code></pre><ul>
+<li>一条语句能拆成多行</li>
+</ul>
+<pre><code>{{ if or 
+  (isset .Params &quot;alt&quot;) 
+  (isset .Params &quot;caption&quot;)
+}}
+</code></pre><ul>
+<li>原始字符串可以包含换行</li>
+</ul>
+<pre><code>{{ $msg := `Line one 
+Line two. `}}
+</code></pre><h3 id="变量--variable">变量- variable</h3>
+<ul>
+<li>
+<p>每个go模板都有一个data对象， 在hugo中，每个模板传递一个页面，在下面的例子中， .Title 是</p>
+<p>可以访问的page  变量中的一个。</p>
+</li>
+<li>
+<p>因为页面的默认范围就是整个模板， 所以Title元素可以用.Title 访问。</p>
+</li>
+</ul>
+<pre><code>&lt;title&gt; {{.Title }} &lt;/title&gt;
+</code></pre><ul>
+<li>变量也可以存储自定义变量，在后续被提及到。</li>
+</ul>
+<pre><code>{{ $address := &quot;123 main st.&quot; }}
+{{ $address }}
+
+</code></pre><blockquote>
+<p>hugo 在v0.47以及更老的版本，if条件中被定义的变量</p>
+</blockquote>
+<blockquote>
+<p>hugo 在v0.48以后的版本，可以用=号重新定义</p>
+<pre><code>{{ $var := &quot;hello &quot;}}
+{{ if .IsHome }}
+	{{ $var = &quot;wolrd&quot;}}
+{{end}}
+var is {{$var}}
+</code></pre></blockquote>
+<h2 id="函数--functions">函数- functions</h2>
+<ul>
+<li>go模板只附带了一部分基本的函数，但是也提供了一种机制来扩展原始集。</li>
+<li>hugo模板函数提供了额外的功能函数明确用户构建网站， 函数调用方法是函数名 空格加参数。</li>
+<li>如果不重新编译hugo，就不能增加模板函数。</li>
+</ul>
+<h2 id="includes">includes</h2>
+<ul>
+<li>当需要包含一个模板时， 需要传递他需要的数据</li>
+</ul>
+<h2 id="partial">partial</h2>
+<ul>
+<li>
+<p>这个函数是用来include partial模板</p>
+</li>
+<li>
+<pre><code>{{ partial 'header.html' .}}
+</code></pre></li>
+</ul>
+<h2 id="template">Template</h2>
+<ul>
+<li>
+<p>这个函数也是包含partial模板，是应用于更老的hugo版本。现在更多地用于调用内部模板。</p>
+</li>
+<li>
+<p>语法</p>
+</li>
+<li>
+<pre><code>  {{ templete &quot;_internal/hello.html&quot; .}}
+</code></pre></li>
+</ul>
+<h2 id="迭代-iteration">迭代 iteration</h2>
+<ul>
+<li>
+<p>go 模板使用 range 来迭代map、array、slice等</p>
+</li>
+<li>
+<pre><code>{{ range $array }}
+  {{.}}  
+{{end}}
+</code></pre></li>
+<li>
+<pre><code>{{ range $elem_val := $array }}
+  {{ $ele_val }}
+{{end}}
+</code></pre></li>
+<li>
+<pre><code>{{ range $ele_index, $elem_val := $array }}
+  {{ $elem_index }} -- {{ $elem_val }}
+{{end}}
+</code></pre></li>
+<li>
+<p>如果map， array，slice长度为0， 则range时条件为假， 会走到else分支。</p>
+</li>
+</ul>
+<h2 id="conditionals">Conditionals</h2>
+<ul>
+<li>If、else、with、or、and 、not 构建了go模板操作的逻辑框架。</li>
+<li>Range、if 、with 都是以 {{end}}来结束的。</li>
+<li>go 模板对于以下值认为是false： false(boolean)、0、zero-length的map、slice、string、array</li>
+</ul>
+<h3 id="with">with</h3>
+<ul>
+<li>如果条件值不存在，或者为false，则跳过次block</li>
+</ul>
+<pre><code>{{ with .Params.title }}
+	&lt;h4&gt; {{.}} &lt;/h4&gt;
+{{end}}
+</code></pre><h2 id="with--else">with .. else</h2>
+
+        </div>
+
+        
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/mysql_float/">mysql float类型</a></li>
+        
+        <li><a href="/32%E4%BD%8D%E5%92%8C64%E4%BD%8Dcpu/">32位cpu为什么只能寻址4G空间</a></li>
+        
+        <li><a href="/mysql-%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7/">docker安装mysql</a></li>
+        
+        <li><a href="/hugo%E6%A8%A1%E6%9D%BF/">hugo模板语法</a></li>
+        
+        <li><a href="/mysql5.6-%E4%BC%98%E5%8C%96/">mysql优化</a></li>
+        
+    </ul>
+</div>
+
+
+        <div class="post-meta meta-tags">
+            
+            没有标签
+            
+        </div>
+    </article>
+    
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "your github repo"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+</div>
+
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='http://codesource.online/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="http://codesource.online/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li><a href="http://codesource.online/categories/ES/">ES (3)</a></li>
+    
+    <li><a href="http://codesource.online/categories/android/">android (5)</a></li>
+    
+    <li><a href="http://codesource.online/categories/dll/">dll (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/git/">git (4)</a></li>
+    
+    <li><a href="http://codesource.online/categories/go/">go (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/html/">html (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/js/">js (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/linux/">linux (16)</a></li>
+    
+    <li><a href="http://codesource.online/categories/lua/">lua (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/mysql/">mysql (5)</a></li>
+    
+    <li><a href="http://codesource.online/categories/nginx/">nginx (4)</a></li>
+    
+    <li><a href="http://codesource.online/categories/openresty/">openresty (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/php/">php (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/python/">python (5)</a></li>
+    
+    <li><a href="http://codesource.online/categories/svn/">svn (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/vim/">vim (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/%E5%8A%A0%E5%AF%86/">加密 (2)</a></li>
+    
+    <li><a href="http://codesource.online/categories/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">正则表达式 (3)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="http://codesource.online/tags/ES/">ES</a>
+    
+    <a href="http://codesource.online/tags/android/">android</a>
+    
+    <a href="http://codesource.online/tags/cpu/">cpu</a>
+    
+    <a href="http://codesource.online/tags/dll/">dll</a>
+    
+    <a href="http://codesource.online/tags/git/">git</a>
+    
+    <a href="http://codesource.online/tags/html/">html</a>
+    
+    <a href="http://codesource.online/tags/hugo/">hugo</a>
+    
+    <a href="http://codesource.online/tags/js/">js</a>
+    
+    <a href="http://codesource.online/tags/linux/">linux</a>
+    
+    <a href="http://codesource.online/tags/lua/">lua</a>
+    
+    <a href="http://codesource.online/tags/mysql/">mysql</a>
+    
+    <a href="http://codesource.online/tags/nginx/">nginx</a>
+    
+    <a href="http://codesource.online/tags/openresty/">openresty</a>
+    
+    <a href="http://codesource.online/tags/php/">php</a>
+    
+    <a href="http://codesource.online/tags/python/">python</a>
+    
+    <a href="http://codesource.online/tags/regex/">regex</a>
+    
+    <a href="http://codesource.online/tags/svn/">svn</a>
+    
+    <a href="http://codesource.online/tags/vim/">vim</a>
+    
+    <a href="http://codesource.online/tags/%E5%8A%A0%E5%AF%86/">加密</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="http://openresty.org/download/agentzh-nginx-tutorials-zhcn.html" title="">春哥的nginx教程</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="http://codesource.online/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+    <footer id="footer">
+    <div class="container">
+        &copy; 2021 <a href="http://codesource.online/">学而时习之 By 明明</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
+        <a href="http://beian.miit.gov.cn" target="_blank">豫ICP备20003135号</a>
+        
+ 
+
+    </div>
+
+</footer>
+
+		
+
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+
+
+
+<a id="rocket" href="#top"></a>
+<script>
+	function count(num){
+		var ob = document.getElementById("count_view");
+		ob.innerText="浏览总量: "+ num;
+	}
+</script>
+
+<script type="text/javascript" src="http://codesource.online/lua/count?callback=count"></script>
+
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
+
+
+    
+
+</body>
+</html>

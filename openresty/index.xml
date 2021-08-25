@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Openresties on 学而时习之</title>
+    <link>http://codesource.online/openresty/</link>
+    <description>Recent content in Openresties on 学而时习之</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sun, 30 Jun 2019 14:00:00 +0800</lastBuildDate>
+    
+	<atom:link href="http://codesource.online/openresty/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>openresty 变量</title>
+      <link>http://codesource.online/openresty/openresty%E5%8F%98%E9%87%8F%E8%8C%83%E5%9B%B4/</link>
+      <pubDate>Sun, 30 Jun 2019 14:00:00 +0800</pubDate>
+      
+      <guid>http://codesource.online/openresty/openresty%E5%8F%98%E9%87%8F%E8%8C%83%E5%9B%B4/</guid>
+      <description>NGX_LUA的三种变量范围 进程间共享， nginx的所有work进程共享，使用lua_shared_dict定义，这样高并发就出触发锁。 进程内共享，lua代码中不加local关键字就是全局变量，这样的变量在同一个进程的所有请求之间共享,因为开启了lua缓存，每个work的VM虚拟</description>
+    </item>
+    
+    <item>
+      <title>nginx支持php</title>
+      <link>http://codesource.online/openresty/nginx_config/</link>
+      <pubDate>Sat, 10 Dec 2016 11:30:55 +0800</pubDate>
+      
+      <guid>http://codesource.online/openresty/nginx_config/</guid>
+      <description>ubuntu14.04 +nginx+php5-fpm 一，安装Nginx apt-get install nginx 1，配置nginx nginx所有的配置在 /etc/nginx/nginx.conf中 nginx.conf配置里面包括了 include /etc/nginx/conf.d/.conf; include /etc/nginx/sites-enabled/; 这两个配置，所以这里面的配置也是有效的。 错误日志 error_log /var/log/nginx/error.log; 这里我们把配置写在 /etc/nginx/sites-available/d</description>
+    </item>
+    
+  </channel>
+</rss>

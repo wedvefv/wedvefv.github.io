@@ -1,0 +1,1174 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>mysql float类型 | 学而时习之</title>
+    <meta property="og:title" content="mysql float类型 - 学而时习之">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2021-08-25T12:00:00&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2021-08-25T12:00:00&#43;08:00'>
+        
+    <meta name="Keywords" content="golang,go语言,go语言笔记,lua,redis,openresty">
+    <meta name="description" content="mysql float类型">
+        
+    <meta name="author" content="明明">
+    <meta property="og:url" content="http://codesource.online/mysql_float/">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+    (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-9224870466612638",
+        enable_page_level_ads: true
+    });
+    </script>
+    
+
+
+    
+    
+        <link rel="stylesheet" href='/css/douban.css'>
+    
+        <link rel="stylesheet" href='/css/other.css'>
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="http://codesource.online/">
+                        学而时习之
+                    </a>
+                
+                <p class="description">专注于服务端开发  </p>
+                <p id="count_view"></p>
+
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="http://codesource.online/">首页</a>
+                    
+                    <a  href="http://codesource.online/tags" title="标签">标签</a>
+                    
+                    <a  href="http://codesource.online/categories" title="分类">分类</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+					
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#浮点数的解释">浮点数的解释</a></li>
+    <li><a href="#默认的float表示范围">默认的float表示范围</a></li>
+    <li><a href="#如果时候floatm-d--m24时">如果时候float(m, d)  m&gt;24时</a></li>
+    <li><a href="#如果m小于24--float92">如果m小于24  float(9,2)</a></li>
+  </ul>
+</nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if(leftPos<220){
+                postToc.css({"width":leftPos-10,"margin-left":(0-leftPos)})
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">mysql float类型</h1>
+        </header>
+        <date class="post-meta meta-date">
+            2021年8月25日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='http://codesource.online/categories/mysql'>mysql</a></span>
+            
+        </div>
+        
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                    阅读</span></span>
+        </div>
+        
+        
+        <div class="clear" style="display: none">
+            <div class="toc-article">
+                <div class="toc-title">文章目录</div>
+            </div>
+        </div>
+        
+        <div class="post-content">
+            <h2 id="浮点数的解释">浮点数的解释</h2>
+<ul>
+<li><a href="https://www.cnblogs.com/fengju/p/6336162.html">https://www.cnblogs.com/fengju/p/6336162.html</a></li>
+</ul>
+<h2 id="默认的float表示范围">默认的float表示范围</h2>
+<ul>
+<li>默认范围是6个数（小数部分和整数部分的个数加起来不能大于6个数）</li>
+</ul>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 41
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 42
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 43
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 44
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 45
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 46
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 47
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 48
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 49
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 50
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 51
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 52
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 53
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 54
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 55
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 56
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 57
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 58
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 59
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 60
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 61
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 62
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 63
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 64
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 65
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 66
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 67
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 68
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 69
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 70
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 71
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 72
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 73
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 74
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 75
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 76
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 77
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 78
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 79
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 80
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 81
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 82
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 83
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 84
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 85
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 86
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 87
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 88
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 89
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 90
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 91
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 92
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 93
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 94
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 95
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 96
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 97
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 98
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 99
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">100
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">101
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">102
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">103
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">104
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">105
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">106
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">107
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">108
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">109
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">110
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">111
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">112
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">113
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">114
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">115
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">116
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">117
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">118
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">119
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">120
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">121
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">122
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">123
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">124
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">125
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">126
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">127
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">128
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">129
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">130
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">131
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">132
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">133
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">134
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">135
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">136
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">137
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">138
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">139
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">140
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">141
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">142
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">143
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">144
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">145
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">146
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">147
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">148
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">149
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">150
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">151
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">152
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">153
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">154
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">155
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">156
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">157
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">158
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">159
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">160
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">161
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">162
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">163
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">164
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">165
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">166
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">167
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">168
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">169
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">170
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">171
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">172
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">173
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">174
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">175
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">176
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">177
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">178
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">179
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">180
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">181
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">182
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">183
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">184
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">185
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">186
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">187
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">188
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">189
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">190
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">191
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">192
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">193
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">194
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">195
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">196
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">197
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">198
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">199
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">200
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">201
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">202
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">203
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">204
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">205
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">206
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">207
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">208
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">209
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">210
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">211
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">212
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">213
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">214
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">215
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">216
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">217
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">218
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">219
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">220
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">221
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">222
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">223
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-SQL" data-lang="SQL">
+mysql<span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000;font-weight:bold">CREATE</span> <span style="color:#000;font-weight:bold">TABLE</span> <span style="color:#000;font-weight:bold">`</span>test<span style="color:#000;font-weight:bold">`</span> (
+    <span style="color:#000;font-weight:bold">-&gt;</span>   <span style="color:#000;font-weight:bold">`</span>id<span style="color:#000;font-weight:bold">`</span> <span style="color:#0086b3">float</span> <span style="color:#000;font-weight:bold">DEFAULT</span> <span style="color:#000;font-weight:bold">NULL</span>
+    <span style="color:#000;font-weight:bold">-&gt;</span> ) ENGINE<span style="color:#000;font-weight:bold">=</span>InnoDB <span style="color:#000;font-weight:bold">DEFAULT</span> CHARSET<span style="color:#000;font-weight:bold">=</span>utf8mb4;
+Query OK, <span style="color:#099">0</span> <span style="color:#000;font-weight:bold">rows</span> affected (<span style="color:#099">0</span>.<span style="color:#099">02</span> sec)
+    
+mysql<span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000;font-weight:bold">insert</span> test <span style="color:#000;font-weight:bold">set</span> id <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;1234567&#39;</span>;
+    <span style="color:#000;font-weight:bold">-&gt;</span> ;
+Query OK, <span style="color:#099">1</span> <span style="color:#000;font-weight:bold">row</span> affected (<span style="color:#099">0</span>.<span style="color:#099">00</span> sec)
+
+mysql<span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000;font-weight:bold">insert</span> test <span style="color:#000;font-weight:bold">set</span> id <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;9999&#39;</span>
+    <span style="color:#000;font-weight:bold">-&gt;</span> ;
+Query OK, <span style="color:#099">1</span> <span style="color:#000;font-weight:bold">row</span> affected (<span style="color:#099">0</span>.<span style="color:#099">00</span> sec)
+
+mysql<span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000;font-weight:bold">select</span> <span style="color:#000;font-weight:bold">*</span> <span style="color:#000;font-weight:bold">from</span> test;
+<span style="color:#000;font-weight:bold">+</span><span style="color:#998;font-style:italic">---------+
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">|</span> id      <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">+</span><span style="color:#998;font-style:italic">---------+
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">|</span> <span style="color:#099">1234570</span> <span style="color:#000;font-weight:bold">|</span> <span style="color:#998;font-style:italic">-- 这是1234567 科学计数法表示1.23457 * 10^6 这样1.23457 一共是6个数
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">|</span>    <span style="color:#099">9999</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">+</span><span style="color:#998;font-style:italic">---------+
+</span><span style="color:#998;font-style:italic"></span><span style="color:#099">2</span> <span style="color:#000;font-weight:bold">rows</span> <span style="color:#000;font-weight:bold">in</span> <span style="color:#000;font-weight:bold">set</span> (<span style="color:#099">0</span>.<span style="color:#099">00</span> sec)
+
+mysql<span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000;font-weight:bold">insert</span> test <span style="color:#000;font-weight:bold">set</span> id <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;999999&#39;</span>
+    <span style="color:#000;font-weight:bold">-&gt;</span> ;
+Query OK, <span style="color:#099">1</span> <span style="color:#000;font-weight:bold">row</span> affected (<span style="color:#099">0</span>.<span style="color:#099">01</span> sec)
+
+mysql<span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000;font-weight:bold">select</span> <span style="color:#000;font-weight:bold">*</span> <span style="color:#000;font-weight:bold">from</span> test;
+<span style="color:#000;font-weight:bold">+</span><span style="color:#998;font-style:italic">---------+
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">|</span> id      <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">+</span><span style="color:#998;font-style:italic">---------+
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">|</span> <span style="color:#099">1234570</span> <span style="color:#000;font-weight:bold">|</span>	<span style="color:#998;font-style:italic">-- 科学计数法表示，精度会丢失
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">|</span>    <span style="color:#099">9999</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>  <span style="color:#099">999999</span> <span style="color:#000;font-weight:bold">|</span> <span style="color:#998;font-style:italic">-- 正常表示6个数
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">+</span><span style="color:#998;font-style:italic">---------+
+</span><span style="color:#998;font-style:italic"></span><span style="color:#099">3</span> <span style="color:#000;font-weight:bold">rows</span> <span style="color:#000;font-weight:bold">in</span> <span style="color:#000;font-weight:bold">set</span> (<span style="color:#099">0</span>.<span style="color:#099">00</span> sec)
+
+mysql<span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000;font-weight:bold">insert</span> test <span style="color:#000;font-weight:bold">set</span> id <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;9999999&#39;</span>
+    <span style="color:#000;font-weight:bold">-&gt;</span> ;
+Query OK, <span style="color:#099">1</span> <span style="color:#000;font-weight:bold">row</span> affected (<span style="color:#099">0</span>.<span style="color:#099">01</span> sec)
+
+mysql<span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000;font-weight:bold">select</span> <span style="color:#000;font-weight:bold">*</span> <span style="color:#000;font-weight:bold">from</span> test;
+<span style="color:#000;font-weight:bold">+</span><span style="color:#998;font-style:italic">----------+
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">|</span> id       <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">+</span><span style="color:#998;font-style:italic">----------+
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">|</span>  <span style="color:#099">1234570</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>     <span style="color:#099">9999</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>   <span style="color:#099">999999</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span> <span style="color:#099">10000000</span> <span style="color:#000;font-weight:bold">|</span> <span style="color:#998;font-style:italic">-- 这是999,9999 科学表示 1 * 10^7 所以是100万
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">+</span><span style="color:#998;font-style:italic">----------+
+</span><span style="color:#998;font-style:italic"></span><span style="color:#099">4</span> <span style="color:#000;font-weight:bold">rows</span> <span style="color:#000;font-weight:bold">in</span> <span style="color:#000;font-weight:bold">set</span> (<span style="color:#099">0</span>.<span style="color:#099">00</span> sec)
+
+mysql<span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000;font-weight:bold">insert</span> test <span style="color:#000;font-weight:bold">set</span> id <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;99999999&#39;</span>;
+Query OK, <span style="color:#099">1</span> <span style="color:#000;font-weight:bold">row</span> affected (<span style="color:#099">0</span>.<span style="color:#099">01</span> sec)
+
+mysql<span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000;font-weight:bold">select</span> <span style="color:#000;font-weight:bold">*</span> <span style="color:#000;font-weight:bold">from</span> test;
+<span style="color:#000;font-weight:bold">+</span><span style="color:#998;font-style:italic">-----------+
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">|</span> id        <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">+</span><span style="color:#998;font-style:italic">-----------+
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">|</span>   <span style="color:#099">1234570</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>      <span style="color:#099">9999</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>    <span style="color:#099">999999</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>  <span style="color:#099">10000000</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span> <span style="color:#099">100000000</span> <span style="color:#000;font-weight:bold">|</span> <span style="color:#998;font-style:italic">-- 这是999,9999 四舍五入后科学表示 1 * 10^8 所以是1000万
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">+</span><span style="color:#998;font-style:italic">-----------+
+</span><span style="color:#998;font-style:italic"></span><span style="color:#099">5</span> <span style="color:#000;font-weight:bold">rows</span> <span style="color:#000;font-weight:bold">in</span> <span style="color:#000;font-weight:bold">set</span> (<span style="color:#099">0</span>.<span style="color:#099">00</span> sec)
+
+mysql<span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000;font-weight:bold">insert</span> test <span style="color:#000;font-weight:bold">set</span> id <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;89999999&#39;</span>;
+Query OK, <span style="color:#099">1</span> <span style="color:#000;font-weight:bold">row</span> affected (<span style="color:#099">0</span>.<span style="color:#099">00</span> sec)
+
+mysql<span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000;font-weight:bold">select</span> <span style="color:#000;font-weight:bold">*</span> <span style="color:#000;font-weight:bold">from</span> test;
+<span style="color:#000;font-weight:bold">+</span><span style="color:#998;font-style:italic">-----------+
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">|</span> id        <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">+</span><span style="color:#998;font-style:italic">-----------+
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">|</span>   <span style="color:#099">1234570</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>      <span style="color:#099">9999</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>    <span style="color:#099">999999</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>  <span style="color:#099">10000000</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span> <span style="color:#099">100000000</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>  <span style="color:#099">90000000</span> <span style="color:#000;font-weight:bold">|</span> <span style="color:#998;font-style:italic">--  四舍五入 科学表示  9 * 10^7 所以是100万
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">+</span><span style="color:#998;font-style:italic">-----------+
+</span><span style="color:#998;font-style:italic"></span><span style="color:#099">6</span> <span style="color:#000;font-weight:bold">rows</span> <span style="color:#000;font-weight:bold">in</span> <span style="color:#000;font-weight:bold">set</span> (<span style="color:#099">0</span>.<span style="color:#099">00</span> sec)
+
+mysql<span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000;font-weight:bold">insert</span> test <span style="color:#000;font-weight:bold">set</span> id <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;85999999&#39;</span>;
+Query OK, <span style="color:#099">1</span> <span style="color:#000;font-weight:bold">row</span> affected (<span style="color:#099">0</span>.<span style="color:#099">00</span> sec)
+
+mysql<span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000;font-weight:bold">select</span> <span style="color:#000;font-weight:bold">*</span> <span style="color:#000;font-weight:bold">from</span> test;
+<span style="color:#000;font-weight:bold">+</span><span style="color:#998;font-style:italic">-----------+
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">|</span> id        <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">+</span><span style="color:#998;font-style:italic">-----------+
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">|</span>   <span style="color:#099">1234570</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>      <span style="color:#099">9999</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>    <span style="color:#099">999999</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>  <span style="color:#099">10000000</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span> <span style="color:#099">100000000</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>  <span style="color:#099">90000000</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>  <span style="color:#099">86000000</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">+</span><span style="color:#998;font-style:italic">-----------+
+</span><span style="color:#998;font-style:italic"></span><span style="color:#099">7</span> <span style="color:#000;font-weight:bold">rows</span> <span style="color:#000;font-weight:bold">in</span> <span style="color:#000;font-weight:bold">set</span> (<span style="color:#099">0</span>.<span style="color:#099">00</span> sec)
+
+mysql<span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000;font-weight:bold">insert</span> test <span style="color:#000;font-weight:bold">set</span> id <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;815999999&#39;</span>;
+Query OK, <span style="color:#099">1</span> <span style="color:#000;font-weight:bold">row</span> affected (<span style="color:#099">0</span>.<span style="color:#099">01</span> sec)
+
+mysql<span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000;font-weight:bold">select</span> <span style="color:#000;font-weight:bold">*</span> <span style="color:#000;font-weight:bold">from</span> test;
+<span style="color:#000;font-weight:bold">+</span><span style="color:#998;font-style:italic">-----------+
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">|</span> id        <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">+</span><span style="color:#998;font-style:italic">-----------+
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">|</span>   <span style="color:#099">1234570</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>      <span style="color:#099">9999</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>    <span style="color:#099">999999</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>  <span style="color:#099">10000000</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span> <span style="color:#099">100000000</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>  <span style="color:#099">90000000</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>  <span style="color:#099">86000000</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span> <span style="color:#099">816000000</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">+</span><span style="color:#998;font-style:italic">-----------+
+</span><span style="color:#998;font-style:italic"></span><span style="color:#099">8</span> <span style="color:#000;font-weight:bold">rows</span> <span style="color:#000;font-weight:bold">in</span> <span style="color:#000;font-weight:bold">set</span> (<span style="color:#099">0</span>.<span style="color:#099">00</span> sec)
+
+mysql<span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000;font-weight:bold">insert</span> test <span style="color:#000;font-weight:bold">set</span> id <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;815399999&#39;</span>;
+Query OK, <span style="color:#099">1</span> <span style="color:#000;font-weight:bold">row</span> affected (<span style="color:#099">0</span>.<span style="color:#099">00</span> sec)
+
+mysql<span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000;font-weight:bold">select</span> <span style="color:#000;font-weight:bold">*</span> <span style="color:#000;font-weight:bold">from</span> test;
+<span style="color:#000;font-weight:bold">+</span><span style="color:#998;font-style:italic">-----------+
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">|</span> id        <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">+</span><span style="color:#998;font-style:italic">-----------+
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">|</span>   <span style="color:#099">1234570</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>      <span style="color:#099">9999</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>    <span style="color:#099">999999</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>  <span style="color:#099">10000000</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span> <span style="color:#099">100000000</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>  <span style="color:#099">90000000</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>  <span style="color:#099">86000000</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span> <span style="color:#099">816000000</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span> <span style="color:#099">815400000</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">+</span><span style="color:#998;font-style:italic">-----------+
+</span><span style="color:#998;font-style:italic"></span><span style="color:#099">9</span> <span style="color:#000;font-weight:bold">rows</span> <span style="color:#000;font-weight:bold">in</span> <span style="color:#000;font-weight:bold">set</span> (<span style="color:#099">0</span>.<span style="color:#099">00</span> sec)
+
+mysql<span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000;font-weight:bold">insert</span> test <span style="color:#000;font-weight:bold">set</span> id <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;815329999&#39;</span>;
+Query OK, <span style="color:#099">1</span> <span style="color:#000;font-weight:bold">row</span> affected (<span style="color:#099">0</span>.<span style="color:#099">00</span> sec)
+
+mysql<span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000;font-weight:bold">select</span> <span style="color:#000;font-weight:bold">*</span> <span style="color:#000;font-weight:bold">from</span> test;
+<span style="color:#000;font-weight:bold">+</span><span style="color:#998;font-style:italic">-----------+
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">|</span> id        <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">+</span><span style="color:#998;font-style:italic">-----------+
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">|</span>   <span style="color:#099">1234570</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>      <span style="color:#099">9999</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>    <span style="color:#099">999999</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>  <span style="color:#099">10000000</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span> <span style="color:#099">100000000</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>  <span style="color:#099">90000000</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>  <span style="color:#099">86000000</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span> <span style="color:#099">816000000</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span> <span style="color:#099">815400000</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span> <span style="color:#099">815330000</span> <span style="color:#000;font-weight:bold">|</span> <span style="color:#000;font-weight:bold">-</span> <span style="color:#a61717;background-color:#e3d2d2">这里</span> <span style="color:#099">329</span> <span style="color:#a61717;background-color:#e3d2d2">四舍五入为</span><span style="color:#099">330</span> 
+<span style="color:#000;font-weight:bold">+</span><span style="color:#998;font-style:italic">-----------+
+</span><span style="color:#998;font-style:italic"></span><span style="color:#099">10</span> <span style="color:#000;font-weight:bold">rows</span> <span style="color:#000;font-weight:bold">in</span> <span style="color:#000;font-weight:bold">set</span> (<span style="color:#099">0</span>.<span style="color:#099">00</span> sec)
+
+mysql<span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000;font-weight:bold">insert</span> test <span style="color:#000;font-weight:bold">set</span> id <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;815321234&#39;</span>;
+Query OK, <span style="color:#099">1</span> <span style="color:#000;font-weight:bold">row</span> affected (<span style="color:#099">0</span>.<span style="color:#099">00</span> sec)
+
+mysql<span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000;font-weight:bold">select</span> <span style="color:#000;font-weight:bold">*</span> <span style="color:#000;font-weight:bold">from</span> test;
+<span style="color:#000;font-weight:bold">+</span><span style="color:#998;font-style:italic">-----------+
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">|</span> id        <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">+</span><span style="color:#998;font-style:italic">-----------+
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">|</span>   <span style="color:#099">1234570</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>      <span style="color:#099">9999</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>    <span style="color:#099">999999</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>  <span style="color:#099">10000000</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span> <span style="color:#099">100000000</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>  <span style="color:#099">90000000</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>  <span style="color:#099">86000000</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span> <span style="color:#099">816000000</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span> <span style="color:#099">815400000</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span> <span style="color:#099">815330000</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span> <span style="color:#099">815321000</span> <span style="color:#000;font-weight:bold">|</span> <span style="color:#000;font-weight:bold">-</span> <span style="color:#a61717;background-color:#e3d2d2">保留</span><span style="color:#099">6</span><span style="color:#a61717;background-color:#e3d2d2">位，</span>
+<span style="color:#000;font-weight:bold">+</span><span style="color:#998;font-style:italic">-----------+
+</span><span style="color:#998;font-style:italic"></span><span style="color:#099">11</span> <span style="color:#000;font-weight:bold">rows</span> <span style="color:#000;font-weight:bold">in</span> <span style="color:#000;font-weight:bold">set</span> (<span style="color:#099">0</span>.<span style="color:#099">00</span> sec)
+
+mysql<span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000;font-weight:bold">insert</span> test <span style="color:#000;font-weight:bold">set</span> id <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;815321134&#39;</span>;
+Query OK, <span style="color:#099">1</span> <span style="color:#000;font-weight:bold">row</span> affected (<span style="color:#099">0</span>.<span style="color:#099">01</span> sec)
+
+mysql<span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000;font-weight:bold">select</span> <span style="color:#000;font-weight:bold">*</span> <span style="color:#000;font-weight:bold">from</span> test;
+<span style="color:#000;font-weight:bold">+</span><span style="color:#998;font-style:italic">-----------+
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">|</span> id        <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">+</span><span style="color:#998;font-style:italic">-----------+
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">|</span>   <span style="color:#099">1234570</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>      <span style="color:#099">9999</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>    <span style="color:#099">999999</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>  <span style="color:#099">10000000</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span> <span style="color:#099">100000000</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>  <span style="color:#099">90000000</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>  <span style="color:#099">86000000</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span> <span style="color:#099">816000000</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span> <span style="color:#099">815400000</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span> <span style="color:#099">815330000</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span> <span style="color:#099">815321000</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span> <span style="color:#099">815321000</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">+</span><span style="color:#998;font-style:italic">-----------+
+</span><span style="color:#998;font-style:italic"></span><span style="color:#099">12</span> <span style="color:#000;font-weight:bold">rows</span> <span style="color:#000;font-weight:bold">in</span> <span style="color:#000;font-weight:bold">set</span> (<span style="color:#099">0</span>.<span style="color:#099">00</span> sec)
+
+mysql<span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000;font-weight:bold">insert</span> test <span style="color:#000;font-weight:bold">set</span> id <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;815.1212&#39;</span>;
+Query OK, <span style="color:#099">1</span> <span style="color:#000;font-weight:bold">row</span> affected (<span style="color:#099">0</span>.<span style="color:#099">01</span> sec)
+
+mysql<span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000;font-weight:bold">select</span> <span style="color:#000;font-weight:bold">*</span> <span style="color:#000;font-weight:bold">from</span> test;
+<span style="color:#000;font-weight:bold">+</span><span style="color:#998;font-style:italic">-----------+
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">|</span> id        <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">+</span><span style="color:#998;font-style:italic">-----------+
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">|</span>   <span style="color:#099">1234570</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>      <span style="color:#099">9999</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>    <span style="color:#099">999999</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>  <span style="color:#099">10000000</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span> <span style="color:#099">100000000</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>  <span style="color:#099">90000000</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>  <span style="color:#099">86000000</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span> <span style="color:#099">816000000</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span> <span style="color:#099">815400000</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span> <span style="color:#099">815330000</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span> <span style="color:#099">815321000</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span> <span style="color:#099">815321000</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>   <span style="color:#099">815</span>.<span style="color:#099">121</span> <span style="color:#000;font-weight:bold">|</span> <span style="color:#998;font-style:italic">-- 舍弃第四位小数
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">+</span><span style="color:#998;font-style:italic">-----------+
+</span><span style="color:#998;font-style:italic"></span><span style="color:#099">13</span> <span style="color:#000;font-weight:bold">rows</span> <span style="color:#000;font-weight:bold">in</span> <span style="color:#000;font-weight:bold">set</span> (<span style="color:#099">0</span>.<span style="color:#099">00</span> sec)
+
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="如果时候floatm-d--m24时">如果时候float(m, d)  m&gt;24时</h2>
+<ul>
+<li>如果是float(25) 这建表命令会自动修改外double类型</li>
+<li>如果是float(25, 2) 则还是float类型, 有效数字是16位，</li>
+</ul>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">55
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">56
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">57
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">58
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">59
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">60
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">61
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">62
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">63
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">64
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">65
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">66
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">67
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">68
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">69
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">70
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">71
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">72
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">73
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">74
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">75
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">76
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">77
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">78
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">79
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">80
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">81
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">82
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">83
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">84
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">85
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-SQL" data-lang="SQL">mysql<span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000;font-weight:bold">insert</span> test5 <span style="color:#000;font-weight:bold">set</span> id <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;999999999999999999999999.121222222&#39;</span>;<span style="color:#a61717;background-color:#e3d2d2"> </span>
+ERROR <span style="color:#099">1264</span> (<span style="color:#099">22003</span>): <span style="color:#000;font-weight:bold">Out</span> <span style="color:#000;font-weight:bold">of</span> range value <span style="color:#000;font-weight:bold">for</span> <span style="color:#000;font-weight:bold">column</span> <span style="color:#d14">&#39;id&#39;</span> <span style="color:#000;font-weight:bold">at</span> <span style="color:#000;font-weight:bold">row</span> <span style="color:#099">1</span>
+mysql<span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000;font-weight:bold">insert</span> test5 <span style="color:#000;font-weight:bold">set</span> id <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;99999999999999999999999.121222222&#39;</span>;<span style="color:#a61717;background-color:#e3d2d2"> </span>
+Query OK, <span style="color:#099">1</span> <span style="color:#000;font-weight:bold">row</span> affected (<span style="color:#099">0</span>.<span style="color:#099">00</span> sec)
+
+mysql<span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000;font-weight:bold">select</span> <span style="color:#000;font-weight:bold">*</span> <span style="color:#000;font-weight:bold">from</span> test5;
+<span style="color:#000;font-weight:bold">+</span><span style="color:#998;font-style:italic">----------------------------+
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">|</span> id                         <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">+</span><span style="color:#998;font-style:italic">----------------------------+
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">|</span>                    <span style="color:#099">1234</span>.<span style="color:#099">12</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>      <span style="color:#099">123412122859208700</span>.<span style="color:#099">00</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>       <span style="color:#099">99999998430674940</span>.<span style="color:#099">00</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>  <span style="color:#099">9999999778196308000000</span>.<span style="color:#099">00</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span> <span style="color:#099">99999997781963080000000</span>.<span style="color:#099">00</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">+</span><span style="color:#998;font-style:italic">----------------------------+
+</span><span style="color:#998;font-style:italic"></span><span style="color:#099">5</span> <span style="color:#000;font-weight:bold">rows</span> <span style="color:#000;font-weight:bold">in</span> <span style="color:#000;font-weight:bold">set</span> (<span style="color:#099">0</span>.<span style="color:#099">00</span> sec)
+
+mysql<span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000;font-weight:bold">insert</span> test5 <span style="color:#000;font-weight:bold">set</span> id <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;9999999999.121222222&#39;</span>;<span style="color:#a61717;background-color:#e3d2d2">             </span>
+Query OK, <span style="color:#099">1</span> <span style="color:#000;font-weight:bold">row</span> affected (<span style="color:#099">0</span>.<span style="color:#099">00</span> sec)
+
+mysql<span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000;font-weight:bold">select</span> <span style="color:#000;font-weight:bold">*</span> <span style="color:#000;font-weight:bold">from</span> test5;
+<span style="color:#000;font-weight:bold">+</span><span style="color:#998;font-style:italic">----------------------------+
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">|</span> id                         <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">+</span><span style="color:#998;font-style:italic">----------------------------+
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">|</span>                    <span style="color:#099">1234</span>.<span style="color:#099">12</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>      <span style="color:#099">123412122859208700</span>.<span style="color:#099">00</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>       <span style="color:#099">99999998430674940</span>.<span style="color:#099">00</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>  <span style="color:#099">9999999778196308000000</span>.<span style="color:#099">00</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span> <span style="color:#099">99999997781963080000000</span>.<span style="color:#099">00</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>             <span style="color:#099">10000000000</span>.<span style="color:#099">00</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">+</span><span style="color:#998;font-style:italic">----------------------------+
+</span><span style="color:#998;font-style:italic"></span><span style="color:#099">6</span> <span style="color:#000;font-weight:bold">rows</span> <span style="color:#000;font-weight:bold">in</span> <span style="color:#000;font-weight:bold">set</span> (<span style="color:#099">0</span>.<span style="color:#099">00</span> sec)
+
+mysql<span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000;font-weight:bold">insert</span> test5 <span style="color:#000;font-weight:bold">set</span> id <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;9999999998.121222222&#39;</span>;<span style="color:#a61717;background-color:#e3d2d2"> </span>
+Query OK, <span style="color:#099">1</span> <span style="color:#000;font-weight:bold">row</span> affected (<span style="color:#099">0</span>.<span style="color:#099">00</span> sec)
+
+mysql<span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000;font-weight:bold">select</span> <span style="color:#000;font-weight:bold">*</span> <span style="color:#000;font-weight:bold">from</span> test5;
+<span style="color:#000;font-weight:bold">+</span><span style="color:#998;font-style:italic">----------------------------+
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">|</span> id                         <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">+</span><span style="color:#998;font-style:italic">----------------------------+
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">|</span>                    <span style="color:#099">1234</span>.<span style="color:#099">12</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>      <span style="color:#099">123412122859208700</span>.<span style="color:#099">00</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>       <span style="color:#099">99999998430674940</span>.<span style="color:#099">00</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>  <span style="color:#099">9999999778196308000000</span>.<span style="color:#099">00</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span> <span style="color:#099">99999997781963080000000</span>.<span style="color:#099">00</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>             <span style="color:#099">10000000000</span>.<span style="color:#099">00</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>             <span style="color:#099">10000000000</span>.<span style="color:#099">00</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">+</span><span style="color:#998;font-style:italic">----------------------------+
+</span><span style="color:#998;font-style:italic"></span><span style="color:#099">7</span> <span style="color:#000;font-weight:bold">rows</span> <span style="color:#000;font-weight:bold">in</span> <span style="color:#000;font-weight:bold">set</span> (<span style="color:#099">0</span>.<span style="color:#099">00</span> sec)
+
+mysql<span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000;font-weight:bold">insert</span> test5 <span style="color:#000;font-weight:bold">set</span> id <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;99999999989.121222222&#39;</span>;
+Query OK, <span style="color:#099">1</span> <span style="color:#000;font-weight:bold">row</span> affected (<span style="color:#099">0</span>.<span style="color:#099">01</span> sec)
+
+mysql<span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000;font-weight:bold">select</span> <span style="color:#000;font-weight:bold">*</span> <span style="color:#000;font-weight:bold">from</span> test5;
+<span style="color:#000;font-weight:bold">+</span><span style="color:#998;font-style:italic">----------------------------+
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">|</span> id                         <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">+</span><span style="color:#998;font-style:italic">----------------------------+
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">|</span>                    <span style="color:#099">1234</span>.<span style="color:#099">12</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>      <span style="color:#099">123412122859208700</span>.<span style="color:#099">00</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>       <span style="color:#099">99999998430674940</span>.<span style="color:#099">00</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>  <span style="color:#099">9999999778196308000000</span>.<span style="color:#099">00</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span> <span style="color:#099">99999997781963080000000</span>.<span style="color:#099">00</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>             <span style="color:#099">10000000000</span>.<span style="color:#099">00</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>             <span style="color:#099">10000000000</span>.<span style="color:#099">00</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>             <span style="color:#099">99999997952</span>.<span style="color:#099">00</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">+</span><span style="color:#998;font-style:italic">----------------------------+
+</span><span style="color:#998;font-style:italic"></span><span style="color:#099">8</span> <span style="color:#000;font-weight:bold">rows</span> <span style="color:#000;font-weight:bold">in</span> <span style="color:#000;font-weight:bold">set</span> (<span style="color:#099">0</span>.<span style="color:#099">00</span> sec)
+mysql<span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000;font-weight:bold">insert</span> test5 <span style="color:#000;font-weight:bold">set</span> id <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;99999999999.121222222&#39;</span>;<span style="color:#a61717;background-color:#e3d2d2"> </span>
+Query OK, <span style="color:#099">1</span> <span style="color:#000;font-weight:bold">row</span> affected (<span style="color:#099">0</span>.<span style="color:#099">00</span> sec)
+
+mysql<span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000;font-weight:bold">select</span> <span style="color:#000;font-weight:bold">*</span> <span style="color:#000;font-weight:bold">from</span> test5;
+<span style="color:#000;font-weight:bold">+</span><span style="color:#998;font-style:italic">----------------------------+
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">|</span> id                         <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">+</span><span style="color:#998;font-style:italic">----------------------------+
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">|</span>                    <span style="color:#099">1234</span>.<span style="color:#099">12</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>      <span style="color:#099">123412122859208700</span>.<span style="color:#099">00</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>       <span style="color:#099">99999998430674940</span>.<span style="color:#099">00</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>  <span style="color:#099">9999999778196308000000</span>.<span style="color:#099">00</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span> <span style="color:#099">99999997781963080000000</span>.<span style="color:#099">00</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>             <span style="color:#099">10000000000</span>.<span style="color:#099">00</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>             <span style="color:#099">10000000000</span>.<span style="color:#099">00</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>             <span style="color:#099">99999997952</span>.<span style="color:#099">00</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">|</span>             <span style="color:#099">99999997952</span>.<span style="color:#099">00</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">+</span><span style="color:#998;font-style:italic">----------------------------+
+</span><span style="color:#998;font-style:italic"></span><span style="color:#099">9</span> <span style="color:#000;font-weight:bold">rows</span> <span style="color:#000;font-weight:bold">in</span> <span style="color:#000;font-weight:bold">set</span> (<span style="color:#099">0</span>.<span style="color:#099">00</span> sec)
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>有点诡异了</li>
+</ul>
+<h2 id="如果m小于24--float92">如果m小于24  float(9,2)</h2>
+<ul>
+<li>表示9位宽度有效数字，2位小数</li>
+</ul>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">mysql<span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000;font-weight:bold">show</span> <span style="color:#000;font-weight:bold">create</span> <span style="color:#000;font-weight:bold">table</span> test7
+    <span style="color:#000;font-weight:bold">-&gt;</span> ;
+<span style="color:#000;font-weight:bold">+</span><span style="color:#998;font-style:italic">-------+-----------------------------------------------------------------------------------------------+
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">|</span> <span style="color:#000;font-weight:bold">Table</span> <span style="color:#000;font-weight:bold">|</span> <span style="color:#000;font-weight:bold">Create</span> <span style="color:#000;font-weight:bold">Table</span>                                                                                  <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">+</span><span style="color:#998;font-style:italic">-------+-----------------------------------------------------------------------------------------------+
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">|</span> test7 <span style="color:#000;font-weight:bold">|</span> <span style="color:#000;font-weight:bold">CREATE</span> <span style="color:#000;font-weight:bold">TABLE</span> <span style="color:#000;font-weight:bold">`</span>test7<span style="color:#000;font-weight:bold">`</span> (
+  <span style="color:#000;font-weight:bold">`</span>id<span style="color:#000;font-weight:bold">`</span> <span style="color:#0086b3">float</span>(<span style="color:#099">8</span>,<span style="color:#099">1</span>) <span style="color:#000;font-weight:bold">DEFAULT</span> <span style="color:#000;font-weight:bold">NULL</span>
+) ENGINE<span style="color:#000;font-weight:bold">=</span>InnoDB <span style="color:#000;font-weight:bold">DEFAULT</span> CHARSET<span style="color:#000;font-weight:bold">=</span>utf8mb4 <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">+</span><span style="color:#998;font-style:italic">-------+-----------------------------------------------------------------------------------------------+
+</span><span style="color:#998;font-style:italic"></span><span style="color:#099">1</span> <span style="color:#000;font-weight:bold">row</span> <span style="color:#000;font-weight:bold">in</span> <span style="color:#000;font-weight:bold">set</span> (<span style="color:#099">0</span>.<span style="color:#099">00</span> sec)
+
+mysql<span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000;font-weight:bold">insert</span> <span style="color:#000;font-weight:bold">into</span> test7 <span style="color:#000;font-weight:bold">set</span> id <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;1234678.412&#39;</span>;<span style="color:#a61717;background-color:#e3d2d2">   </span>
+Query OK, <span style="color:#099">1</span> <span style="color:#000;font-weight:bold">row</span> affected (<span style="color:#099">0</span>.<span style="color:#099">01</span> sec)
+
+mysql<span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000;font-weight:bold">insert</span> <span style="color:#000;font-weight:bold">into</span> test7 <span style="color:#000;font-weight:bold">set</span> id <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;12346789.412&#39;</span>;
+ERROR <span style="color:#099">1264</span> (<span style="color:#099">22003</span>): <span style="color:#000;font-weight:bold">Out</span> <span style="color:#000;font-weight:bold">of</span> range value <span style="color:#000;font-weight:bold">for</span> <span style="color:#000;font-weight:bold">column</span> <span style="color:#d14">&#39;id&#39;</span> <span style="color:#000;font-weight:bold">at</span> <span style="color:#000;font-weight:bold">row</span> <span style="color:#099">1</span>
+mysql<span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000;font-weight:bold">select</span> <span style="color:#000;font-weight:bold">*</span> <span style="color:#000;font-weight:bold">from</span> test7;
+<span style="color:#000;font-weight:bold">+</span><span style="color:#998;font-style:italic">-----------+
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">|</span> id        <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">+</span><span style="color:#998;font-style:italic">-----------+
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">|</span> <span style="color:#099">1234678</span>.<span style="color:#099">4</span> <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#000;font-weight:bold">+</span><span style="color:#998;font-style:italic">-----------+
+</span><span style="color:#998;font-style:italic"></span>
+</code></pre></td></tr></table>
+</div>
+</div>
+        </div>
+
+        
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/mysql-%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7/">docker安装mysql</a></li>
+        
+        <li><a href="/mysql5.6-%E4%BC%98%E5%8C%96/">mysql优化</a></li>
+        
+        <li><a href="/mysql%E9%94%81%E8%A1%A8%E9%97%AE%E9%A2%98/">mysql锁表问题测试</a></li>
+        
+        <li><a href="/nginx%E7%AC%94%E8%AE%B0/mysql%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96/">mysql join查询优化</a></li>
+        
+        <li><a href="/32%E4%BD%8D%E5%92%8C64%E4%BD%8Dcpu/">32位cpu为什么只能寻址4G空间</a></li>
+        
+    </ul>
+</div>
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='http://codesource.online/tags/mysql'>mysql</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "your github repo"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+</div>
+
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='http://codesource.online/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="http://codesource.online/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li><a href="http://codesource.online/categories/ES/">ES (3)</a></li>
+    
+    <li><a href="http://codesource.online/categories/android/">android (5)</a></li>
+    
+    <li><a href="http://codesource.online/categories/dll/">dll (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/git/">git (4)</a></li>
+    
+    <li><a href="http://codesource.online/categories/go/">go (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/html/">html (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/js/">js (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/linux/">linux (16)</a></li>
+    
+    <li><a href="http://codesource.online/categories/lua/">lua (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/mysql/">mysql (5)</a></li>
+    
+    <li><a href="http://codesource.online/categories/nginx/">nginx (4)</a></li>
+    
+    <li><a href="http://codesource.online/categories/openresty/">openresty (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/php/">php (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/python/">python (5)</a></li>
+    
+    <li><a href="http://codesource.online/categories/svn/">svn (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/vim/">vim (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/%E5%8A%A0%E5%AF%86/">加密 (2)</a></li>
+    
+    <li><a href="http://codesource.online/categories/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">正则表达式 (3)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="http://codesource.online/tags/ES/">ES</a>
+    
+    <a href="http://codesource.online/tags/android/">android</a>
+    
+    <a href="http://codesource.online/tags/cpu/">cpu</a>
+    
+    <a href="http://codesource.online/tags/dll/">dll</a>
+    
+    <a href="http://codesource.online/tags/git/">git</a>
+    
+    <a href="http://codesource.online/tags/html/">html</a>
+    
+    <a href="http://codesource.online/tags/hugo/">hugo</a>
+    
+    <a href="http://codesource.online/tags/js/">js</a>
+    
+    <a href="http://codesource.online/tags/linux/">linux</a>
+    
+    <a href="http://codesource.online/tags/lua/">lua</a>
+    
+    <a href="http://codesource.online/tags/mysql/">mysql</a>
+    
+    <a href="http://codesource.online/tags/nginx/">nginx</a>
+    
+    <a href="http://codesource.online/tags/openresty/">openresty</a>
+    
+    <a href="http://codesource.online/tags/php/">php</a>
+    
+    <a href="http://codesource.online/tags/python/">python</a>
+    
+    <a href="http://codesource.online/tags/regex/">regex</a>
+    
+    <a href="http://codesource.online/tags/svn/">svn</a>
+    
+    <a href="http://codesource.online/tags/vim/">vim</a>
+    
+    <a href="http://codesource.online/tags/%E5%8A%A0%E5%AF%86/">加密</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="http://openresty.org/download/agentzh-nginx-tutorials-zhcn.html" title="">春哥的nginx教程</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="http://codesource.online/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+    <footer id="footer">
+    <div class="container">
+        &copy; 2021 <a href="http://codesource.online/">学而时习之 By 明明</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
+        <a href="http://beian.miit.gov.cn" target="_blank">豫ICP备20003135号</a>
+        
+ 
+
+    </div>
+
+</footer>
+
+		
+
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+
+
+
+<a id="rocket" href="#top"></a>
+<script>
+	function count(num){
+		var ob = document.getElementById("count_view");
+		ob.innerText="浏览总量: "+ num;
+	}
+</script>
+
+<script type="text/javascript" src="http://codesource.online/lua/count?callback=count"></script>
+
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
+
+
+    
+
+</body>
+</html>

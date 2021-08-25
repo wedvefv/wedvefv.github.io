@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Gits on 学而时习之</title>
+    <link>http://codesource.online/git/</link>
+    <description>Recent content in Gits on 学而时习之</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 02 Mar 2019 12:01:00 +0800</lastBuildDate>
+    
+	<atom:link href="http://codesource.online/git/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>git_linux搭建服务器</title>
+      <link>http://codesource.online/git/git_linux%E6%90%AD%E5%BB%BA%E6%9C%8D%E5%8A%A1%E5%99%A8/</link>
+      <pubDate>Sat, 02 Mar 2019 12:01:00 +0800</pubDate>
+      
+      <guid>http://codesource.online/git/git_linux%E6%90%AD%E5%BB%BA%E6%9C%8D%E5%8A%A1%E5%99%A8/</guid>
+      <description>为什么本地搭建一个git服务器 对于自己学习使用的代码，在没有网络的情况下不能用github，gitlab,所以本地建立一个git服务器。 git服务器环境准备centos7 服务端创建git用户 1 2 3 4 5 id git # 查看是否存在git用户，存在就不创建了。 useradd git passwd git 输入密码，我设置的是xxx</description>
+    </item>
+    
+    <item>
+      <title>git_tag用法</title>
+      <link>http://codesource.online/git/git_tag%E7%94%A8%E6%B3%95/</link>
+      <pubDate>Sat, 02 Mar 2019 12:00:00 +0800</pubDate>
+      
+      <guid>http://codesource.online/git/git_tag%E7%94%A8%E6%B3%95/</guid>
+      <description>tag 和branch的区别 Git tag是一系列commit的中的一个点，只能查看，不能移动。 branch是一系列串联的commit的线。 git tag的用法 我们常常在代码封板时,使用git 创建一个tag ,这样一个不可修改的历史代码版本就像被我们封存起来一样,不论是运维发布拉取,或者以后的代码版</description>
+    </item>
+    
+    <item>
+      <title>git 常见操作</title>
+      <link>http://codesource.online/git/git_2_operate/</link>
+      <pubDate>Sat, 26 May 2018 12:00:00 +0800</pubDate>
+      
+      <guid>http://codesource.online/git/git_2_operate/</guid>
+      <description>创建分支 1 git branch new_branch 本地删除分支 1 git branch -D delete_branch 更新到远程删除分支 1 2 git checkout master git pull -u -u origin :delete_branch git pull 失败提示fatal: refusing to merge unrelated histories ,处理方法 1 2 git pull origin master --allow-unrelated-historiesn 查看提交提记录 1 2 3 4 5 git log git log -p -2 #查看最近两次的提交差异 git log --stat #仅仅现实行数的变更 git log --pretty=oneline #每次提交，在一行显示 git log --pretty=format:&amp;#34;%h - %an, %ar : %s&amp;#34; #格式显示 选项</description>
+    </item>
+    
+    <item>
+      <title>git 配置文件</title>
+      <link>http://codesource.online/git/git_1_config/</link>
+      <pubDate>Tue, 28 Jun 2016 14:33:58 +0800</pubDate>
+      
+      <guid>http://codesource.online/git/git_1_config/</guid>
+      <description>基于公司是代理上网的，所以配置windows下的.gitconfig文件如下： 1 2 3 4 5 6 7 [http] proxy = 代理ip:代理port [user] email = xxxxx@gmail.com name =xxxxxhhh [gui] encoding = utf-8 #代码库统一使用utf-8 由于本人电脑是日语版OS，所以GIT终端显示中文字体是乱码，所以索性设置全部 使用utf-8编码。</description>
+    </item>
+    
+  </channel>
+</rss>

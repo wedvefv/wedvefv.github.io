@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>go on 学而时习之</title>
+    <link>http://codesource.online/categories/go/</link>
+    <description>Recent content in go on 学而时习之</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 19 Aug 2021 12:00:00 +0800</lastBuildDate><atom:link href="http://codesource.online/categories/go/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>hugo模板语法</title>
+      <link>http://codesource.online/hugo%E6%A8%A1%E6%9D%BF/</link>
+      <pubDate>Thu, 19 Aug 2021 12:00:00 +0800</pubDate>
+      
+      <guid>http://codesource.online/hugo%E6%A8%A1%E6%9D%BF/</guid>
+      <description>single模板 如果在markdown前面指定了type和layout，会优先选择顺序，一般使用single.html /layouts/TYPE-or-SECTION/LAYOUT.html /layouts/TYPE-or-SECTION/single.html /layouts/_default/single.html /themes/THEME/layouts/TYPE-or-SECTION/LAYOUT.html /themes/THEME/layouts/TYPE-or-SECTION/single.html /themes/THEME/layouts/_default/single.html list 模板 如果是content目录下的子目录，则比如post目录 访问 http://localhost:1313/post/ ， 则会渲染list.html 模板 post就是section类型的页面 模板嵌套规则 hu</description>
+    </item>
+    
+  </channel>
+</rss>

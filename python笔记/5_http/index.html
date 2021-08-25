@@ -1,0 +1,659 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>python http请求 | 学而时习之</title>
+    <meta property="og:title" content="python http请求 - 学而时习之">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2020-06-13T14:00:00&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2020-06-13T14:00:00&#43;08:00'>
+        
+    <meta name="Keywords" content="golang,go语言,go语言笔记,lua,redis,openresty">
+    <meta name="description" content="python http请求">
+        
+    <meta name="author" content="明明">
+    <meta property="og:url" content="http://codesource.online/python%E7%AC%94%E8%AE%B0/5_http/">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+    (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-9224870466612638",
+        enable_page_level_ads: true
+    });
+    </script>
+    
+
+
+    
+    
+        <link rel="stylesheet" href='/css/douban.css'>
+    
+        <link rel="stylesheet" href='/css/other.css'>
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="http://codesource.online/">
+                        学而时习之
+                    </a>
+                
+                <p class="description">专注于服务端开发  </p>
+                <p id="count_view"></p>
+
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="http://codesource.online/">首页</a>
+                    
+                    <a  href="http://codesource.online/tags" title="标签">标签</a>
+                    
+                    <a  href="http://codesource.online/categories" title="分类">分类</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+					
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#urlib-模块">urlib 模块</a></li>
+    <li><a href="#urllib2-模块">urllib2 模块</a></li>
+    <li><a href="#附带一个有道翻译接口例子">附带一个有道翻译接口例子</a></li>
+    <li><a href="#urlerror-异常">URLError 异常</a></li>
+    <li><a href="#request-模块">request 模块</a></li>
+  </ul>
+</nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if(leftPos<220){
+                postToc.css({"width":leftPos-10,"margin-left":(0-leftPos)})
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">python http请求</h1>
+        </header>
+        <date class="post-meta meta-date">
+            2020年6月13日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='http://codesource.online/categories/python'>python</a></span>
+            
+        </div>
+        
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                    阅读</span></span>
+        </div>
+        
+        
+        <div class="clear" style="display: none">
+            <div class="toc-article">
+                <div class="toc-title">文章目录</div>
+            </div>
+        </div>
+        
+        <div class="post-content">
+            <h2 id="urlib-模块">urlib 模块</h2>
+<ul>
+<li>urlib.urlopen(url) 只由url参数，不能设置header等信息</li>
+<li>urllib有urlencode函数，可以把字典编码转成get参数（&amp;方式连接）, urllib2 没有</li>
+<li>urllib.quote(s, safe='/') 是转义编码用的, 默认不编码/, 且把空格转成%20</li>
+<li>urllib.quote_plus(s, safe='') 默认全部编码, 会调用quote(s, safe=' &lsquo;) 不编码空格, 最后替换s中的空格为+ 号。</li>
+<li>urllib.urlretrieve(url, filename=&ldquo;xxx.log&rdquo;) 可以直接下载网页写入文件。</li>
+</ul>
+<h2 id="urllib2-模块">urllib2 模块</h2>
+<ul>
+<li>urllib2.Request(url,data,headers) 构造一个Request对象</li>
+<li>urllib2.urlopen(request对象或者url)，如果传url只能是url，不能附带header和data。</li>
+<li>由于urllib2 没有编码函数，所以经常和urllib一起导入，使用urlencode函数或者quote函数。</li>
+<li>cookie支持方法</li>
+</ul>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">cookie<span style="color:#000;font-weight:bold">=</span>cookielib<span style="color:#000;font-weight:bold">.</span>CookieJar() <span style="color:#998;font-style:italic"># 声明CookieJar对象实例来保存cookie</span>
+	handler<span style="color:#000;font-weight:bold">=</span>urllib2<span style="color:#000;font-weight:bold">.</span>HTTPCookieProcessor(cookie) <span style="color:#998;font-style:italic"># 利用urllib2库的HTTPCookieProcessor对象来创建cookie处理器</span>
+	opener<span style="color:#000;font-weight:bold">=</span>urllib2<span style="color:#000;font-weight:bold">.</span>build_opener(handler) <span style="color:#998;font-style:italic"># 通过handler构建opener</span>
+	urllib2<span style="color:#000;font-weight:bold">.</span>install_opener(opener)
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>如果没有data字段就是get方式，否则是post请求</li>
+<li>如果post是json格式， headr指定json，data需要json.dumps()</li>
+<li>如果表单方式，需要data需要urllib.urlencode()</li>
+<li>request 对象有add_header(key,value)函数, 添加header 字段名key，值是value。</li>
+<li>urlopen(url, timeout=1) 可以有超时函数,单位秒</li>
+<li>read() 读取返回body数据</li>
+</ul>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#998;font-style:italic"># 使用代理服务器, 打开请求过程的 debuglog</span>
+<span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">use_proxy</span>(proxy_addr, url, data, headers):
+	<span style="color:#000;font-weight:bold">print</span> proxy_addr
+	proxyHandler <span style="color:#000;font-weight:bold">=</span> urllib2<span style="color:#000;font-weight:bold">.</span>ProxyHandler({<span style="color:#d14">&#34;http&#34;</span>: proxy_addr})
+	<span style="color:#998;font-style:italic"># build_opener(*handlers) 绑定一些句柄</span>
+	opener <span style="color:#000;font-weight:bold">=</span> urllib2<span style="color:#000;font-weight:bold">.</span>build_opener(proxyHandler, urllib2<span style="color:#000;font-weight:bold">.</span>HTTPHandler(debuglevel<span style="color:#000;font-weight:bold">=</span><span style="color:#099">1</span>))
+	urllib2<span style="color:#000;font-weight:bold">.</span>install_opener(opener)
+
+	request <span style="color:#000;font-weight:bold">=</span> urllib2<span style="color:#000;font-weight:bold">.</span>Request(url, data<span style="color:#000;font-weight:bold">=</span>data, headers<span style="color:#000;font-weight:bold">=</span>headers)
+	response <span style="color:#000;font-weight:bold">=</span> urllib2<span style="color:#000;font-weight:bold">.</span>urlopen(request,timeout<span style="color:#000;font-weight:bold">=</span><span style="color:#099">5</span>)
+
+	<span style="color:#000;font-weight:bold">return</span> response<span style="color:#000;font-weight:bold">.</span>read()
+
+<span style="color:#998;font-style:italic"># linux 需要安装代理软件squid, 默认代理http_proxy 端口是3128</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="附带一个有道翻译接口例子">附带一个有道翻译接口例子</h2>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#998;font-style:italic">#encoding=utf8</span>
+
+<span style="color:#000;font-weight:bold">import</span> <span style="color:#555">urllib</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#555">urllib2</span>
+<span style="color:#998;font-style:italic"># 请求地址url</span>
+url <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;http://fanyi.youdao.com/translate?smartresult=dict&amp;smartresult=rule&#34;</span>
+
+request_headers <span style="color:#000;font-weight:bold">=</span> {
+    <span style="color:#d14">&#34;Host&#34;</span>:<span style="color:#d14">&#39;fanyi.youdao.com&#39;</span>,
+    <span style="color:#d14">&#34;User-Agent&#34;</span>: <span style="color:#d14">&#34;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.108 Safari/537.36&#34;</span>,
+}
+ 
+<span style="color:#998;font-style:italic"># 发送给服务器的表单</span>
+form_data <span style="color:#000;font-weight:bold">=</span> {
+    <span style="color:#d14">&#34;i&#34;</span>: <span style="color:#d14">&#34;woman&#34;</span>,
+    <span style="color:#d14">&#34;from&#34;</span>: <span style="color:#d14">&#34;AUTO&#34;</span>,
+    <span style="color:#d14">&#34;to&#34;</span>: <span style="color:#d14">&#34;AUTO&#34;</span>,
+    <span style="color:#d14">&#34;smartresult&#34;</span>: <span style="color:#d14">&#34;dict&#34;</span>,
+    <span style="color:#d14">&#34;doctype&#34;</span>: <span style="color:#d14">&#34;json&#34;</span>,
+    <span style="color:#d14">&#34;version&#34;</span>: <span style="color:#d14">&#34;2.1&#34;</span>,
+    <span style="color:#d14">&#34;keyfrom&#34;</span>: <span style="color:#d14">&#34;fanyi.web&#34;</span>,
+    <span style="color:#d14">&#34;action&#34;</span>: <span style="color:#d14">&#34;FY_BY_REALTIME&#34;</span>,
+    <span style="color:#d14">&#34;typoResult&#34;</span>: <span style="color:#d14">&#34;false&#34;</span>
+}
+ 
+<span style="color:#998;font-style:italic"># POST发送的data必须为bytes或bytes类型的可迭代对象，不能是字符串</span>
+form_data <span style="color:#000;font-weight:bold">=</span> urllib<span style="color:#000;font-weight:bold">.</span>urlencode(form_data) 
+ 
+<span style="color:#998;font-style:italic"># 构造请求对象Request</span>
+<span style="color:#998;font-style:italic"># req = urllib2.Request(url, data=form_data, headers=request_headers)</span>
+
+<span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">use_proxy</span>(proxy_addr, url, data, headers):
+	<span style="color:#000;font-weight:bold">print</span> proxy_addr
+	proxy <span style="color:#000;font-weight:bold">=</span> urllib2<span style="color:#000;font-weight:bold">.</span>ProxyHandler({<span style="color:#d14">&#34;http&#34;</span>: proxy_addr})
+	<span style="color:#998;font-style:italic"># build_opener(*handlers) 绑定一些句柄</span>
+	han <span style="color:#000;font-weight:bold">=</span> urllib2<span style="color:#000;font-weight:bold">.</span>build_opener(proxy, urllib2<span style="color:#000;font-weight:bold">.</span>HTTPHandler(debuglevel<span style="color:#000;font-weight:bold">=</span><span style="color:#099">1</span>))
+	urllib2<span style="color:#000;font-weight:bold">.</span>install_opener(han)
+	<span style="color:#000;font-weight:bold">print</span> url
+	request <span style="color:#000;font-weight:bold">=</span> urllib2<span style="color:#000;font-weight:bold">.</span>Request(url, data<span style="color:#000;font-weight:bold">=</span>data, headers<span style="color:#000;font-weight:bold">=</span>headers)
+	response <span style="color:#000;font-weight:bold">=</span> urllib2<span style="color:#000;font-weight:bold">.</span>urlopen(request,timeout<span style="color:#000;font-weight:bold">=</span><span style="color:#099">5</span>)
+
+	<span style="color:#000;font-weight:bold">return</span> response<span style="color:#000;font-weight:bold">.</span>read()
+
+
+<span style="color:#998;font-style:italic"># 发起请求</span>
+<span style="color:#998;font-style:italic"># response = urllib2.urlopen(req)</span>
+<span style="color:#998;font-style:italic"># data = response.read()</span>
+
+data <span style="color:#000;font-weight:bold">=</span> use_proxy(<span style="color:#d14">&#34;127.0.0.1:3128&#34;</span>, url, form_data, request_headers)
+<span style="color:#000;font-weight:bold">print</span> data
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="urlerror-异常">URLError 异常</h2>
+<h2 id="request-模块">request 模块</h2>
+<ul>
+<li>第三方模块，需要pip install 安装</li>
+<li>其实也是封装了urllib3的功能, 也改进了一部分</li>
+</ul>
+
+        </div>
+
+        
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/python%E7%AC%94%E8%AE%B0/4_scrapy/">scrapy笔记</a></li>
+        
+        <li><a href="/python%E7%AC%94%E8%AE%B0/3_reload_sys/">python 编码reload(sys)的作用</a></li>
+        
+        <li><a href="/python%E7%AC%94%E8%AE%B0/2__init__%E6%96%87%E4%BB%B6%E7%9A%84%E4%BD%9C%E7%94%A8/">python模块导入</a></li>
+        
+        <li><a href="/python%E7%AC%94%E8%AE%B0/1_%E4%B8%89%E7%A7%8D%E8%A3%85%E9%A5%B0%E5%99%A8/">python类的三种装饰器</a></li>
+        
+        <li><a href="/linux%E7%AC%94%E8%AE%B0/mongodb%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85/">mongodb编译安装</a></li>
+        
+    </ul>
+</div>
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='http://codesource.online/tags/python'>python</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "your github repo"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+</div>
+
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='http://codesource.online/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="http://codesource.online/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li><a href="http://codesource.online/categories/ES/">ES (3)</a></li>
+    
+    <li><a href="http://codesource.online/categories/android/">android (5)</a></li>
+    
+    <li><a href="http://codesource.online/categories/dll/">dll (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/git/">git (4)</a></li>
+    
+    <li><a href="http://codesource.online/categories/go/">go (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/html/">html (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/js/">js (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/linux/">linux (16)</a></li>
+    
+    <li><a href="http://codesource.online/categories/lua/">lua (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/mysql/">mysql (5)</a></li>
+    
+    <li><a href="http://codesource.online/categories/nginx/">nginx (4)</a></li>
+    
+    <li><a href="http://codesource.online/categories/openresty/">openresty (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/php/">php (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/python/">python (5)</a></li>
+    
+    <li><a href="http://codesource.online/categories/svn/">svn (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/vim/">vim (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/%E5%8A%A0%E5%AF%86/">加密 (2)</a></li>
+    
+    <li><a href="http://codesource.online/categories/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">正则表达式 (3)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="http://codesource.online/tags/ES/">ES</a>
+    
+    <a href="http://codesource.online/tags/android/">android</a>
+    
+    <a href="http://codesource.online/tags/cpu/">cpu</a>
+    
+    <a href="http://codesource.online/tags/dll/">dll</a>
+    
+    <a href="http://codesource.online/tags/git/">git</a>
+    
+    <a href="http://codesource.online/tags/html/">html</a>
+    
+    <a href="http://codesource.online/tags/hugo/">hugo</a>
+    
+    <a href="http://codesource.online/tags/js/">js</a>
+    
+    <a href="http://codesource.online/tags/linux/">linux</a>
+    
+    <a href="http://codesource.online/tags/lua/">lua</a>
+    
+    <a href="http://codesource.online/tags/mysql/">mysql</a>
+    
+    <a href="http://codesource.online/tags/nginx/">nginx</a>
+    
+    <a href="http://codesource.online/tags/openresty/">openresty</a>
+    
+    <a href="http://codesource.online/tags/php/">php</a>
+    
+    <a href="http://codesource.online/tags/python/">python</a>
+    
+    <a href="http://codesource.online/tags/regex/">regex</a>
+    
+    <a href="http://codesource.online/tags/svn/">svn</a>
+    
+    <a href="http://codesource.online/tags/vim/">vim</a>
+    
+    <a href="http://codesource.online/tags/%E5%8A%A0%E5%AF%86/">加密</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="http://openresty.org/download/agentzh-nginx-tutorials-zhcn.html" title="">春哥的nginx教程</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="http://codesource.online/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+    <footer id="footer">
+    <div class="container">
+        &copy; 2021 <a href="http://codesource.online/">学而时习之 By 明明</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
+        <a href="http://beian.miit.gov.cn" target="_blank">豫ICP备20003135号</a>
+        
+ 
+
+    </div>
+
+</footer>
+
+		
+
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+
+
+
+<a id="rocket" href="#top"></a>
+<script>
+	function count(num){
+		var ob = document.getElementById("count_view");
+		ob.innerText="浏览总量: "+ num;
+	}
+</script>
+
+<script type="text/javascript" src="http://codesource.online/lua/count?callback=count"></script>
+
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
+
+
+    
+
+</body>
+</html>

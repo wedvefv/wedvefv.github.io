@@ -1,0 +1,684 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>DLL导出方法 | 学而时习之</title>
+    <meta property="og:title" content="DLL导出方法 - 学而时习之">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2016-10-06T20:04:30&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2016-10-06T20:04:30&#43;08:00'>
+        
+    <meta name="Keywords" content="golang,go语言,go语言笔记,lua,redis,openresty">
+    <meta name="description" content="DLL导出方法">
+        
+    <meta name="author" content="明明">
+    <meta property="og:url" content="http://codesource.online/linux%E7%AC%94%E8%AE%B0/dll_export/">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+    (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-9224870466612638",
+        enable_page_level_ads: true
+    });
+    </script>
+    
+
+
+    
+    
+        <link rel="stylesheet" href='/css/douban.css'>
+    
+        <link rel="stylesheet" href='/css/other.css'>
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="http://codesource.online/">
+                        学而时习之
+                    </a>
+                
+                <p class="description">专注于服务端开发  </p>
+                <p id="count_view"></p>
+
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="http://codesource.online/">首页</a>
+                    
+                    <a  href="http://codesource.online/tags" title="标签">标签</a>
+                    
+                    <a  href="http://codesource.online/categories" title="分类">分类</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+					
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#dll导出方法1-">dll导出方法1 ：</a></li>
+    <li><a href="#dll导出方法2">dll导出方法2：</a></li>
+    <li><a href="#常见调用约定">常见调用约定</a></li>
+    <li><a href="#_stdcall与_cdecl的区别函数调用方式">_stdcall与_cdecl的区别(函数调用方式)</a>
+      <ul>
+        <li><a href="#_stdcallcallbackwinapi">_stdcall(CALLBACK/WINAPI)</a></li>
+        <li><a href="#函数名修饰">函数名修饰</a></li>
+        <li><a href="#函数名修饰规则">函数名修饰规则：</a></li>
+        <li><a href="#查看函数的名字修饰">查看函数的名字修饰</a></li>
+        <li><a href="#_beginthread需要_cdecl的线程函数地址_beginthreadex和_createthread需要_stdcall的线程函数地址">_beginthread需要_cdecl的线程函数地址，_beginthreadex和_CreateThread需要_stdcall的线程函数地址。</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if(leftPos<220){
+                postToc.css({"width":leftPos-10,"margin-left":(0-leftPos)})
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">DLL导出方法</h1>
+        </header>
+        <date class="post-meta meta-date">
+            2016年10月6日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='http://codesource.online/categories/dll'>dll</a></span>
+            
+        </div>
+        
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                    阅读</span></span>
+        </div>
+        
+        
+        <div class="clear" style="display: none">
+            <div class="toc-article">
+                <div class="toc-title">文章目录</div>
+            </div>
+        </div>
+        
+        <div class="post-content">
+            <h1 id="dll导出方法">DLL导出方法</h1>
+<h2 id="dll导出方法1-">dll导出方法1 ：</h2>
+<p>模块定义def文件，不支持c++的重载，以c的方式编译，导出的函数名不被修改，这样
+显示调用dll取得函数地址就没事。提供给vb，python等语言,需要_stdcall约定(函数自己清理堆栈)，这样无论是c文件还是c++文件，导出函数都会被改名字。所以dll做成必须要用def文件，否则找不到名字。除非你记得
+修饰过的函数名。</p>
+<h2 id="dll导出方法2">dll导出方法2：</h2>
+<p>函数声明头文件声明如下：
+__declspec(dllexport)这种方式，方便c++代码的重载，同名函数不同参数，导出名字会被修饰，所以能区分开。
+这种方式实现了DLL的隐式调用（只提供dll的导出符号lib文件，就可直接调用函数，（只是导出函数符号，没有具体实现，
+不同于静态库的lib文件），def文件导出的dll不能用隐式调用，只能取得函数地址getProcAddress方式）</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">
+<span style="color:#999;font-weight:bold;font-style:italic">#ifndef _EXSOPINF_H_
+</span><span style="color:#999;font-weight:bold;font-style:italic">#define _EXSOPINF_H_
+</span><span style="color:#999;font-weight:bold;font-style:italic"></span>
+<span style="color:#999;font-weight:bold;font-style:italic">#ifdef __cplusplus  </span><span style="color:#998;font-style:italic">//cpp文件时，用c方式编译导出，不会修改导出函数名。但是_stdcall
+</span><span style="color:#998;font-style:italic">//调用也会修改，_cdecl(默认)调用不会修改
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">extern</span> <span style="color:#d14">&#34;C&#34;</span> {
+<span style="color:#999;font-weight:bold;font-style:italic">#endif
+</span><span style="color:#999;font-weight:bold;font-style:italic"></span><span style="color:#000;font-weight:bold">__declspec</span>(dllexport) DWORD WINAPI function1( LPCSTR lpszFolderName, LPSTR lpszCode );
+<span style="color:#000;font-weight:bold">__declspec</span>(dllexport) DWORD WINAPI function2( LPCSTR lpszFolderName, LPSTR lpszCode );
+
+<span style="color:#999;font-weight:bold;font-style:italic">#ifdef __cplusplus
+</span><span style="color:#999;font-weight:bold;font-style:italic"></span>}
+<span style="color:#999;font-weight:bold;font-style:italic">#endif
+</span><span style="color:#999;font-weight:bold;font-style:italic"></span>
+<span style="color:#999;font-weight:bold;font-style:italic">#endif
+</span><span style="color:#999;font-weight:bold;font-style:italic"></span>
+<span style="color:#a61717;background-color:#e3d2d2">函数定义时，也需要在函数名前：加入修饰</span>
+<span style="color:#000;font-weight:bold">__declspec</span>(dllexport) DWORD WINAPI function1(LPCSTR lpszFolderName, LPSTR lpszCode ){
+
+    <span style="color:#000;font-weight:bold">return</span> <span style="color:#099">0</span>;
+}
+<span style="color:#a61717;background-color:#e3d2d2">其中</span>WINAPI是调用约定<span style="color:#a61717;background-color:#e3d2d2">。</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="常见调用约定">常见调用约定</h2>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">
+<span style="color:#a61717;background-color:#e3d2d2">调用协议常用场合</span>
+<span style="color:#000;font-weight:bold">__stdcall</span><span style="color:#a61717;background-color:#e3d2d2">：</span>Windows API默认的函数调用协议<span style="color:#a61717;background-color:#e3d2d2">。</span>
+<span style="color:#000;font-weight:bold">__cdecl</span><span style="color:#a61717;background-color:#e3d2d2">：</span>C<span style="color:#000;font-weight:bold">/</span>C<span style="color:#000;font-weight:bold">++</span><span style="color:#a61717;background-color:#e3d2d2">默认的函数调用协议。</span>
+<span style="color:#000;font-weight:bold">__fastcall</span><span style="color:#a61717;background-color:#e3d2d2">：适用于对性能要求较高的场合。</span>
+<span style="color:#a61717;background-color:#e3d2d2">函数参数入栈方式</span>
+<span style="color:#000;font-weight:bold">__stdcall</span><span style="color:#a61717;background-color:#e3d2d2">：函数参数由右向左入栈。</span>
+<span style="color:#000;font-weight:bold">__cdecl</span><span style="color:#a61717;background-color:#e3d2d2">：函数参数由右向左入栈。</span>
+<span style="color:#000;font-weight:bold">__fastcall</span><span style="color:#a61717;background-color:#e3d2d2">：从左开始不大于</span><span style="color:#099">4</span><span style="color:#a61717;background-color:#e3d2d2">字节的参数放入</span>CPU的ECX和EDX寄存器<span style="color:#a61717;background-color:#e3d2d2">，其余参数从右向左入栈。</span>
+<span style="color:#a61717;background-color:#e3d2d2">问题一：</span>__fastcall在寄存器中放入不大于4字节的参数<span style="color:#a61717;background-color:#e3d2d2">，故性能较高，适用于需要高性能的场合。</span>
+<span style="color:#a61717;background-color:#e3d2d2">栈内数据清除方式</span>
+<span style="color:#000;font-weight:bold">__stdcall</span><span style="color:#a61717;background-color:#e3d2d2">：函数调用结束后由被调用函数清除栈内数据。</span>
+<span style="color:#000;font-weight:bold">__cdecl</span><span style="color:#a61717;background-color:#e3d2d2">：函数调用结束后由函数调用者清除栈内数据。</span>
+<span style="color:#000;font-weight:bold">__fastcall</span><span style="color:#a61717;background-color:#e3d2d2">：函数调用结束后由被调用函数清除栈内数据。</span>
+<span style="color:#a61717;background-color:#e3d2d2">问题一：不同编译器设定的栈结构不尽相同，跨开发平台时由函数调用者清除栈内数据不可行。</span>
+<span style="color:#a61717;background-color:#e3d2d2">问题二：某些函数的参数是可变的，如</span>printf函数<span style="color:#a61717;background-color:#e3d2d2">，这样的函数只能由函数调用者清除栈内数据。</span>
+<span style="color:#a61717;background-color:#e3d2d2">问题三：由调用者清除栈内数据时，每次调用都包含清除栈内数据的代码，故可执行文件较大。</span>
+C语言编译器函数名称修饰规则
+<span style="color:#000;font-weight:bold">__stdcall</span><span style="color:#a61717;background-color:#e3d2d2">：编译后，函数名被修饰为“</span>_functionname<span style="color:#a61717;background-color:#e3d2d2">@</span>number<span style="color:#a61717;background-color:#e3d2d2">”。</span>
+<span style="color:#000;font-weight:bold">__cdecl</span><span style="color:#a61717;background-color:#e3d2d2">：编译后，函数名被修饰为“</span>_functionname<span style="color:#a61717;background-color:#e3d2d2">”。</span>
+<span style="color:#000;font-weight:bold">__fastcall</span><span style="color:#a61717;background-color:#e3d2d2">：编译后，函数名给修饰为“@</span>functionname<span style="color:#a61717;background-color:#e3d2d2">@</span>nmuber<span style="color:#a61717;background-color:#e3d2d2">”。</span>
+<span style="color:#a61717;background-color:#e3d2d2">注：“</span>functionname<span style="color:#a61717;background-color:#e3d2d2">”为函数名，“</span>number<span style="color:#a61717;background-color:#e3d2d2">”为参数字节数。</span>
+<span style="color:#a61717;background-color:#e3d2d2">注：函数实现和函数定义时如果使用了不同的函数调用协议，则无法实现函数调用。</span>
+C<span style="color:#000;font-weight:bold">++</span><span style="color:#a61717;background-color:#e3d2d2">语言编译器函数名称修饰规则</span>
+<span style="color:#000;font-weight:bold">__stdcall</span><span style="color:#a61717;background-color:#e3d2d2">：编译后，函数名被修饰为“</span><span style="color:#000;font-weight:bold">?</span>functionname<span style="color:#a61717;background-color:#e3d2d2">@@</span>YG<span style="color:#000;font-weight:bold">******</span><span style="color:#a61717;background-color:#e3d2d2">@</span>Z<span style="color:#a61717;background-color:#e3d2d2">”。</span>
+<span style="color:#000;font-weight:bold">__cdecl</span><span style="color:#a61717;background-color:#e3d2d2">：编译后，函数名被修饰为“</span><span style="color:#000;font-weight:bold">?</span>functionname<span style="color:#a61717;background-color:#e3d2d2">@@</span>YA<span style="color:#000;font-weight:bold">******</span><span style="color:#a61717;background-color:#e3d2d2">@</span>Z<span style="color:#a61717;background-color:#e3d2d2">”。</span>
+<span style="color:#000;font-weight:bold">__fastcall</span><span style="color:#a61717;background-color:#e3d2d2">：编译后，函数名被修饰为“</span><span style="color:#000;font-weight:bold">?</span>functionname<span style="color:#a61717;background-color:#e3d2d2">@@</span>YI<span style="color:#000;font-weight:bold">******</span><span style="color:#a61717;background-color:#e3d2d2">@</span>Z<span style="color:#a61717;background-color:#e3d2d2">”。</span>
+<span style="color:#a61717;background-color:#e3d2d2">注：“</span><span style="color:#000;font-weight:bold">******</span><span style="color:#a61717;background-color:#e3d2d2">”为函数返回值类型和参数类型表。</span>
+<span style="color:#a61717;background-color:#e3d2d2">注：函数实现和函数定义时如果使用了不同的函数调用协议，则无法实现函数调用。</span>
+C语言和C<span style="color:#000;font-weight:bold">++</span><span style="color:#a61717;background-color:#e3d2d2">语言间如果不进行特殊处理，也无法实现函数的互相调用。</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="_stdcall与_cdecl的区别函数调用方式">_stdcall与_cdecl的区别(函数调用方式)</h2>
+<p>(1). 是C Declaration的缩写，表示C语言默认的函数调用方法，实际上也是C++的默认的函数调用方法。
+(2). 所有参数从右到左依次入栈，这些参数由调用者清除，称为手动清栈。具体所示：调用方的函数调用-&gt;被调用函数的执行-&gt;被调用函数的结果返回-&gt;调用方清除调整堆栈。
+(3). 被调用函数无需要求调用者传递多少参数，调用者传递过多或者过少的参数，甚至完全不同的参数都不会产生编译阶段的错误。总的来说函数的参数个数可变的(就像printf函数一样)，因为只有调用者才知道它传给被调用函数几个参数，才能在调用结束时适当地调整堆栈。
+(4). 因为每个调用的地方都需要生成一段调整堆栈的代码，所以最后生成的文件较大。</p>
+<h3 id="_stdcallcallbackwinapi">_stdcall(CALLBACK/WINAPI)</h3>
+<p>(1). 是Standard Call的缩写，要想函数按照此调用方式必须在函数名加入_stdcall，通常_ win32 api 应该是_stdcall调用规则。通过VC++编写的DLL欲被其他语言编写的程序调用，应将函数的调用方式声明为_stdcall 方式，WINAPI都采用这种方式。
+(2).  所有参数从右到左依次入栈，如果是调用类成员的话，最后一个入栈的是this指针。具体所示：调用方的函数调用-&gt;被调用函数的执行-&gt; 被调用方清除调整堆栈-&gt;被调用函数的结果返回。
+(3).  这些堆栈中的参数由被调用的函数在返回后清除，使用的指令是 retn X，X表示参数占用的字节数，CPU在ret之后自动弹出X个字节的堆栈空间。称为自动清栈。
+(4).  函数在编译的时候就必须确定参数个数，并且调用者必须严格的控制参数的生成，不能多，不能少，否则返回后会出错。总的来说，就是函数的参数个数不能是可变的。是从 _cdecl 修改而来, _stdcall 不支持可变参数,并且清栈由被调用者负责,其他的都一样
+(5).  因为只需在被调用函数的地方生成一段调整堆栈的代码，所以最后生成的文件较小。</p>
+<p>PASCAL 是Pascal语言的函数调用方式，也可以在C/C++中使用，参数压栈顺序与前两者相反。返回时的清栈方式忘记了。。。</p>
+<p>_fastcall 是编译器指定的快速调用方式。由于大多数的函数参数个数很少，使用堆栈传递比较费时。因此_fastcall通常规定将前两个（或若干个）参数由寄存器传递，其余参数还是通过堆栈传递。不同编译器编译的程序规定的寄存器不同。返回方式和_stdcall相当。</p>
+<p>_thiscall 是为了解决类成员调用中this指针传递而规定的。_thiscall要求把this指针放在特定寄存器中，该寄存器由编译器决定。VC使用ecx，Borland的C++编译器使用eax。返回方式和_stdcall相当。</p>
+<p>_fastcall 和 _thiscall涉及的寄存器由编译器决定，因此不能用作跨编译器的接口。所以Windows上的COM对象接口都定义为_stdcall调用方式。</p>
+<p>C中不加说明默认函数为_cdecl方式（C中也只能用这种方式），C++也一样，但是默认的调用方式可以在IDE环境中设置。</p>
+<p>带有可变参数的函数必须且只能使用_cdecl方式，例如下面的函数:
+int printf(char * fmtStr, &hellip;);</p>
+<pre><code>  int scanf(char * fmtStr, ...);
+</code></pre>
+<h3 id="函数名修饰">函数名修饰</h3>
+<p>(1). _cdecl ：对于_cdecl而言，如果对于定义在C程序文件(编译器会通过后缀名为.C判断)的输出函数，函数名会保持原样；对于定义在C++程序文件中的输出函数，函数名会被修饰(见10)。为使函数名不被修饰，有两种方法：A.可通过在前面加上extern “c”以去除函数名修饰；B. 可通过.def文件去除函数名修饰。</p>
+<p>(2). _stdcall：无论是C程序文件中的输出函数还是C++程序文件中的输出函数，函数名都会被修饰。对于定义在C++程序文件中的输出函数，好像更复杂，和_cdecl的情况类似。去除函数名修饰方法：只能通过.def文件去除函数名修饰。</p>
+<h3 id="函数名修饰规则">函数名修饰规则：</h3>
+<p>(1). 为什么要函数名修饰：
+函数名修饰就是编译器在编译期间创建的一个字符串，用来指明函数的定义和原型。LINK程序或其他工具有时需要指定函数的名字修饰来定位函数的正确位置。多少情况下程序员并不需要知道函数的名字修饰，LINK程序或其他工具会自动区分他们。当然，在某些情况下需要指定函数名修饰，例如在c++程序中，为了让LINK程序或其他工具能够匹配到正确的函数名字，就必须为重载函数后一些特殊函数(如构造函数和析构函数)指定名字修饰。另一种需要指定函数名修饰的情况是在汇编程序中调用C或C++函数。
+(2). C语言：
+对于_stdcall调用约定，编译器和链接器会在输出函数名前加上一个下划线前缀，函数名后面加上一个“@”符号和其参数的字节数，例如_functionname@number。_cdecl调用约定仅在输出函数名前加上一个下划线前缀，例如_functionname。_fastcall调用约定在输出函数名前加上一个 “@“符号，后面也是一个”@“符号和其参数的字节数，例如@functionname@number。
+(3). C++语言：
+C++的函数名修饰规则有些复杂，但是信息更充分，通过分析修饰名不仅能够知道函数的调用方式，返回值类型，参数个数甚至参数类型。不管__cdecl，__fastcall还是__stdcall调用方式，函数修饰都是以一个“?”开始，后面紧跟函数的名字，再后面是参数表的开始标识和按照参数类型代号拼出的参数表。对于__stdcall方式，参数表的开始标识是“@@YG”，对于__cdecl方式则是“@@YA”，对于__fastcall方式则是“@@YI”。参数表的拼写代号如下所示：
+X&ndash;void
+D&ndash;char
+E&ndash;unsigned char
+F&ndash;short
+H&ndash;int
+I&ndash;unsigned int
+J&ndash;long
+K&ndash;unsigned long（DWORD）
+M&ndash;float
+N&ndash;double
+_N—bool
+U—struct</p>
+<p>指针的方式有些特别，用PA表示指针，用PB表示const类型的指针。后面的代号表明指针类型，如果相同类型的指针连续出现，以“0”代替，一个“0”代表一次重复。U表示结构类型，通常后跟结构体的类型名，用“@@”表示结构类型名的结束。函数的返回值不作特殊处理，它的描述方式和函数参数一样，紧跟着参数表的开始标志，也就是说，函数参数表的第一项实际上是表示函数的返回值类型。参数表后以“@Z”标识整个名字的结束，如果该函数无参数，则以“Z”标识结束。下面举两个例子，假如有以下函数声明：
+int Function1(char *var1,unsigned long);
+其函数修饰名为“?Function1@@YGHPADK@Z”，而对于函数声明：
+oid Function2();
+其函数修饰名则为“?Function2@@YGXXZ” 。
+对于C++的类成员函数（其调用方式是thiscall），函数的名字修饰与非成员的C++函数稍有不同，首先就是在函数名字和参数表之间插入以“@”字符引导的类名；其次是参数表的开始标识不同，公有（public）成员函数的标识是“@@QAE”,保护（protected）成员函数的标识是“@@IAE”,私有（private）成员函数的标识是“@@AAE”，如果函数声明使用了const关键字，则相应的标识应分别为“@@QBE”，“@@IBE”和“@@ABE”。如果参数类型是类实例的引用，则使用“AAV1”，对于const类型的引用，则使用“ABV1”。</p>
+<h3 id="查看函数的名字修饰">查看函数的名字修饰</h3>
+<p>有两种方式可以检查你的程序中的函数的名字修饰：使用编译输出列表或使用Dumpbin工具。使用/FAc，/FAs或/FAcs命令行参数可以让编译器输出函数或变量名字列表。使用dumpbin.exe /SYMBOLS命令也可以获得obj文件或lib文件中的函数或变量名字列表。此外，还可以使用 undname.exe 将修饰名转换为未修饰形式。</p>
+<h3 id="_beginthread需要_cdecl的线程函数地址_beginthreadex和_createthread需要_stdcall的线程函数地址">_beginthread需要_cdecl的线程函数地址，_beginthreadex和_CreateThread需要_stdcall的线程函数地址。</h3>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">
+<span style="color:#999;font-weight:bold;font-style:italic">#define CALLBACK __stdcall </span><span style="color:#998;font-style:italic">//这就是传说中的回调函数
+</span><span style="color:#998;font-style:italic"></span><span style="color:#999;font-weight:bold;font-style:italic">#define WINAPI __stdcall </span><span style="color:#998;font-style:italic">//这就是传说中的WINAPI
+</span><span style="color:#998;font-style:italic"></span><span style="color:#999;font-weight:bold;font-style:italic">#define WINAPIV __cdecl
+</span><span style="color:#999;font-weight:bold;font-style:italic">#define APIENTRY WINAPI </span><span style="color:#998;font-style:italic">//DllMain的入口就在这里
+</span><span style="color:#998;font-style:italic"></span><span style="color:#999;font-weight:bold;font-style:italic">#define APIPRIVATE __stdcall
+</span><span style="color:#999;font-weight:bold;font-style:italic">#define PASCAL __stdcall
+</span></code></pre></td></tr></table>
+</div>
+</div>
+        </div>
+
+        
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/linux%E7%AC%94%E8%AE%B0/linux_c_help/">linux常用函数手册</a></li>
+        
+        <li><a href="/linux%E7%AC%94%E8%AE%B0/LinuxFTP/">LinuxFTP的建立</a></li>
+        
+        <li><a href="/linux%E7%AC%94%E8%AE%B0/%E4%BA%86%E8%A7%A3%E4%B8%80%E4%B8%8B%E5%8A%A0%E5%AF%86/">常见加密方式</a></li>
+        
+        <li><a href="/git%E7%AC%94%E8%AE%B0/git%E9%85%8D%E7%BD%AE/">git 配置文件</a></li>
+        
+        <li><a href="/vue%E7%AC%94%E8%AE%B0/vue%E8%B7%AF%E7%94%B1%E5%99%A8%E7%9F%A5%E8%AF%86%E7%82%B9/"></a></li>
+        
+    </ul>
+</div>
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='http://codesource.online/tags/dll'>dll</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "your github repo"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+</div>
+
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='http://codesource.online/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="http://codesource.online/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li><a href="http://codesource.online/categories/ES/">ES (3)</a></li>
+    
+    <li><a href="http://codesource.online/categories/android/">android (5)</a></li>
+    
+    <li><a href="http://codesource.online/categories/dll/">dll (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/git/">git (4)</a></li>
+    
+    <li><a href="http://codesource.online/categories/go/">go (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/html/">html (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/js/">js (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/linux/">linux (16)</a></li>
+    
+    <li><a href="http://codesource.online/categories/lua/">lua (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/mysql/">mysql (5)</a></li>
+    
+    <li><a href="http://codesource.online/categories/nginx/">nginx (4)</a></li>
+    
+    <li><a href="http://codesource.online/categories/openresty/">openresty (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/php/">php (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/python/">python (5)</a></li>
+    
+    <li><a href="http://codesource.online/categories/svn/">svn (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/vim/">vim (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/%E5%8A%A0%E5%AF%86/">加密 (2)</a></li>
+    
+    <li><a href="http://codesource.online/categories/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">正则表达式 (3)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="http://codesource.online/tags/ES/">ES</a>
+    
+    <a href="http://codesource.online/tags/android/">android</a>
+    
+    <a href="http://codesource.online/tags/cpu/">cpu</a>
+    
+    <a href="http://codesource.online/tags/dll/">dll</a>
+    
+    <a href="http://codesource.online/tags/git/">git</a>
+    
+    <a href="http://codesource.online/tags/html/">html</a>
+    
+    <a href="http://codesource.online/tags/hugo/">hugo</a>
+    
+    <a href="http://codesource.online/tags/js/">js</a>
+    
+    <a href="http://codesource.online/tags/linux/">linux</a>
+    
+    <a href="http://codesource.online/tags/lua/">lua</a>
+    
+    <a href="http://codesource.online/tags/mysql/">mysql</a>
+    
+    <a href="http://codesource.online/tags/nginx/">nginx</a>
+    
+    <a href="http://codesource.online/tags/openresty/">openresty</a>
+    
+    <a href="http://codesource.online/tags/php/">php</a>
+    
+    <a href="http://codesource.online/tags/python/">python</a>
+    
+    <a href="http://codesource.online/tags/regex/">regex</a>
+    
+    <a href="http://codesource.online/tags/svn/">svn</a>
+    
+    <a href="http://codesource.online/tags/vim/">vim</a>
+    
+    <a href="http://codesource.online/tags/%E5%8A%A0%E5%AF%86/">加密</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="http://openresty.org/download/agentzh-nginx-tutorials-zhcn.html" title="">春哥的nginx教程</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="http://codesource.online/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+    <footer id="footer">
+    <div class="container">
+        &copy; 2021 <a href="http://codesource.online/">学而时习之 By 明明</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
+        <a href="http://beian.miit.gov.cn" target="_blank">豫ICP备20003135号</a>
+        
+ 
+
+    </div>
+
+</footer>
+
+		
+
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+
+
+
+<a id="rocket" href="#top"></a>
+<script>
+	function count(num){
+		var ob = document.getElementById("count_view");
+		ob.innerText="浏览总量: "+ num;
+	}
+</script>
+
+<script type="text/javascript" src="http://codesource.online/lua/count?callback=count"></script>
+
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
+
+
+    
+
+</body>
+</html>

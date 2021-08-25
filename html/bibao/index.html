@@ -1,0 +1,607 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>如何解释js闭包 | 学而时习之</title>
+    <meta property="og:title" content="如何解释js闭包 - 学而时习之">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2020-03-06T14:47:30&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2020-03-06T14:47:30&#43;08:00'>
+        
+    <meta name="Keywords" content="golang,go语言,go语言笔记,lua,redis,openresty">
+    <meta name="description" content="如何解释js闭包">
+        
+    <meta name="author" content="明明">
+    <meta property="og:url" content="http://codesource.online/html/bibao/">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+    (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-9224870466612638",
+        enable_page_level_ads: true
+    });
+    </script>
+    
+
+
+    
+    
+        <link rel="stylesheet" href='/css/douban.css'>
+    
+        <link rel="stylesheet" href='/css/other.css'>
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="http://codesource.online/">
+                        学而时习之
+                    </a>
+                
+                <p class="description">专注于服务端开发  </p>
+                <p id="count_view"></p>
+
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="http://codesource.online/">首页</a>
+                    
+                    <a  href="http://codesource.online/tags" title="标签">标签</a>
+                    
+                    <a  href="http://codesource.online/categories" title="分类">分类</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#看个例子">看个例子</a>
+      <ul>
+        <li><a href="#上下文环境">上下文环境</a></li>
+        <li><a href="#查找要访问的变量的路径">查找要访问的变量的路径</a></li>
+        <li><a href="#当前上下文是如何包含上级环境的引用的呢">当前上下文是如何包含上级环境的引用的呢？</a></li>
+        <li><a href="#定义变量的关键字和词法环境">定义变量的关键字和词法环境</a></li>
+        <li><a href="#总结一下">总结一下</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if(leftPos<220){
+                postToc.css({"width":leftPos-10,"margin-left":(0-leftPos)})
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">如何解释js闭包</h1>
+        </header>
+        <date class="post-meta meta-date">
+            2020年3月6日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='http://codesource.online/categories/js'>js</a></span>
+            
+        </div>
+        
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                    阅读</span></span>
+        </div>
+        
+        
+        <div class="clear" style="display: none">
+            <div class="toc-article">
+                <div class="toc-title">文章目录</div>
+            </div>
+        </div>
+        
+        <div class="post-content">
+            <h2 id="看个例子">看个例子</h2>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#000;font-weight:bold">function</span> assert (condition, msg) {
+	<span style="color:#000;font-weight:bold">if</span> (condition) {
+		console.log(msg, <span style="color:#d14">&#39;&#39;</span>)
+	} <span style="color:#000;font-weight:bold">else</span> {
+		console.log(error, <span style="color:#d14">&#39;&#39;</span>)
+	}
+}
+
+<span style="color:#000;font-weight:bold">var</span> outerValue <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;samurai&#34;</span>;
+<span style="color:#000;font-weight:bold">var</span> later;
+
+<span style="color:#000;font-weight:bold">function</span> outerFunc() {
+	<span style="color:#000;font-weight:bold">var</span> innerValue <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;ninja&#34;</span>;
+	<span style="color:#000;font-weight:bold">function</span> innerFunc(){
+	   <span style="color:#000;font-weight:bold">var</span> a <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">90</span>;
+		assert(outerValue <span style="color:#000;font-weight:bold">===</span> <span style="color:#d14">&#34;samurai&#34;</span>, <span style="color:#d14">&#34;i can see your&#34;</span>);
+		assert(innerValue <span style="color:#000;font-weight:bold">===</span> <span style="color:#d14">&#34;ninja&#34;</span>, <span style="color:#d14">&#34;i can see the ninja&#34;</span>);
+	}
+	later <span style="color:#000;font-weight:bold">=</span> innerFunc;
+}
+
+<span style="color:#000;font-weight:bold">function</span> animate() {
+	<span style="color:#000;font-weight:bold">var</span> timer <span style="color:#000;font-weight:bold">=</span> setInterval(<span style="color:#000;font-weight:bold">function</span> () {
+		console.log(<span style="color:#d14">&#39;time-----&#39;</span>, <span style="color:#d14">&#39;&#39;</span>)
+	},<span style="color:#099">5</span>)
+
+}
+outerFunc();
+later();
+
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>
+<p>x和outerFunc函数都属于全局作用域</p>
+</li>
+<li>
+<p>y和innerFunc是属于outerFunc函数作用域</p>
+</li>
+<li>
+<p>outerFunc实例对象是不能访问y的，但是创建内部函数innerFunc和getx时就创建了一个包，这个包像气泡一样把y和innerFunc封装在了一起, 通过外部变量引用函数内部方法</p>
+</li>
+<li>
+<p>类比一下c++</p>
+<ul>
+<li>outerFunc像是C++的类</li>
+<li>y就像C++的私有成员</li>
+<li>getx像是类内部的成员方法。</li>
+<li>如果不用this.xxx 接收内部函数，只能由外部变量later 指向内部函数，否则无法访问。</li>
+</ul>
+</li>
+<li>
+<p>为什么new这个函数之后，就可以用later调用访问函数了呢？</p>
+<ul>
+<li>new 的作用
+<ul>
+<li>创建空对象，把引用地址赋给this，继承原型</li>
+<li>通过this添加属性和方法到对象</li>
+<li>返回this实例(如果没手动返回别的对象）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="上下文环境">上下文环境</h3>
+<ul>
+<li>通过执行上下文跟踪程序执行位置
+<ul>
+<li>有一个上下文执行栈结构，首先加入全局上下文环境</li>
+<li>new时加入outerFunc函数上下文环境</li>
+<li>调用later时加入innerFunc函数上下文环境</li>
+</ul>
+</li>
+<li><img src="/img/js/context.png" alt=""></li>
+</ul>
+<h3 id="查找要访问的变量的路径">查找要访问的变量的路径</h3>
+<ul>
+<li>词法环境主要是基于代码嵌套结构决定的。</li>
+<li>词法环境实际是js作用域的实际控制人</li>
+<li>每个函数上下文都有一个词法环境</li>
+<li>词法环境包含这个上下文标识符的映射表</li>
+<li>outerFunc 包含innerValue和innerFunc映射</li>
+<li>innerFunc 包含a变量</li>
+<li>同时包含对上级词法环境的引用。</li>
+<li>基于上下文调用栈的顺序，结合每个函数上下文的映射表和对==上级环境的引用==顺序从当前环境向上查找变量。</li>
+<li><img src="/img/js/jsvalue.png" alt=""></li>
+</ul>
+<h3 id="当前上下文是如何包含上级环境的引用的呢">当前上下文是如何包含上级环境的引用的呢？</h3>
+<ul>
+<li>得益于js中函数是第一型对象</li>
+<li>函数创建时，就会创建与之关联的词法环境，并存储到内部属性[[Environment]]上，所以才可以向上逐层访问外部环境，查找变量。</li>
+</ul>
+<h3 id="定义变量的关键字和词法环境">定义变量的关键字和词法环境</h3>
+<ul>
+<li>ES6之前只有全局变量和函数局部变量, 都用var。</li>
+<li>ES6引入了let和const俩关键字。</li>
+<li>var
+<ul>
+<li>var 可以是全局的，函数内部的，或者for循环条件中的</li>
+<li>for循环内部中的var，在循环外部也是可以访问的</li>
+<li>var 忽略了块作用域， 所以引入了const和let</li>
+</ul>
+</li>
+<li>let
+<ul>
+<li>限定的范围，只能作用与最近的块作用域</li>
+</ul>
+</li>
+<li>const  不能修改的变量</li>
+</ul>
+<h3 id="总结一下">总结一下</h3>
+<ul>
+<li>闭包实际就是你调用一个嵌套的内部函数时</li>
+<li>内部函数实际上包含对上层函数所在环境的引用； 所以能访问上层函数的一些变量，从而达到保护这个变量，只能通过函数访问的目的。</li>
+<li>可能是javascript本身设计的问题，导致后续需要c++,java 这些语言的一些特性，才有了闭包这样的特性，最终目的其实是一样的。</li>
+</ul>
+
+        </div>
+
+        
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/html/js_obj/">js 对象和原型链</a></li>
+        
+        <li><a href="/html/ajax/">ajax简介</a></li>
+        
+        <li><a href="/html/html5_tags/">html5标签</a></li>
+        
+        <li><a href="/nginx/%E9%85%8D%E7%BD%AEssl%E8%AF%81%E4%B9%A6/">nginx 配置免费的ssl证书</a></li>
+        
+        <li><a href="/nginx/%E8%B7%A8%E5%9F%9F%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB/">nginx配置跨域资源共享CORS</a></li>
+        
+    </ul>
+</div>
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='http://codesource.online/tags/js'>js</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "your github repo"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+</div>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='http://codesource.online/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="http://codesource.online/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="http://codesource.online/html/html5_tags/" title="html5标签">html5标签</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li><a href="http://codesource.online/categories/ES/">ES (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/css/">css (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/dll/">dll (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/git/">git (4)</a></li>
+    
+    <li><a href="http://codesource.online/categories/js/">js (4)</a></li>
+    
+    <li><a href="http://codesource.online/categories/linux/">linux (13)</a></li>
+    
+    <li><a href="http://codesource.online/categories/nginx/">nginx (4)</a></li>
+    
+    <li><a href="http://codesource.online/categories/openresty/">openresty (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/python/">python (5)</a></li>
+    
+    <li><a href="http://codesource.online/categories/vue/">vue (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/weixin/">weixin (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/%E5%8A%A0%E5%AF%86/">加密 (2)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="http://codesource.online/tags/ES/">ES</a>
+    
+    <a href="http://codesource.online/tags/css/">css</a>
+    
+    <a href="http://codesource.online/tags/dll/">dll</a>
+    
+    <a href="http://codesource.online/tags/git/">git</a>
+    
+    <a href="http://codesource.online/tags/js/">js</a>
+    
+    <a href="http://codesource.online/tags/linux/">linux</a>
+    
+    <a href="http://codesource.online/tags/nginx/">nginx</a>
+    
+    <a href="http://codesource.online/tags/openresty/">openresty</a>
+    
+    <a href="http://codesource.online/tags/python/">python</a>
+    
+    <a href="http://codesource.online/tags/vue/">vue</a>
+    
+    <a href="http://codesource.online/tags/weixin/">weixin</a>
+    
+    <a href="http://codesource.online/tags/%E5%8A%A0%E5%AF%86/">加密</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="http://openresty.org/download/agentzh-nginx-tutorials-zhcn.html" title="">春哥的nginx教程</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="http://codesource.online/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+    <footer id="footer">
+    <div class="container">
+        &copy; 2020 <a href="http://codesource.online/">学而时习之 By 明明</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
+        <a href="http://www.beian.miit.gov.cn" target="_blank">豫ICP备20003135号</a>
+        
+ 
+
+    </div>
+
+</footer>
+
+		
+
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+
+
+
+<a id="rocket" href="#top"></a>
+<script>
+	function count(num){
+		var ob = document.getElementById("count_view");
+		ob.innerText="浏览总量: "+ num;
+	}
+</script>
+
+<script type="text/javascript" src="http://codesource.online/lua/count?callback=count"></script>
+
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
+
+
+    
+
+</body>
+</html>

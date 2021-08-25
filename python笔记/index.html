@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Python笔记s | 学而时习之</title>
+    <meta property="og:title" content="Python笔记s - 学而时习之">
+    <meta property="og:type" content="article">
+        
+        
+    <meta name="Keywords" content="golang,go语言,go语言笔记,lua,redis,openresty">
+    <meta name="description" content="Python笔记s">
+        
+    <meta name="author" content="明明">
+    <meta property="og:url" content="http://codesource.online/python%E7%AC%94%E8%AE%B0/">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <link rel="alternate" type="application/rss+xml+xml" href="http://codesource.online/python%E7%AC%94%E8%AE%B0/index.xml" title="学而时习之" />
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+    (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-9224870466612638",
+        enable_page_level_ads: true
+    });
+    </script>
+    
+
+
+    
+    
+        <link rel="stylesheet" href='/css/douban.css'>
+    
+        <link rel="stylesheet" href='/css/other.css'>
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="http://codesource.online/">
+                        学而时习之
+                    </a>
+                
+                <p class="description">专注于服务端开发  </p>
+                <p id="count_view"></p>
+
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="http://codesource.online/">首页</a>
+                    
+                    <a  href="http://codesource.online/tags" title="标签">标签</a>
+                    
+                    <a  href="http://codesource.online/categories" title="分类">分类</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+					
+<div class="res-cons">
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="http://codesource.online/python%E7%AC%94%E8%AE%B0/5_http/" title="python http请求">python http请求</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2020年6月13日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='http://codesource.online/categories/python'>python</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            urlib 模块 urlib.urlopen(url) 只由url参数，不能设置header等信息 urllib有urlencode函数，可以把字典编码转成get参数（&amp;方式连接）, urllib2 没有 urllib.quote(s, safe='/') 是转义编码用的, 默认不编码/, 且把空格转成%20 urllib.quote_plus(s, safe='') 默认全部编码, 会调用quote(s, safe=' &lsquo;) 不编码空格, 最后替换s中的空格为+ 号。……
+        </div>
+        <p class="readmore"><a href="http://codesource.online/python%E7%AC%94%E8%AE%B0/5_http/">阅读全文</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="http://codesource.online/python%E7%AC%94%E8%AE%B0/4_scrapy/" title="scrapy笔记">scrapy笔记</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2019年6月12日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='http://codesource.online/categories/python'>python</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            1.初识爬虫 开启项目: scrapy startproject example 定义爬虫文件: cd example; scrapy genspider book_psider http://books.toscrape.com/ 定义数据最终需要的字段, 修改items.py。 如果不用pipeline处理，则yeild item， 直接 -o 到文件json文件即可。 执行爬虫 scrapy crawl book_spider -o book.json 2. 核心概念 爬虫组件 组件 描述 类型 ENGINE 引擎，框架核心组件 内部组件 SCHEDULER 调度器 内部组件 DOWNLOADER 下载……
+        </div>
+        <p class="readmore"><a href="http://codesource.online/python%E7%AC%94%E8%AE%B0/4_scrapy/">阅读全文</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="http://codesource.online/python%E7%AC%94%E8%AE%B0/3_reload_sys/" title="python 编码reload(sys)的作用">python 编码reload(sys)的作用</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2019年5月2日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='http://codesource.online/categories/python'>python</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            为什么需要sys.setdefaultencoding(&ldquo;utf-8&rdquo;) 因为python转码是通过unicode作为中间码的。 比如字符串 x = &ldquo;你们&rdquo;，本身是str， 首先我们指定了文件编码uft8，所以x是utf8编码的。 如果要转化g……
+        </div>
+        <p class="readmore"><a href="http://codesource.online/python%E7%AC%94%E8%AE%B0/3_reload_sys/">阅读全文</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="http://codesource.online/python%E7%AC%94%E8%AE%B0/1_%E4%B8%89%E7%A7%8D%E8%A3%85%E9%A5%B0%E5%99%A8/" title="python类的三种装饰器">python类的三种装饰器</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2019年2月14日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='http://codesource.online/categories/python'>python</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            property装饰器作用和原理 我们知道c++中有public,projected,private等修饰类私有属性的作用，这样就限定了某些属性只能读取，不能修改；有些能读也能需改。 设置C++类中的一个属性可以自定义方法get和set方法。 python中实现这种原理，就需要装饰器p……
+        </div>
+        <p class="readmore"><a href="http://codesource.online/python%E7%AC%94%E8%AE%B0/1_%E4%B8%89%E7%A7%8D%E8%A3%85%E9%A5%B0%E5%99%A8/">阅读全文</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="http://codesource.online/python%E7%AC%94%E8%AE%B0/2__init__%E6%96%87%E4%BB%B6%E7%9A%84%E4%BD%9C%E7%94%A8/" title="python模块导入">python模块导入</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2019年2月14日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='http://codesource.online/categories/python'>python</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            python 导入模块文件的2中方式 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 import lib or from lib import * # 导入子目录中模块 import tmp.lib3 or from tmp.lib3 import * # 导入上级目录 import sys sys.path.append(&#39;home/app/&#39;) import mod import xxxx 与import类似, 被导入的module仍然会执行且仅执行一次 from *** import 的实质 当以 &ldquo;from *** import &quot; 方式导入module时, python会在当前module 的命名空间……
+        </div>
+        <p class="readmore"><a href="http://codesource.online/python%E7%AC%94%E8%AE%B0/2__init__%E6%96%87%E4%BB%B6%E7%9A%84%E4%BD%9C%E7%94%A8/">阅读全文</a></p>
+    </article>
+    
+    
+    
+
+
+
+
+
+</div>
+
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='http://codesource.online/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="http://codesource.online/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li><a href="http://codesource.online/categories/ES/">ES (3)</a></li>
+    
+    <li><a href="http://codesource.online/categories/android/">android (5)</a></li>
+    
+    <li><a href="http://codesource.online/categories/dll/">dll (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/git/">git (4)</a></li>
+    
+    <li><a href="http://codesource.online/categories/go/">go (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/html/">html (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/js/">js (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/linux/">linux (16)</a></li>
+    
+    <li><a href="http://codesource.online/categories/lua/">lua (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/mysql/">mysql (5)</a></li>
+    
+    <li><a href="http://codesource.online/categories/nginx/">nginx (4)</a></li>
+    
+    <li><a href="http://codesource.online/categories/openresty/">openresty (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/php/">php (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/python/">python (5)</a></li>
+    
+    <li><a href="http://codesource.online/categories/svn/">svn (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/vim/">vim (1)</a></li>
+    
+    <li><a href="http://codesource.online/categories/%E5%8A%A0%E5%AF%86/">加密 (2)</a></li>
+    
+    <li><a href="http://codesource.online/categories/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">正则表达式 (3)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="http://codesource.online/tags/ES/">ES</a>
+    
+    <a href="http://codesource.online/tags/android/">android</a>
+    
+    <a href="http://codesource.online/tags/cpu/">cpu</a>
+    
+    <a href="http://codesource.online/tags/dll/">dll</a>
+    
+    <a href="http://codesource.online/tags/git/">git</a>
+    
+    <a href="http://codesource.online/tags/html/">html</a>
+    
+    <a href="http://codesource.online/tags/hugo/">hugo</a>
+    
+    <a href="http://codesource.online/tags/js/">js</a>
+    
+    <a href="http://codesource.online/tags/linux/">linux</a>
+    
+    <a href="http://codesource.online/tags/lua/">lua</a>
+    
+    <a href="http://codesource.online/tags/mysql/">mysql</a>
+    
+    <a href="http://codesource.online/tags/nginx/">nginx</a>
+    
+    <a href="http://codesource.online/tags/openresty/">openresty</a>
+    
+    <a href="http://codesource.online/tags/php/">php</a>
+    
+    <a href="http://codesource.online/tags/python/">python</a>
+    
+    <a href="http://codesource.online/tags/regex/">regex</a>
+    
+    <a href="http://codesource.online/tags/svn/">svn</a>
+    
+    <a href="http://codesource.online/tags/vim/">vim</a>
+    
+    <a href="http://codesource.online/tags/%E5%8A%A0%E5%AF%86/">加密</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="http://openresty.org/download/agentzh-nginx-tutorials-zhcn.html" title="">春哥的nginx教程</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="http://codesource.online/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+    <footer id="footer">
+    <div class="container">
+        &copy; 2021 <a href="http://codesource.online/">学而时习之 By 明明</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
+        <a href="http://beian.miit.gov.cn" target="_blank">豫ICP备20003135号</a>
+        
+ 
+
+    </div>
+
+</footer>
+
+		
+
+
+<a id="rocket" href="#top"></a>
+<script>
+	function count(num){
+		var ob = document.getElementById("count_view");
+		ob.innerText="浏览总量: "+ num;
+	}
+</script>
+
+<script type="text/javascript" src="http://codesource.online/lua/count?callback=count"></script>
+
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
+
+
+    
+
+</body>
+</html>
