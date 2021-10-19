@@ -2,35 +2,35 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>ES on 学而时习之</title>
-    <link>http://wlw--5g.cn/categories/ES/</link>
+    <link>http://wlw-5g.cn/categories/ES/</link>
     <description>Recent content in ES on 学而时习之</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 21 Nov 2020 20:10:00 +0800</lastBuildDate><atom:link href="http://wlw--5g.cn/categories/ES/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 21 Nov 2020 20:10:00 +0800</lastBuildDate><atom:link href="http://wlw-5g.cn/categories/ES/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Elasticsearch总结</title>
-      <link>http://wlw--5g.cn/linux%E7%AC%94%E8%AE%B0/Elasticsearch_note/</link>
+      <link>http://wlw-5g.cn/linux%E7%AC%94%E8%AE%B0/Elasticsearch_note/</link>
       <pubDate>Sat, 21 Nov 2020 20:10:00 +0800</pubDate>
       
-      <guid>http://wlw--5g.cn/linux%E7%AC%94%E8%AE%B0/Elasticsearch_note/</guid>
+      <guid>http://wlw-5g.cn/linux%E7%AC%94%E8%AE%B0/Elasticsearch_note/</guid>
       <description>常见操作 以下操作都是在kibana可视化工具中执行的。 创建索引，并设置字段类型(mapping) mapping 可以单独设置，必须是创建index之后，设置了就不能修改了。 1 2 3 4 5 6 POST /city_index/_mapping { properties&amp;#34;{ ... } } 也可以创建索引时，一并设置， 如下 城市信息索引 city_index 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25</description>
     </item>
     
     <item>
       <title>Elasticsearch pinyin插件</title>
-      <link>http://wlw--5g.cn/linux%E7%AC%94%E8%AE%B0/Elasticsearch_pinyin/</link>
+      <link>http://wlw-5g.cn/linux%E7%AC%94%E8%AE%B0/Elasticsearch_pinyin/</link>
       <pubDate>Tue, 17 Nov 2020 23:10:00 +0800</pubDate>
       
-      <guid>http://wlw--5g.cn/linux%E7%AC%94%E8%AE%B0/Elasticsearch_pinyin/</guid>
+      <guid>http://wlw-5g.cn/linux%E7%AC%94%E8%AE%B0/Elasticsearch_pinyin/</guid>
       <description>插件安装 ./bin/elasticsearch-plugin install https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v7.9.3/elasticsearch-analysis-ik-7.9.3.zip ./bin/elasticsearch-plugin install https://github.com/medcl/elasticsearch-analysis-pinyin/releases/download/v7.9.3/elasticsearch-analysis-pinyin-7.9.3.zip pinyin插件 keep_first_letter 选项默认true，刘德华-&amp;gt; ldh keep_separate_first_letter 选项默认fasle ， 刘德华 -&amp;gt; l,d,h limit_first_letter_length 首字母默认长度 16 keep_full_pinyin 默认true， 刘德华 -&amp;gt; [liu, de, hua] keep_joined_full_pinyin 默认false 刘德华-&amp;gt; [liudehua] keep_none_chinese 默认true， 保持非中问的字符或数字 keep_none_chinese_together 需要keep_none_chinese=true； D</description>
     </item>
     
     <item>
       <title>Elasticsearch 安装笔记</title>
-      <link>http://wlw--5g.cn/linux%E7%AC%94%E8%AE%B0/Elasticsearch_install/</link>
+      <link>http://wlw-5g.cn/linux%E7%AC%94%E8%AE%B0/Elasticsearch_install/</link>
       <pubDate>Sat, 29 Jun 2019 23:10:00 +0800</pubDate>
       
-      <guid>http://wlw--5g.cn/linux%E7%AC%94%E8%AE%B0/Elasticsearch_install/</guid>
+      <guid>http://wlw-5g.cn/linux%E7%AC%94%E8%AE%B0/Elasticsearch_install/</guid>
       <description>1.概况 图片是elasticsearch-head插件查看的集群状态 这是一台虚拟机，创建了index为megacorp, ES默认是5个分片，然后每个分片一个副本，也就是10个分片;三个节点，就会出现如图的样子。 同一个分片必然不在一个节点，不然副本就没意义了。 绿色表示状态健康，黄色</description>
     </item>
     

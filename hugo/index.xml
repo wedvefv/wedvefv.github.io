@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Hugos on 学而时习之</title>
-    <link>http://wlw--5g.cn/hugo/</link>
+    <link>http://wlw-5g.cn/hugo/</link>
     <description>Recent content in Hugos on 学而时习之</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language><atom:link href="http://wlw--5g.cn/hugo/index.xml" rel="self" type="application/rss+xml" />
+    <language>zh-CN</language><atom:link href="http://wlw-5g.cn/hugo/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title></title>
-      <link>http://wlw--5g.cn/hugo/hugo_template/</link>
+      <link>http://wlw-5g.cn/hugo/hugo_template/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://wlw--5g.cn/hugo/hugo_template/</guid>
+      <guid>http://wlw-5g.cn/hugo/hugo_template/</guid>
       <description>介绍hugo的模板 hugo 使用go的html/template 和text/templete 库为基础进行模板操作 下面只是基础的go template操作，为了更深度的了解请看 go文档 go 模板提供了一种非常简单的模板语言，他坚信只有最基本的逻辑才是属于模板和视图层。 基本语法 go 模板是html文件</description>
     </item>
     

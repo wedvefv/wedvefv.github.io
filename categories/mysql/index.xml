@@ -2,53 +2,53 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>mysql on 学而时习之</title>
-    <link>http://wlw--5g.cn/categories/mysql/</link>
+    <link>http://wlw-5g.cn/categories/mysql/</link>
     <description>Recent content in mysql on 学而时习之</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 25 Aug 2021 12:00:00 +0800</lastBuildDate><atom:link href="http://wlw--5g.cn/categories/mysql/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 25 Aug 2021 12:00:00 +0800</lastBuildDate><atom:link href="http://wlw-5g.cn/categories/mysql/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>mysql float类型</title>
-      <link>http://wlw--5g.cn/mysql_float/</link>
+      <link>http://wlw-5g.cn/mysql_float/</link>
       <pubDate>Wed, 25 Aug 2021 12:00:00 +0800</pubDate>
       
-      <guid>http://wlw--5g.cn/mysql_float/</guid>
+      <guid>http://wlw-5g.cn/mysql_float/</guid>
       <description>浮点数的解释 https://www.cnblogs.com/fengju/p/6336162.html 默认的float表示范围 默认范围是6个有效数字（小数部分和整数部分的个数加起来不能大于6个数） 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86</description>
     </item>
     
     <item>
       <title>docker安装mysql</title>
-      <link>http://wlw--5g.cn/mysql-%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7/</link>
+      <link>http://wlw-5g.cn/mysql-%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7/</link>
       <pubDate>Thu, 19 Aug 2021 12:00:00 +0800</pubDate>
       
-      <guid>http://wlw--5g.cn/mysql-%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7/</guid>
+      <guid>http://wlw-5g.cn/mysql-%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7/</guid>
       <description># docker 安装mysql5.6 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 docker pull mysql:latest docker images docker run -itd --name mysql-test -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 mysql docker run -itd -p 3306:3306 --name mysql5 -e MYSQL_ROOT_PASSWORD=123456 -d mysql5.5.41 // 5.5版本 - 映射本地目录 docker run -p 3306:3306 --name mysql5.5 -v /opt/docker/mysql/conf:/etc/mysql -v /opt/docker/mysql/logs:/var/log/mysql -v /opt/docker/mysql/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.5 docker ps 查看进程 docker ps -a 查看全部容器 docker exec -it 621b7a3e9 /bin/bash 进入容器 docker cp /etc/mysql5.cnf mysql5:/etc/mysql/my.cnf // 复制本地文件到容器内 docker start</description>
     </item>
     
     <item>
       <title>mysql优化</title>
-      <link>http://wlw--5g.cn/mysql5.6-%E4%BC%98%E5%8C%96/</link>
+      <link>http://wlw-5g.cn/mysql5.6-%E4%BC%98%E5%8C%96/</link>
       <pubDate>Thu, 19 Aug 2021 12:00:00 +0800</pubDate>
       
-      <guid>http://wlw--5g.cn/mysql5.6-%E4%BC%98%E5%8C%96/</guid>
+      <guid>http://wlw-5g.cn/mysql5.6-%E4%BC%98%E5%8C%96/</guid>
       <description>数据库层级优化 数据库性能取决于几个因素，比如表，查询，数据库配置。 必须考虑cpu和磁盘io的情况，研究数据库性能需要学习高级规则，和性能测试。 恰当的使用表字段类型，多列少表还是，多表少列 正确的使用索引 使用选择合适的引擎 innodb或者MyISAM(非事务) 每个表的行格式， 压缩表能</description>
     </item>
     
     <item>
       <title>mysql锁表问题测试</title>
-      <link>http://wlw--5g.cn/mysql%E9%94%81%E8%A1%A8%E9%97%AE%E9%A2%98/</link>
+      <link>http://wlw-5g.cn/mysql%E9%94%81%E8%A1%A8%E9%97%AE%E9%A2%98/</link>
       <pubDate>Thu, 19 Aug 2021 12:00:00 +0800</pubDate>
       
-      <guid>http://wlw--5g.cn/mysql%E9%94%81%E8%A1%A8%E9%97%AE%E9%A2%98/</guid>
+      <guid>http://wlw-5g.cn/mysql%E9%94%81%E8%A1%A8%E9%97%AE%E9%A2%98/</guid>
       <description>mysql锁表问题 修改表结构的时候: 添加索引， 添加字段，删除字段 对于mysql5.5以及以前的版本都是会锁表的，不允许insert update等写操作. 因此处出现了好多在线迁移工具。 对于mysql5.6版本以上，允许在线修DDL了。 整理空间碎片 MyISAM引擎 才支持修复表repa</description>
     </item>
     
     <item>
       <title>mysql join查询优化</title>
-      <link>http://wlw--5g.cn/nginx%E7%AC%94%E8%AE%B0/mysql%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96/</link>
+      <link>http://wlw-5g.cn/nginx%E7%AC%94%E8%AE%B0/mysql%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96/</link>
       <pubDate>Fri, 25 Dec 2020 00:33:58 +0800</pubDate>
       
-      <guid>http://wlw--5g.cn/nginx%E7%AC%94%E8%AE%B0/mysql%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96/</guid>
+      <guid>http://wlw-5g.cn/nginx%E7%AC%94%E8%AE%B0/mysql%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96/</guid>
       <description>mysql join 方式 外连接 可以省略outer关键字 A left join B 按on条件取交集，在加上A剩余部分， A是主表。 A right join B 按on条件取交集，再加上B剩余部分，b是主表。 内连接 inner join 两个表按on条件取交集的意思。 select * from A inner join B ON A.x = b.x select *from A, B where A.x = b.x 第一中方式mysql会默认转成下面的方式。 外连接 （ful</description>
     </item>
     

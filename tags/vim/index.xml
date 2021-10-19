@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>vim on 学而时习之</title>
-    <link>http://wlw--5g.cn/tags/vim/</link>
+    <link>http://wlw-5g.cn/tags/vim/</link>
     <description>Recent content in vim on 学而时习之</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 29 Aug 2020 21:00:00 +0800</lastBuildDate><atom:link href="http://wlw--5g.cn/tags/vim/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 29 Aug 2020 21:00:00 +0800</lastBuildDate><atom:link href="http://wlw-5g.cn/tags/vim/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>coc如何补全vim的</title>
-      <link>http://wlw--5g.cn/vim%E7%AC%94%E8%AE%B0/nvim%E9%85%8D%E7%BD%AEcoc%E8%A1%A5%E5%85%A8/</link>
+      <link>http://wlw-5g.cn/vim%E7%AC%94%E8%AE%B0/nvim%E9%85%8D%E7%BD%AEcoc%E8%A1%A5%E5%85%A8/</link>
       <pubDate>Sat, 29 Aug 2020 21:00:00 +0800</pubDate>
       
-      <guid>http://wlw--5g.cn/vim%E7%AC%94%E8%AE%B0/nvim%E9%85%8D%E7%BD%AEcoc%E8%A1%A5%E5%85%A8/</guid>
+      <guid>http://wlw-5g.cn/vim%E7%AC%94%E8%AE%B0/nvim%E9%85%8D%E7%BD%AEcoc%E8%A1%A5%E5%85%A8/</guid>
       <description>coc插件原理 vscode 补全利用的是LSP (language server protocol), 简单理解就是编辑时启动一个进程，补全果过程就类似app请求服务器得到补全数据。这就是为什么要装node，服务进程都是node启动。 第一步 安装nvim 首先你需要 安装vim8 或者nvim 我测试的是macos 如果是nvim， 需要把nvim 的配置文</description>
     </item>
     
