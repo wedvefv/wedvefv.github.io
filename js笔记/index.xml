@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Js笔记s on 学而时习之</title>
-    <link>http://codesource.online/js%E7%AC%94%E8%AE%B0/</link>
+    <link>http://wlw--5g.cn/js%E7%AC%94%E8%AE%B0/</link>
     <description>Recent content in Js笔记s on 学而时习之</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 06 Mar 2020 14:47:30 +0800</lastBuildDate><atom:link href="http://codesource.online/js%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 06 Mar 2020 14:47:30 +0800</lastBuildDate><atom:link href="http://wlw--5g.cn/js%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>如何解释js闭包</title>
-      <link>http://codesource.online/js%E7%AC%94%E8%AE%B0/%E9%97%AD%E5%8C%85/</link>
+      <link>http://wlw--5g.cn/js%E7%AC%94%E8%AE%B0/%E9%97%AD%E5%8C%85/</link>
       <pubDate>Fri, 06 Mar 2020 14:47:30 +0800</pubDate>
       
-      <guid>http://codesource.online/js%E7%AC%94%E8%AE%B0/%E9%97%AD%E5%8C%85/</guid>
+      <guid>http://wlw--5g.cn/js%E7%AC%94%E8%AE%B0/%E9%97%AD%E5%8C%85/</guid>
       <description>看个例子 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 function assert (condition, msg) { if (condition) { console.log(msg, &amp;#39;&amp;#39;) } else { console.log(error, &amp;#39;&amp;#39;) } } var outerValue = &amp;#34;samurai&amp;#34;; var later; function outerFunc() { var innerValue = &amp;#34;ninja&amp;#34;; function innerFunc(){ var a = 90; assert(outerValue === &amp;#34;samurai&amp;#34;, &amp;#34;i can see your&amp;#34;); assert(innerValue === &amp;#34;ninja&amp;#34;, &amp;#34;i can see the ninja&amp;#34;); } later = innerFunc; } function animate() { var timer = setInterval(function () { console.log(&amp;#39;time-----&amp;#39;, &amp;#39;&amp;#39;) },5) } outerFunc(); later(); later和outerFunc函数都属于全局作用域 innerValue</description>
     </item>
     

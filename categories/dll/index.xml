@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>dll on 学而时习之</title>
-    <link>http://codesource.online/categories/dll/</link>
+    <link>http://wlw--5g.cn/categories/dll/</link>
     <description>Recent content in dll on 学而时习之</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 06 Oct 2016 20:04:30 +0800</lastBuildDate><atom:link href="http://codesource.online/categories/dll/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 06 Oct 2016 20:04:30 +0800</lastBuildDate><atom:link href="http://wlw--5g.cn/categories/dll/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>DLL导出方法</title>
-      <link>http://codesource.online/linux%E7%AC%94%E8%AE%B0/dll_export/</link>
+      <link>http://wlw--5g.cn/linux%E7%AC%94%E8%AE%B0/dll_export/</link>
       <pubDate>Thu, 06 Oct 2016 20:04:30 +0800</pubDate>
       
-      <guid>http://codesource.online/linux%E7%AC%94%E8%AE%B0/dll_export/</guid>
+      <guid>http://wlw--5g.cn/linux%E7%AC%94%E8%AE%B0/dll_export/</guid>
       <description>DLL导出方法 dll导出方法1 ： 模块定义def文件，不支持c++的重载，以c的方式编译，导出的函数名不被修改，这样 显示调用dll取得函数地址就没事。提供给vb，python等语言,需要_stdcall约定(函数自己清理堆栈)，这样无论是c文件还是c++文件，导出函数都会被改名字。</description>
     </item>
     

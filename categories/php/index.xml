@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>php on 学而时习之</title>
-    <link>http://codesource.online/categories/php/</link>
+    <link>http://wlw--5g.cn/categories/php/</link>
     <description>Recent content in php on 学而时习之</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 10 Dec 2016 11:30:55 +0800</lastBuildDate><atom:link href="http://codesource.online/categories/php/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 10 Dec 2016 11:30:55 +0800</lastBuildDate><atom:link href="http://wlw--5g.cn/categories/php/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>nginx支持php</title>
-      <link>http://codesource.online/php%E7%AC%94%E8%AE%B0/nginx_install_php/</link>
+      <link>http://wlw--5g.cn/php%E7%AC%94%E8%AE%B0/nginx_install_php/</link>
       <pubDate>Sat, 10 Dec 2016 11:30:55 +0800</pubDate>
       
-      <guid>http://codesource.online/php%E7%AC%94%E8%AE%B0/nginx_install_php/</guid>
+      <guid>http://wlw--5g.cn/php%E7%AC%94%E8%AE%B0/nginx_install_php/</guid>
       <description>ubuntu14.04 +nginx+php5-fpm 一安装Nginx apt-get install nginx - 配置nginx nginx所有的配置在 /etc/nginx/nginx.conf中 nginx.conf配置里面包括了 include /etc/nginx/conf.d/*.conf; include /etc/nginx/sites-enabled/*; 这两个配置，所以这里面的配置也是有效的。 错误日志 error_log /var/log/nginx/error.log; 这里我们把配置写在 /etc/nginx/sites-available/def</description>
     </item>
     

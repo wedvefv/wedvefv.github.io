@@ -2,44 +2,44 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>nginx on 学而时习之</title>
-    <link>http://codesource.online/categories/nginx/</link>
+    <link>http://wlw--5g.cn/categories/nginx/</link>
     <description>Recent content in nginx on 学而时习之</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 03 Aug 2020 23:00:00 +0800</lastBuildDate><atom:link href="http://codesource.online/categories/nginx/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 03 Aug 2020 23:00:00 +0800</lastBuildDate><atom:link href="http://wlw--5g.cn/categories/nginx/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>nginx如何server_name和http版本</title>
-      <link>http://codesource.online/nginx%E7%AC%94%E8%AE%B0/nginx%E4%BD%BF%E7%94%A8http%E7%89%88%E6%9C%AC/</link>
+      <link>http://wlw--5g.cn/nginx%E7%AC%94%E8%AE%B0/nginx%E4%BD%BF%E7%94%A8http%E7%89%88%E6%9C%AC/</link>
       <pubDate>Mon, 03 Aug 2020 23:00:00 +0800</pubDate>
       
-      <guid>http://codesource.online/nginx%E7%AC%94%E8%AE%B0/nginx%E4%BD%BF%E7%94%A8http%E7%89%88%E6%9C%AC/</guid>
+      <guid>http://wlw--5g.cn/nginx%E7%AC%94%E8%AE%B0/nginx%E4%BD%BF%E7%94%A8http%E7%89%88%E6%9C%AC/</guid>
       <description>nginx 的http版本的问题 http1.0 需要客户端请求header 指明 connection：keep-alive 表明长链接， 请求完不会立刻关闭。 http1.1 默认就是connection: keep-alive的， 大部分脚本语言发送http默认都是1.1了。 问题来了： 如果访问的域名没有配置到server_na</description>
     </item>
     
     <item>
       <title>nginx 配置免费的ssl证书</title>
-      <link>http://codesource.online/nginx%E7%AC%94%E8%AE%B0/%E9%85%8D%E7%BD%AEssl%E8%AF%81%E4%B9%A6/</link>
+      <link>http://wlw--5g.cn/nginx%E7%AC%94%E8%AE%B0/%E9%85%8D%E7%BD%AEssl%E8%AF%81%E4%B9%A6/</link>
       <pubDate>Mon, 03 Feb 2020 14:33:58 +0800</pubDate>
       
-      <guid>http://codesource.online/nginx%E7%AC%94%E8%AE%B0/%E9%85%8D%E7%BD%AEssl%E8%AF%81%E4%B9%A6/</guid>
+      <guid>http://wlw--5g.cn/nginx%E7%AC%94%E8%AE%B0/%E9%85%8D%E7%BD%AEssl%E8%AF%81%E4%B9%A6/</guid>
       <description>免费证书申请 1 2 3 4 5 6 7 8 9 10 11 12 wget https://dl.eff.org/certbot-auto chmod a+x ./certbot-auto ./certbot-auto certonly --manual --preferred-challenge dns -d &amp;#39;xxxx.cn&amp;#39; -d &amp;#39;xxxxx.com&amp;#39; 会提示验证你的域名，如果你在腾讯云或者阿里云注册的域名，需要添加一个TXT类型的记录: 主机记录：_acme-challenge 记录类型： TXT 记录值： foRfz_Vr2vLVGw3U8WsFc4ohMWfk4oETX89vCi-0Lx4 （这个随机生成的，看你自己的是多少） 填写完保存，然后回到终端按下 回车</description>
     </item>
     
     <item>
       <title>nginx配置跨域资源共享CORS</title>
-      <link>http://codesource.online/nginx%E7%AC%94%E8%AE%B0/%E8%B7%A8%E5%9F%9F%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB/</link>
+      <link>http://wlw--5g.cn/nginx%E7%AC%94%E8%AE%B0/%E8%B7%A8%E5%9F%9F%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB/</link>
       <pubDate>Sat, 01 Feb 2020 20:04:30 +0800</pubDate>
       
-      <guid>http://codesource.online/nginx%E7%AC%94%E8%AE%B0/%E8%B7%A8%E5%9F%9F%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB/</guid>
+      <guid>http://wlw--5g.cn/nginx%E7%AC%94%E8%AE%B0/%E8%B7%A8%E5%9F%9F%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB/</guid>
       <description>跨域 浏览器为了安全，有个策略: 同源策略， 页面中的链接必须域名一致。 为什么跨域 页面请求的接口可能位于独立api服务器， 所以就会有跨域存在。 解决问题 代理，没怎么研究 jsonp，构造javascrit 标签，利用src属性请求这个链接，返回body是可执行的js代码，代码中的函数需要本地</description>
     </item>
     
     <item>
       <title>一张导图了解cookie和session</title>
-      <link>http://codesource.online/php%E7%AC%94%E8%AE%B0/cookie_and_session/</link>
+      <link>http://wlw--5g.cn/php%E7%AC%94%E8%AE%B0/cookie_and_session/</link>
       <pubDate>Sun, 09 Jun 2019 21:50:00 +0800</pubDate>
       
-      <guid>http://codesource.online/php%E7%AC%94%E8%AE%B0/cookie_and_session/</guid>
+      <guid>http://wlw--5g.cn/php%E7%AC%94%E8%AE%B0/cookie_and_session/</guid>
       <description>cookie和session的区别</description>
     </item>
     
