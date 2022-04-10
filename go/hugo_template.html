@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>介绍hugo的模板 | 长沙忆</title>
+    <meta name="generator" content="VuePress 1.9.7">
+    <link rel="icon" href="/head.jpg">
+    <meta name="description" content="">
+    
+    <link rel="preload" href="/assets/css/0.styles.e4d8b86b.css" as="style"><link rel="preload" href="/assets/js/app.6f09dae3.js" as="script"><link rel="preload" href="/assets/js/2.c79bcad0.js" as="script"><link rel="preload" href="/assets/js/19.9f302e37.js" as="script"><link rel="prefetch" href="/assets/js/10.975457e5.js"><link rel="prefetch" href="/assets/js/11.1c27b0af.js"><link rel="prefetch" href="/assets/js/12.a448ddcb.js"><link rel="prefetch" href="/assets/js/13.0ab9eacc.js"><link rel="prefetch" href="/assets/js/14.cfa63e8d.js"><link rel="prefetch" href="/assets/js/15.ca624394.js"><link rel="prefetch" href="/assets/js/16.a8e21fb7.js"><link rel="prefetch" href="/assets/js/17.81ca5b5f.js"><link rel="prefetch" href="/assets/js/18.82805271.js"><link rel="prefetch" href="/assets/js/20.416186a6.js"><link rel="prefetch" href="/assets/js/21.2dd9bb7e.js"><link rel="prefetch" href="/assets/js/22.b8b4e88b.js"><link rel="prefetch" href="/assets/js/23.35d9b159.js"><link rel="prefetch" href="/assets/js/24.fcd256d1.js"><link rel="prefetch" href="/assets/js/25.aec4c80a.js"><link rel="prefetch" href="/assets/js/26.dd76b597.js"><link rel="prefetch" href="/assets/js/27.fdc4d628.js"><link rel="prefetch" href="/assets/js/28.9b4cdc3e.js"><link rel="prefetch" href="/assets/js/29.c2418fc2.js"><link rel="prefetch" href="/assets/js/3.95cfbce8.js"><link rel="prefetch" href="/assets/js/30.7a312a28.js"><link rel="prefetch" href="/assets/js/31.c1a82d12.js"><link rel="prefetch" href="/assets/js/32.4b5d2348.js"><link rel="prefetch" href="/assets/js/33.ca78ab3b.js"><link rel="prefetch" href="/assets/js/34.d553b8eb.js"><link rel="prefetch" href="/assets/js/35.85db3cdd.js"><link rel="prefetch" href="/assets/js/36.d349ae29.js"><link rel="prefetch" href="/assets/js/37.c5f66e1d.js"><link rel="prefetch" href="/assets/js/38.02f0ba94.js"><link rel="prefetch" href="/assets/js/39.52cae465.js"><link rel="prefetch" href="/assets/js/4.0a2f3beb.js"><link rel="prefetch" href="/assets/js/40.6a8fee68.js"><link rel="prefetch" href="/assets/js/41.73b2cc12.js"><link rel="prefetch" href="/assets/js/42.3b057716.js"><link rel="prefetch" href="/assets/js/43.2b52373b.js"><link rel="prefetch" href="/assets/js/44.faa69e48.js"><link rel="prefetch" href="/assets/js/45.681a1dcb.js"><link rel="prefetch" href="/assets/js/46.1591b64f.js"><link rel="prefetch" href="/assets/js/47.8d3acec6.js"><link rel="prefetch" href="/assets/js/48.1c0fa4e2.js"><link rel="prefetch" href="/assets/js/49.896e54a4.js"><link rel="prefetch" href="/assets/js/5.a33a2f42.js"><link rel="prefetch" href="/assets/js/50.e92d18c5.js"><link rel="prefetch" href="/assets/js/51.fdfa2825.js"><link rel="prefetch" href="/assets/js/52.bc4ea37b.js"><link rel="prefetch" href="/assets/js/53.908b00d0.js"><link rel="prefetch" href="/assets/js/54.ef1e0c70.js"><link rel="prefetch" href="/assets/js/55.b93a790a.js"><link rel="prefetch" href="/assets/js/56.9c21842b.js"><link rel="prefetch" href="/assets/js/57.99b570f4.js"><link rel="prefetch" href="/assets/js/58.c3a14b1a.js"><link rel="prefetch" href="/assets/js/59.3ae95016.js"><link rel="prefetch" href="/assets/js/6.f0091315.js"><link rel="prefetch" href="/assets/js/60.cd0deb96.js"><link rel="prefetch" href="/assets/js/61.acbe6762.js"><link rel="prefetch" href="/assets/js/62.47dd01c3.js"><link rel="prefetch" href="/assets/js/63.419b2e02.js"><link rel="prefetch" href="/assets/js/64.aca7ba58.js"><link rel="prefetch" href="/assets/js/65.8708a04f.js"><link rel="prefetch" href="/assets/js/66.ec5ca850.js"><link rel="prefetch" href="/assets/js/67.94f7a742.js"><link rel="prefetch" href="/assets/js/68.213fb284.js"><link rel="prefetch" href="/assets/js/69.8b4daa17.js"><link rel="prefetch" href="/assets/js/7.71ba8e13.js"><link rel="prefetch" href="/assets/js/70.fabbdaf6.js"><link rel="prefetch" href="/assets/js/71.930221b6.js"><link rel="prefetch" href="/assets/js/72.859e77c9.js"><link rel="prefetch" href="/assets/js/73.279146ce.js"><link rel="prefetch" href="/assets/js/74.1e40dedb.js"><link rel="prefetch" href="/assets/js/75.3e1de9d0.js"><link rel="prefetch" href="/assets/js/76.293d28d0.js"><link rel="prefetch" href="/assets/js/77.7d3cb116.js"><link rel="prefetch" href="/assets/js/78.9b34c3b2.js"><link rel="prefetch" href="/assets/js/79.954b888e.js"><link rel="prefetch" href="/assets/js/8.201219d6.js"><link rel="prefetch" href="/assets/js/80.a8c7b480.js"><link rel="prefetch" href="/assets/js/81.719e8b65.js"><link rel="prefetch" href="/assets/js/82.16c0e85a.js"><link rel="prefetch" href="/assets/js/83.12591e49.js"><link rel="prefetch" href="/assets/js/84.3463754c.js"><link rel="prefetch" href="/assets/js/85.de632e63.js"><link rel="prefetch" href="/assets/js/86.dc837446.js"><link rel="prefetch" href="/assets/js/87.cb51a538.js"><link rel="prefetch" href="/assets/js/88.6d678c4e.js"><link rel="prefetch" href="/assets/js/89.9f23b6dd.js"><link rel="prefetch" href="/assets/js/9.b3227388.js"><link rel="prefetch" href="/assets/js/90.9b146aea.js"><link rel="prefetch" href="/assets/js/91.3b8e808b.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.e4d8b86b.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><img src="/head.jpg" alt="长沙忆" class="logo"> <span class="site-name can-hide">长沙忆</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="编程" class="dropdown-title"><span class="title">编程</span> <span class="arrow down"></span></button> <button type="button" aria-label="编程" class="mobile-dropdown-title"><span class="title">编程</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/8086/" class="nav-link">
+  8086
+</a></li><li class="dropdown-item"><!----> <a href="/git/" class="nav-link">
+  git
+</a></li><li class="dropdown-item"><!----> <a href="/go/" class="nav-link router-link-active">
+  go
+</a></li><li class="dropdown-item"><!----> <a href="/linux/" class="nav-link">
+  linux
+</a></li><li class="dropdown-item"><!----> <a href="/linux_os/" class="nav-link">
+  linux_os
+</a></li><li class="dropdown-item"><!----> <a href="/lua/" class="nav-link">
+  lua
+</a></li><li class="dropdown-item"><!----> <a href="/mysql/" class="nav-link">
+  mysql
+</a></li><li class="dropdown-item"><!----> <a href="/nginx/" class="nav-link">
+  nginx
+</a></li><li class="dropdown-item"><!----> <a href="/php/" class="nav-link">
+  php
+</a></li><li class="dropdown-item"><!----> <a href="/python/" class="nav-link">
+  python
+</a></li><li class="dropdown-item"><!----> <a href="/qt/" class="nav-link">
+  qt
+</a></li><li class="dropdown-item"><!----> <a href="/regex/" class="nav-link">
+  regex
+</a></li><li class="dropdown-item"><!----> <a href="/vim/" class="nav-link">
+  vim
+</a></li><li class="dropdown-item"><!----> <a href="/vue/" class="nav-link">
+  vue
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="古中医" class="dropdown-title"><span class="title">古中医</span> <span class="arrow down"></span></button> <button type="button" aria-label="古中医" class="mobile-dropdown-title"><span class="title">古中医</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/guzhongyi/zuojiyun/" class="nav-link">
+  伤寒论类方汇参-左季云
+</a></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="编程" class="dropdown-title"><span class="title">编程</span> <span class="arrow down"></span></button> <button type="button" aria-label="编程" class="mobile-dropdown-title"><span class="title">编程</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/8086/" class="nav-link">
+  8086
+</a></li><li class="dropdown-item"><!----> <a href="/git/" class="nav-link">
+  git
+</a></li><li class="dropdown-item"><!----> <a href="/go/" class="nav-link router-link-active">
+  go
+</a></li><li class="dropdown-item"><!----> <a href="/linux/" class="nav-link">
+  linux
+</a></li><li class="dropdown-item"><!----> <a href="/linux_os/" class="nav-link">
+  linux_os
+</a></li><li class="dropdown-item"><!----> <a href="/lua/" class="nav-link">
+  lua
+</a></li><li class="dropdown-item"><!----> <a href="/mysql/" class="nav-link">
+  mysql
+</a></li><li class="dropdown-item"><!----> <a href="/nginx/" class="nav-link">
+  nginx
+</a></li><li class="dropdown-item"><!----> <a href="/php/" class="nav-link">
+  php
+</a></li><li class="dropdown-item"><!----> <a href="/python/" class="nav-link">
+  python
+</a></li><li class="dropdown-item"><!----> <a href="/qt/" class="nav-link">
+  qt
+</a></li><li class="dropdown-item"><!----> <a href="/regex/" class="nav-link">
+  regex
+</a></li><li class="dropdown-item"><!----> <a href="/vim/" class="nav-link">
+  vim
+</a></li><li class="dropdown-item"><!----> <a href="/vue/" class="nav-link">
+  vue
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="古中医" class="dropdown-title"><span class="title">古中医</span> <span class="arrow down"></span></button> <button type="button" aria-label="古中医" class="mobile-dropdown-title"><span class="title">古中医</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/guzhongyi/zuojiyun/" class="nav-link">
+  伤寒论类方汇参-左季云
+</a></li></ul></div></div> <!----></nav>  <ul class="sidebar-links"><li><a href="/go/1_go_test.html" class="sidebar-link">go test 用法</a></li><li><a href="/go/2_go_interface.html" class="sidebar-link">interface类型</a></li><li><a href="/go/hugo_template.html" aria-current="page" class="active sidebar-link">介绍hugo的模板</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/go/hugo_template.html#介绍hugo的模板" class="sidebar-link">介绍hugo的模板</a></li><li class="sidebar-sub-header"><a href="/go/hugo_template.html#函数-functions" class="sidebar-link">函数- functions</a></li><li class="sidebar-sub-header"><a href="/go/hugo_template.html#includes" class="sidebar-link">includes</a></li><li class="sidebar-sub-header"><a href="/go/hugo_template.html#partial" class="sidebar-link">partial</a></li><li class="sidebar-sub-header"><a href="/go/hugo_template.html#template" class="sidebar-link">Template</a></li><li class="sidebar-sub-header"><a href="/go/hugo_template.html#迭代-iteration" class="sidebar-link">迭代 iteration</a></li><li class="sidebar-sub-header"><a href="/go/hugo_template.html#conditionals" class="sidebar-link">Conditionals</a></li><li class="sidebar-sub-header"><a href="/go/hugo_template.html#with-else" class="sidebar-link">with .. else</a></li></ul></li><li><a href="/go/hugo模板.html" class="sidebar-link">single模板</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h2 id="介绍hugo的模板"><a href="#介绍hugo的模板" class="header-anchor">#</a> 介绍hugo的模板</h2> <ul><li>hugo 使用go的html/template 和text/templete 库为基础进行模板操作</li></ul> <blockquote><p>下面只是基础的go template操作，为了更深度的了解请看 <a href="https://golang.org/pkg/text/template/" target="_blank" rel="noopener noreferrer">go文档<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></p></blockquote> <ul><li>go 模板提供了一种非常简单的模板语言，他坚信只有最基本的逻辑才是属于模板和视图层。</li></ul> <h3 id="基本语法"><a href="#基本语法" class="header-anchor">#</a> 基本语法</h3> <p>go 模板是html文件，加上一些变量和函数，变量和函数使用    获取。</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{{ .Title }}
+{{ $address }}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br></div></div><p>函数的参数使用 空格分隔 ，像这样</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{{ function arg1 arg2 }}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><ul><li>方法和字段通过点号访问</li></ul> <div class="language- line-numbers-mode"><pre class="language-text"><code>{{ .Params.bar }}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><ul><li>圆括号可以分组</li></ul> <div class="language- line-numbers-mode"><pre class="language-text"><code>{{if or (isset .Params &quot;alt&quot;) (isset .Params &quot;caption&quot;)}} Catption {{end}}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><ul><li>一条语句能拆成多行</li></ul> <div class="language- line-numbers-mode"><pre class="language-text"><code>{{ if or 
+  (isset .Params &quot;alt&quot;) 
+  (isset .Params &quot;caption&quot;)
+}}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br></div></div><ul><li>原始字符串可以包含换行</li></ul> <div class="language- line-numbers-mode"><pre class="language-text"><code>{{ $msg := `Line one 
+Line two. `}}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br></div></div><h3 id="变量-variable"><a href="#变量-variable" class="header-anchor">#</a> 变量- variable</h3> <ul><li><p>每个go模板都有一个data对象， 在hugo中，每个模板传递一个页面，在下面的例子中， .Title 是</p> <p>可以访问的page  变量中的一个。</p></li> <li><p>因为页面的默认范围就是整个模板， 所以Title元素可以用.Title 访问。</p></li></ul> <div class="language- line-numbers-mode"><pre class="language-text"><code>&lt;title&gt; {{.Title }} &lt;/title&gt;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><ul><li>变量也可以存储自定义变量，在后续被提及到。</li></ul> <div class="language- line-numbers-mode"><pre class="language-text"><code>{{ $address := &quot;123 main st.&quot; }}
+{{ $address }}
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br></div></div><blockquote><p>hugo 在v0.47以及更老的版本，if条件中被定义的变量</p></blockquote> <blockquote><p>hugo 在v0.48以后的版本，可以用=号重新定义</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{{ $var := &quot;hello &quot;}}
+{{ if .IsHome }}
+	{{ $var = &quot;wolrd&quot;}}
+{{end}}
+var is {{$var}}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br></div></div></blockquote> <h2 id="函数-functions"><a href="#函数-functions" class="header-anchor">#</a> 函数- functions</h2> <ul><li>go模板只附带了一部分基本的函数，但是也提供了一种机制来扩展原始集。</li> <li>hugo模板函数提供了额外的功能函数明确用户构建网站， 函数调用方法是函数名 空格加参数。</li> <li>如果不重新编译hugo，就不能增加模板函数。</li></ul> <h2 id="includes"><a href="#includes" class="header-anchor">#</a> includes</h2> <ul><li>当需要包含一个模板时， 需要传递他需要的数据</li></ul> <h2 id="partial"><a href="#partial" class="header-anchor">#</a> partial</h2> <ul><li><p>这个函数是用来include partial模板</p></li> <li><div class="language- line-numbers-mode"><pre class="language-text"><code>{{ partial 'header.html' .}}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div></li></ul> <h2 id="template"><a href="#template" class="header-anchor">#</a> Template</h2> <ul><li><p>这个函数也是包含partial模板，是应用于更老的hugo版本。现在更多地用于调用内部模板。</p></li> <li><p>语法</p></li> <li><div class="language- line-numbers-mode"><pre class="language-text"><code>	{{ templete &quot;_internal/hello.html&quot; .}}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div></li></ul> <h2 id="迭代-iteration"><a href="#迭代-iteration" class="header-anchor">#</a> 迭代 iteration</h2> <ul><li><p>go 模板使用 range 来迭代map、array、slice等</p></li> <li><div class="language- line-numbers-mode"><pre class="language-text"><code>{{ range $array }}
+	{{.}}  
+{{end}}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br></div></div></li> <li><div class="language- line-numbers-mode"><pre class="language-text"><code>{{ range $elem_val := $array }}
+	{{ $ele_val }}
+{{end}}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br></div></div></li> <li><div class="language- line-numbers-mode"><pre class="language-text"><code>{{ range $ele_index, $elem_val := $array }}
+	{{ $elem_index }} -- {{ $elem_val }}
+{{end}}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br></div></div></li> <li><p>如果map， array，slice长度为0， 则range时条件为假， 会走到else分支。</p></li></ul> <h2 id="conditionals"><a href="#conditionals" class="header-anchor">#</a> Conditionals</h2> <ul><li>If、else、with、or、and 、not 构建了go模板操作的逻辑框架。</li> <li>Range、if 、with 都是以 来结束的。</li> <li>go 模板对于以下值认为是false： false(boolean)、0、zero-length的map、slice、string、array</li></ul> <h3 id="with"><a href="#with" class="header-anchor">#</a> with</h3> <ul><li>如果条件值不存在，或者为false，则跳过次block</li></ul> <div class="language- line-numbers-mode"><pre class="language-text"><code>{{ with .Params.title }}
+	&lt;h4&gt; {{.}} &lt;/h4&gt;
+{{end}}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br></div></div><h2 id="with-else"><a href="#with-else" class="header-anchor">#</a> with .. else</h2></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/go/2_go_interface.html" class="prev">
+        interface类型
+      </a></span> <span class="next"><a href="/go/hugo模板.html">
+        single模板
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.6f09dae3.js" defer></script><script src="/assets/js/2.c79bcad0.js" defer></script><script src="/assets/js/19.9f302e37.js" defer></script>
+  </body>
+</html>

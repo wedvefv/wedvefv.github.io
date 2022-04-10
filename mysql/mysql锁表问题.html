@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>mysql锁表问题 | 长沙忆</title>
+    <meta name="generator" content="VuePress 1.9.7">
+    <link rel="icon" href="/head.jpg">
+    <meta name="description" content="">
+    
+    <link rel="preload" href="/assets/css/0.styles.e4d8b86b.css" as="style"><link rel="preload" href="/assets/js/app.6f09dae3.js" as="script"><link rel="preload" href="/assets/js/2.c79bcad0.js" as="script"><link rel="preload" href="/assets/js/59.3ae95016.js" as="script"><link rel="prefetch" href="/assets/js/10.975457e5.js"><link rel="prefetch" href="/assets/js/11.1c27b0af.js"><link rel="prefetch" href="/assets/js/12.a448ddcb.js"><link rel="prefetch" href="/assets/js/13.0ab9eacc.js"><link rel="prefetch" href="/assets/js/14.cfa63e8d.js"><link rel="prefetch" href="/assets/js/15.ca624394.js"><link rel="prefetch" href="/assets/js/16.a8e21fb7.js"><link rel="prefetch" href="/assets/js/17.81ca5b5f.js"><link rel="prefetch" href="/assets/js/18.82805271.js"><link rel="prefetch" href="/assets/js/19.9f302e37.js"><link rel="prefetch" href="/assets/js/20.416186a6.js"><link rel="prefetch" href="/assets/js/21.2dd9bb7e.js"><link rel="prefetch" href="/assets/js/22.b8b4e88b.js"><link rel="prefetch" href="/assets/js/23.35d9b159.js"><link rel="prefetch" href="/assets/js/24.fcd256d1.js"><link rel="prefetch" href="/assets/js/25.aec4c80a.js"><link rel="prefetch" href="/assets/js/26.dd76b597.js"><link rel="prefetch" href="/assets/js/27.fdc4d628.js"><link rel="prefetch" href="/assets/js/28.9b4cdc3e.js"><link rel="prefetch" href="/assets/js/29.c2418fc2.js"><link rel="prefetch" href="/assets/js/3.95cfbce8.js"><link rel="prefetch" href="/assets/js/30.7a312a28.js"><link rel="prefetch" href="/assets/js/31.c1a82d12.js"><link rel="prefetch" href="/assets/js/32.4b5d2348.js"><link rel="prefetch" href="/assets/js/33.ca78ab3b.js"><link rel="prefetch" href="/assets/js/34.d553b8eb.js"><link rel="prefetch" href="/assets/js/35.85db3cdd.js"><link rel="prefetch" href="/assets/js/36.d349ae29.js"><link rel="prefetch" href="/assets/js/37.c5f66e1d.js"><link rel="prefetch" href="/assets/js/38.02f0ba94.js"><link rel="prefetch" href="/assets/js/39.52cae465.js"><link rel="prefetch" href="/assets/js/4.0a2f3beb.js"><link rel="prefetch" href="/assets/js/40.6a8fee68.js"><link rel="prefetch" href="/assets/js/41.73b2cc12.js"><link rel="prefetch" href="/assets/js/42.3b057716.js"><link rel="prefetch" href="/assets/js/43.2b52373b.js"><link rel="prefetch" href="/assets/js/44.faa69e48.js"><link rel="prefetch" href="/assets/js/45.681a1dcb.js"><link rel="prefetch" href="/assets/js/46.1591b64f.js"><link rel="prefetch" href="/assets/js/47.8d3acec6.js"><link rel="prefetch" href="/assets/js/48.1c0fa4e2.js"><link rel="prefetch" href="/assets/js/49.896e54a4.js"><link rel="prefetch" href="/assets/js/5.a33a2f42.js"><link rel="prefetch" href="/assets/js/50.e92d18c5.js"><link rel="prefetch" href="/assets/js/51.fdfa2825.js"><link rel="prefetch" href="/assets/js/52.bc4ea37b.js"><link rel="prefetch" href="/assets/js/53.908b00d0.js"><link rel="prefetch" href="/assets/js/54.ef1e0c70.js"><link rel="prefetch" href="/assets/js/55.b93a790a.js"><link rel="prefetch" href="/assets/js/56.9c21842b.js"><link rel="prefetch" href="/assets/js/57.99b570f4.js"><link rel="prefetch" href="/assets/js/58.c3a14b1a.js"><link rel="prefetch" href="/assets/js/6.f0091315.js"><link rel="prefetch" href="/assets/js/60.cd0deb96.js"><link rel="prefetch" href="/assets/js/61.acbe6762.js"><link rel="prefetch" href="/assets/js/62.47dd01c3.js"><link rel="prefetch" href="/assets/js/63.419b2e02.js"><link rel="prefetch" href="/assets/js/64.aca7ba58.js"><link rel="prefetch" href="/assets/js/65.8708a04f.js"><link rel="prefetch" href="/assets/js/66.ec5ca850.js"><link rel="prefetch" href="/assets/js/67.94f7a742.js"><link rel="prefetch" href="/assets/js/68.213fb284.js"><link rel="prefetch" href="/assets/js/69.8b4daa17.js"><link rel="prefetch" href="/assets/js/7.71ba8e13.js"><link rel="prefetch" href="/assets/js/70.fabbdaf6.js"><link rel="prefetch" href="/assets/js/71.930221b6.js"><link rel="prefetch" href="/assets/js/72.859e77c9.js"><link rel="prefetch" href="/assets/js/73.279146ce.js"><link rel="prefetch" href="/assets/js/74.1e40dedb.js"><link rel="prefetch" href="/assets/js/75.3e1de9d0.js"><link rel="prefetch" href="/assets/js/76.293d28d0.js"><link rel="prefetch" href="/assets/js/77.7d3cb116.js"><link rel="prefetch" href="/assets/js/78.9b34c3b2.js"><link rel="prefetch" href="/assets/js/79.954b888e.js"><link rel="prefetch" href="/assets/js/8.201219d6.js"><link rel="prefetch" href="/assets/js/80.a8c7b480.js"><link rel="prefetch" href="/assets/js/81.719e8b65.js"><link rel="prefetch" href="/assets/js/82.16c0e85a.js"><link rel="prefetch" href="/assets/js/83.12591e49.js"><link rel="prefetch" href="/assets/js/84.3463754c.js"><link rel="prefetch" href="/assets/js/85.de632e63.js"><link rel="prefetch" href="/assets/js/86.dc837446.js"><link rel="prefetch" href="/assets/js/87.cb51a538.js"><link rel="prefetch" href="/assets/js/88.6d678c4e.js"><link rel="prefetch" href="/assets/js/89.9f23b6dd.js"><link rel="prefetch" href="/assets/js/9.b3227388.js"><link rel="prefetch" href="/assets/js/90.9b146aea.js"><link rel="prefetch" href="/assets/js/91.3b8e808b.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.e4d8b86b.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><img src="/head.jpg" alt="长沙忆" class="logo"> <span class="site-name can-hide">长沙忆</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="编程" class="dropdown-title"><span class="title">编程</span> <span class="arrow down"></span></button> <button type="button" aria-label="编程" class="mobile-dropdown-title"><span class="title">编程</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/8086/" class="nav-link">
+  8086
+</a></li><li class="dropdown-item"><!----> <a href="/git/" class="nav-link">
+  git
+</a></li><li class="dropdown-item"><!----> <a href="/go/" class="nav-link">
+  go
+</a></li><li class="dropdown-item"><!----> <a href="/linux/" class="nav-link">
+  linux
+</a></li><li class="dropdown-item"><!----> <a href="/linux_os/" class="nav-link">
+  linux_os
+</a></li><li class="dropdown-item"><!----> <a href="/lua/" class="nav-link">
+  lua
+</a></li><li class="dropdown-item"><!----> <a href="/mysql/" class="nav-link router-link-active">
+  mysql
+</a></li><li class="dropdown-item"><!----> <a href="/nginx/" class="nav-link">
+  nginx
+</a></li><li class="dropdown-item"><!----> <a href="/php/" class="nav-link">
+  php
+</a></li><li class="dropdown-item"><!----> <a href="/python/" class="nav-link">
+  python
+</a></li><li class="dropdown-item"><!----> <a href="/qt/" class="nav-link">
+  qt
+</a></li><li class="dropdown-item"><!----> <a href="/regex/" class="nav-link">
+  regex
+</a></li><li class="dropdown-item"><!----> <a href="/vim/" class="nav-link">
+  vim
+</a></li><li class="dropdown-item"><!----> <a href="/vue/" class="nav-link">
+  vue
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="古中医" class="dropdown-title"><span class="title">古中医</span> <span class="arrow down"></span></button> <button type="button" aria-label="古中医" class="mobile-dropdown-title"><span class="title">古中医</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/guzhongyi/zuojiyun/" class="nav-link">
+  伤寒论类方汇参-左季云
+</a></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="编程" class="dropdown-title"><span class="title">编程</span> <span class="arrow down"></span></button> <button type="button" aria-label="编程" class="mobile-dropdown-title"><span class="title">编程</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/8086/" class="nav-link">
+  8086
+</a></li><li class="dropdown-item"><!----> <a href="/git/" class="nav-link">
+  git
+</a></li><li class="dropdown-item"><!----> <a href="/go/" class="nav-link">
+  go
+</a></li><li class="dropdown-item"><!----> <a href="/linux/" class="nav-link">
+  linux
+</a></li><li class="dropdown-item"><!----> <a href="/linux_os/" class="nav-link">
+  linux_os
+</a></li><li class="dropdown-item"><!----> <a href="/lua/" class="nav-link">
+  lua
+</a></li><li class="dropdown-item"><!----> <a href="/mysql/" class="nav-link router-link-active">
+  mysql
+</a></li><li class="dropdown-item"><!----> <a href="/nginx/" class="nav-link">
+  nginx
+</a></li><li class="dropdown-item"><!----> <a href="/php/" class="nav-link">
+  php
+</a></li><li class="dropdown-item"><!----> <a href="/python/" class="nav-link">
+  python
+</a></li><li class="dropdown-item"><!----> <a href="/qt/" class="nav-link">
+  qt
+</a></li><li class="dropdown-item"><!----> <a href="/regex/" class="nav-link">
+  regex
+</a></li><li class="dropdown-item"><!----> <a href="/vim/" class="nav-link">
+  vim
+</a></li><li class="dropdown-item"><!----> <a href="/vue/" class="nav-link">
+  vue
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="古中医" class="dropdown-title"><span class="title">古中医</span> <span class="arrow down"></span></button> <button type="button" aria-label="古中医" class="mobile-dropdown-title"><span class="title">古中医</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/guzhongyi/zuojiyun/" class="nav-link">
+  伤寒论类方汇参-左季云
+</a></li></ul></div></div> <!----></nav>  <ul class="sidebar-links"><li><a href="/mysql/mysql56优化.html" class="sidebar-link">数据库层级优化</a></li><li><a href="/mysql/mysql_float.html" class="sidebar-link">浮点数的解释</a></li><li><a href="/mysql/mysql添加用户.html" class="sidebar-link"># docker 安装mysql5.6</a></li><li><a href="/mysql/mysql锁表问题.html" class="active sidebar-link">mysql锁表问题</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/mysql/mysql锁表问题.html#mysql锁表问题" class="sidebar-link">mysql锁表问题</a></li><li class="sidebar-sub-header"><a href="/mysql/mysql锁表问题.html#整理空间碎片" class="sidebar-link">整理空间碎片</a></li></ul></li><li><a href="/mysql/全表扫描快于索引的原因.html" class="sidebar-link">/mysql/全表扫描快于索引的原因.html</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h2 id="mysql锁表问题"><a href="#mysql锁表问题" class="header-anchor">#</a> mysql锁表问题</h2> <ul><li><p>修改表结构的时候: 添加索引， 添加字段，删除字段</p></li> <li><p>对于mysql5.5以及以前的版本都是会锁表的，不允许insert update等写操作.</p> <ul><li>因此处出现了好多在线迁移工具。</li></ul></li> <li><p>对于mysql5.6版本以上，允许在线修DDL了。</p></li> <li></li></ul> <h2 id="整理空间碎片"><a href="#整理空间碎片" class="header-anchor">#</a> 整理空间碎片</h2> <ul><li><p>MyISAM引擎 才支持修复表repair table test， innodb不支持;</p></li> <li><p>整理表空间 optimize table，一般建议只对有可变长度的文本数据进行，MyiSAM比较明显。一般一周一月左一次，不建议频繁，且 会锁表。</p> <ul><li>为什么要锁表呢？</li> <li>alter过程里，数据不停从旧表拷贝到新表，如果这个时候旧表被delete了数据了，那旧表与新表的数据就不一致了，到最后rename 新表 to 旧表表名 时候，数据量就多了</li> <li>如果在拷贝数据的过程中，对旧表数据的delete，同时对新表也做delete,那数据就一致了，对于update和insert也一样，这个功能可以通过 insert触发器，delete触发器，update触发器实现</li></ul></li> <li><p>mysql5.5 次操作会锁表，禁止写入。</p></li> <li><p>mysql5.6.6不会锁表了，但是，如果在主库执行optimize table会<strong>造成从库延迟</strong>，这种情况下，可以使用 optiminze no_write_to_binlog table xxxx ; 这样就不会把optimize操作写入binlog。主库执行完后，再到从库执行optimize table操作。</p></li> <li><p>针对innodb引擎，会提示does not support optimize, doing recreate + analyze  instead</p> <ul><li>实际innodb不支持optimize，实际执行的是重建表加上表分析操作。也会释放空间。</li> <li>mysql5.6.51测试是不支持 alter table tb1 engine=innodb操作的，会提示文件不正确。</li> <li>mysql5.7 支持且推荐用 alter table tb1 engine=innodb；来整理表，重建记录释放空间。</li></ul></li> <li><p>使用mysqld --skip-new重启mysqlserver后，可以支持innodb引擎，不再提示上面的recreate信息了。</p></li> <li></li></ul></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/mysql/mysql添加用户.html" class="prev">
+        # docker 安装mysql5.6
+      </a></span> <span class="next"><a href="/mysql/全表扫描快于索引的原因.html">
+        /mysql/全表扫描快于索引的原因.html
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.6f09dae3.js" defer></script><script src="/assets/js/2.c79bcad0.js" defer></script><script src="/assets/js/59.3ae95016.js" defer></script>
+  </body>
+</html>

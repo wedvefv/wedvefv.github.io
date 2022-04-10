@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>urlib 模块 | 长沙忆</title>
+    <meta name="generator" content="VuePress 1.9.7">
+    <link rel="icon" href="/head.jpg">
+    <meta name="description" content="">
+    
+    <link rel="preload" href="/assets/css/0.styles.e4d8b86b.css" as="style"><link rel="preload" href="/assets/js/app.6f09dae3.js" as="script"><link rel="preload" href="/assets/js/2.c79bcad0.js" as="script"><link rel="preload" href="/assets/js/78.9b34c3b2.js" as="script"><link rel="prefetch" href="/assets/js/10.975457e5.js"><link rel="prefetch" href="/assets/js/11.1c27b0af.js"><link rel="prefetch" href="/assets/js/12.a448ddcb.js"><link rel="prefetch" href="/assets/js/13.0ab9eacc.js"><link rel="prefetch" href="/assets/js/14.cfa63e8d.js"><link rel="prefetch" href="/assets/js/15.ca624394.js"><link rel="prefetch" href="/assets/js/16.a8e21fb7.js"><link rel="prefetch" href="/assets/js/17.81ca5b5f.js"><link rel="prefetch" href="/assets/js/18.82805271.js"><link rel="prefetch" href="/assets/js/19.9f302e37.js"><link rel="prefetch" href="/assets/js/20.416186a6.js"><link rel="prefetch" href="/assets/js/21.2dd9bb7e.js"><link rel="prefetch" href="/assets/js/22.b8b4e88b.js"><link rel="prefetch" href="/assets/js/23.35d9b159.js"><link rel="prefetch" href="/assets/js/24.fcd256d1.js"><link rel="prefetch" href="/assets/js/25.aec4c80a.js"><link rel="prefetch" href="/assets/js/26.dd76b597.js"><link rel="prefetch" href="/assets/js/27.fdc4d628.js"><link rel="prefetch" href="/assets/js/28.9b4cdc3e.js"><link rel="prefetch" href="/assets/js/29.c2418fc2.js"><link rel="prefetch" href="/assets/js/3.95cfbce8.js"><link rel="prefetch" href="/assets/js/30.7a312a28.js"><link rel="prefetch" href="/assets/js/31.c1a82d12.js"><link rel="prefetch" href="/assets/js/32.4b5d2348.js"><link rel="prefetch" href="/assets/js/33.ca78ab3b.js"><link rel="prefetch" href="/assets/js/34.d553b8eb.js"><link rel="prefetch" href="/assets/js/35.85db3cdd.js"><link rel="prefetch" href="/assets/js/36.d349ae29.js"><link rel="prefetch" href="/assets/js/37.c5f66e1d.js"><link rel="prefetch" href="/assets/js/38.02f0ba94.js"><link rel="prefetch" href="/assets/js/39.52cae465.js"><link rel="prefetch" href="/assets/js/4.0a2f3beb.js"><link rel="prefetch" href="/assets/js/40.6a8fee68.js"><link rel="prefetch" href="/assets/js/41.73b2cc12.js"><link rel="prefetch" href="/assets/js/42.3b057716.js"><link rel="prefetch" href="/assets/js/43.2b52373b.js"><link rel="prefetch" href="/assets/js/44.faa69e48.js"><link rel="prefetch" href="/assets/js/45.681a1dcb.js"><link rel="prefetch" href="/assets/js/46.1591b64f.js"><link rel="prefetch" href="/assets/js/47.8d3acec6.js"><link rel="prefetch" href="/assets/js/48.1c0fa4e2.js"><link rel="prefetch" href="/assets/js/49.896e54a4.js"><link rel="prefetch" href="/assets/js/5.a33a2f42.js"><link rel="prefetch" href="/assets/js/50.e92d18c5.js"><link rel="prefetch" href="/assets/js/51.fdfa2825.js"><link rel="prefetch" href="/assets/js/52.bc4ea37b.js"><link rel="prefetch" href="/assets/js/53.908b00d0.js"><link rel="prefetch" href="/assets/js/54.ef1e0c70.js"><link rel="prefetch" href="/assets/js/55.b93a790a.js"><link rel="prefetch" href="/assets/js/56.9c21842b.js"><link rel="prefetch" href="/assets/js/57.99b570f4.js"><link rel="prefetch" href="/assets/js/58.c3a14b1a.js"><link rel="prefetch" href="/assets/js/59.3ae95016.js"><link rel="prefetch" href="/assets/js/6.f0091315.js"><link rel="prefetch" href="/assets/js/60.cd0deb96.js"><link rel="prefetch" href="/assets/js/61.acbe6762.js"><link rel="prefetch" href="/assets/js/62.47dd01c3.js"><link rel="prefetch" href="/assets/js/63.419b2e02.js"><link rel="prefetch" href="/assets/js/64.aca7ba58.js"><link rel="prefetch" href="/assets/js/65.8708a04f.js"><link rel="prefetch" href="/assets/js/66.ec5ca850.js"><link rel="prefetch" href="/assets/js/67.94f7a742.js"><link rel="prefetch" href="/assets/js/68.213fb284.js"><link rel="prefetch" href="/assets/js/69.8b4daa17.js"><link rel="prefetch" href="/assets/js/7.71ba8e13.js"><link rel="prefetch" href="/assets/js/70.fabbdaf6.js"><link rel="prefetch" href="/assets/js/71.930221b6.js"><link rel="prefetch" href="/assets/js/72.859e77c9.js"><link rel="prefetch" href="/assets/js/73.279146ce.js"><link rel="prefetch" href="/assets/js/74.1e40dedb.js"><link rel="prefetch" href="/assets/js/75.3e1de9d0.js"><link rel="prefetch" href="/assets/js/76.293d28d0.js"><link rel="prefetch" href="/assets/js/77.7d3cb116.js"><link rel="prefetch" href="/assets/js/79.954b888e.js"><link rel="prefetch" href="/assets/js/8.201219d6.js"><link rel="prefetch" href="/assets/js/80.a8c7b480.js"><link rel="prefetch" href="/assets/js/81.719e8b65.js"><link rel="prefetch" href="/assets/js/82.16c0e85a.js"><link rel="prefetch" href="/assets/js/83.12591e49.js"><link rel="prefetch" href="/assets/js/84.3463754c.js"><link rel="prefetch" href="/assets/js/85.de632e63.js"><link rel="prefetch" href="/assets/js/86.dc837446.js"><link rel="prefetch" href="/assets/js/87.cb51a538.js"><link rel="prefetch" href="/assets/js/88.6d678c4e.js"><link rel="prefetch" href="/assets/js/89.9f23b6dd.js"><link rel="prefetch" href="/assets/js/9.b3227388.js"><link rel="prefetch" href="/assets/js/90.9b146aea.js"><link rel="prefetch" href="/assets/js/91.3b8e808b.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.e4d8b86b.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><img src="/head.jpg" alt="长沙忆" class="logo"> <span class="site-name can-hide">长沙忆</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="编程" class="dropdown-title"><span class="title">编程</span> <span class="arrow down"></span></button> <button type="button" aria-label="编程" class="mobile-dropdown-title"><span class="title">编程</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/8086/" class="nav-link">
+  8086
+</a></li><li class="dropdown-item"><!----> <a href="/git/" class="nav-link">
+  git
+</a></li><li class="dropdown-item"><!----> <a href="/go/" class="nav-link">
+  go
+</a></li><li class="dropdown-item"><!----> <a href="/linux/" class="nav-link">
+  linux
+</a></li><li class="dropdown-item"><!----> <a href="/linux_os/" class="nav-link">
+  linux_os
+</a></li><li class="dropdown-item"><!----> <a href="/lua/" class="nav-link">
+  lua
+</a></li><li class="dropdown-item"><!----> <a href="/mysql/" class="nav-link">
+  mysql
+</a></li><li class="dropdown-item"><!----> <a href="/nginx/" class="nav-link">
+  nginx
+</a></li><li class="dropdown-item"><!----> <a href="/php/" class="nav-link">
+  php
+</a></li><li class="dropdown-item"><!----> <a href="/python/" class="nav-link router-link-active">
+  python
+</a></li><li class="dropdown-item"><!----> <a href="/qt/" class="nav-link">
+  qt
+</a></li><li class="dropdown-item"><!----> <a href="/regex/" class="nav-link">
+  regex
+</a></li><li class="dropdown-item"><!----> <a href="/vim/" class="nav-link">
+  vim
+</a></li><li class="dropdown-item"><!----> <a href="/vue/" class="nav-link">
+  vue
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="古中医" class="dropdown-title"><span class="title">古中医</span> <span class="arrow down"></span></button> <button type="button" aria-label="古中医" class="mobile-dropdown-title"><span class="title">古中医</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/guzhongyi/zuojiyun/" class="nav-link">
+  伤寒论类方汇参-左季云
+</a></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="编程" class="dropdown-title"><span class="title">编程</span> <span class="arrow down"></span></button> <button type="button" aria-label="编程" class="mobile-dropdown-title"><span class="title">编程</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/8086/" class="nav-link">
+  8086
+</a></li><li class="dropdown-item"><!----> <a href="/git/" class="nav-link">
+  git
+</a></li><li class="dropdown-item"><!----> <a href="/go/" class="nav-link">
+  go
+</a></li><li class="dropdown-item"><!----> <a href="/linux/" class="nav-link">
+  linux
+</a></li><li class="dropdown-item"><!----> <a href="/linux_os/" class="nav-link">
+  linux_os
+</a></li><li class="dropdown-item"><!----> <a href="/lua/" class="nav-link">
+  lua
+</a></li><li class="dropdown-item"><!----> <a href="/mysql/" class="nav-link">
+  mysql
+</a></li><li class="dropdown-item"><!----> <a href="/nginx/" class="nav-link">
+  nginx
+</a></li><li class="dropdown-item"><!----> <a href="/php/" class="nav-link">
+  php
+</a></li><li class="dropdown-item"><!----> <a href="/python/" class="nav-link router-link-active">
+  python
+</a></li><li class="dropdown-item"><!----> <a href="/qt/" class="nav-link">
+  qt
+</a></li><li class="dropdown-item"><!----> <a href="/regex/" class="nav-link">
+  regex
+</a></li><li class="dropdown-item"><!----> <a href="/vim/" class="nav-link">
+  vim
+</a></li><li class="dropdown-item"><!----> <a href="/vue/" class="nav-link">
+  vue
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="古中医" class="dropdown-title"><span class="title">古中医</span> <span class="arrow down"></span></button> <button type="button" aria-label="古中医" class="mobile-dropdown-title"><span class="title">古中医</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/guzhongyi/zuojiyun/" class="nav-link">
+  伤寒论类方汇参-左季云
+</a></li></ul></div></div> <!----></nav>  <ul class="sidebar-links"><li><a href="/python/1_三种装饰器.html" class="sidebar-link">property装饰器作用和原理</a></li><li><a href="/python/2__init__文件的作用.html" class="sidebar-link">python 导入模块文件的2中方式</a></li><li><a href="/python/3_reload_sys.html" class="sidebar-link">为什么需要sys.setdefaultencoding(&quot;utf-8&quot;)</a></li><li><a href="/python/4_python.html" class="sidebar-link">len函数：</a></li><li><a href="/python/4_scrapy.html" class="sidebar-link">1.初识爬虫</a></li><li><a href="/python/5_http.html" aria-current="page" class="active sidebar-link">urlib 模块</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/python/5_http.html#urlib-模块" class="sidebar-link">urlib 模块</a></li><li class="sidebar-sub-header"><a href="/python/5_http.html#附带一个有道翻译接口例子" class="sidebar-link">附带一个有道翻译接口例子</a></li><li class="sidebar-sub-header"><a href="/python/5_http.html#urlerror-异常" class="sidebar-link">URLError 异常</a></li><li class="sidebar-sub-header"><a href="/python/5_http.html#request-模块" class="sidebar-link">request 模块</a></li></ul></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h2 id="urlib-模块"><a href="#urlib-模块" class="header-anchor">#</a> urlib 模块</h2> <ul><li><p>urlib.urlopen(url) 只由url参数，不能设置header等信息</p></li> <li><p>urllib有urlencode函数，可以把字典编码转成get参数（&amp;方式连接）, urllib2 没有</p></li> <li><p>urllib.quote(s, safe='/') 是转义编码用的, 默认不编码/, 且把空格转成%20</p></li> <li><p>urllib.quote_plus(s, safe='') 默认全部编码, 会调用quote(s, safe=' ') 不编码空格, 最后替换s中的空格为## urllib2 模块</p></li> <li><p>urllib2.Request(url,data,headers) 构造一个Request对象</p></li> <li><p>urllib2.urlopen(request对象或者url)，如果传url只能是url，不能附带header和data。</p></li> <li><p>由于urllib2 没有编码函数，所以经常和urllib一起导入，使用urlencode函数或者quote函数。</p></li> <li><p>cookie支持方法</p></li></ul> <div class="language-python line-numbers-mode"><pre class="language-python"><code>cookie<span class="token operator">=</span>cookielib<span class="token punctuation">.</span>CookieJar<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment"># 声明CookieJar对象实例来保存cookie</span>
+	handler<span class="token operator">=</span>urllib2<span class="token punctuation">.</span>HTTPCookieProcessor<span class="token punctuation">(</span>cookie<span class="token punctuation">)</span> <span class="token comment"># 利用urllib2库的HTTPCookieProcessor对象来创建cookie处理器</span>
+	opener<span class="token operator">=</span>urllib2<span class="token punctuation">.</span>build_opener<span class="token punctuation">(</span>handler<span class="token punctuation">)</span> <span class="token comment"># 通过handler构建opener</span>
+	urllib2<span class="token punctuation">.</span>install_opener<span class="token punctuation">(</span>opener<span class="token punctuation">)</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br></div></div><ul><li>如果没有data字段就是get方式，否则是post请求</li> <li>如果post是json格式， headr指定json，data需要json.dumps()</li> <li>如果表单方式，需要data需要urllib.urlencode()</li> <li>request 对象有add_header(key,value)函数, 添加header 字段名key，值是value。</li> <li>urlopen(url, timeout=1) 可以有超时函数,单位秒</li> <li>read() 读取返回body数据</li></ul> <div class="language-python line-numbers-mode"><pre class="language-python"><code><span class="token comment"># 使用代理服务器, 打开请求过程的 debuglog</span>
+<span class="token keyword">def</span> <span class="token function">use_proxy</span><span class="token punctuation">(</span>proxy_addr<span class="token punctuation">,</span> url<span class="token punctuation">,</span> data<span class="token punctuation">,</span> headers<span class="token punctuation">)</span><span class="token punctuation">:</span>
+	<span class="token keyword">print</span> proxy_addr
+	proxyHandler <span class="token operator">=</span> urllib2<span class="token punctuation">.</span>ProxyHandler<span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token string">&quot;http&quot;</span><span class="token punctuation">:</span> proxy_addr<span class="token punctuation">}</span><span class="token punctuation">)</span>
+	<span class="token comment"># build_opener(*handlers) 绑定一些句柄</span>
+	opener <span class="token operator">=</span> urllib2<span class="token punctuation">.</span>build_opener<span class="token punctuation">(</span>proxyHandler<span class="token punctuation">,</span> urllib2<span class="token punctuation">.</span>HTTPHandler<span class="token punctuation">(</span>debuglevel<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+	urllib2<span class="token punctuation">.</span>install_opener<span class="token punctuation">(</span>opener<span class="token punctuation">)</span>
+
+	request <span class="token operator">=</span> urllib2<span class="token punctuation">.</span>Request<span class="token punctuation">(</span>url<span class="token punctuation">,</span> data<span class="token operator">=</span>data<span class="token punctuation">,</span> headers<span class="token operator">=</span>headers<span class="token punctuation">)</span>
+	response <span class="token operator">=</span> urllib2<span class="token punctuation">.</span>urlopen<span class="token punctuation">(</span>request<span class="token punctuation">,</span>timeout<span class="token operator">=</span><span class="token number">5</span><span class="token punctuation">)</span>
+
+	<span class="token keyword">return</span> response<span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token comment"># linux 需要安装代理软件squid, 默认代理http_proxy 端口是3128</span>
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br></div></div><h2 id="附带一个有道翻译接口例子"><a href="#附带一个有道翻译接口例子" class="header-anchor">#</a> 附带一个有道翻译接口例子</h2> <div class="language-python line-numbers-mode"><pre class="language-python"><code><span class="token comment">#encoding=utf8</span>
+
+<span class="token keyword">import</span> urllib<span class="token punctuation">,</span> urllib2
+<span class="token comment"># 请求地址url</span>
+url <span class="token operator">=</span> <span class="token string">&quot;http://fanyi.youdao.com/translate?smartresult=dict&amp;smartresult=rule&quot;</span>
+
+request_headers <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token string">&quot;Host&quot;</span><span class="token punctuation">:</span><span class="token string">'fanyi.youdao.com'</span><span class="token punctuation">,</span>
+    <span class="token string">&quot;User-Agent&quot;</span><span class="token punctuation">:</span> <span class="token string">&quot;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.108 Safari/537.36&quot;</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
+ 
+<span class="token comment"># 发送给服务器的表单</span>
+form_data <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token string">&quot;i&quot;</span><span class="token punctuation">:</span> <span class="token string">&quot;woman&quot;</span><span class="token punctuation">,</span>
+    <span class="token string">&quot;from&quot;</span><span class="token punctuation">:</span> <span class="token string">&quot;AUTO&quot;</span><span class="token punctuation">,</span>
+    <span class="token string">&quot;to&quot;</span><span class="token punctuation">:</span> <span class="token string">&quot;AUTO&quot;</span><span class="token punctuation">,</span>
+    <span class="token string">&quot;smartresult&quot;</span><span class="token punctuation">:</span> <span class="token string">&quot;dict&quot;</span><span class="token punctuation">,</span>
+    <span class="token string">&quot;doctype&quot;</span><span class="token punctuation">:</span> <span class="token string">&quot;json&quot;</span><span class="token punctuation">,</span>
+    <span class="token string">&quot;version&quot;</span><span class="token punctuation">:</span> <span class="token string">&quot;2.1&quot;</span><span class="token punctuation">,</span>
+    <span class="token string">&quot;keyfrom&quot;</span><span class="token punctuation">:</span> <span class="token string">&quot;fanyi.web&quot;</span><span class="token punctuation">,</span>
+    <span class="token string">&quot;action&quot;</span><span class="token punctuation">:</span> <span class="token string">&quot;FY_BY_REALTIME&quot;</span><span class="token punctuation">,</span>
+    <span class="token string">&quot;typoResult&quot;</span><span class="token punctuation">:</span> <span class="token string">&quot;false&quot;</span>
+<span class="token punctuation">}</span>
+ 
+<span class="token comment"># POST发送的data必须为bytes或bytes类型的可迭代对象，不能是字符串</span>
+form_data <span class="token operator">=</span> urllib<span class="token punctuation">.</span>urlencode<span class="token punctuation">(</span>form_data<span class="token punctuation">)</span> 
+ 
+<span class="token comment"># 构造请求对象Request</span>
+<span class="token comment"># req = urllib2.Request(url, data=form_data, headers=request_headers)</span>
+
+<span class="token keyword">def</span> <span class="token function">use_proxy</span><span class="token punctuation">(</span>proxy_addr<span class="token punctuation">,</span> url<span class="token punctuation">,</span> data<span class="token punctuation">,</span> headers<span class="token punctuation">)</span><span class="token punctuation">:</span>
+	<span class="token keyword">print</span> proxy_addr
+	proxy <span class="token operator">=</span> urllib2<span class="token punctuation">.</span>ProxyHandler<span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token string">&quot;http&quot;</span><span class="token punctuation">:</span> proxy_addr<span class="token punctuation">}</span><span class="token punctuation">)</span>
+	<span class="token comment"># build_opener(*handlers) 绑定一些句柄</span>
+	han <span class="token operator">=</span> urllib2<span class="token punctuation">.</span>build_opener<span class="token punctuation">(</span>proxy<span class="token punctuation">,</span> urllib2<span class="token punctuation">.</span>HTTPHandler<span class="token punctuation">(</span>debuglevel<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+	urllib2<span class="token punctuation">.</span>install_opener<span class="token punctuation">(</span>han<span class="token punctuation">)</span>
+	<span class="token keyword">print</span> url
+	request <span class="token operator">=</span> urllib2<span class="token punctuation">.</span>Request<span class="token punctuation">(</span>url<span class="token punctuation">,</span> data<span class="token operator">=</span>data<span class="token punctuation">,</span> headers<span class="token operator">=</span>headers<span class="token punctuation">)</span>
+	response <span class="token operator">=</span> urllib2<span class="token punctuation">.</span>urlopen<span class="token punctuation">(</span>request<span class="token punctuation">,</span>timeout<span class="token operator">=</span><span class="token number">5</span><span class="token punctuation">)</span>
+
+	<span class="token keyword">return</span> response<span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+
+<span class="token comment"># 发起请求</span>
+<span class="token comment"># response = urllib2.urlopen(req)</span>
+<span class="token comment"># data = response.read()</span>
+
+data <span class="token operator">=</span> use_proxy<span class="token punctuation">(</span><span class="token string">&quot;127.0.0.1:3128&quot;</span><span class="token punctuation">,</span> url<span class="token punctuation">,</span> form_data<span class="token punctuation">,</span> request_headers<span class="token punctuation">)</span>
+<span class="token keyword">print</span> data
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br><span class="line-number">48</span><br><span class="line-number">49</span><br></div></div><h2 id="urlerror-异常"><a href="#urlerror-异常" class="header-anchor">#</a> URLError 异常</h2> <h2 id="request-模块"><a href="#request-模块" class="header-anchor">#</a> request 模块</h2> <ul><li>第三方模块，需要pip install 安装</li> <li>其实也是封装了urllib3的功能, 也改进了一部分</li></ul></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/python/4_scrapy.html" class="prev">
+        1.初识爬虫
+      </a></span> <!----></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.6f09dae3.js" defer></script><script src="/assets/js/2.c79bcad0.js" defer></script><script src="/assets/js/78.9b34c3b2.js" defer></script>
+  </body>
+</html>
