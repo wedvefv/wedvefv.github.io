@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>centos7虚拟机配置静态ip | 长沙忆</title>
+    <meta name="generator" content="VuePress 1.9.7">
+    <link rel="icon" href="/head.jpg">
+    <meta name="description" content="">
+    
+    <link rel="preload" href="/assets/css/0.styles.e4d8b86b.css" as="style"><link rel="preload" href="/assets/js/app.e848dc33.js" as="script"><link rel="preload" href="/assets/js/2.c79bcad0.js" as="script"><link rel="preload" href="/assets/js/40.3af853c1.js" as="script"><link rel="prefetch" href="/assets/js/10.bd87a44f.js"><link rel="prefetch" href="/assets/js/11.964595ee.js"><link rel="prefetch" href="/assets/js/12.a8aa9728.js"><link rel="prefetch" href="/assets/js/13.bfa445e0.js"><link rel="prefetch" href="/assets/js/14.acebf196.js"><link rel="prefetch" href="/assets/js/15.5b3b4010.js"><link rel="prefetch" href="/assets/js/16.36586ad7.js"><link rel="prefetch" href="/assets/js/17.e57250f7.js"><link rel="prefetch" href="/assets/js/18.5b4637c2.js"><link rel="prefetch" href="/assets/js/19.6fd5a546.js"><link rel="prefetch" href="/assets/js/20.a79c8d3f.js"><link rel="prefetch" href="/assets/js/21.e597d9f8.js"><link rel="prefetch" href="/assets/js/22.dc9dd92d.js"><link rel="prefetch" href="/assets/js/23.5e518c6a.js"><link rel="prefetch" href="/assets/js/24.fcd256d1.js"><link rel="prefetch" href="/assets/js/25.42db274c.js"><link rel="prefetch" href="/assets/js/26.89ff33be.js"><link rel="prefetch" href="/assets/js/27.97de397d.js"><link rel="prefetch" href="/assets/js/28.bf92ca9c.js"><link rel="prefetch" href="/assets/js/29.012e8232.js"><link rel="prefetch" href="/assets/js/3.c8d00172.js"><link rel="prefetch" href="/assets/js/30.22fdf1b1.js"><link rel="prefetch" href="/assets/js/31.21cc50bd.js"><link rel="prefetch" href="/assets/js/32.6db14ed0.js"><link rel="prefetch" href="/assets/js/33.d4ff55f2.js"><link rel="prefetch" href="/assets/js/34.bf6c3194.js"><link rel="prefetch" href="/assets/js/35.2270a580.js"><link rel="prefetch" href="/assets/js/36.81a40b12.js"><link rel="prefetch" href="/assets/js/37.c6ec8100.js"><link rel="prefetch" href="/assets/js/38.70fd54e9.js"><link rel="prefetch" href="/assets/js/39.3218dd21.js"><link rel="prefetch" href="/assets/js/4.0a2f3beb.js"><link rel="prefetch" href="/assets/js/41.b8ff73f9.js"><link rel="prefetch" href="/assets/js/42.191c7f6b.js"><link rel="prefetch" href="/assets/js/43.1fe01fac.js"><link rel="prefetch" href="/assets/js/44.ba41f499.js"><link rel="prefetch" href="/assets/js/45.24804968.js"><link rel="prefetch" href="/assets/js/46.cdfccfed.js"><link rel="prefetch" href="/assets/js/47.fd3dfe5e.js"><link rel="prefetch" href="/assets/js/48.dfb61eb8.js"><link rel="prefetch" href="/assets/js/49.f4fabc8e.js"><link rel="prefetch" href="/assets/js/5.a33a2f42.js"><link rel="prefetch" href="/assets/js/50.d0a696e8.js"><link rel="prefetch" href="/assets/js/51.28b39f09.js"><link rel="prefetch" href="/assets/js/52.7834119a.js"><link rel="prefetch" href="/assets/js/53.81100007.js"><link rel="prefetch" href="/assets/js/54.cb30bac1.js"><link rel="prefetch" href="/assets/js/55.e53d0964.js"><link rel="prefetch" href="/assets/js/56.85a7127e.js"><link rel="prefetch" href="/assets/js/57.01098346.js"><link rel="prefetch" href="/assets/js/58.9dfec9af.js"><link rel="prefetch" href="/assets/js/59.3f2d9695.js"><link rel="prefetch" href="/assets/js/6.f0091315.js"><link rel="prefetch" href="/assets/js/60.e83b14ca.js"><link rel="prefetch" href="/assets/js/61.63faac89.js"><link rel="prefetch" href="/assets/js/62.37343071.js"><link rel="prefetch" href="/assets/js/63.18f9af49.js"><link rel="prefetch" href="/assets/js/64.18784338.js"><link rel="prefetch" href="/assets/js/65.f784295b.js"><link rel="prefetch" href="/assets/js/66.824c1e28.js"><link rel="prefetch" href="/assets/js/67.e1b72556.js"><link rel="prefetch" href="/assets/js/68.c2c42d50.js"><link rel="prefetch" href="/assets/js/69.5b84787f.js"><link rel="prefetch" href="/assets/js/7.12aee0f3.js"><link rel="prefetch" href="/assets/js/70.95d010d2.js"><link rel="prefetch" href="/assets/js/71.bb7c720a.js"><link rel="prefetch" href="/assets/js/72.112614a7.js"><link rel="prefetch" href="/assets/js/73.ce6c5aa8.js"><link rel="prefetch" href="/assets/js/74.4f31bceb.js"><link rel="prefetch" href="/assets/js/75.6f1ee907.js"><link rel="prefetch" href="/assets/js/76.b149341f.js"><link rel="prefetch" href="/assets/js/77.1d0bb242.js"><link rel="prefetch" href="/assets/js/78.c1d95898.js"><link rel="prefetch" href="/assets/js/79.d46e7d25.js"><link rel="prefetch" href="/assets/js/8.0165d2c8.js"><link rel="prefetch" href="/assets/js/80.5604ac3c.js"><link rel="prefetch" href="/assets/js/81.ba3532f9.js"><link rel="prefetch" href="/assets/js/82.3d7aecda.js"><link rel="prefetch" href="/assets/js/83.f8618ddb.js"><link rel="prefetch" href="/assets/js/84.15548300.js"><link rel="prefetch" href="/assets/js/85.bd45269f.js"><link rel="prefetch" href="/assets/js/86.4baaf3b7.js"><link rel="prefetch" href="/assets/js/9.b3227388.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.e4d8b86b.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><img src="/head.jpg" alt="长沙忆" class="logo"> <span class="site-name can-hide">长沙忆</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="编程" class="dropdown-title"><span class="title">编程</span> <span class="arrow down"></span></button> <button type="button" aria-label="编程" class="mobile-dropdown-title"><span class="title">编程</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/8086/" class="nav-link">
+  8086
+</a></li><li class="dropdown-item"><!----> <a href="/git/" class="nav-link">
+  git
+</a></li><li class="dropdown-item"><!----> <a href="/go/" class="nav-link">
+  go
+</a></li><li class="dropdown-item"><!----> <a href="/linux/" class="nav-link router-link-active">
+  linux
+</a></li><li class="dropdown-item"><!----> <a href="/lua/" class="nav-link">
+  lua
+</a></li><li class="dropdown-item"><!----> <a href="/mysql/" class="nav-link">
+  mysql
+</a></li><li class="dropdown-item"><!----> <a href="/nginx/" class="nav-link">
+  nginx
+</a></li><li class="dropdown-item"><!----> <a href="/php/" class="nav-link">
+  php
+</a></li><li class="dropdown-item"><!----> <a href="/python/" class="nav-link">
+  python
+</a></li><li class="dropdown-item"><!----> <a href="/regex/" class="nav-link">
+  regex
+</a></li><li class="dropdown-item"><!----> <a href="/vim/" class="nav-link">
+  vim
+</a></li><li class="dropdown-item"><!----> <a href="/vue/" class="nav-link">
+  vue
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="古中医" class="dropdown-title"><span class="title">古中医</span> <span class="arrow down"></span></button> <button type="button" aria-label="古中医" class="mobile-dropdown-title"><span class="title">古中医</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/guzhongyi/zuojiyun/" class="nav-link">
+  伤寒论类方汇参-左季云
+</a></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="编程" class="dropdown-title"><span class="title">编程</span> <span class="arrow down"></span></button> <button type="button" aria-label="编程" class="mobile-dropdown-title"><span class="title">编程</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/8086/" class="nav-link">
+  8086
+</a></li><li class="dropdown-item"><!----> <a href="/git/" class="nav-link">
+  git
+</a></li><li class="dropdown-item"><!----> <a href="/go/" class="nav-link">
+  go
+</a></li><li class="dropdown-item"><!----> <a href="/linux/" class="nav-link router-link-active">
+  linux
+</a></li><li class="dropdown-item"><!----> <a href="/lua/" class="nav-link">
+  lua
+</a></li><li class="dropdown-item"><!----> <a href="/mysql/" class="nav-link">
+  mysql
+</a></li><li class="dropdown-item"><!----> <a href="/nginx/" class="nav-link">
+  nginx
+</a></li><li class="dropdown-item"><!----> <a href="/php/" class="nav-link">
+  php
+</a></li><li class="dropdown-item"><!----> <a href="/python/" class="nav-link">
+  python
+</a></li><li class="dropdown-item"><!----> <a href="/regex/" class="nav-link">
+  regex
+</a></li><li class="dropdown-item"><!----> <a href="/vim/" class="nav-link">
+  vim
+</a></li><li class="dropdown-item"><!----> <a href="/vue/" class="nav-link">
+  vue
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="古中医" class="dropdown-title"><span class="title">古中医</span> <span class="arrow down"></span></button> <button type="button" aria-label="古中医" class="mobile-dropdown-title"><span class="title">古中医</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/guzhongyi/zuojiyun/" class="nav-link">
+  伤寒论类方汇参-左季云
+</a></li></ul></div></div> <!----></nav>  <ul class="sidebar-links"><li><a href="/linux/32位和64位cpu.html" class="sidebar-link">32和64位cpu的不同</a></li><li><a href="/linux/5_cmake.html" class="sidebar-link">cmake用法</a></li><li><a href="/linux/Elasticsearch_install.html" class="sidebar-link">elasticsearch 安装</a></li><li><a href="/linux/Elasticsearch_note.html" class="sidebar-link">elasticsearch note</a></li><li><a href="/linux/Elasticsearch_pinyin.html" class="sidebar-link">elasticsearch 拼音插件</a></li><li><a href="/linux/LinuxFTP.html" class="sidebar-link">centos7 FTP建立</a></li><li><a href="/linux/centos6-7_start_flow.html" class="sidebar-link">centos6_7启动流程</a></li><li><a href="/linux/centos7_install_mysql_python.html" class="sidebar-link">centos7 安装MySQL-python</a></li><li><a href="/linux/centos7_升级python.html" class="sidebar-link">centos7 升级python</a></li><li><a href="/linux/centos_small_install.html" class="sidebar-link">centos7 最小化安装</a></li><li><a href="/linux/dll_export.html" class="sidebar-link">DLL导出方法</a></li><li><a href="/linux/ipv6.html" class="sidebar-link">ipv6</a></li><li><a href="/linux/ip地址子网掩码的关系.html" class="sidebar-link">ip和掩码的关系</a></li><li><a href="/linux/journalctl.html" class="sidebar-link">centos7日志查看工具journalctl</a></li><li><a href="/linux/linux_c_help.html" class="sidebar-link">linux 函数手册</a></li><li><a href="/linux/linux常见命令.html" class="sidebar-link">如何查看centos版本</a></li><li><a href="/linux/linux虚拟机配置静态ip.html" class="active sidebar-link">centos7虚拟机配置静态ip</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/linux/linux虚拟机配置静态ip.html#_1-mac上的虚拟机使用-自动模式-就是桥接模式。" class="sidebar-link">1. mac上的虚拟机使用（自动模式）就是桥接模式。</a></li><li class="sidebar-sub-header"><a href="/linux/linux虚拟机配置静态ip.html#_2-查看自己的网卡名" class="sidebar-link">2. 查看自己的网卡名</a></li><li class="sidebar-sub-header"><a href="/linux/linux虚拟机配置静态ip.html#修改网卡配置文件" class="sidebar-link">修改网卡配置文件</a></li><li class="sidebar-sub-header"><a href="/linux/linux虚拟机配置静态ip.html#设置dns" class="sidebar-link">设置DNS</a></li><li class="sidebar-sub-header"><a href="/linux/linux虚拟机配置静态ip.html#重启服务" class="sidebar-link">重启服务</a></li></ul></li><li><a href="/linux/mac挂载NTFS磁盘.html" class="sidebar-link">mac挂NTFS磁盘</a></li><li><a href="/linux/mongodb编译安装.html" class="sidebar-link">centos7 编译安装mongoDB</a></li><li><a href="/linux/rsyslog内存问题.html" class="sidebar-link">rsyslog占用内存问题</a></li><li><a href="/linux/shell_sed.html" class="sidebar-link">sed替换多行文本</a></li><li><a href="/linux/了解一下VM虚拟机的三种联网模式.html" class="sidebar-link">虚拟机的三种联网方式</a></li><li><a href="/linux/了解一下linux开机启动.html" class="sidebar-link">centos7开机启动顺序</a></li><li><a href="/linux/了解一下tcp半连接队列和全连接队列.html" class="sidebar-link">tcp三次握手的过程</a></li><li><a href="/linux/了解一下加密.html" class="sidebar-link">加密</a></li><li><a href="/linux/了解一下加密名词.html" class="sidebar-link">加密体系</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="centos7虚拟机配置静态ip"><a href="#centos7虚拟机配置静态ip" class="header-anchor">#</a> centos7虚拟机配置静态ip</h1> <h2 id="_1-mac上的虚拟机使用-自动模式-就是桥接模式。"><a href="#_1-mac上的虚拟机使用-自动模式-就是桥接模式。" class="header-anchor">#</a> 1. mac上的虚拟机使用（自动模式）就是桥接模式。</h2> <p><img src="/img/vmnet.png" alt=""></p> <h2 id="_2-查看自己的网卡名"><a href="#_2-查看自己的网卡名" class="header-anchor">#</a> 2. 查看自己的网卡名</h2> <ul><li>ifconfig 命令</li></ul> <div class="language-sh line-numbers-mode"><pre class="language-sh"><code><span class="token punctuation">[</span>root@localhost ~<span class="token punctuation">]</span><span class="token comment"># ifconfig</span>
+ens33: <span class="token assign-left variable">flags</span><span class="token operator">=</span><span class="token number">416</span><span class="token operator"><span class="token file-descriptor important">3</span>&lt;</span>UP,BROADCAST,RUNNING,MULTICAST<span class="token operator">&gt;</span>  mtu <span class="token number">1500</span>
+        inet <span class="token number">192.168</span>.2.132  netmask <span class="token number">255.255</span>.255.0  broadcast <span class="token number">192.168</span>.2.255
+        inet6 fe80::315:b3ba:674b:3fdc  prefixlen <span class="token number">64</span>  scopeid 0x2<span class="token operator"><span class="token file-descriptor important">0</span>&lt;</span>link<span class="token operator">&gt;</span>
+        ether 00:0c:29:14:d2:38  txqueuelen <span class="token number">1000</span>  <span class="token punctuation">(</span>Ethernet<span class="token punctuation">)</span>
+        RX packets <span class="token number">56630</span>  bytes <span class="token number">20928797</span> <span class="token punctuation">(</span><span class="token number">19.9</span> MiB<span class="token punctuation">)</span>
+        RX errors <span class="token number">0</span>  dropped <span class="token number">0</span>  overruns <span class="token number">0</span>  frame <span class="token number">0</span>
+        TX packets <span class="token number">24078</span>  bytes <span class="token number">2636531</span> <span class="token punctuation">(</span><span class="token number">2.5</span> MiB<span class="token punctuation">)</span>
+        TX errors <span class="token number">0</span>  dropped <span class="token number">0</span> overruns <span class="token number">0</span>  carrier <span class="token number">0</span>  collisions <span class="token number">0</span>
+
+lo: <span class="token assign-left variable">flags</span><span class="token operator">=</span><span class="token number">7</span><span class="token operator"><span class="token file-descriptor important">3</span>&lt;</span>UP,LOOPBACK,RUNNING<span class="token operator">&gt;</span>  mtu <span class="token number">65536</span>
+        inet <span class="token number">127.0</span>.0.1  netmask <span class="token number">255.0</span>.0.0
+        inet6 ::1  prefixlen <span class="token number">128</span>  scopeid 0x1<span class="token operator"><span class="token file-descriptor important">0</span>&lt;</span>host<span class="token operator">&gt;</span>
+        loop  txqueuelen <span class="token number">1</span>  <span class="token punctuation">(</span>Local Loopback<span class="token punctuation">)</span>
+        RX packets <span class="token number">2517</span>  bytes <span class="token number">223561</span> <span class="token punctuation">(</span><span class="token number">218.3</span> KiB<span class="token punctuation">)</span>
+        RX errors <span class="token number">0</span>  dropped <span class="token number">0</span>  overruns <span class="token number">0</span>  frame <span class="token number">0</span>
+        TX packets <span class="token number">2517</span>  bytes <span class="token number">223561</span> <span class="token punctuation">(</span><span class="token number">218.3</span> KiB<span class="token punctuation">)</span>
+        TX errors <span class="token number">0</span>  dropped <span class="token number">0</span> overruns <span class="token number">0</span>  carrier <span class="token number">0</span>  collisions <span class="token number">0</span>
+
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br></div></div><ul><li>我的网卡就是ens33,下面lo是本地回环地址，ip是127.0.0.1</li></ul> <h2 id="修改网卡配置文件"><a href="#修改网卡配置文件" class="header-anchor">#</a> 修改网卡配置文件</h2> <p>vim /etc/sysconfig/network-scripts/ifcfg-ens33</p> <div class="language-sh line-numbers-mode"><pre class="language-sh"><code>
+  <span class="token number">1</span> <span class="token assign-left variable">TYPE</span><span class="token operator">=</span>Ethernet
+  <span class="token number">2</span> <span class="token assign-left variable">PROXY_METHOD</span><span class="token operator">=</span>none
+  <span class="token number">3</span> <span class="token assign-left variable">BROWSER_ONLY</span><span class="token operator">=</span>no
+  <span class="token number">4</span> <span class="token comment">#BOOTPROTO=dhcp</span>
+  <span class="token number">5</span> <span class="token assign-left variable">DEFROUTE</span><span class="token operator">=</span>yes
+  <span class="token number">6</span> <span class="token assign-left variable">IPV4_FAILURE_FATAL</span><span class="token operator">=</span>no
+  <span class="token number">7</span> <span class="token assign-left variable">IPV6INIT</span><span class="token operator">=</span>yes
+  <span class="token number">8</span> <span class="token assign-left variable">IPV6_AUTOCONF</span><span class="token operator">=</span>yes
+  <span class="token number">9</span> <span class="token assign-left variable">IPV6_DEFROUTE</span><span class="token operator">=</span>yes
+ <span class="token number">10</span> <span class="token assign-left variable">IPV6_FAILURE_FATAL</span><span class="token operator">=</span>no
+ <span class="token number">11</span> <span class="token assign-left variable">IPV6_ADDR_GEN_MODE</span><span class="token operator">=</span>stable-privacy
+ <span class="token number">12</span> <span class="token assign-left variable">NAME</span><span class="token operator">=</span>ens33
+ <span class="token number">13</span> <span class="token assign-left variable">UUID</span><span class="token operator">=</span>5e4d74e0-4fd2-48b9-8856-a206acc5b6ea
+ <span class="token number">14</span> <span class="token assign-left variable">DEVICE</span><span class="token operator">=</span>ens33
+ <span class="token number">15</span> <span class="token comment">#ONBOOT=yes</span>
+ <span class="token number">16</span> 
+ <span class="token number">17</span> <span class="token comment"># 下面是新增的部分，上面的BOOTPROTO和ONBOOT注释掉。</span>
+ <span class="token number">18</span> <span class="token comment"># static config</span>
+ <span class="token number">19</span> <span class="token assign-left variable">NM_CONTROLLED</span><span class="token operator">=</span>no <span class="token comment"># use config file not network manager.</span>
+ <span class="token number">20</span> <span class="token assign-left variable">BOOTPROTO</span><span class="token operator">=</span>static
+ <span class="token number">21</span> <span class="token assign-left variable">ONBOOT</span><span class="token operator">=</span>yes
+ <span class="token number">22</span> <span class="token assign-left variable">IPADDR</span><span class="token operator">=</span><span class="token number">192.168</span>.2.132
+ <span class="token number">23</span> <span class="token assign-left variable">NETMASK</span><span class="token operator">=</span><span class="token number">255.255</span>.255.0
+ <span class="token number">24</span> <span class="token assign-left variable">GATEWAY</span><span class="token operator">=</span><span class="token number">192.168</span>.2.1
+ <span class="token number">25</span> 
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br></div></div><h2 id="设置dns"><a href="#设置dns" class="header-anchor">#</a> 设置DNS</h2> <p>vim /etc/sysconfig/network</p> <div class="language-sh line-numbers-mode"><pre class="language-sh"><code>	<span class="token comment"># 这个文件主要是设置HOSTNAME,设置是否启动网络，需要reboot，如果修改网关，重启service就行了</span>
+	写入：
+	<span class="token assign-left variable">DNS1</span><span class="token operator">=</span><span class="token number">8.8</span>.8.8
+	<span class="token assign-left variable">DNS2</span><span class="token operator">=</span><span class="token number">114.114</span>.114.114
+	<span class="token assign-left variable">GATEWAY</span><span class="token operator">=</span><span class="token number">192.168</span>.2.1 <span class="token comment"># 一般是路由器的ip，我家两个路由器，一个是192.168.1.1，一个是192.168.2.1。</span>
+	
+	
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br></div></div><h2 id="重启服务"><a href="#重启服务" class="header-anchor">#</a> 重启服务</h2> <div class="language-sh line-numbers-mode"><pre class="language-sh"><code><span class="token function">service</span> network restart
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/linux/linux常见命令.html" class="prev">
+        如何查看centos版本
+      </a></span> <span class="next"><a href="/linux/mac挂载NTFS磁盘.html">
+        mac挂NTFS磁盘
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.e848dc33.js" defer></script><script src="/assets/js/2.c79bcad0.js" defer></script><script src="/assets/js/40.3af853c1.js" defer></script>
+  </body>
+</html>

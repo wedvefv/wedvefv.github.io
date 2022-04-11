@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>elasticsearch note | 长沙忆</title>
+    <meta name="generator" content="VuePress 1.9.7">
+    <link rel="icon" href="/head.jpg">
+    <meta name="description" content="">
+    
+    <link rel="preload" href="/assets/css/0.styles.e4d8b86b.css" as="style"><link rel="preload" href="/assets/js/app.e848dc33.js" as="script"><link rel="preload" href="/assets/js/2.c79bcad0.js" as="script"><link rel="preload" href="/assets/js/27.97de397d.js" as="script"><link rel="prefetch" href="/assets/js/10.bd87a44f.js"><link rel="prefetch" href="/assets/js/11.964595ee.js"><link rel="prefetch" href="/assets/js/12.a8aa9728.js"><link rel="prefetch" href="/assets/js/13.bfa445e0.js"><link rel="prefetch" href="/assets/js/14.acebf196.js"><link rel="prefetch" href="/assets/js/15.5b3b4010.js"><link rel="prefetch" href="/assets/js/16.36586ad7.js"><link rel="prefetch" href="/assets/js/17.e57250f7.js"><link rel="prefetch" href="/assets/js/18.5b4637c2.js"><link rel="prefetch" href="/assets/js/19.6fd5a546.js"><link rel="prefetch" href="/assets/js/20.a79c8d3f.js"><link rel="prefetch" href="/assets/js/21.e597d9f8.js"><link rel="prefetch" href="/assets/js/22.dc9dd92d.js"><link rel="prefetch" href="/assets/js/23.5e518c6a.js"><link rel="prefetch" href="/assets/js/24.fcd256d1.js"><link rel="prefetch" href="/assets/js/25.42db274c.js"><link rel="prefetch" href="/assets/js/26.89ff33be.js"><link rel="prefetch" href="/assets/js/28.bf92ca9c.js"><link rel="prefetch" href="/assets/js/29.012e8232.js"><link rel="prefetch" href="/assets/js/3.c8d00172.js"><link rel="prefetch" href="/assets/js/30.22fdf1b1.js"><link rel="prefetch" href="/assets/js/31.21cc50bd.js"><link rel="prefetch" href="/assets/js/32.6db14ed0.js"><link rel="prefetch" href="/assets/js/33.d4ff55f2.js"><link rel="prefetch" href="/assets/js/34.bf6c3194.js"><link rel="prefetch" href="/assets/js/35.2270a580.js"><link rel="prefetch" href="/assets/js/36.81a40b12.js"><link rel="prefetch" href="/assets/js/37.c6ec8100.js"><link rel="prefetch" href="/assets/js/38.70fd54e9.js"><link rel="prefetch" href="/assets/js/39.3218dd21.js"><link rel="prefetch" href="/assets/js/4.0a2f3beb.js"><link rel="prefetch" href="/assets/js/40.3af853c1.js"><link rel="prefetch" href="/assets/js/41.b8ff73f9.js"><link rel="prefetch" href="/assets/js/42.191c7f6b.js"><link rel="prefetch" href="/assets/js/43.1fe01fac.js"><link rel="prefetch" href="/assets/js/44.ba41f499.js"><link rel="prefetch" href="/assets/js/45.24804968.js"><link rel="prefetch" href="/assets/js/46.cdfccfed.js"><link rel="prefetch" href="/assets/js/47.fd3dfe5e.js"><link rel="prefetch" href="/assets/js/48.dfb61eb8.js"><link rel="prefetch" href="/assets/js/49.f4fabc8e.js"><link rel="prefetch" href="/assets/js/5.a33a2f42.js"><link rel="prefetch" href="/assets/js/50.d0a696e8.js"><link rel="prefetch" href="/assets/js/51.28b39f09.js"><link rel="prefetch" href="/assets/js/52.7834119a.js"><link rel="prefetch" href="/assets/js/53.81100007.js"><link rel="prefetch" href="/assets/js/54.cb30bac1.js"><link rel="prefetch" href="/assets/js/55.e53d0964.js"><link rel="prefetch" href="/assets/js/56.85a7127e.js"><link rel="prefetch" href="/assets/js/57.01098346.js"><link rel="prefetch" href="/assets/js/58.9dfec9af.js"><link rel="prefetch" href="/assets/js/59.3f2d9695.js"><link rel="prefetch" href="/assets/js/6.f0091315.js"><link rel="prefetch" href="/assets/js/60.e83b14ca.js"><link rel="prefetch" href="/assets/js/61.63faac89.js"><link rel="prefetch" href="/assets/js/62.37343071.js"><link rel="prefetch" href="/assets/js/63.18f9af49.js"><link rel="prefetch" href="/assets/js/64.18784338.js"><link rel="prefetch" href="/assets/js/65.f784295b.js"><link rel="prefetch" href="/assets/js/66.824c1e28.js"><link rel="prefetch" href="/assets/js/67.e1b72556.js"><link rel="prefetch" href="/assets/js/68.c2c42d50.js"><link rel="prefetch" href="/assets/js/69.5b84787f.js"><link rel="prefetch" href="/assets/js/7.12aee0f3.js"><link rel="prefetch" href="/assets/js/70.95d010d2.js"><link rel="prefetch" href="/assets/js/71.bb7c720a.js"><link rel="prefetch" href="/assets/js/72.112614a7.js"><link rel="prefetch" href="/assets/js/73.ce6c5aa8.js"><link rel="prefetch" href="/assets/js/74.4f31bceb.js"><link rel="prefetch" href="/assets/js/75.6f1ee907.js"><link rel="prefetch" href="/assets/js/76.b149341f.js"><link rel="prefetch" href="/assets/js/77.1d0bb242.js"><link rel="prefetch" href="/assets/js/78.c1d95898.js"><link rel="prefetch" href="/assets/js/79.d46e7d25.js"><link rel="prefetch" href="/assets/js/8.0165d2c8.js"><link rel="prefetch" href="/assets/js/80.5604ac3c.js"><link rel="prefetch" href="/assets/js/81.ba3532f9.js"><link rel="prefetch" href="/assets/js/82.3d7aecda.js"><link rel="prefetch" href="/assets/js/83.f8618ddb.js"><link rel="prefetch" href="/assets/js/84.15548300.js"><link rel="prefetch" href="/assets/js/85.bd45269f.js"><link rel="prefetch" href="/assets/js/86.4baaf3b7.js"><link rel="prefetch" href="/assets/js/9.b3227388.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.e4d8b86b.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><img src="/head.jpg" alt="长沙忆" class="logo"> <span class="site-name can-hide">长沙忆</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="编程" class="dropdown-title"><span class="title">编程</span> <span class="arrow down"></span></button> <button type="button" aria-label="编程" class="mobile-dropdown-title"><span class="title">编程</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/8086/" class="nav-link">
+  8086
+</a></li><li class="dropdown-item"><!----> <a href="/git/" class="nav-link">
+  git
+</a></li><li class="dropdown-item"><!----> <a href="/go/" class="nav-link">
+  go
+</a></li><li class="dropdown-item"><!----> <a href="/linux/" class="nav-link router-link-active">
+  linux
+</a></li><li class="dropdown-item"><!----> <a href="/lua/" class="nav-link">
+  lua
+</a></li><li class="dropdown-item"><!----> <a href="/mysql/" class="nav-link">
+  mysql
+</a></li><li class="dropdown-item"><!----> <a href="/nginx/" class="nav-link">
+  nginx
+</a></li><li class="dropdown-item"><!----> <a href="/php/" class="nav-link">
+  php
+</a></li><li class="dropdown-item"><!----> <a href="/python/" class="nav-link">
+  python
+</a></li><li class="dropdown-item"><!----> <a href="/regex/" class="nav-link">
+  regex
+</a></li><li class="dropdown-item"><!----> <a href="/vim/" class="nav-link">
+  vim
+</a></li><li class="dropdown-item"><!----> <a href="/vue/" class="nav-link">
+  vue
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="古中医" class="dropdown-title"><span class="title">古中医</span> <span class="arrow down"></span></button> <button type="button" aria-label="古中医" class="mobile-dropdown-title"><span class="title">古中医</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/guzhongyi/zuojiyun/" class="nav-link">
+  伤寒论类方汇参-左季云
+</a></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="编程" class="dropdown-title"><span class="title">编程</span> <span class="arrow down"></span></button> <button type="button" aria-label="编程" class="mobile-dropdown-title"><span class="title">编程</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/8086/" class="nav-link">
+  8086
+</a></li><li class="dropdown-item"><!----> <a href="/git/" class="nav-link">
+  git
+</a></li><li class="dropdown-item"><!----> <a href="/go/" class="nav-link">
+  go
+</a></li><li class="dropdown-item"><!----> <a href="/linux/" class="nav-link router-link-active">
+  linux
+</a></li><li class="dropdown-item"><!----> <a href="/lua/" class="nav-link">
+  lua
+</a></li><li class="dropdown-item"><!----> <a href="/mysql/" class="nav-link">
+  mysql
+</a></li><li class="dropdown-item"><!----> <a href="/nginx/" class="nav-link">
+  nginx
+</a></li><li class="dropdown-item"><!----> <a href="/php/" class="nav-link">
+  php
+</a></li><li class="dropdown-item"><!----> <a href="/python/" class="nav-link">
+  python
+</a></li><li class="dropdown-item"><!----> <a href="/regex/" class="nav-link">
+  regex
+</a></li><li class="dropdown-item"><!----> <a href="/vim/" class="nav-link">
+  vim
+</a></li><li class="dropdown-item"><!----> <a href="/vue/" class="nav-link">
+  vue
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="古中医" class="dropdown-title"><span class="title">古中医</span> <span class="arrow down"></span></button> <button type="button" aria-label="古中医" class="mobile-dropdown-title"><span class="title">古中医</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/guzhongyi/zuojiyun/" class="nav-link">
+  伤寒论类方汇参-左季云
+</a></li></ul></div></div> <!----></nav>  <ul class="sidebar-links"><li><a href="/linux/32位和64位cpu.html" class="sidebar-link">32和64位cpu的不同</a></li><li><a href="/linux/5_cmake.html" class="sidebar-link">cmake用法</a></li><li><a href="/linux/Elasticsearch_install.html" class="sidebar-link">elasticsearch 安装</a></li><li><a href="/linux/Elasticsearch_note.html" aria-current="page" class="active sidebar-link">elasticsearch note</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/linux/Elasticsearch_pinyin.html" class="sidebar-link">elasticsearch 拼音插件</a></li><li><a href="/linux/LinuxFTP.html" class="sidebar-link">centos7 FTP建立</a></li><li><a href="/linux/centos6-7_start_flow.html" class="sidebar-link">centos6_7启动流程</a></li><li><a href="/linux/centos7_install_mysql_python.html" class="sidebar-link">centos7 安装MySQL-python</a></li><li><a href="/linux/centos7_升级python.html" class="sidebar-link">centos7 升级python</a></li><li><a href="/linux/centos_small_install.html" class="sidebar-link">centos7 最小化安装</a></li><li><a href="/linux/dll_export.html" class="sidebar-link">DLL导出方法</a></li><li><a href="/linux/ipv6.html" class="sidebar-link">ipv6</a></li><li><a href="/linux/ip地址子网掩码的关系.html" class="sidebar-link">ip和掩码的关系</a></li><li><a href="/linux/journalctl.html" class="sidebar-link">centos7日志查看工具journalctl</a></li><li><a href="/linux/linux_c_help.html" class="sidebar-link">linux 函数手册</a></li><li><a href="/linux/linux常见命令.html" class="sidebar-link">如何查看centos版本</a></li><li><a href="/linux/linux虚拟机配置静态ip.html" class="sidebar-link">centos7虚拟机配置静态ip</a></li><li><a href="/linux/mac挂载NTFS磁盘.html" class="sidebar-link">mac挂NTFS磁盘</a></li><li><a href="/linux/mongodb编译安装.html" class="sidebar-link">centos7 编译安装mongoDB</a></li><li><a href="/linux/rsyslog内存问题.html" class="sidebar-link">rsyslog占用内存问题</a></li><li><a href="/linux/shell_sed.html" class="sidebar-link">sed替换多行文本</a></li><li><a href="/linux/了解一下VM虚拟机的三种联网模式.html" class="sidebar-link">虚拟机的三种联网方式</a></li><li><a href="/linux/了解一下linux开机启动.html" class="sidebar-link">centos7开机启动顺序</a></li><li><a href="/linux/了解一下tcp半连接队列和全连接队列.html" class="sidebar-link">tcp三次握手的过程</a></li><li><a href="/linux/了解一下加密.html" class="sidebar-link">加密</a></li><li><a href="/linux/了解一下加密名词.html" class="sidebar-link">加密体系</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="elasticsearch-note"><a href="#elasticsearch-note" class="header-anchor">#</a> elasticsearch note</h1> <h1 id="常见操作"><a href="#常见操作" class="header-anchor">#</a> 常见操作</h1> <h3 id="以下操作都是在kibana可视化工具中执行的。"><a href="#以下操作都是在kibana可视化工具中执行的。" class="header-anchor">#</a> 以下操作都是在kibana可视化工具中执行的。</h3> <h3 id="创建索引-并设置字段类型-mapping"><a href="#创建索引-并设置字段类型-mapping" class="header-anchor">#</a> 创建索引，并设置字段类型(mapping)</h3> <ul><li>mapping 可以单独设置，必须是创建index之后，设置了就不能修改了。</li></ul> <div class="language-json line-numbers-mode"><pre class="language-json"><code>POST /city_index/_mapping
+<span class="token punctuation">{</span>
+	properties&quot;<span class="token punctuation">{</span>
+	...
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br></div></div><ul><li>也可以创建索引时，一并设置， 如下</li></ul> <h3 id="城市信息索引-city-index"><a href="#城市信息索引-city-index" class="header-anchor">#</a> 城市信息索引 city_index</h3> <div class="language-json line-numbers-mode"><pre class="language-json"><code># book 索引，novel是类型
+# number_of_replicas 备份数
+# number_of_shards 分片
+# index <span class="token boolean">true</span> 是当前字段可以检索，store是额外存储，一般<span class="token boolean">false</span>&lt;center&gt;&lt;/center&gt;
+# analyzer 指定分词器
+<span class="token comment">// mapping 相当于创建mysql的表字段以及类型，分词器等。</span>
+PUT /city_index
+<span class="token punctuation">{</span>
+  <span class="token property">&quot;settings&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;number_of_replicas&quot;</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;number_of_shards&quot;</span><span class="token operator">:</span> <span class="token number">1</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;properties&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;name&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token property">&quot;type&quot;</span><span class="token operator">:</span> <span class="token string">&quot;keyword&quot;</span><span class="token punctuation">,</span>
+          <span class="token property">&quot;fields&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+              <span class="token property">&quot;pinyin&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+                  <span class="token property">&quot;type&quot;</span><span class="token operator">:</span> <span class="token string">&quot;text&quot;</span><span class="token punctuation">,</span>
+                  <span class="token property">&quot;store&quot;</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+                  <span class="token property">&quot;term_vector&quot;</span><span class="token operator">:</span> <span class="token string">&quot;with_offsets&quot;</span><span class="token punctuation">,</span>
+                  <span class="token property">&quot;analyzer&quot;</span><span class="token operator">:</span> <span class="token string">&quot;pinyin_analyzer&quot;</span><span class="token punctuation">,</span>
+                  <span class="token property">&quot;boost&quot;</span><span class="token operator">:</span> <span class="token number">10</span>
+              <span class="token punctuation">}</span><span class="token punctuation">,</span>
+              <span class="token property">&quot;ik&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+	              <span class="token property">&quot;type&quot;</span><span class="token operator">:</span><span class="token string">&quot;text&quot;</span><span class="token punctuation">,</span>
+				  <span class="token property">&quot;analyzer&quot;</span><span class="token operator">:</span> <span class="token string">&quot;ik_max_word&quot;</span>
+              <span class="token punctuation">}</span><span class="token punctuation">,</span>
+			  <span class="token property">&quot;my_wildcard&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+	              <span class="token property">&quot;type&quot;</span><span class="token operator">:</span><span class="token string">&quot;wildcard&quot;</span><span class="token punctuation">,</span>
+	              <span class="token property">&quot;store&quot;</span><span class="token operator">:</span><span class="token boolean">false</span>
+              <span class="token punctuation">}</span>
+          <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+	  <span class="token property">&quot;cityid&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+	  	<span class="token property">&quot;type&quot;</span><span class="token operator">:</span> <span class="token string">&quot;long&quot;</span>
+	  <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br></div></div><h3 id="添加数据"><a href="#添加数据" class="header-anchor">#</a> 添加数据</h3> <div class="language-json line-numbers-mode"><pre class="language-json"><code>PUT /city_index/create
+<span class="token punctuation">{</span>
+	<span class="token string">&quot;.... 自动生成id&quot;</span>
+<span class="token punctuation">}</span>
+
+PUT /city_index/_create/<span class="token number">1</span>?pretty
+<span class="token punctuation">{</span>
+  <span class="token property">&quot;name&quot;</span><span class="token operator">:</span> <span class="token string">&quot;北京市&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;cityid&quot;</span><span class="token operator">:</span> <span class="token string">&quot;1&quot;</span>
+<span class="token punctuation">}</span>
+<span class="token comment">// put 会覆盖id=1的数据</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br></div></div><h3 id="更新数据7-x"><a href="#更新数据7-x" class="header-anchor">#</a> 更新数据7.x</h3> <div class="language-json line-numbers-mode"><pre class="language-json"><code>POST /city_index/_update/<span class="token number">1</span>
+<span class="token punctuation">{</span>
+  <span class="token property">&quot;doc&quot;</span><span class="token operator">:</span><span class="token punctuation">{</span>
+    <span class="token property">&quot;name&quot;</span><span class="token operator">:</span> <span class="token string">&quot;北京市1&quot;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+也可以
+POST /city_index/_doc/<span class="token number">1</span>/_update ，会提示_doc类型以后会被删除。
+其他版本 这么写
+POST /book/type/<span class="token number">1</span>/_update
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br></div></div><h3 id="删除文档"><a href="#删除文档" class="header-anchor">#</a> 删除文档</h3> <div class="language-json line-numbers-mode"><pre class="language-json"><code>DELETE /city_index/_doc/<span class="token number">1</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><h3 id="删除索引"><a href="#删除索引" class="header-anchor">#</a> 删除索引</h3> <div class="language-json line-numbers-mode"><pre class="language-json"><code>DELETE /city_index
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><h3 id="搜索"><a href="#搜索" class="header-anchor">#</a> 搜索</h3> <h4 id="match"><a href="#match" class="header-anchor">#</a> match</h4> <ul><li>默认分词器，比如汉字他会拆分成单个汉字，这样就会匹配出很多，比较宽松。</li> <li>通常中文需要ik分词器，不用默认的分词器。</li> <li>如果ik分词器，搜索城市信息: <strong>北京</strong>， match会查出包含北京的这个词的信息:
+<ul><li>match是按元素匹配的，此时他会按北京这个词匹配</li> <li>北京植物园</li> <li>北京市</li> <li>北京动物园</li></ul></li> <li>如果不用ik分词器，输入北京，他会拆分出北和京，匹配取很多包含北和京的信息。</li></ul> <h4 id="trem"><a href="#trem" class="header-anchor">#</a> trem</h4> <ul><li>是整个完全比配。</li> <li>比如match匹配出了 输入关键字， 宫旅：
+<ul><li>默认分词器会匹配出包含<strong>宫</strong>和<strong>旅</strong>的内容</li> <li>如果用ik分词器，也只会分出两个字，宫和旅，这样 match可以匹配出包含两个字的内容</li> <li><strong>宫旅</strong> 他本身不是词，所以分词器列表没有这个元素，所以term找不到和宫旅相同的分词，就查不出东西。</li> <li>比如输入 <strong>京北第一草原</strong> ik分词如下：</li></ul></li></ul> <div class="language-json line-numbers-mode"><pre class="language-json"><code><span class="token punctuation">{</span>
+  <span class="token property">&quot;tokens&quot;</span> <span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">&quot;token&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;京&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;start_offset&quot;</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;end_offset&quot;</span> <span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;type&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;CN_CHAR&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;position&quot;</span> <span class="token operator">:</span> <span class="token number">0</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">&quot;token&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;北&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;start_offset&quot;</span> <span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;end_offset&quot;</span> <span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;type&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;CN_CHAR&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;position&quot;</span> <span class="token operator">:</span> <span class="token number">1</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">&quot;token&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;第一&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;start_offset&quot;</span> <span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;end_offset&quot;</span> <span class="token operator">:</span> <span class="token number">4</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;type&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;CN_WORD&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;position&quot;</span> <span class="token operator">:</span> <span class="token number">2</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">&quot;token&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;一草&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;start_offset&quot;</span> <span class="token operator">:</span> <span class="token number">3</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;end_offset&quot;</span> <span class="token operator">:</span> <span class="token number">5</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;type&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;CN_WORD&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;position&quot;</span> <span class="token operator">:</span> <span class="token number">3</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">&quot;token&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;一&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;start_offset&quot;</span> <span class="token operator">:</span> <span class="token number">3</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;end_offset&quot;</span> <span class="token operator">:</span> <span class="token number">4</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;type&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;TYPE_CNUM&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;position&quot;</span> <span class="token operator">:</span> <span class="token number">4</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">&quot;token&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;草原&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;start_offset&quot;</span> <span class="token operator">:</span> <span class="token number">4</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;end_offset&quot;</span> <span class="token operator">:</span> <span class="token number">6</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;type&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;CN_WORD&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;position&quot;</span> <span class="token operator">:</span> <span class="token number">5</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br></div></div><ul><li>这样使用name.ik分词属性的字段，使用match匹配京，就可以查出 京北第一草原</li> <li>同样使用term也能完全匹配 京这个分词。</li> <li>查出了 京北第一草原、卡缅斯克-沙赫京斯基</li></ul> <div class="language-json line-numbers-mode"><pre class="language-json"><code>POST /city_index/_search
+<span class="token punctuation">{</span>
+   <span class="token property">&quot;query&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+   	<span class="token property">&quot;bool&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+   		<span class="token property">&quot;must&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+   			<span class="token property">&quot;term&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+   				<span class="token property">&quot;name.ik&quot;</span><span class="token operator">:</span> <span class="token string">&quot;京&quot;</span>
+   			<span class="token punctuation">}</span>
+   		<span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+   		<span class="token property">&quot;must_not&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+   		<span class="token property">&quot;should&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+   	<span class="token punctuation">}</span>
+   <span class="token punctuation">}</span><span class="token punctuation">,</span>
+   <span class="token property">&quot;from&quot;</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+   <span class="token property">&quot;size&quot;</span><span class="token operator">:</span> <span class="token number">1000</span><span class="token punctuation">,</span>
+   <span class="token property">&quot;sort&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+   <span class="token property">&quot;aggs&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br></div></div><ul><li>但是京不会匹配出 <strong>北京，京东</strong> ，这些词，他们不会被ik拆分。ik_max_word 虽然是最细划分，但是尽可能组成词。实在不是词，才可能拆除单字， 这是由ik的分词算法决定的。</li> <li>总结就是match是依据分词个体来匹配，term需要搜索词和分词个体相等。</li></ul> <div class="language-json line-numbers-mode"><pre class="language-json"><code>POST /city_index/_analyze
+<span class="token punctuation">{</span>
+		<span class="token property">&quot;text&quot;</span><span class="token operator">:</span> <span class="token string">&quot;北京市&quot;</span><span class="token punctuation">,</span>
+		<span class="token property">&quot;analyzer&quot;</span><span class="token operator">:</span> <span class="token string">&quot;standard&quot;</span>
+<span class="token punctuation">}</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br></div></div><ul><li>分词结果如下</li></ul> <div class="language-json line-numbers-mode"><pre class="language-json"><code><span class="token punctuation">{</span>
+	  <span class="token property">&quot;tokens&quot;</span> <span class="token operator">:</span> <span class="token punctuation">[</span>
+		<span class="token punctuation">{</span>
+		  <span class="token property">&quot;token&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;北&quot;</span><span class="token punctuation">,</span>
+		  <span class="token property">&quot;start_offset&quot;</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+		  <span class="token property">&quot;end_offset&quot;</span> <span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+		  <span class="token property">&quot;type&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;&lt;IDEOGRAPHIC&gt;&quot;</span><span class="token punctuation">,</span>
+		  <span class="token property">&quot;position&quot;</span> <span class="token operator">:</span> <span class="token number">0</span>
+		<span class="token punctuation">}</span><span class="token punctuation">,</span>
+		<span class="token punctuation">{</span>
+		  <span class="token property">&quot;token&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;京&quot;</span><span class="token punctuation">,</span>
+		  <span class="token property">&quot;start_offset&quot;</span> <span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+		  <span class="token property">&quot;end_offset&quot;</span> <span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+		  <span class="token property">&quot;type&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;&lt;IDEOGRAPHIC&gt;&quot;</span><span class="token punctuation">,</span>
+		  <span class="token property">&quot;position&quot;</span> <span class="token operator">:</span> <span class="token number">1</span>
+		<span class="token punctuation">}</span><span class="token punctuation">,</span>
+		<span class="token punctuation">{</span>
+		  <span class="token property">&quot;token&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;市&quot;</span><span class="token punctuation">,</span>
+		  <span class="token property">&quot;start_offset&quot;</span> <span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+		  <span class="token property">&quot;end_offset&quot;</span> <span class="token operator">:</span> <span class="token number">3</span><span class="token punctuation">,</span>
+		  <span class="token property">&quot;type&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;&lt;IDEOGRAPHIC&gt;&quot;</span><span class="token punctuation">,</span>
+		  <span class="token property">&quot;position&quot;</span> <span class="token operator">:</span> <span class="token number">2</span>
+		<span class="token punctuation">}</span>
+	  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br></div></div><h4 id="query-string"><a href="#query-string" class="header-anchor">#</a> query_string</h4> <ul><li>也是按分词器分出来的个体一一匹配的, 但是查询词可以用通配符 <em>京</em> 可以匹配分词北京，东京， 基本包含京的词都能查出来， 和默认分词器 #### range  范围查询</li></ul> <div class="language-json line-numbers-mode"><pre class="language-json"><code>POST  /city_index/_search
+<span class="token punctuation">{</span>
+	<span class="token property">&quot;query&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+		<span class="token property">&quot;bool&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+			<span class="token property">&quot;must&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+				<span class="token property">&quot;range&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+					<span class="token property">&quot;gid&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+						<span class="token property">&quot;gt&quot;</span><span class="token operator">:</span> <span class="token string">&quot;100&quot;</span><span class="token punctuation">,</span>
+						<span class="token property">&quot;lt&quot;</span><span class="token operator">:</span> <span class="token string">&quot;200000&quot;</span>
+					<span class="token punctuation">}</span>
+				<span class="token punctuation">}</span>
+			<span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+			<span class="token property">&quot;must_not&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+			<span class="token property">&quot;should&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span><span class="token punctuation">,</span>
+	<span class="token property">&quot;from&quot;</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+	<span class="token property">&quot;size&quot;</span><span class="token operator">:</span> <span class="token number">5000</span><span class="token punctuation">,</span>
+	<span class="token property">&quot;sort&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+	<span class="token property">&quot;aggs&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br></div></div><h4 id="wildcard-通配符匹配"><a href="#wildcard-通配符匹配" class="header-anchor">#</a> wildcard 通配符匹配</h4> <ul><li>同样也是根据字段设置的分词器决定的，如果没设置，都是standard默认分词器， 汉字都会拆成单字。</li> <li>比如搜索词汇是 <em><strong>北京</strong></em>，默认分词器会拆成***北***和***京***， 这样wildcard 就匹配不到***北京***, 就查不到。</li> <li>如果是ik分词器ik_max_word，北京 分词出来还是北京， 所以wildcard统配北京，就能查到包含***北京***的信息</li> <li>如果搜索词汇是***京***呢？ 能被ik分词器分出一个京的词汇很少(像京北第一草原)，像北京，东京，南京等词汇都被ik拆分的。</li> <li>如果搜索词汇是 *京*, wildcard 会认为像北京、东京、南京、京、京东等都可能是关键词，包含这些词的都会查出</li></ul> <h4 id="prefix-前缀匹配"><a href="#prefix-前缀匹配" class="header-anchor">#</a> prefix 前缀匹配</h4> <ul><li>默认分词器， 比如 <strong>河北</strong> 会成为 [&quot;河&quot;, &quot;北&quot;]，词组中在词组中找不到河北，所以匹配不出结果。</li> <li>如果pinyin分词器，河北拼音分词包含hebei， 所以匹配拼音前缀是hebei的，可以找到</li> <li>河北省、河北天下第一城 等信息</li></ul> <h4 id="missing-判断不存在的字段"><a href="#missing-判断不存在的字段" class="header-anchor">#</a> missing 判断不存在的字段</h4> <ul><li>查询name为null的字段</li> <li>must_not 改为must就是查询存在name的数据</li></ul> <div class="language-json line-numbers-mode"><pre class="language-json"><code>GET /city_index/_search
+<span class="token punctuation">{</span>
+  <span class="token property">&quot;query&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;bool&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;must&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;must_not&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">{</span>
+          <span class="token property">&quot;exists&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+            <span class="token property">&quot;field&quot;</span><span class="token operator">:</span> <span class="token string">&quot;name&quot;</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;should&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">{</span>
+          <span class="token property">&quot;match_all&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;from&quot;</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;size&quot;</span><span class="token operator">:</span> <span class="token number">250</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;sort&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;aggs&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br></div></div><h4 id="fuzzy-是为了纠错的模糊查询"><a href="#fuzzy-是为了纠错的模糊查询" class="header-anchor">#</a> fuzzy 是为了纠错的模糊查询</h4> <ul><li>比如你查sky，输入错误了ski</li> <li>fuzziness是允许输错的字母个数。</li></ul> <div class="language-json line-numbers-mode"><pre class="language-json"><code>PUT fuzzyindex/_doc/<span class="token number">1</span>
+<span class="token punctuation">{</span>
+  <span class="token property">&quot;content&quot;</span><span class="token operator">:</span> <span class="token string">&quot;I like blue sky&quot;</span>
+<span class="token punctuation">}</span>
+
+
+GET fuzzyindex/_search
+<span class="token punctuation">{</span>
+  <span class="token property">&quot;query&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;match&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;content&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">&quot;query&quot;</span><span class="token operator">:</span> <span class="token string">&quot;ski&quot;</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;fuzziness&quot;</span><span class="token operator">:</span> <span class="token string">&quot;1&quot;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br></div></div><h4 id="分词器测试-pinyin分词"><a href="#分词器测试-pinyin分词" class="header-anchor">#</a> 分词器测试 pinyin分词</h4> <div class="language-json line-numbers-mode"><pre class="language-json"><code>POST /city_index/_analyze
+<span class="token punctuation">{</span>
+  <span class="token property">&quot;text&quot;</span><span class="token operator">:</span><span class="token string">&quot; 河北&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;analyzer&quot;</span><span class="token operator">:</span> <span class="token string">&quot;pinyin_analyzer&quot;</span>
+<span class="token punctuation">}</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br></div></div><ul><li>结果如下</li></ul> <div class="language-json line-numbers-mode"><pre class="language-json"><code><span class="token punctuation">{</span>
+  <span class="token property">&quot;tokens&quot;</span> <span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">&quot;token&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;b&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;start_offset&quot;</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;end_offset&quot;</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;type&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;word&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;position&quot;</span> <span class="token operator">:</span> <span class="token number">0</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">&quot;token&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;bei&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;start_offset&quot;</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;end_offset&quot;</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;type&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;word&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;position&quot;</span> <span class="token operator">:</span> <span class="token number">0</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">&quot;token&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;北京市&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;start_offset&quot;</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;end_offset&quot;</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;type&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;word&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;position&quot;</span> <span class="token operator">:</span> <span class="token number">0</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">&quot;token&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;bjs&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;start_offset&quot;</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;end_offset&quot;</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;type&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;word&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;position&quot;</span> <span class="token operator">:</span> <span class="token number">0</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">&quot;token&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;j&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;start_offset&quot;</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;end_offset&quot;</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;type&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;word&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;position&quot;</span> <span class="token operator">:</span> <span class="token number">1</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">&quot;token&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;jing&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;start_offset&quot;</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;end_offset&quot;</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;type&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;word&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;position&quot;</span> <span class="token operator">:</span> <span class="token number">1</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">&quot;token&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;s&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;start_offset&quot;</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;end_offset&quot;</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;type&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;word&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;position&quot;</span> <span class="token operator">:</span> <span class="token number">2</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">&quot;token&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;shi&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;start_offset&quot;</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;end_offset&quot;</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;type&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;word&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;position&quot;</span> <span class="token operator">:</span> <span class="token number">2</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br><span class="line-number">48</span><br><span class="line-number">49</span><br><span class="line-number">50</span><br><span class="line-number">51</span><br><span class="line-number">52</span><br><span class="line-number">53</span><br><span class="line-number">54</span><br><span class="line-number">55</span><br><span class="line-number">56</span><br><span class="line-number">57</span><br><span class="line-number">58</span><br><span class="line-number">59</span><br><span class="line-number">60</span><br></div></div><h4 id="分词器测试-keyword"><a href="#分词器测试-keyword" class="header-anchor">#</a> 分词器测试 keyword</h4> <ul><li>keyword 不可分词，text可以分词。</li></ul> <div class="language-json line-numbers-mode"><pre class="language-json"><code>POST /city_index/_analyze
+<span class="token punctuation">{</span>
+  <span class="token property">&quot;text&quot;</span><span class="token operator">:</span><span class="token string">&quot;北京市&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;analyzer&quot;</span><span class="token operator">:</span><span class="token string">&quot;keyword&quot;</span>  <span class="token comment">// keyword 不可分词</span>
+  
+<span class="token punctuation">}</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br></div></div><p>-- 结果如下</p> <div class="language-json line-numbers-mode"><pre class="language-json"><code><span class="token punctuation">{</span>
+  <span class="token property">&quot;tokens&quot;</span> <span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">&quot;token&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;北京市&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;start_offset&quot;</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;end_offset&quot;</span> <span class="token operator">:</span> <span class="token number">3</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;type&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;word&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;position&quot;</span> <span class="token operator">:</span> <span class="token number">0</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br></div></div><h4 id="分词器测试-ik-max-word"><a href="#分词器测试-ik-max-word" class="header-anchor">#</a> 分词器测试 ik_max_word</h4> <div class="language-json line-numbers-mode"><pre class="language-json"><code>POST /city_index/_analyze
+<span class="token punctuation">{</span>
+  <span class="token property">&quot;text&quot;</span><span class="token operator">:</span><span class="token string">&quot;北京市动物园&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;analyzer&quot;</span><span class="token operator">:</span> <span class="token string">&quot;ik_max_word&quot;</span> 
+  
+<span class="token punctuation">}</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br></div></div><ul><li>结果如下</li></ul> <div class="language-json line-numbers-mode"><pre class="language-json"><code><span class="token punctuation">{</span>
+  <span class="token property">&quot;tokens&quot;</span> <span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">&quot;token&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;北京市&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;start_offset&quot;</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;end_offset&quot;</span> <span class="token operator">:</span> <span class="token number">3</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;type&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;CN_WORD&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;position&quot;</span> <span class="token operator">:</span> <span class="token number">0</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">&quot;token&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;北京&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;start_offset&quot;</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;end_offset&quot;</span> <span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;type&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;CN_WORD&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;position&quot;</span> <span class="token operator">:</span> <span class="token number">1</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">&quot;token&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;市&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;start_offset&quot;</span> <span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;end_offset&quot;</span> <span class="token operator">:</span> <span class="token number">3</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;type&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;CN_CHAR&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;position&quot;</span> <span class="token operator">:</span> <span class="token number">2</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">&quot;token&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;动物园&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;start_offset&quot;</span> <span class="token operator">:</span> <span class="token number">3</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;end_offset&quot;</span> <span class="token operator">:</span> <span class="token number">6</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;type&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;CN_WORD&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;position&quot;</span> <span class="token operator">:</span> <span class="token number">3</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">&quot;token&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;动物&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;start_offset&quot;</span> <span class="token operator">:</span> <span class="token number">3</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;end_offset&quot;</span> <span class="token operator">:</span> <span class="token number">5</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;type&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;CN_WORD&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;position&quot;</span> <span class="token operator">:</span> <span class="token number">4</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">&quot;token&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;园&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;start_offset&quot;</span> <span class="token operator">:</span> <span class="token number">5</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;end_offset&quot;</span> <span class="token operator">:</span> <span class="token number">6</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;type&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;CN_CHAR&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;position&quot;</span> <span class="token operator">:</span> <span class="token number">5</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br></div></div><h4 id="分词器测试-ik-smart"><a href="#分词器测试-ik-smart" class="header-anchor">#</a> 分词器测试 ik_smart</h4> <div class="language-json line-numbers-mode"><pre class="language-json"><code>POST /city_index/_analyze
+<span class="token punctuation">{</span>
+  <span class="token property">&quot;text&quot;</span><span class="token operator">:</span><span class="token string">&quot;北京市动物园&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;analyzer&quot;</span><span class="token operator">:</span> <span class="token string">&quot;ik_smart&quot;</span>
+<span class="token punctuation">}</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br></div></div><ul><li>结果如下</li></ul> <div class="language-json line-numbers-mode"><pre class="language-json"><code><span class="token punctuation">{</span>
+  <span class="token property">&quot;tokens&quot;</span> <span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">&quot;token&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;北京市&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;start_offset&quot;</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;end_offset&quot;</span> <span class="token operator">:</span> <span class="token number">3</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;type&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;CN_WORD&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;position&quot;</span> <span class="token operator">:</span> <span class="token number">0</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">&quot;token&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;动物园&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;start_offset&quot;</span> <span class="token operator">:</span> <span class="token number">3</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;end_offset&quot;</span> <span class="token operator">:</span> <span class="token number">6</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;type&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;CN_WORD&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;position&quot;</span> <span class="token operator">:</span> <span class="token number">1</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br></div></div><h4 id="分词器测试-standard-es默认分词"><a href="#分词器测试-standard-es默认分词" class="header-anchor">#</a> 分词器测试 standard (es默认分词)</h4> <div class="language-json line-numbers-mode"><pre class="language-json"><code>POST /city_index/_analyze
+<span class="token punctuation">{</span>
+  <span class="token property">&quot;text&quot;</span><span class="token operator">:</span><span class="token string">&quot;北京市动物园&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;analyzer&quot;</span><span class="token operator">:</span> <span class="token string">&quot;standard&quot;</span> 
+<span class="token punctuation">}</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br></div></div><ul><li>结果如下</li></ul> <div class="language-json line-numbers-mode"><pre class="language-json"><code><span class="token punctuation">{</span>
+  <span class="token property">&quot;tokens&quot;</span> <span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">&quot;token&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;北&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;start_offset&quot;</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;end_offset&quot;</span> <span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;type&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;&lt;IDEOGRAPHIC&gt;&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;position&quot;</span> <span class="token operator">:</span> <span class="token number">0</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">&quot;token&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;京&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;start_offset&quot;</span> <span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;end_offset&quot;</span> <span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;type&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;&lt;IDEOGRAPHIC&gt;&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;position&quot;</span> <span class="token operator">:</span> <span class="token number">1</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">&quot;token&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;市&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;start_offset&quot;</span> <span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;end_offset&quot;</span> <span class="token operator">:</span> <span class="token number">3</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;type&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;&lt;IDEOGRAPHIC&gt;&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;position&quot;</span> <span class="token operator">:</span> <span class="token number">2</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">&quot;token&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;动&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;start_offset&quot;</span> <span class="token operator">:</span> <span class="token number">3</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;end_offset&quot;</span> <span class="token operator">:</span> <span class="token number">4</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;type&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;&lt;IDEOGRAPHIC&gt;&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;position&quot;</span> <span class="token operator">:</span> <span class="token number">3</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">&quot;token&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;物&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;start_offset&quot;</span> <span class="token operator">:</span> <span class="token number">4</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;end_offset&quot;</span> <span class="token operator">:</span> <span class="token number">5</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;type&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;&lt;IDEOGRAPHIC&gt;&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;position&quot;</span> <span class="token operator">:</span> <span class="token number">4</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">&quot;token&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;园&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;start_offset&quot;</span> <span class="token operator">:</span> <span class="token number">5</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;end_offset&quot;</span> <span class="token operator">:</span> <span class="token number">6</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;type&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;&lt;IDEOGRAPHIC&gt;&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;position&quot;</span> <span class="token operator">:</span> <span class="token number">5</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br></div></div></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/linux/Elasticsearch_install.html" class="prev">
+        elasticsearch 安装
+      </a></span> <span class="next"><a href="/linux/Elasticsearch_pinyin.html">
+        elasticsearch 拼音插件
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.e848dc33.js" defer></script><script src="/assets/js/2.c79bcad0.js" defer></script><script src="/assets/js/27.97de397d.js" defer></script>
+  </body>
+</html>
