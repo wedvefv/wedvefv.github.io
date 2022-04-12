@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>mysql 常见操作 | 长沙忆</title>
+    <meta name="generator" content="VuePress 1.9.7">
+    <link rel="icon" href="/head.jpg">
+    <meta name="description" content="">
+    
+    <link rel="preload" href="/assets/css/0.styles.e4d8b86b.css" as="style"><link rel="preload" href="/assets/js/app.a040ae6f.js" as="script"><link rel="preload" href="/assets/js/2.c79bcad0.js" as="script"><link rel="preload" href="/assets/js/55.0d62ce85.js" as="script"><link rel="prefetch" href="/assets/js/10.975457e5.js"><link rel="prefetch" href="/assets/js/11.79172dc9.js"><link rel="prefetch" href="/assets/js/12.2dada43e.js"><link rel="prefetch" href="/assets/js/13.0ab9eacc.js"><link rel="prefetch" href="/assets/js/14.537655b8.js"><link rel="prefetch" href="/assets/js/15.ca624394.js"><link rel="prefetch" href="/assets/js/16.a8e21fb7.js"><link rel="prefetch" href="/assets/js/17.60c61e56.js"><link rel="prefetch" href="/assets/js/18.0797172e.js"><link rel="prefetch" href="/assets/js/19.ee01a2ca.js"><link rel="prefetch" href="/assets/js/20.2a051560.js"><link rel="prefetch" href="/assets/js/21.c638644c.js"><link rel="prefetch" href="/assets/js/22.27e30d4a.js"><link rel="prefetch" href="/assets/js/23.09d1b9db.js"><link rel="prefetch" href="/assets/js/24.dcb4cdac.js"><link rel="prefetch" href="/assets/js/25.edd67eb2.js"><link rel="prefetch" href="/assets/js/26.e77ef245.js"><link rel="prefetch" href="/assets/js/27.b2148281.js"><link rel="prefetch" href="/assets/js/28.bf92ca9c.js"><link rel="prefetch" href="/assets/js/29.bac7a7e6.js"><link rel="prefetch" href="/assets/js/3.a42250d8.js"><link rel="prefetch" href="/assets/js/30.06ac072d.js"><link rel="prefetch" href="/assets/js/31.b88af956.js"><link rel="prefetch" href="/assets/js/32.f19f269a.js"><link rel="prefetch" href="/assets/js/33.d4ff55f2.js"><link rel="prefetch" href="/assets/js/34.354ab739.js"><link rel="prefetch" href="/assets/js/35.2a7aaf61.js"><link rel="prefetch" href="/assets/js/36.81a40b12.js"><link rel="prefetch" href="/assets/js/37.31ea9283.js"><link rel="prefetch" href="/assets/js/38.aeea548c.js"><link rel="prefetch" href="/assets/js/39.c8f440c5.js"><link rel="prefetch" href="/assets/js/4.0a2f3beb.js"><link rel="prefetch" href="/assets/js/40.32b795a6.js"><link rel="prefetch" href="/assets/js/41.ef932022.js"><link rel="prefetch" href="/assets/js/42.2ba419a8.js"><link rel="prefetch" href="/assets/js/43.cbbaa913.js"><link rel="prefetch" href="/assets/js/44.a7fc961d.js"><link rel="prefetch" href="/assets/js/45.911d7eaf.js"><link rel="prefetch" href="/assets/js/46.00f6f0b4.js"><link rel="prefetch" href="/assets/js/47.2659313f.js"><link rel="prefetch" href="/assets/js/48.5faa7cf0.js"><link rel="prefetch" href="/assets/js/49.3f1afcc9.js"><link rel="prefetch" href="/assets/js/5.a33a2f42.js"><link rel="prefetch" href="/assets/js/50.156a1170.js"><link rel="prefetch" href="/assets/js/51.7a28890b.js"><link rel="prefetch" href="/assets/js/52.626bbb88.js"><link rel="prefetch" href="/assets/js/53.f76f6230.js"><link rel="prefetch" href="/assets/js/54.514f06c8.js"><link rel="prefetch" href="/assets/js/56.698393cd.js"><link rel="prefetch" href="/assets/js/57.01098346.js"><link rel="prefetch" href="/assets/js/58.202193d5.js"><link rel="prefetch" href="/assets/js/59.6d8672b4.js"><link rel="prefetch" href="/assets/js/6.f0091315.js"><link rel="prefetch" href="/assets/js/60.afba676d.js"><link rel="prefetch" href="/assets/js/61.1c47dfab.js"><link rel="prefetch" href="/assets/js/62.489f18c0.js"><link rel="prefetch" href="/assets/js/63.b794fd56.js"><link rel="prefetch" href="/assets/js/64.91d10474.js"><link rel="prefetch" href="/assets/js/65.fc4e339c.js"><link rel="prefetch" href="/assets/js/66.284e33b9.js"><link rel="prefetch" href="/assets/js/67.00430bf6.js"><link rel="prefetch" href="/assets/js/68.f5e2dd0d.js"><link rel="prefetch" href="/assets/js/69.4ab94324.js"><link rel="prefetch" href="/assets/js/7.33902685.js"><link rel="prefetch" href="/assets/js/70.8ee73e71.js"><link rel="prefetch" href="/assets/js/71.65f68087.js"><link rel="prefetch" href="/assets/js/72.193a8130.js"><link rel="prefetch" href="/assets/js/73.3b30a58e.js"><link rel="prefetch" href="/assets/js/74.95875e33.js"><link rel="prefetch" href="/assets/js/75.add02f68.js"><link rel="prefetch" href="/assets/js/76.f933a465.js"><link rel="prefetch" href="/assets/js/77.22766fed.js"><link rel="prefetch" href="/assets/js/78.a952efaf.js"><link rel="prefetch" href="/assets/js/79.939eb901.js"><link rel="prefetch" href="/assets/js/8.0165d2c8.js"><link rel="prefetch" href="/assets/js/80.b1fd31c1.js"><link rel="prefetch" href="/assets/js/81.2624b803.js"><link rel="prefetch" href="/assets/js/82.961cda55.js"><link rel="prefetch" href="/assets/js/83.c27a2987.js"><link rel="prefetch" href="/assets/js/84.e38f3c13.js"><link rel="prefetch" href="/assets/js/85.3355a8f9.js"><link rel="prefetch" href="/assets/js/86.91426faa.js"><link rel="prefetch" href="/assets/js/87.b6eae44f.js"><link rel="prefetch" href="/assets/js/88.611c8b4c.js"><link rel="prefetch" href="/assets/js/9.b3227388.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.e4d8b86b.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><img src="/head.jpg" alt="长沙忆" class="logo"> <span class="site-name can-hide">长沙忆</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="编程" class="dropdown-title"><span class="title">编程</span> <span class="arrow down"></span></button> <button type="button" aria-label="编程" class="mobile-dropdown-title"><span class="title">编程</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/8086/" class="nav-link">
+  8086
+</a></li><li class="dropdown-item"><!----> <a href="/git/" class="nav-link">
+  git
+</a></li><li class="dropdown-item"><!----> <a href="/go/" class="nav-link">
+  go
+</a></li><li class="dropdown-item"><!----> <a href="/linux/" class="nav-link">
+  linux
+</a></li><li class="dropdown-item"><!----> <a href="/lua/" class="nav-link">
+  lua
+</a></li><li class="dropdown-item"><!----> <a href="/mysql/" class="nav-link router-link-active">
+  mysql
+</a></li><li class="dropdown-item"><!----> <a href="/nginx/" class="nav-link">
+  nginx
+</a></li><li class="dropdown-item"><!----> <a href="/php/" class="nav-link">
+  php
+</a></li><li class="dropdown-item"><!----> <a href="/python/" class="nav-link">
+  python
+</a></li><li class="dropdown-item"><!----> <a href="/redis/" class="nav-link">
+  redis
+</a></li><li class="dropdown-item"><!----> <a href="/regex/" class="nav-link">
+  regex
+</a></li><li class="dropdown-item"><!----> <a href="/vim/" class="nav-link">
+  vim
+</a></li><li class="dropdown-item"><!----> <a href="/vue/" class="nav-link">
+  vue
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="古中医" class="dropdown-title"><span class="title">古中医</span> <span class="arrow down"></span></button> <button type="button" aria-label="古中医" class="mobile-dropdown-title"><span class="title">古中医</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/guzhongyi/zuojiyun/" class="nav-link">
+  伤寒论类方汇参-左季云
+</a></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="编程" class="dropdown-title"><span class="title">编程</span> <span class="arrow down"></span></button> <button type="button" aria-label="编程" class="mobile-dropdown-title"><span class="title">编程</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/8086/" class="nav-link">
+  8086
+</a></li><li class="dropdown-item"><!----> <a href="/git/" class="nav-link">
+  git
+</a></li><li class="dropdown-item"><!----> <a href="/go/" class="nav-link">
+  go
+</a></li><li class="dropdown-item"><!----> <a href="/linux/" class="nav-link">
+  linux
+</a></li><li class="dropdown-item"><!----> <a href="/lua/" class="nav-link">
+  lua
+</a></li><li class="dropdown-item"><!----> <a href="/mysql/" class="nav-link router-link-active">
+  mysql
+</a></li><li class="dropdown-item"><!----> <a href="/nginx/" class="nav-link">
+  nginx
+</a></li><li class="dropdown-item"><!----> <a href="/php/" class="nav-link">
+  php
+</a></li><li class="dropdown-item"><!----> <a href="/python/" class="nav-link">
+  python
+</a></li><li class="dropdown-item"><!----> <a href="/redis/" class="nav-link">
+  redis
+</a></li><li class="dropdown-item"><!----> <a href="/regex/" class="nav-link">
+  regex
+</a></li><li class="dropdown-item"><!----> <a href="/vim/" class="nav-link">
+  vim
+</a></li><li class="dropdown-item"><!----> <a href="/vue/" class="nav-link">
+  vue
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="古中医" class="dropdown-title"><span class="title">古中医</span> <span class="arrow down"></span></button> <button type="button" aria-label="古中医" class="mobile-dropdown-title"><span class="title">古中医</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/guzhongyi/zuojiyun/" class="nav-link">
+  伤寒论类方汇参-左季云
+</a></li></ul></div></div> <!----></nav>  <ul class="sidebar-links"><li><a href="/mysql/mysql56优化.html" class="sidebar-link">数据库层级优化</a></li><li><a href="/mysql/mysql_float.html" class="sidebar-link">mysql 浮点数的解释</a></li><li><a href="/mysql/mysql_常见操作.html" class="active sidebar-link">mysql 常见操作</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/mysql/mysql_常见操作.html#创建唯一索引" class="sidebar-link">创建唯一索引</a></li><li class="sidebar-sub-header"><a href="/mysql/mysql_常见操作.html#python操作mysql" class="sidebar-link">python操作mysql</a></li><li class="sidebar-sub-header"><a href="/mysql/mysql_常见操作.html#lua操作mysql" class="sidebar-link">lua操作mysql</a></li></ul></li><li><a href="/mysql/mysql添加用户.html" class="sidebar-link">docker 安装mysql5.6</a></li><li><a href="/mysql/mysql锁表问题.html" class="sidebar-link">mysql锁表问题</a></li><li><a href="/mysql/全表扫描快于索引的原因.html" class="sidebar-link">有时全表扫描快于索引的原因</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="mysql-常见操作"><a href="#mysql-常见操作" class="header-anchor">#</a> mysql 常见操作</h1> <h2 id="创建唯一索引"><a href="#创建唯一索引" class="header-anchor">#</a> 创建唯一索引</h2> <div class="language-sql line-numbers-mode"><pre class="language-sql"><code><span class="token keyword">alter</span> <span class="token keyword">table</span> xxxx <span class="token keyword">add</span> <span class="token keyword">unique</span><span class="token punctuation">(</span><span class="token identifier"><span class="token punctuation">`</span>a<span class="token punctuation">`</span></span><span class="token punctuation">,</span> <span class="token identifier"><span class="token punctuation">`</span>b<span class="token punctuation">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><h2 id="python操作mysql"><a href="#python操作mysql" class="header-anchor">#</a> python操作mysql</h2> <div class="language-py line-numbers-mode"><pre class="language-py"><code>self<span class="token punctuation">.</span>db<span class="token operator">=</span>MySQLdb<span class="token punctuation">.</span>connect<span class="token punctuation">(</span>host<span class="token operator">=</span>MYSQL_HOST<span class="token punctuation">,</span>user<span class="token operator">=</span>MYSQL_WRITER_USERNAME<span class="token punctuation">,</span>passwd<span class="token operator">=</span>MYSQL_WRITER_PASSWORD<span class="token punctuation">,</span>port<span class="token operator">=</span>string<span class="token punctuation">.</span>atoi<span class="token punctuation">(</span>MYSQL_PORT<span class="token punctuation">)</span><span class="token punctuation">,</span>db<span class="token operator">=</span><span class="token string">'tianqi'</span><span class="token punctuation">,</span>charset<span class="token operator">=</span><span class="token string">'utf8'</span><span class="token punctuation">)</span><span class="token comment">#init_command=&quot;set names utf8&quot; )</span>
+		<span class="token comment">#&quot;SET NAMES utf8&quot;, 就告诉服务器, 我用的是utf-8编码, 我希望你也给我返回utf-8编码的查询结果.</span>
+		<span class="token comment">#一般情况下, 使用&quot;SET NAMES&quot;就足够了</span>
+		<span class="token comment">#character_set_client/character_set_connection/character_set_results这三个MySQL的&quot;环境变量&quot;, 这里再简单介绍下,</span>
+		<span class="token comment">#这三个变量, 分别告诉MySQL服务器, 客户端的编码集, 在传输给MySQL服务器的时候的编码集, 以及期望MySQL返回的结果的编码集.</span>
+		self<span class="token punctuation">.</span>dbc <span class="token operator">=</span> self<span class="token punctuation">.</span>db<span class="token punctuation">.</span>cursor<span class="token punctuation">(</span><span class="token punctuation">)</span>
+		self<span class="token punctuation">.</span>dbc<span class="token punctuation">.</span>execute<span class="token punctuation">(</span><span class="token string">'SET NAMES utf8;'</span><span class="token punctuation">)</span>
+		<span class="token comment"># self.dbc.execute('SET CHARACTER SET utf8;')</span>
+		<span class="token comment"># self.dbc.execute('SET character_set_connection=utf8;')</span>
+		self<span class="token punctuation">.</span>db<span class="token punctuation">.</span>commit<span class="token punctuation">(</span><span class="token punctuation">)</span>
+		
+		self<span class="token punctuation">.</span>dbc<span class="token punctuation">.</span>execute<span class="token punctuation">(</span><span class="token string">&quot;INSERT INTO tianqi.`scrapy_schame` (`createtime`,`spy_name`) VALUES (NOW(),'bjmb_warning') ;&quot;</span><span class="token punctuation">)</span>
+		self<span class="token punctuation">.</span>db<span class="token punctuation">.</span>commit<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+		self<span class="token punctuation">.</span>dbc<span class="token punctuation">.</span>execute<span class="token punctuation">(</span><span class="token string">&quot;SELECT LAST_INSERT_ID() ;&quot;</span><span class="token punctuation">)</span>
+		self<span class="token punctuation">.</span>db<span class="token punctuation">.</span>commit<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br></div></div><h2 id="lua操作mysql"><a href="#lua操作mysql" class="header-anchor">#</a> lua操作mysql</h2> <div class="language-lua line-numbers-mode"><pre class="language-lua"><code><span class="token keyword">local</span> mysql <span class="token operator">=</span> require <span class="token string">&quot;resty.mysql&quot;</span>
+
+<span class="token keyword">function</span> _M<span class="token punctuation">.</span><span class="token function">connectDB4Write</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	<span class="token keyword">local</span> conn <span class="token operator">=</span> mysql<span class="token punctuation">:</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment">-- return a conntion object</span>
+	conn<span class="token punctuation">:</span><span class="token function">set_timeout</span><span class="token punctuation">(</span><span class="token number">5000</span><span class="token punctuation">)</span>
+	<span class="token comment">--conn:set_keepalive(10000, 100) </span>
+	<span class="token keyword">local</span> ok<span class="token punctuation">,</span> err<span class="token punctuation">,</span> errno<span class="token punctuation">,</span> sqlstate <span class="token operator">=</span> conn<span class="token punctuation">:</span><span class="token function">connect</span><span class="token punctuation">{</span>
+		host <span class="token operator">=</span> DBconfig<span class="token punctuation">.</span>writer<span class="token punctuation">.</span>HOST<span class="token punctuation">,</span>
+		port <span class="token operator">=</span> DBconfig<span class="token punctuation">.</span>PORT<span class="token punctuation">,</span>
+		database <span class="token operator">=</span> DBconfig<span class="token punctuation">.</span>DATABASE<span class="token punctuation">,</span>
+		user <span class="token operator">=</span> DBconfig<span class="token punctuation">.</span>writer<span class="token punctuation">.</span>username<span class="token punctuation">,</span>
+		password <span class="token operator">=</span> DBconfig<span class="token punctuation">.</span>writer<span class="token punctuation">.</span>password<span class="token punctuation">,</span>
+		max_packet_size <span class="token operator">=</span> <span class="token number">1024</span> <span class="token operator">*</span> <span class="token number">1024</span> <span class="token punctuation">}</span>
+	<span class="token keyword">if</span> <span class="token keyword">not</span> ok <span class="token keyword">then</span>
+		<span class="token keyword">return</span> <span class="token keyword">false</span><span class="token punctuation">,</span>err<span class="token punctuation">,</span>errno<span class="token punctuation">,</span>sqlstate
+	<span class="token keyword">else</span>
+		<span class="token keyword">return</span> conn<span class="token punctuation">,</span><span class="token keyword">nil</span>
+	<span class="token keyword">end</span>
+<span class="token keyword">end</span>
+
+
+<span class="token keyword">function</span> _M<span class="token punctuation">.</span><span class="token function">closeDB</span><span class="token punctuation">(</span>conn<span class="token punctuation">)</span>
+	<span class="token keyword">if</span> conn <span class="token keyword">then</span>
+		conn<span class="token punctuation">:</span><span class="token function">set_keepalive</span><span class="token punctuation">(</span><span class="token number">10000</span><span class="token punctuation">,</span><span class="token number">100</span><span class="token punctuation">)</span>
+	<span class="token keyword">end</span>
+<span class="token keyword">end</span>
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br></div></div></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/mysql/mysql_float.html" class="prev">
+        mysql 浮点数的解释
+      </a></span> <span class="next"><a href="/mysql/mysql添加用户.html">
+        docker 安装mysql5.6
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.a040ae6f.js" defer></script><script src="/assets/js/2.c79bcad0.js" defer></script><script src="/assets/js/55.0d62ce85.js" defer></script>
+  </body>
+</html>
