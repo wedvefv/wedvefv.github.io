@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>mysql 常见操作 | 长沙忆</title>
+    <meta name="generator" content="VuePress 1.9.7">
+    <link rel="icon" href="/head.jpg">
+    <meta name="description" content="">
+    
+    <link rel="preload" href="/assets/css/0.styles.e2ae7eca.css" as="style"><link rel="preload" href="/assets/js/app.09341ca8.js" as="script"><link rel="preload" href="/assets/js/2.c79bcad0.js" as="script"><link rel="preload" href="/assets/js/72.ae939cdf.js" as="script"><link rel="prefetch" href="/assets/js/10.936322d1.js"><link rel="prefetch" href="/assets/js/100.bfe0dd69.js"><link rel="prefetch" href="/assets/js/101.05295a64.js"><link rel="prefetch" href="/assets/js/102.00001559.js"><link rel="prefetch" href="/assets/js/103.495eb394.js"><link rel="prefetch" href="/assets/js/104.1da79c35.js"><link rel="prefetch" href="/assets/js/105.20add3c5.js"><link rel="prefetch" href="/assets/js/106.9282110a.js"><link rel="prefetch" href="/assets/js/107.19de69f1.js"><link rel="prefetch" href="/assets/js/108.9201fbeb.js"><link rel="prefetch" href="/assets/js/109.2c09c92a.js"><link rel="prefetch" href="/assets/js/11.6ecf51f2.js"><link rel="prefetch" href="/assets/js/12.6d9b3e92.js"><link rel="prefetch" href="/assets/js/13.1573bd60.js"><link rel="prefetch" href="/assets/js/14.90610471.js"><link rel="prefetch" href="/assets/js/15.908c893b.js"><link rel="prefetch" href="/assets/js/16.1c2ca97e.js"><link rel="prefetch" href="/assets/js/17.b5ef8745.js"><link rel="prefetch" href="/assets/js/18.2e5fe284.js"><link rel="prefetch" href="/assets/js/19.310f8ddb.js"><link rel="prefetch" href="/assets/js/20.c3d59a6a.js"><link rel="prefetch" href="/assets/js/21.d42c9779.js"><link rel="prefetch" href="/assets/js/22.50b43bc2.js"><link rel="prefetch" href="/assets/js/23.87afc012.js"><link rel="prefetch" href="/assets/js/24.1458ea6e.js"><link rel="prefetch" href="/assets/js/25.d1b98873.js"><link rel="prefetch" href="/assets/js/26.722d02d3.js"><link rel="prefetch" href="/assets/js/27.a98928f5.js"><link rel="prefetch" href="/assets/js/28.e3e44762.js"><link rel="prefetch" href="/assets/js/29.030748c8.js"><link rel="prefetch" href="/assets/js/3.f1545439.js"><link rel="prefetch" href="/assets/js/30.cbcd2ee6.js"><link rel="prefetch" href="/assets/js/31.ba3cfdfb.js"><link rel="prefetch" href="/assets/js/32.e9e1e0cf.js"><link rel="prefetch" href="/assets/js/33.fd526579.js"><link rel="prefetch" href="/assets/js/34.b1e209b4.js"><link rel="prefetch" href="/assets/js/35.6f000870.js"><link rel="prefetch" href="/assets/js/36.d2571b9b.js"><link rel="prefetch" href="/assets/js/37.5ad44da1.js"><link rel="prefetch" href="/assets/js/38.5ba29923.js"><link rel="prefetch" href="/assets/js/39.13206d05.js"><link rel="prefetch" href="/assets/js/4.ff3ef254.js"><link rel="prefetch" href="/assets/js/40.ae64b2ca.js"><link rel="prefetch" href="/assets/js/41.760bd57b.js"><link rel="prefetch" href="/assets/js/42.e1e6e6cd.js"><link rel="prefetch" href="/assets/js/43.5f57b158.js"><link rel="prefetch" href="/assets/js/44.9fc1e6b0.js"><link rel="prefetch" href="/assets/js/45.3dcb4045.js"><link rel="prefetch" href="/assets/js/46.21e93546.js"><link rel="prefetch" href="/assets/js/47.7a9ff473.js"><link rel="prefetch" href="/assets/js/48.5061542c.js"><link rel="prefetch" href="/assets/js/49.0a0e0a6f.js"><link rel="prefetch" href="/assets/js/5.497fe5d0.js"><link rel="prefetch" href="/assets/js/50.89aba470.js"><link rel="prefetch" href="/assets/js/51.2bd92f49.js"><link rel="prefetch" href="/assets/js/52.d295cc1f.js"><link rel="prefetch" href="/assets/js/53.096f76fa.js"><link rel="prefetch" href="/assets/js/54.3147a4e0.js"><link rel="prefetch" href="/assets/js/55.6bb4e7f0.js"><link rel="prefetch" href="/assets/js/56.16dee0b6.js"><link rel="prefetch" href="/assets/js/57.f93cd328.js"><link rel="prefetch" href="/assets/js/58.50f57048.js"><link rel="prefetch" href="/assets/js/59.1a16ef5c.js"><link rel="prefetch" href="/assets/js/6.f0091315.js"><link rel="prefetch" href="/assets/js/60.795cfcae.js"><link rel="prefetch" href="/assets/js/61.d4e732b0.js"><link rel="prefetch" href="/assets/js/62.4c7b814d.js"><link rel="prefetch" href="/assets/js/63.89ba9e36.js"><link rel="prefetch" href="/assets/js/64.8d66948b.js"><link rel="prefetch" href="/assets/js/65.83bd6b9d.js"><link rel="prefetch" href="/assets/js/66.602fb70b.js"><link rel="prefetch" href="/assets/js/67.a31514f3.js"><link rel="prefetch" href="/assets/js/68.593c781a.js"><link rel="prefetch" href="/assets/js/69.c1f09435.js"><link rel="prefetch" href="/assets/js/7.1dd9247c.js"><link rel="prefetch" href="/assets/js/70.9edb9ff3.js"><link rel="prefetch" href="/assets/js/71.cc5c7ea5.js"><link rel="prefetch" href="/assets/js/73.9e1235f5.js"><link rel="prefetch" href="/assets/js/74.1266b5d3.js"><link rel="prefetch" href="/assets/js/75.d86c6f40.js"><link rel="prefetch" href="/assets/js/76.cc7cb2ca.js"><link rel="prefetch" href="/assets/js/77.74e95f9f.js"><link rel="prefetch" href="/assets/js/78.e723fd16.js"><link rel="prefetch" href="/assets/js/79.11dc624f.js"><link rel="prefetch" href="/assets/js/8.2bfaef80.js"><link rel="prefetch" href="/assets/js/80.11650d1e.js"><link rel="prefetch" href="/assets/js/81.301755d5.js"><link rel="prefetch" href="/assets/js/82.be046c58.js"><link rel="prefetch" href="/assets/js/83.03a29753.js"><link rel="prefetch" href="/assets/js/84.0413dec8.js"><link rel="prefetch" href="/assets/js/85.83aa213f.js"><link rel="prefetch" href="/assets/js/86.28c01ac0.js"><link rel="prefetch" href="/assets/js/87.134fff47.js"><link rel="prefetch" href="/assets/js/88.1c01293b.js"><link rel="prefetch" href="/assets/js/89.55b2be6e.js"><link rel="prefetch" href="/assets/js/9.b3227388.js"><link rel="prefetch" href="/assets/js/90.1417299e.js"><link rel="prefetch" href="/assets/js/91.a4cfd743.js"><link rel="prefetch" href="/assets/js/92.9f0e0287.js"><link rel="prefetch" href="/assets/js/93.5019de3e.js"><link rel="prefetch" href="/assets/js/94.d6cc5aef.js"><link rel="prefetch" href="/assets/js/95.f5a627a1.js"><link rel="prefetch" href="/assets/js/96.09fd44c8.js"><link rel="prefetch" href="/assets/js/97.fcb513e5.js"><link rel="prefetch" href="/assets/js/98.cc771f05.js"><link rel="prefetch" href="/assets/js/99.edffe955.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.e2ae7eca.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><img src="/head.jpg" alt="长沙忆" class="logo"> <span class="site-name can-hide">长沙忆</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="编程" class="dropdown-title"><span class="title">编程</span> <span class="arrow down"></span></button> <button type="button" aria-label="编程" class="mobile-dropdown-title"><span class="title">编程</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/8086/" class="nav-link">
+  8086
+</a></li><li class="dropdown-item"><!----> <a href="/c++/" class="nav-link">
+  c++
+</a></li><li class="dropdown-item"><!----> <a href="/git/" class="nav-link">
+  git
+</a></li><li class="dropdown-item"><!----> <a href="/go/" class="nav-link">
+  go
+</a></li><li class="dropdown-item"><!----> <a href="/linux/" class="nav-link">
+  linux
+</a></li><li class="dropdown-item"><!----> <a href="/lua/" class="nav-link">
+  lua
+</a></li><li class="dropdown-item"><!----> <a href="/mysql/" class="nav-link router-link-active">
+  mysql
+</a></li><li class="dropdown-item"><!----> <a href="/nginx/" class="nav-link">
+  nginx
+</a></li><li class="dropdown-item"><!----> <a href="/php/" class="nav-link">
+  php
+</a></li><li class="dropdown-item"><!----> <a href="/python/" class="nav-link">
+  python
+</a></li><li class="dropdown-item"><!----> <a href="/redis/" class="nav-link">
+  redis
+</a></li><li class="dropdown-item"><!----> <a href="/regex/" class="nav-link">
+  regex
+</a></li><li class="dropdown-item"><!----> <a href="/shell/" class="nav-link">
+  shell
+</a></li><li class="dropdown-item"><!----> <a href="/vim/" class="nav-link">
+  vim
+</a></li><li class="dropdown-item"><!----> <a href="/vue/" class="nav-link">
+  vue
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="古中医" class="dropdown-title"><span class="title">古中医</span> <span class="arrow down"></span></button> <button type="button" aria-label="古中医" class="mobile-dropdown-title"><span class="title">古中医</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/guzhongyi/zhongyao/" class="nav-link">
+  中药
+</a></li><li class="dropdown-item"><!----> <a href="/guzhongyi/shanghanlun/shanhanlun.html" class="nav-link">
+  伤寒论原文
+</a></li><li class="dropdown-item"><!----> <a href="/guzhongyi/zuojiyun/" class="nav-link">
+  伤寒论类方-左季云
+</a></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="编程" class="dropdown-title"><span class="title">编程</span> <span class="arrow down"></span></button> <button type="button" aria-label="编程" class="mobile-dropdown-title"><span class="title">编程</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/8086/" class="nav-link">
+  8086
+</a></li><li class="dropdown-item"><!----> <a href="/c++/" class="nav-link">
+  c++
+</a></li><li class="dropdown-item"><!----> <a href="/git/" class="nav-link">
+  git
+</a></li><li class="dropdown-item"><!----> <a href="/go/" class="nav-link">
+  go
+</a></li><li class="dropdown-item"><!----> <a href="/linux/" class="nav-link">
+  linux
+</a></li><li class="dropdown-item"><!----> <a href="/lua/" class="nav-link">
+  lua
+</a></li><li class="dropdown-item"><!----> <a href="/mysql/" class="nav-link router-link-active">
+  mysql
+</a></li><li class="dropdown-item"><!----> <a href="/nginx/" class="nav-link">
+  nginx
+</a></li><li class="dropdown-item"><!----> <a href="/php/" class="nav-link">
+  php
+</a></li><li class="dropdown-item"><!----> <a href="/python/" class="nav-link">
+  python
+</a></li><li class="dropdown-item"><!----> <a href="/redis/" class="nav-link">
+  redis
+</a></li><li class="dropdown-item"><!----> <a href="/regex/" class="nav-link">
+  regex
+</a></li><li class="dropdown-item"><!----> <a href="/shell/" class="nav-link">
+  shell
+</a></li><li class="dropdown-item"><!----> <a href="/vim/" class="nav-link">
+  vim
+</a></li><li class="dropdown-item"><!----> <a href="/vue/" class="nav-link">
+  vue
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="古中医" class="dropdown-title"><span class="title">古中医</span> <span class="arrow down"></span></button> <button type="button" aria-label="古中医" class="mobile-dropdown-title"><span class="title">古中医</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/guzhongyi/zhongyao/" class="nav-link">
+  中药
+</a></li><li class="dropdown-item"><!----> <a href="/guzhongyi/shanghanlun/shanhanlun.html" class="nav-link">
+  伤寒论原文
+</a></li><li class="dropdown-item"><!----> <a href="/guzhongyi/zuojiyun/" class="nav-link">
+  伤寒论类方-左季云
+</a></li></ul></div></div> <!----></nav>  <ul class="sidebar-links"><li><a href="/mysql/mysql56优化.html" class="sidebar-link">数据库层级优化</a></li><li><a href="/mysql/mysql_float.html" class="sidebar-link">mysql 浮点数的解释</a></li><li><a href="/mysql/mysql_operate.html" class="sidebar-link">mysql 常见操作</a></li><li><a href="/mysql/mysql_命令行sql.html" class="sidebar-link">mysql 常见操作</a></li><li><a href="/mysql/mysql_常见操作.html" class="sidebar-link">mysql 常见操作</a></li><li><a href="/mysql/mysql_常见语言操作.html" class="active sidebar-link">mysql 常见操作</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/mysql/mysql_常见语言操作.html#创建唯一索引" class="sidebar-link">创建唯一索引</a></li><li class="sidebar-sub-header"><a href="/mysql/mysql_常见语言操作.html#python操作mysql" class="sidebar-link">python操作mysql</a></li><li class="sidebar-sub-header"><a href="/mysql/mysql_常见语言操作.html#go操作mysql" class="sidebar-link">go操作mysql</a></li><li class="sidebar-sub-header"><a href="/mysql/mysql_常见语言操作.html#openresty-lua操作mysql" class="sidebar-link">openresty-lua操作mysql</a></li></ul></li><li><a href="/mysql/mysql添加用户.html" class="sidebar-link">docker 安装mysql5.6</a></li><li><a href="/mysql/mysql锁表问题.html" class="sidebar-link">mysql锁表问题</a></li><li><a href="/mysql/全表扫描快于索引的原因.html" class="sidebar-link">有时全表扫描快于索引的原因</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="mysql-常见操作"><a href="#mysql-常见操作" class="header-anchor">#</a> mysql 常见操作</h1> <h2 id="创建唯一索引"><a href="#创建唯一索引" class="header-anchor">#</a> 创建唯一索引</h2> <div class="language-sql line-numbers-mode"><pre class="language-sql"><code><span class="token keyword">alter</span> <span class="token keyword">table</span> xxxx <span class="token keyword">add</span> <span class="token keyword">unique</span><span class="token punctuation">(</span><span class="token identifier"><span class="token punctuation">`</span>a<span class="token punctuation">`</span></span><span class="token punctuation">,</span> <span class="token identifier"><span class="token punctuation">`</span>b<span class="token punctuation">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><h2 id="python操作mysql"><a href="#python操作mysql" class="header-anchor">#</a> python操作mysql</h2> <div class="language-py line-numbers-mode"><pre class="language-py"><code><span class="token comment">#encoding=utf8</span>
+
+<span class="token keyword">import</span> fcntl<span class="token punctuation">,</span>json<span class="token punctuation">,</span>redis<span class="token punctuation">,</span>os<span class="token punctuation">,</span>time<span class="token punctuation">,</span>string<span class="token punctuation">,</span> datetime
+<span class="token keyword">import</span> MySQLdb
+<span class="token keyword">import</span> MySQLdb<span class="token punctuation">.</span>cursors
+<span class="token comment"># https://mysqlclient.readthedocs.io/user_guide.html?msclkid=33043771baf611ecb6b4211e7a32067a#functions-and-attributes</span>
+
+
+MYSQL_HOST <span class="token operator">=</span> os<span class="token punctuation">.</span>environ<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'PUSH_MYSQL_HOST'</span><span class="token punctuation">)</span>
+MYSQL_WRITER_USERNAME <span class="token operator">=</span> os<span class="token punctuation">.</span>environ<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'MYSQL_WRITER_USERNAME'</span><span class="token punctuation">)</span>
+MYSQL_WRITER_PASSWORD <span class="token operator">=</span> os<span class="token punctuation">.</span>environ<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'MYSQL_WRITER_PASSWORD'</span><span class="token punctuation">)</span>
+MYSQL_PORT <span class="token operator">=</span> os<span class="token punctuation">.</span>environ<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'MYSQL_PORT'</span><span class="token punctuation">)</span>
+
+<span class="token comment"># charset 参数是设置connction中使用的编码，一般设置set names 就告诉服务器客户端和服务器使用utf8了</span>
+db<span class="token operator">=</span>MySQLdb<span class="token punctuation">.</span>connect<span class="token punctuation">(</span>host<span class="token operator">=</span>MYSQL_HOST<span class="token punctuation">,</span>user<span class="token operator">=</span>MYSQL_WRITER_USERNAME<span class="token punctuation">,</span>\
+	passwd<span class="token operator">=</span>MYSQL_WRITER_PASSWORD<span class="token punctuation">,</span>port<span class="token operator">=</span>string<span class="token punctuation">.</span>atoi<span class="token punctuation">(</span>MYSQL_PORT<span class="token punctuation">)</span><span class="token punctuation">,</span>db<span class="token operator">=</span><span class="token string">'test'</span><span class="token punctuation">,</span>init_command<span class="token operator">=</span><span class="token string">&quot;set names utf8&quot;</span> <span class="token punctuation">)</span>
+dbc <span class="token operator">=</span> db<span class="token punctuation">.</span>cursor<span class="token punctuation">(</span>MySQLdb<span class="token punctuation">.</span>cursors<span class="token punctuation">.</span>DictCursor<span class="token punctuation">)</span> <span class="token comment"># MySQLdb.cursors.DictCursor表示类型，返回字典形式</span>
+
+dbc<span class="token punctuation">.</span>execute<span class="token punctuation">(</span><span class="token string">'insert test_1 set name=&quot;测试照顾捏了&quot;'</span><span class="token punctuation">)</span>
+dbc<span class="token punctuation">.</span>execute<span class="token punctuation">(</span><span class="token triple-quoted-string string">'''insert test_1 set name=&quot;%s&quot;, id=%s'''</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token string">&quot;xx&quot;</span><span class="token punctuation">,</span><span class="token string">&quot;1&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">#  元组一个元素要加逗号</span>
+dbc<span class="token punctuation">.</span>executemany<span class="token punctuation">(</span><span class="token triple-quoted-string string">'''insert into test_1 (name) values(%s)'''</span><span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token punctuation">(</span><span class="token string">&quot;1&quot;</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token string">&quot;2&quot;</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+db<span class="token punctuation">.</span>commit<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token comment"># sql中字段不需要加引号, 如果加，需要最外层3引号，里面双引号，不能单引号, 如果字段不是char，不可以加引号</span>
+dbc<span class="token punctuation">.</span>execute<span class="token punctuation">(</span><span class="token triple-quoted-string string">'''select * from  test_1 where name=&quot;%s&quot; and id=%s'''</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token string">&quot;xx&quot;</span><span class="token punctuation">,</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">#(&quot;xx&quot;, 1) 都行</span>
+<span class="token comment">#只有一个参数需要元组要加 逗号</span>
+dbc<span class="token punctuation">.</span>execute<span class="token punctuation">(</span><span class="token string">'select * from  test_1 where name=%s'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token string">&quot;xx&quot;</span><span class="token punctuation">,</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+x <span class="token operator">=</span> dbc<span class="token punctuation">.</span>fetchone<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token comment"># dbc.fetchmany(1) 获取几条</span>
+data <span class="token operator">=</span> dbc<span class="token punctuation">.</span>fetchall<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">for</span> x <span class="token keyword">in</span> data<span class="token punctuation">:</span>
+	<span class="token keyword">print</span> <span class="token string">&quot;for&quot;</span><span class="token punctuation">,</span> x
+	
+db<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br></div></div><h1 id="php操作mysql"><a href="#php操作mysql" class="header-anchor">#</a> php操作mysql</h1> <div class="language-php line-numbers-mode"><pre class="language-php"><code><span class="token function">date_default_timezone_set</span><span class="token punctuation">(</span><span class="token string double-quoted-string">&quot;Asia/Shanghai&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">echo</span> <span class="token string double-quoted-string">&quot;=========================start: &quot;</span><span class="token operator">.</span><span class="token function">date</span><span class="token punctuation">(</span><span class="token string double-quoted-string">&quot;Y-m-d H:i:s&quot;</span><span class="token punctuation">,</span> <span class="token function">time</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">.</span><span class="token string double-quoted-string">&quot;============\n&quot;</span><span class="token punctuation">;</span>
+
+
+<span class="token keyword">function</span> <span class="token function-definition function">mysql_init</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token variable">$host</span> <span class="token operator">=</span> <span class="token function">getenv</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'GARDEN_MYSQL_HOST'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token variable">$dsn</span> <span class="token operator">=</span> <span class="token string double-quoted-string">&quot;mysql:host=<span class="token interpolation"><span class="token variable">$host</span></span>;dbname=garden&quot;</span><span class="token punctuation">;</span>
+    <span class="token variable">$user</span> <span class="token operator">=</span> <span class="token function">getenv</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'MYSQL_WRITER_USERNAME'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token variable">$pass</span> <span class="token operator">=</span> <span class="token function">getenv</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'MYSQL_WRITER_PASSWORD'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token variable">$mysql</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">PDO</span><span class="token punctuation">(</span><span class="token variable">$dsn</span><span class="token punctuation">,</span> <span class="token variable">$user</span><span class="token punctuation">,</span> <span class="token variable">$pass</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token variable">$mysql</span><span class="token operator">-&gt;</span><span class="token function">query</span><span class="token punctuation">(</span><span class="token string double-quoted-string">&quot;set names utf8&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">return</span> <span class="token variable">$mysql</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+
+<span class="token comment">// query </span>
+<span class="token variable">$mysql</span> <span class="token operator">=</span> <span class="token function">mysql_init</span><span class="token punctuation">(</span><span class="token string double-quoted-string">&quot;test&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$sql</span> <span class="token operator">=</span> <span class="token string double-quoted-string">&quot;select * from test limit 10;&quot;</span><span class="token punctuation">;</span>
+<span class="token variable">$mysql</span><span class="token operator">-&gt;</span><span class="token function">query</span><span class="token punctuation">(</span><span class="token variable">$sql</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// write </span>
+<span class="token variable">$mysql</span><span class="token operator">-&gt;</span><span class="token function">exec</span><span class="token punctuation">(</span><span class="token string double-quoted-string">&quot;insert into test set a =10&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 先准备，一般查询大量数据</span>
+<span class="token variable">$mysql_query</span><span class="token operator">-&gt;</span><span class="token function">setAttribute</span><span class="token punctuation">(</span><span class="token class-name static-context">PDO</span><span class="token operator">::</span><span class="token constant">MYSQL_ATTR_USE_BUFFERED_QUERY</span><span class="token punctuation">,</span> <span class="token constant boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment"># 不实用本地缓存，避免一次性把数据都取到本地占内存</span>
+<span class="token variable">$mysql</span><span class="token operator">-&gt;</span><span class="token function">prepare</span><span class="token punctuation">(</span><span class="token variable">$sql</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$mysql</span><span class="token operator">-&gt;</span><span class="token function">execute</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">while</span><span class="token punctuation">(</span><span class="token variable">$row</span> <span class="token operator">=</span> <span class="token variable">$sth</span><span class="token operator">-&gt;</span><span class="token function">fetch</span><span class="token punctuation">(</span><span class="token class-name static-context">PDO</span><span class="token operator">::</span><span class="token constant">FETCH_ASSOC</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token function">print_r</span><span class="token punctuation">(</span><span class="token variable">$row</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token comment">// 已经设置了属性，直接query，也可以吧，</span>
+
+<span class="token variable">$mysql</span> <span class="token operator">=</span> <span class="token constant">null</span><span class="token punctuation">;</span>
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br></div></div><h2 id="go操作mysql"><a href="#go操作mysql" class="header-anchor">#</a> go操作mysql</h2> <div class="language-go line-numbers-mode"><pre class="language-go"><code><span class="token keyword">package</span> main
+
+<span class="token keyword">import</span><span class="token punctuation">(</span>
+<span class="token boolean">_</span> <span class="token string">&quot;github.com/go-sql-driver/mysql&quot;</span>
+<span class="token string">&quot;github.com/jmoiron/sqlx&quot;</span>
+<span class="token string">&quot;fmt&quot;</span>
+<span class="token punctuation">)</span>
+
+<span class="token comment">// 全局变量</span>
+<span class="token keyword">var</span> <span class="token punctuation">(</span>
+	userName  <span class="token builtin">string</span> <span class="token operator">=</span> <span class="token string">&quot;test&quot;</span>
+	password  <span class="token builtin">string</span> <span class="token operator">=</span> <span class="token string">&quot;test@231&quot;</span>
+	ipAddrees <span class="token builtin">string</span> <span class="token operator">=</span> os<span class="token punctuation">.</span><span class="token function">Getenv</span><span class="token punctuation">(</span><span class="token string">&quot;MYSQL_HOST&quot;</span><span class="token punctuation">)</span>
+	port      <span class="token builtin">int</span>    <span class="token operator">=</span> <span class="token number">3306</span>
+	dbName    <span class="token builtin">string</span> <span class="token operator">=</span> <span class="token string">&quot;testdb&quot;</span>
+	charset   <span class="token builtin">string</span> <span class="token operator">=</span> <span class="token string">&quot;utf8&quot;</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">func</span> <span class="token function">connectMysql</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token operator">*</span>sqlx<span class="token punctuation">.</span>DB<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	dsn <span class="token operator">:=</span> fmt<span class="token punctuation">.</span><span class="token function">Sprintf</span><span class="token punctuation">(</span><span class="token string">&quot;%s:%s@tcp(%s:%d)/%s?charset=%s&quot;</span><span class="token punctuation">,</span> 
+						userName<span class="token punctuation">,</span> password<span class="token punctuation">,</span> ipAddrees<span class="token punctuation">,</span> port<span class="token punctuation">,</span> dbName<span class="token punctuation">,</span> charset<span class="token punctuation">)</span>
+	Db<span class="token punctuation">,</span> err <span class="token operator">:=</span> sqlx<span class="token punctuation">.</span><span class="token function">Open</span><span class="token punctuation">(</span><span class="token string">&quot;mysql&quot;</span><span class="token punctuation">,</span> dsn<span class="token punctuation">)</span>
+	Db<span class="token punctuation">.</span><span class="token function">SetMaxOpenConns</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">)</span> 
+	Db<span class="token punctuation">.</span><span class="token function">SetMaxIdleConns</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span>
+	<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">&quot;mysql connect failed, detail is [%v]&quot;</span><span class="token punctuation">,</span> err<span class="token punctuation">.</span><span class="token function">Error</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">return</span> Db
+<span class="token punctuation">}</span>
+
+<span class="token keyword">var</span> Db <span class="token operator">*</span>sqlx<span class="token punctuation">.</span>DB <span class="token operator">=</span> <span class="token function">connectMysql</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">defer</span> Db<span class="token punctuation">.</span><span class="token function">Close</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+rows<span class="token punctuation">,</span> err <span class="token operator">:=</span> Db<span class="token punctuation">.</span><span class="token function">Query</span><span class="token punctuation">(</span><span class="token string">&quot;select * from test where _id = ? and appid = ?&quot;</span><span class="token punctuation">,</span> id<span class="token punctuation">,</span> appid<span class="token punctuation">)</span>
+<span class="token keyword">for</span> rows<span class="token punctuation">.</span><span class="token function">Next</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> id<span class="token punctuation">,</span> appid <span class="token builtin">int</span>
+    err <span class="token operator">:=</span> rows<span class="token punctuation">.</span><span class="token function">Scan</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>id<span class="token punctuation">,</span> <span class="token operator">&amp;</span>appid<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+ 	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">&quot;Line 328, get data failed, error:[%v]&quot;</span><span class="token punctuation">,</span> err<span class="token punctuation">.</span><span class="token function">Error</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>id<span class="token punctuation">,</span> appid<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+	
+
+<span class="token boolean">_</span><span class="token punctuation">,</span> err <span class="token operator">:=</span> Db<span class="token punctuation">.</span><span class="token function">Exec</span><span class="token punctuation">(</span><span class="token string">&quot;insert into test (id, appid) values(?,?)&quot;</span><span class="token punctuation">,</span> id<span class="token punctuation">,</span> appid<span class="token punctuation">)</span>
+
+<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">&quot;Insert error&quot;</span><span class="token punctuation">)</span>
+	os<span class="token punctuation">.</span><span class="token function">Exit</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+	
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br><span class="line-number">48</span><br><span class="line-number">49</span><br><span class="line-number">50</span><br><span class="line-number">51</span><br><span class="line-number">52</span><br></div></div><h2 id="openresty-lua操作mysql"><a href="#openresty-lua操作mysql" class="header-anchor">#</a> openresty-lua操作mysql</h2> <div class="language-lua line-numbers-mode"><pre class="language-lua"><code><span class="token keyword">local</span> mysql <span class="token operator">=</span> require <span class="token string">&quot;resty.mysql&quot;</span>
+
+<span class="token keyword">function</span> _M<span class="token punctuation">.</span><span class="token function">connectDB4Write</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	<span class="token keyword">local</span> conn <span class="token operator">=</span> mysql<span class="token punctuation">:</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment">-- return a conntion object</span>
+	conn<span class="token punctuation">:</span><span class="token function">set_timeout</span><span class="token punctuation">(</span><span class="token number">5000</span><span class="token punctuation">)</span>
+	<span class="token comment">--conn:set_keepalive(10000, 100) </span>
+	<span class="token keyword">local</span> ok<span class="token punctuation">,</span> err<span class="token punctuation">,</span> errno<span class="token punctuation">,</span> sqlstate <span class="token operator">=</span> conn<span class="token punctuation">:</span><span class="token function">connect</span><span class="token punctuation">{</span>
+		host <span class="token operator">=</span> DBconfig<span class="token punctuation">.</span>writer<span class="token punctuation">.</span>HOST<span class="token punctuation">,</span>
+		port <span class="token operator">=</span> DBconfig<span class="token punctuation">.</span>PORT<span class="token punctuation">,</span>
+		database <span class="token operator">=</span> DBconfig<span class="token punctuation">.</span>DATABASE<span class="token punctuation">,</span>
+		user <span class="token operator">=</span> DBconfig<span class="token punctuation">.</span>writer<span class="token punctuation">.</span>username<span class="token punctuation">,</span>
+		password <span class="token operator">=</span> DBconfig<span class="token punctuation">.</span>writer<span class="token punctuation">.</span>password<span class="token punctuation">,</span>
+		max_packet_size <span class="token operator">=</span> <span class="token number">1024</span> <span class="token operator">*</span> <span class="token number">1024</span> <span class="token punctuation">}</span>
+	<span class="token keyword">if</span> <span class="token keyword">not</span> ok <span class="token keyword">then</span>
+		<span class="token keyword">return</span> <span class="token keyword">false</span><span class="token punctuation">,</span>err<span class="token punctuation">,</span>errno<span class="token punctuation">,</span>sqlstate
+	<span class="token keyword">else</span>
+		<span class="token keyword">return</span> conn<span class="token punctuation">,</span><span class="token keyword">nil</span>
+	<span class="token keyword">end</span>
+<span class="token keyword">end</span>
+
+
+<span class="token keyword">function</span> _M<span class="token punctuation">.</span><span class="token function">closeDB</span><span class="token punctuation">(</span>conn<span class="token punctuation">)</span>
+	<span class="token keyword">if</span> conn <span class="token keyword">then</span>
+		conn<span class="token punctuation">:</span><span class="token function">set_keepalive</span><span class="token punctuation">(</span><span class="token number">10000</span><span class="token punctuation">,</span><span class="token number">100</span><span class="token punctuation">)</span>
+	<span class="token keyword">end</span>
+<span class="token keyword">end</span>
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br></div></div></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/mysql/mysql_常见操作.html" class="prev">
+        mysql 常见操作
+      </a></span> <span class="next"><a href="/mysql/mysql添加用户.html">
+        docker 安装mysql5.6
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.09341ca8.js" defer></script><script src="/assets/js/2.c79bcad0.js" defer></script><script src="/assets/js/72.ae939cdf.js" defer></script>
+  </body>
+</html>
