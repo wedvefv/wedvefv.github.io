@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>检测lua文件使用到全局变量 | 长沙忆</title>
+    <meta name="generator" content="VuePress 1.9.7">
+    <link rel="icon" href="/head.jpg">
+    <meta name="description" content="">
+    
+    <link rel="preload" href="/assets/css/0.styles.35bcedcf.css" as="style"><link rel="preload" href="/assets/js/app.8b8900fc.js" as="script"><link rel="preload" href="/assets/js/2.c79bcad0.js" as="script"><link rel="preload" href="/assets/js/79.a7233bd0.js" as="script"><link rel="prefetch" href="/assets/js/10.45cfef63.js"><link rel="prefetch" href="/assets/js/100.294aea60.js"><link rel="prefetch" href="/assets/js/101.bbfba028.js"><link rel="prefetch" href="/assets/js/102.aeb98656.js"><link rel="prefetch" href="/assets/js/103.10223203.js"><link rel="prefetch" href="/assets/js/104.d000921c.js"><link rel="prefetch" href="/assets/js/105.faf2bf3d.js"><link rel="prefetch" href="/assets/js/106.3cf67b13.js"><link rel="prefetch" href="/assets/js/107.8a5b099a.js"><link rel="prefetch" href="/assets/js/108.0eeff96d.js"><link rel="prefetch" href="/assets/js/109.575bc1b2.js"><link rel="prefetch" href="/assets/js/11.ffe097fb.js"><link rel="prefetch" href="/assets/js/110.83ccedff.js"><link rel="prefetch" href="/assets/js/111.c9eb38ec.js"><link rel="prefetch" href="/assets/js/112.b11bde1b.js"><link rel="prefetch" href="/assets/js/113.d829467d.js"><link rel="prefetch" href="/assets/js/114.306afd8e.js"><link rel="prefetch" href="/assets/js/115.53fc4e68.js"><link rel="prefetch" href="/assets/js/12.082dc62b.js"><link rel="prefetch" href="/assets/js/13.38ddad63.js"><link rel="prefetch" href="/assets/js/14.edf6aab5.js"><link rel="prefetch" href="/assets/js/15.54a2d9e1.js"><link rel="prefetch" href="/assets/js/16.e2880b61.js"><link rel="prefetch" href="/assets/js/17.985bb021.js"><link rel="prefetch" href="/assets/js/18.12dec8ad.js"><link rel="prefetch" href="/assets/js/19.748eacc3.js"><link rel="prefetch" href="/assets/js/20.e118e701.js"><link rel="prefetch" href="/assets/js/21.10132d67.js"><link rel="prefetch" href="/assets/js/22.02482fa2.js"><link rel="prefetch" href="/assets/js/23.90751540.js"><link rel="prefetch" href="/assets/js/24.0cbb76d8.js"><link rel="prefetch" href="/assets/js/25.9258911a.js"><link rel="prefetch" href="/assets/js/26.53086406.js"><link rel="prefetch" href="/assets/js/27.c001a4f2.js"><link rel="prefetch" href="/assets/js/28.b29391c0.js"><link rel="prefetch" href="/assets/js/29.5cf65595.js"><link rel="prefetch" href="/assets/js/3.43040722.js"><link rel="prefetch" href="/assets/js/30.84a84e89.js"><link rel="prefetch" href="/assets/js/31.224d6e26.js"><link rel="prefetch" href="/assets/js/32.3e6abdb3.js"><link rel="prefetch" href="/assets/js/33.7b5b38bc.js"><link rel="prefetch" href="/assets/js/34.efcca4ac.js"><link rel="prefetch" href="/assets/js/35.90eef927.js"><link rel="prefetch" href="/assets/js/36.d0988d4c.js"><link rel="prefetch" href="/assets/js/37.29914b97.js"><link rel="prefetch" href="/assets/js/38.63206409.js"><link rel="prefetch" href="/assets/js/39.e83cc2f9.js"><link rel="prefetch" href="/assets/js/4.ff3ef254.js"><link rel="prefetch" href="/assets/js/40.16a41de2.js"><link rel="prefetch" href="/assets/js/41.0e9e0715.js"><link rel="prefetch" href="/assets/js/42.3e124c61.js"><link rel="prefetch" href="/assets/js/43.ab86c5aa.js"><link rel="prefetch" href="/assets/js/44.b956d231.js"><link rel="prefetch" href="/assets/js/45.2b923c6d.js"><link rel="prefetch" href="/assets/js/46.dbdfe295.js"><link rel="prefetch" href="/assets/js/47.1072c36c.js"><link rel="prefetch" href="/assets/js/48.22cb0955.js"><link rel="prefetch" href="/assets/js/49.881155fa.js"><link rel="prefetch" href="/assets/js/5.b785003b.js"><link rel="prefetch" href="/assets/js/50.7edbcea4.js"><link rel="prefetch" href="/assets/js/51.303a14c4.js"><link rel="prefetch" href="/assets/js/52.9864fd9d.js"><link rel="prefetch" href="/assets/js/53.f7055dbb.js"><link rel="prefetch" href="/assets/js/54.f0f2fb64.js"><link rel="prefetch" href="/assets/js/55.7ec9f8ab.js"><link rel="prefetch" href="/assets/js/56.0d73bd7e.js"><link rel="prefetch" href="/assets/js/57.e3ae3e24.js"><link rel="prefetch" href="/assets/js/58.9c63e0a3.js"><link rel="prefetch" href="/assets/js/59.912f504a.js"><link rel="prefetch" href="/assets/js/6.f0091315.js"><link rel="prefetch" href="/assets/js/60.3ee21dd4.js"><link rel="prefetch" href="/assets/js/61.5a8f4546.js"><link rel="prefetch" href="/assets/js/62.90c027b1.js"><link rel="prefetch" href="/assets/js/63.532474d0.js"><link rel="prefetch" href="/assets/js/64.47d76f09.js"><link rel="prefetch" href="/assets/js/65.93fcc193.js"><link rel="prefetch" href="/assets/js/66.8af94b36.js"><link rel="prefetch" href="/assets/js/67.096f70c2.js"><link rel="prefetch" href="/assets/js/68.9f8e7a9f.js"><link rel="prefetch" href="/assets/js/69.f83ddb63.js"><link rel="prefetch" href="/assets/js/7.33902685.js"><link rel="prefetch" href="/assets/js/70.5fd8e04b.js"><link rel="prefetch" href="/assets/js/71.c1d213e5.js"><link rel="prefetch" href="/assets/js/72.91465050.js"><link rel="prefetch" href="/assets/js/73.f8edbe85.js"><link rel="prefetch" href="/assets/js/74.b5e0fe89.js"><link rel="prefetch" href="/assets/js/75.ef81aaa2.js"><link rel="prefetch" href="/assets/js/76.4f0b6c0d.js"><link rel="prefetch" href="/assets/js/77.4ef92714.js"><link rel="prefetch" href="/assets/js/78.5867ecc3.js"><link rel="prefetch" href="/assets/js/8.1c918794.js"><link rel="prefetch" href="/assets/js/80.5e721363.js"><link rel="prefetch" href="/assets/js/81.0e8ac101.js"><link rel="prefetch" href="/assets/js/82.ed1d4c6c.js"><link rel="prefetch" href="/assets/js/83.89e129a5.js"><link rel="prefetch" href="/assets/js/84.be07e73a.js"><link rel="prefetch" href="/assets/js/85.c5ded00a.js"><link rel="prefetch" href="/assets/js/86.53bd318a.js"><link rel="prefetch" href="/assets/js/87.ebcac52c.js"><link rel="prefetch" href="/assets/js/88.7be32b02.js"><link rel="prefetch" href="/assets/js/89.4fdc4e1b.js"><link rel="prefetch" href="/assets/js/9.b3227388.js"><link rel="prefetch" href="/assets/js/90.c634958f.js"><link rel="prefetch" href="/assets/js/91.417bef5e.js"><link rel="prefetch" href="/assets/js/92.0e3f3685.js"><link rel="prefetch" href="/assets/js/93.213bb951.js"><link rel="prefetch" href="/assets/js/94.b8236ece.js"><link rel="prefetch" href="/assets/js/95.f1e8af85.js"><link rel="prefetch" href="/assets/js/96.fb018a4f.js"><link rel="prefetch" href="/assets/js/97.b383026d.js"><link rel="prefetch" href="/assets/js/98.0748095b.js"><link rel="prefetch" href="/assets/js/99.d7306ffe.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.35bcedcf.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><img src="/head.jpg" alt="长沙忆" class="logo"> <span class="site-name can-hide">长沙忆</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="编程" class="dropdown-title"><span class="title">编程</span> <span class="arrow down"></span></button> <button type="button" aria-label="编程" class="mobile-dropdown-title"><span class="title">编程</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/8086/" class="nav-link">
+  8086
+</a></li><li class="dropdown-item"><!----> <a href="/c++/" class="nav-link">
+  c++
+</a></li><li class="dropdown-item"><!----> <a href="/git/" class="nav-link">
+  git
+</a></li><li class="dropdown-item"><!----> <a href="/go/" class="nav-link">
+  go
+</a></li><li class="dropdown-item"><!----> <a href="/linux/" class="nav-link">
+  linux
+</a></li><li class="dropdown-item"><!----> <a href="/lua/" class="nav-link">
+  lua
+</a></li><li class="dropdown-item"><!----> <a href="/mysql/" class="nav-link">
+  mysql
+</a></li><li class="dropdown-item"><!----> <a href="/nginx/" class="nav-link router-link-active">
+  nginx
+</a></li><li class="dropdown-item"><!----> <a href="/php/" class="nav-link">
+  php
+</a></li><li class="dropdown-item"><!----> <a href="/python/" class="nav-link">
+  python
+</a></li><li class="dropdown-item"><!----> <a href="/redis/" class="nav-link">
+  redis
+</a></li><li class="dropdown-item"><!----> <a href="/regex/" class="nav-link">
+  regex
+</a></li><li class="dropdown-item"><!----> <a href="/shell/" class="nav-link">
+  shell
+</a></li><li class="dropdown-item"><!----> <a href="/vim/" class="nav-link">
+  vim
+</a></li><li class="dropdown-item"><!----> <a href="/vue/" class="nav-link">
+  vue
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="古中医" class="dropdown-title"><span class="title">古中医</span> <span class="arrow down"></span></button> <button type="button" aria-label="古中医" class="mobile-dropdown-title"><span class="title">古中医</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/guzhongyi/zhongyao/" class="nav-link">
+  中药
+</a></li><li class="dropdown-item"><!----> <a href="/guzhongyi/shanghanlun/shanhanlun.html" class="nav-link">
+  伤寒论原文
+</a></li><li class="dropdown-item"><!----> <a href="/guzhongyi/zuojiyun/" class="nav-link">
+  伤寒论类方-左季云
+</a></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="编程" class="dropdown-title"><span class="title">编程</span> <span class="arrow down"></span></button> <button type="button" aria-label="编程" class="mobile-dropdown-title"><span class="title">编程</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/8086/" class="nav-link">
+  8086
+</a></li><li class="dropdown-item"><!----> <a href="/c++/" class="nav-link">
+  c++
+</a></li><li class="dropdown-item"><!----> <a href="/git/" class="nav-link">
+  git
+</a></li><li class="dropdown-item"><!----> <a href="/go/" class="nav-link">
+  go
+</a></li><li class="dropdown-item"><!----> <a href="/linux/" class="nav-link">
+  linux
+</a></li><li class="dropdown-item"><!----> <a href="/lua/" class="nav-link">
+  lua
+</a></li><li class="dropdown-item"><!----> <a href="/mysql/" class="nav-link">
+  mysql
+</a></li><li class="dropdown-item"><!----> <a href="/nginx/" class="nav-link router-link-active">
+  nginx
+</a></li><li class="dropdown-item"><!----> <a href="/php/" class="nav-link">
+  php
+</a></li><li class="dropdown-item"><!----> <a href="/python/" class="nav-link">
+  python
+</a></li><li class="dropdown-item"><!----> <a href="/redis/" class="nav-link">
+  redis
+</a></li><li class="dropdown-item"><!----> <a href="/regex/" class="nav-link">
+  regex
+</a></li><li class="dropdown-item"><!----> <a href="/shell/" class="nav-link">
+  shell
+</a></li><li class="dropdown-item"><!----> <a href="/vim/" class="nav-link">
+  vim
+</a></li><li class="dropdown-item"><!----> <a href="/vue/" class="nav-link">
+  vue
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="古中医" class="dropdown-title"><span class="title">古中医</span> <span class="arrow down"></span></button> <button type="button" aria-label="古中医" class="mobile-dropdown-title"><span class="title">古中医</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/guzhongyi/zhongyao/" class="nav-link">
+  中药
+</a></li><li class="dropdown-item"><!----> <a href="/guzhongyi/shanghanlun/shanhanlun.html" class="nav-link">
+  伤寒论原文
+</a></li><li class="dropdown-item"><!----> <a href="/guzhongyi/zuojiyun/" class="nav-link">
+  伤寒论类方-左季云
+</a></li></ul></div></div> <!----></nav>  <ul class="sidebar-links"><li><a href="/nginx/check_lua_global.html" aria-current="page" class="active sidebar-link">检测lua文件使用到全局变量</a></li><li><a href="/nginx/learn_nginx.html" class="sidebar-link">学习nginx变量[openresty]</a></li><li><a href="/nginx/lua_nginx_module.html" class="sidebar-link">nginx执行阶段顺序</a></li><li><a href="/nginx/mysql查询优化.html" class="sidebar-link">mysql的各种join方式</a></li><li><a href="/nginx/nginx使用http版本.html" class="sidebar-link">nginx 的http版本的问题</a></li><li><a href="/nginx/openresty变量范围.html" class="sidebar-link">NGX_LUA的三种变量范围</a></li><li><a href="/nginx/跨域资源共享.html" class="sidebar-link">跨域</a></li><li><a href="/nginx/配置ssl证书.html" class="sidebar-link">免费证书申请</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="检测lua文件使用到全局变量"><a href="#检测lua文件使用到全局变量" class="header-anchor">#</a> 检测lua文件使用到全局变量</h1> <div class="language-lua line-numbers-mode"><pre class="language-lua"><code><span class="token punctuation">[</span>root@cpc_test <span class="token operator">~</span><span class="token punctuation">]</span><span class="token operator">#</span> luac <span class="token operator">-</span>p <span class="token operator">-</span>l <span class="token operator">/</span>usr<span class="token operator">/</span><span class="token keyword">local</span><span class="token operator">/</span>openresty<span class="token operator">/</span>lualib<span class="token operator">/</span>comm<span class="token operator">/</span>business_func<span class="token punctuation">.</span>lua <span class="token operator">|</span>grep  GLOBAL <span class="token operator">|</span>grep <span class="token operator">-</span>vE <span class="token string">'ngx|string|print|os|table|tonumber|require|pairs|next'</span>
+        <span class="token number">18</span>      <span class="token punctuation">[</span><span class="token number">9</span><span class="token punctuation">]</span>     SETGLOBAL       <span class="token number">6</span> <span class="token operator">-</span><span class="token number">8</span>    <span class="token punctuation">;</span> _VERSION
+        <span class="token number">151</span>     <span class="token punctuation">[</span><span class="token number">536</span><span class="token punctuation">]</span>   GETGLOBAL       <span class="token number">23</span> <span class="token operator">-</span><span class="token number">34</span>  <span class="token punctuation">;</span> math
+        <span class="token number">26</span>      <span class="token punctuation">[</span><span class="token number">605</span><span class="token punctuation">]</span>   GETGLOBAL       <span class="token number">10</span> <span class="token operator">-</span><span class="token number">9</span>   <span class="token punctuation">;</span> math
+        <span class="token number">61</span>      <span class="token punctuation">[</span><span class="token number">617</span><span class="token punctuation">]</span>   GETGLOBAL       <span class="token number">14</span> <span class="token operator">-</span><span class="token number">9</span>   <span class="token punctuation">;</span> math
+        <span class="token number">65</span>      <span class="token punctuation">[</span><span class="token number">617</span><span class="token punctuation">]</span>   GETGLOBAL       <span class="token number">15</span> <span class="token operator">-</span><span class="token number">9</span>   <span class="token punctuation">;</span> math
+<span class="token punctuation">[</span>root@cpc_test <span class="token operator">~</span><span class="token punctuation">]</span><span class="token operator">#</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br></div></div></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><!----> <span class="next"><a href="/nginx/learn_nginx.html">
+        学习nginx变量[openresty]
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.8b8900fc.js" defer></script><script src="/assets/js/2.c79bcad0.js" defer></script><script src="/assets/js/79.a7233bd0.js" defer></script>
+  </body>
+</html>
