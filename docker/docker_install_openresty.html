@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>docker 安装mysql流程 | 个人工作笔记记录</title>
+    <meta name="generator" content="VuePress 1.9.7">
+    <link rel="icon" href="/head.jpg">
+    <meta name="description" content="">
+    
+    <link rel="preload" href="/assets/css/0.styles.e4d8b86b.css" as="style"><link rel="preload" href="/assets/js/app.d9fc9f00.js" as="script"><link rel="preload" href="/assets/js/2.b33cf69c.js" as="script"><link rel="preload" href="/assets/js/15.cb83d4ca.js" as="script"><link rel="prefetch" href="/assets/js/10.eaa7600d.js"><link rel="prefetch" href="/assets/js/100.6a804ed3.js"><link rel="prefetch" href="/assets/js/101.612f3353.js"><link rel="prefetch" href="/assets/js/102.2d957690.js"><link rel="prefetch" href="/assets/js/103.5e4f3e61.js"><link rel="prefetch" href="/assets/js/104.6134a4dd.js"><link rel="prefetch" href="/assets/js/105.20add3c5.js"><link rel="prefetch" href="/assets/js/106.2a6444f4.js"><link rel="prefetch" href="/assets/js/107.1d6cfb9d.js"><link rel="prefetch" href="/assets/js/108.539c8103.js"><link rel="prefetch" href="/assets/js/109.8bc9c4c6.js"><link rel="prefetch" href="/assets/js/11.1f6b20bf.js"><link rel="prefetch" href="/assets/js/110.886f1768.js"><link rel="prefetch" href="/assets/js/12.bd071e86.js"><link rel="prefetch" href="/assets/js/13.703b58de.js"><link rel="prefetch" href="/assets/js/14.3c29d592.js"><link rel="prefetch" href="/assets/js/16.08fab94e.js"><link rel="prefetch" href="/assets/js/17.05e0d27f.js"><link rel="prefetch" href="/assets/js/18.2770d814.js"><link rel="prefetch" href="/assets/js/19.89406669.js"><link rel="prefetch" href="/assets/js/20.2536c915.js"><link rel="prefetch" href="/assets/js/21.d42c9779.js"><link rel="prefetch" href="/assets/js/22.8507955b.js"><link rel="prefetch" href="/assets/js/23.68bc1c0b.js"><link rel="prefetch" href="/assets/js/24.eed2d452.js"><link rel="prefetch" href="/assets/js/25.dc411789.js"><link rel="prefetch" href="/assets/js/26.d85e0081.js"><link rel="prefetch" href="/assets/js/27.6f2cf27c.js"><link rel="prefetch" href="/assets/js/28.6f6e6e5b.js"><link rel="prefetch" href="/assets/js/29.07702471.js"><link rel="prefetch" href="/assets/js/3.204385f8.js"><link rel="prefetch" href="/assets/js/30.ca52a24f.js"><link rel="prefetch" href="/assets/js/31.685a1cb4.js"><link rel="prefetch" href="/assets/js/32.8d35c5a6.js"><link rel="prefetch" href="/assets/js/33.a1c67a3b.js"><link rel="prefetch" href="/assets/js/34.4721553b.js"><link rel="prefetch" href="/assets/js/35.c0979f21.js"><link rel="prefetch" href="/assets/js/36.29db3cde.js"><link rel="prefetch" href="/assets/js/37.8515e965.js"><link rel="prefetch" href="/assets/js/38.0cca5968.js"><link rel="prefetch" href="/assets/js/39.1d0ee1c1.js"><link rel="prefetch" href="/assets/js/4.ed2fa8be.js"><link rel="prefetch" href="/assets/js/40.e7fb8415.js"><link rel="prefetch" href="/assets/js/41.d27a98ca.js"><link rel="prefetch" href="/assets/js/42.3f4f6929.js"><link rel="prefetch" href="/assets/js/43.6f821a7e.js"><link rel="prefetch" href="/assets/js/44.5e2a082b.js"><link rel="prefetch" href="/assets/js/45.d85df19a.js"><link rel="prefetch" href="/assets/js/46.a22dea80.js"><link rel="prefetch" href="/assets/js/47.9d302248.js"><link rel="prefetch" href="/assets/js/48.e8fa1df6.js"><link rel="prefetch" href="/assets/js/49.260bc7f7.js"><link rel="prefetch" href="/assets/js/5.62f4b699.js"><link rel="prefetch" href="/assets/js/50.2ec139f5.js"><link rel="prefetch" href="/assets/js/51.72ae38cd.js"><link rel="prefetch" href="/assets/js/52.495420a9.js"><link rel="prefetch" href="/assets/js/53.f725203e.js"><link rel="prefetch" href="/assets/js/54.403d540d.js"><link rel="prefetch" href="/assets/js/55.54e62e77.js"><link rel="prefetch" href="/assets/js/56.fdb70356.js"><link rel="prefetch" href="/assets/js/57.2076b07d.js"><link rel="prefetch" href="/assets/js/58.d2f3c877.js"><link rel="prefetch" href="/assets/js/59.75498042.js"><link rel="prefetch" href="/assets/js/6.2bec765e.js"><link rel="prefetch" href="/assets/js/60.87236052.js"><link rel="prefetch" href="/assets/js/61.11d4c068.js"><link rel="prefetch" href="/assets/js/62.c3d44876.js"><link rel="prefetch" href="/assets/js/63.318bc469.js"><link rel="prefetch" href="/assets/js/64.9943d8a6.js"><link rel="prefetch" href="/assets/js/65.e79ab930.js"><link rel="prefetch" href="/assets/js/66.465cd94f.js"><link rel="prefetch" href="/assets/js/67.646687ef.js"><link rel="prefetch" href="/assets/js/68.18cb9e41.js"><link rel="prefetch" href="/assets/js/69.a1eea77d.js"><link rel="prefetch" href="/assets/js/7.600ca6b0.js"><link rel="prefetch" href="/assets/js/70.ea41037e.js"><link rel="prefetch" href="/assets/js/71.642e8ba0.js"><link rel="prefetch" href="/assets/js/72.26a9dc1a.js"><link rel="prefetch" href="/assets/js/73.45e5d671.js"><link rel="prefetch" href="/assets/js/74.524a5ce9.js"><link rel="prefetch" href="/assets/js/75.1e49fcd6.js"><link rel="prefetch" href="/assets/js/76.b39d78ba.js"><link rel="prefetch" href="/assets/js/77.812200b6.js"><link rel="prefetch" href="/assets/js/78.d43539d7.js"><link rel="prefetch" href="/assets/js/79.c1e6a778.js"><link rel="prefetch" href="/assets/js/8.df624155.js"><link rel="prefetch" href="/assets/js/80.bc715148.js"><link rel="prefetch" href="/assets/js/81.eeb50fe6.js"><link rel="prefetch" href="/assets/js/82.492609e8.js"><link rel="prefetch" href="/assets/js/83.006e9b15.js"><link rel="prefetch" href="/assets/js/84.dd3f5640.js"><link rel="prefetch" href="/assets/js/85.0d26276f.js"><link rel="prefetch" href="/assets/js/86.1c8021cf.js"><link rel="prefetch" href="/assets/js/87.111e84b5.js"><link rel="prefetch" href="/assets/js/88.0a08b98d.js"><link rel="prefetch" href="/assets/js/89.fc0dbf45.js"><link rel="prefetch" href="/assets/js/9.d43c6301.js"><link rel="prefetch" href="/assets/js/90.d662f979.js"><link rel="prefetch" href="/assets/js/91.02fac70a.js"><link rel="prefetch" href="/assets/js/92.b32efe1e.js"><link rel="prefetch" href="/assets/js/93.35f0b19a.js"><link rel="prefetch" href="/assets/js/94.8fdf11a6.js"><link rel="prefetch" href="/assets/js/95.cdf92b91.js"><link rel="prefetch" href="/assets/js/96.92727cb8.js"><link rel="prefetch" href="/assets/js/97.48e6bf09.js"><link rel="prefetch" href="/assets/js/98.c8a98bef.js"><link rel="prefetch" href="/assets/js/99.9655cf18.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.e4d8b86b.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><img src="/head.jpg" alt="个人工作笔记记录" class="logo"> <span class="site-name can-hide">个人工作笔记记录</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="编程" class="dropdown-title"><span class="title">编程</span> <span class="arrow down"></span></button> <button type="button" aria-label="编程" class="mobile-dropdown-title"><span class="title">编程</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/c/" class="nav-link">
+  c
+</a></li><li class="dropdown-item"><!----> <a href="/docker/" class="nav-link router-link-active">
+  docker
+</a></li><li class="dropdown-item"><!----> <a href="/git/" class="nav-link">
+  git
+</a></li><li class="dropdown-item"><!----> <a href="/go/" class="nav-link">
+  go
+</a></li><li class="dropdown-item"><!----> <a href="/leetcode/" class="nav-link">
+  leetcode
+</a></li><li class="dropdown-item"><!----> <a href="/linux/" class="nav-link">
+  linux
+</a></li><li class="dropdown-item"><!----> <a href="/lua/" class="nav-link">
+  lua
+</a></li><li class="dropdown-item"><!----> <a href="/mysql/" class="nav-link">
+  mysql
+</a></li><li class="dropdown-item"><!----> <a href="/nginx/" class="nav-link">
+  nginx
+</a></li><li class="dropdown-item"><!----> <a href="/php/" class="nav-link">
+  php
+</a></li><li class="dropdown-item"><!----> <a href="/python/" class="nav-link">
+  python
+</a></li><li class="dropdown-item"><!----> <a href="/redis/" class="nav-link">
+  redis
+</a></li><li class="dropdown-item"><!----> <a href="/shell/" class="nav-link">
+  shell
+</a></li><li class="dropdown-item"><!----> <a href="/vim/" class="nav-link">
+  vim
+</a></li><li class="dropdown-item"><!----> <a href="/vue/" class="nav-link">
+  vue
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="古中医" class="dropdown-title"><span class="title">古中医</span> <span class="arrow down"></span></button> <button type="button" aria-label="古中医" class="mobile-dropdown-title"><span class="title">古中医</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/guzhongyi/zhongyao/" class="nav-link">
+  中药
+</a></li><li class="dropdown-item"><!----> <a href="/guzhongyi/shanghanlun/shanhanlun.html" class="nav-link">
+  伤寒论原文
+</a></li><li class="dropdown-item"><!----> <a href="/guzhongyi/zuojiyun/" class="nav-link">
+  伤寒论类方-左季云
+</a></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="编程" class="dropdown-title"><span class="title">编程</span> <span class="arrow down"></span></button> <button type="button" aria-label="编程" class="mobile-dropdown-title"><span class="title">编程</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/c/" class="nav-link">
+  c
+</a></li><li class="dropdown-item"><!----> <a href="/docker/" class="nav-link router-link-active">
+  docker
+</a></li><li class="dropdown-item"><!----> <a href="/git/" class="nav-link">
+  git
+</a></li><li class="dropdown-item"><!----> <a href="/go/" class="nav-link">
+  go
+</a></li><li class="dropdown-item"><!----> <a href="/leetcode/" class="nav-link">
+  leetcode
+</a></li><li class="dropdown-item"><!----> <a href="/linux/" class="nav-link">
+  linux
+</a></li><li class="dropdown-item"><!----> <a href="/lua/" class="nav-link">
+  lua
+</a></li><li class="dropdown-item"><!----> <a href="/mysql/" class="nav-link">
+  mysql
+</a></li><li class="dropdown-item"><!----> <a href="/nginx/" class="nav-link">
+  nginx
+</a></li><li class="dropdown-item"><!----> <a href="/php/" class="nav-link">
+  php
+</a></li><li class="dropdown-item"><!----> <a href="/python/" class="nav-link">
+  python
+</a></li><li class="dropdown-item"><!----> <a href="/redis/" class="nav-link">
+  redis
+</a></li><li class="dropdown-item"><!----> <a href="/shell/" class="nav-link">
+  shell
+</a></li><li class="dropdown-item"><!----> <a href="/vim/" class="nav-link">
+  vim
+</a></li><li class="dropdown-item"><!----> <a href="/vue/" class="nav-link">
+  vue
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="古中医" class="dropdown-title"><span class="title">古中医</span> <span class="arrow down"></span></button> <button type="button" aria-label="古中医" class="mobile-dropdown-title"><span class="title">古中医</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/guzhongyi/zhongyao/" class="nav-link">
+  中药
+</a></li><li class="dropdown-item"><!----> <a href="/guzhongyi/shanghanlun/shanhanlun.html" class="nav-link">
+  伤寒论原文
+</a></li><li class="dropdown-item"><!----> <a href="/guzhongyi/zuojiyun/" class="nav-link">
+  伤寒论类方-左季云
+</a></li></ul></div></div> <!----></nav>  <ul class="sidebar-links"><li><a href="/docker/docker_install_openresty.html" aria-current="page" class="active sidebar-link">docker 安装mysql流程</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/docker/docker_install_openresty.html#docker-安装mysql流程" class="sidebar-link">docker 安装mysql流程</a></li><li class="sidebar-sub-header"><a href="/docker/docker_install_openresty.html#docker-安装openresty-nginx" class="sidebar-link">docker 安装openresty(nginx)</a></li><li class="sidebar-sub-header"><a href="/docker/docker_install_openresty.html#写一个接口测试一下" class="sidebar-link">写一个接口测试一下</a></li></ul></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h2 id="docker-安装mysql流程"><a href="#docker-安装mysql流程" class="header-anchor">#</a> docker 安装mysql流程</h2> <p>[csdn](<a href="https://blog.csdn.net/evak_/article/details/118785468" target="_blank" rel="noopener noreferrer">(66条消息) Ubuntu 使用 Docker 镜像 安装 MySQL 5.7_evak_的博客-CSDN博客<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>)</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
+
+service docker start
+
+docker images
+
+docker pull mysql:5.7
+#拉取最新的 MySql 
+#docker pull mysql
+
+
+#3380是容器对外端口
+sudo docker run -p 3380:3306 --name mysqlName -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.7
+
+
+sudo docker start mysqlName
+
+
+sudo docker exec -it mysqlName /bin/bash
+
+
+sudo docker stop mysqlName
+
+mysql -u root -p password
+
+# 设置mysql用户
+GRANT ALL PRIVILEGES ON *.* TO 'test'@'%' IDENTIFIED BY 'test' WITH GRANT OPTION;
+#刷新权限
+flush privileges;
+
+#这个命令会使容器停止，需要重新启动容器
+service mysql restart
+
+
+
+#退出MySql
+exit
+#退出容器
+exit
+
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br></div></div><h2 id="docker-安装openresty-nginx"><a href="#docker-安装openresty-nginx" class="header-anchor">#</a> docker 安装openresty(nginx)</h2> <div class="language-shell line-numbers-mode"><pre class="language-shell"><code><span class="token shebang important">#!/bin/bash</span>
+<span class="token comment"># 1. 从docker镜像服务器获取openresty的镜像</span>
+<span class="token comment">#docker pull openresty/openresty</span>
+
+<span class="token comment"># 查看镜像</span>
+<span class="token comment">#sudo docker images</span>
+
+<span class="token comment"># 删除当前启动的一个容器，不然后续会启动失败，为了脚本可重复执行</span>
+<span class="token function">docker</span> <span class="token function">rm</span> -f my_openresty_container
+
+<span class="token comment"># 根据镜像openresty/openresty 这个镜像启动一个容器，名字叫my_openresty_container</span>
+<span class="token function">docker</span> run -p <span class="token number">80</span>:80 -d --name my_openresty_container openresty/openresty 
+
+<span class="token comment"># 将容器中的目录映射到本地机器，这样方便修改</span>
+<span class="token comment"># 容器中openresty文件目录是/usr/local/openresty，所以 docker cp命令可以把容器中目录复制到本地，也放到/usr/local目录下</span>
+<span class="token comment"># 避免直接覆盖本地的文件夹，需要看本地是否已存在，不存在再拷贝，否则不小心把本地文件覆盖了</span>
+<span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token operator">!</span> -d /usr/local/openresty <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+	<span class="token builtin class-name">echo</span> <span class="token string">&quot;openresty not exist, copy from docker&quot;</span>
+	<span class="token function">docker</span> <span class="token function">cp</span> openresty:/usr/local/openresty /usr/local/
+<span class="token keyword">fi</span>
+
+<span class="token comment"># 将刚才建立的容器my_openresty_container删除，刚才是为了拷贝容器里面的文件</span>
+<span class="token function">docker</span> <span class="token function">rm</span> -f my_openresty_container
+
+<span class="token comment"># 现在要重新建立容器， -v选项指定openresty使用本地的目录/usr/local/openresy</span>
+<span class="token comment"># --privileged=true 是关闭权限，否则操作容器文件没权限, 可以不加</span>
+<span class="token function">docker</span> run -p <span class="token number">80</span>:80 --name my_openresty_container  --restart always -v /usr/local/openresty:/usr/local/openresty -d openresty/openresty
+
+<span class="token comment"># 查看启动的全部容器</span>
+<span class="token comment"># sudo docker ps -a</span>
+
+<span class="token comment"># 需要重启,停止,启动nginx就 </span>
+<span class="token comment"># sudo docker  restart  d7c774b0d703</span>
+<span class="token comment"># sudo docker  stop d7c774b0d703</span>
+<span class="token comment"># sudo docker  start d7c774b0d703</span>
+
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br></div></div><h3 id="启动之后配置nginx"><a href="#启动之后配置nginx" class="header-anchor">#</a> 启动之后配置nginx</h3> <div class="language- line-numbers-mode"><pre class="language-text"><code>
+# 本地创建nginx的配置文件目录
+sudo mkdir /usr/local/openresty/nginx/conf/vhost
+cd /usr/local/openresty/nginx/conf/vhost
+
+# 修改nginx主配置文件
+- sudo vim /usr/local/openresty/nginx/conf/nginx.conf
+- 修改的地方
+	- 80 -&gt; 801
+	- include /etc/nginx/conf.d/*.conf; 改为 include vhost/*.conf;
+	
+- 创建子配置文件，在vhost目录（vhost是虚拟主机的意思）
+ cd /usr/local/openresty/nginx/conf/vhost
+ touch 80.conf  （为啥创建80端口的配置文件, 因为接口一般默认80端口）
+ 把下边内容写进去
+ 
+server {
+    server_name  127.0.0.1;
+    listen     80; #端口
+
+    location / {
+        root   html;
+        index  index.html index.htm;
+    }
+
+		#配置接口，lua下面的文件
+    location ~ /lua/(.*) {
+        #lua_code_cache off;
+        error_log 'logs/lua/lua.log' notice;
+        default_type 'text/html';
+        charset utf-8;
+        content_by_lua_file 'lua/$1.lua';
+    }
+}
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br></div></div><h2 id="写一个接口测试一下"><a href="#写一个接口测试一下" class="header-anchor">#</a> 写一个接口测试一下</h2> <div class="language-lua line-numbers-mode"><pre class="language-lua"><code>ocal json <span class="token operator">=</span> require<span class="token string">&quot;cjson&quot;</span>
+
+ngx<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span>json<span class="token punctuation">.</span><span class="token function">encode</span><span class="token punctuation">(</span><span class="token punctuation">{</span>a<span class="token operator">=</span><span class="token number">10</span><span class="token punctuation">,</span>b<span class="token operator">=</span><span class="token number">20</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br></div></div><h3 id="请求"><a href="#请求" class="header-anchor">#</a> 请求</h3> <p>curl &quot;h't'tp://127.0.0.1/lua/test&quot;</p> <p>{&quot;b&quot;:20,&quot;a&quot;:10}</p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.d9fc9f00.js" defer></script><script src="/assets/js/2.b33cf69c.js" defer></script><script src="/assets/js/15.cb83d4ca.js" defer></script>
+  </body>
+</html>
